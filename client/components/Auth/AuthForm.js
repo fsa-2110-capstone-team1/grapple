@@ -16,10 +16,11 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import { authenticate } from "../../store";
 
-const LoginForm = ({ path }) => {
+const AuthForm = ({ path }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const method = location.pathname.substring(1); //login or signup
 
   const authError = useSelector((state) => state.auth.error);
 
@@ -38,18 +39,13 @@ const LoginForm = ({ path }) => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const authed = await dispatch(authenticate(data, "login"));
+    const authed = await dispatch(authenticate(data, method));
     //authed === undefined when authenticate is successful
     //navigate back to where they were before login
     if (!authed) {
       navigate(path || location.pathname);
     }
   };
-
-  useEffect(
-    () => isSubmitSuccessful && alert("Submitted!"),
-    [isSubmitSuccessful]
-  );
 
   return (
     <ThemeProvider theme={theme}>
@@ -72,7 +68,9 @@ const LoginForm = ({ path }) => {
           }}
         >
           <Grid item xs={1}>
-            <Typography variant="h4">Log In</Typography>
+            <Typography variant="h4">
+              {method === "login" ? "Log In" : "Sign Up"}
+            </Typography>
           </Grid>
 
           <Grid
@@ -86,12 +84,12 @@ const LoginForm = ({ path }) => {
           >
             <Grid item xs={6} textAlign={"center"} sx={{ width: "60%" }}>
               <Button variant="contained" fullWidth>
-                Log in with Google
+                Continue with Google
               </Button>
             </Grid>
             <Grid item xs={6} sx={{ width: "60%" }}>
               <Button variant="contained" fullWidth>
-                Log in with Facebook
+                Continue with Facebook
               </Button>
             </Grid>
           </Grid>
@@ -108,7 +106,7 @@ const LoginForm = ({ path }) => {
               id="login-form"
             >
               <Grid container spacing={3} direction="column">
-                <Grid item xs={12}>
+                <Grid item>
                   <TextField
                     id="email"
                     label="Email"
@@ -126,7 +124,7 @@ const LoginForm = ({ path }) => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={12} sm={12}>
+                <Grid item>
                   <TextField
                     id="password"
                     label="Password"
@@ -140,7 +138,44 @@ const LoginForm = ({ path }) => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={12} textAlign={"center"}>
+                {method === "signup" ? (
+                  <Grid item container spacing={2}>
+                    <Grid item xs={6}>
+                      <TextField
+                        id="firstName"
+                        label="First Name"
+                        variant="outlined"
+                        {...register("firstName", {
+                          required: "Required field",
+                        })}
+                        error={!!errors?.firstName}
+                        helperText={
+                          errors?.firstName ? errors.firstName.message : null
+                        }
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField
+                        id="lastName"
+                        label="Last Name"
+                        variant="outlined"
+                        {...register("lastName", {
+                          required: "Required field",
+                        })}
+                        error={!!errors?.lastName}
+                        helperText={
+                          errors?.lastName ? errors.lastName.message : null
+                        }
+                        fullWidth
+                      />
+                    </Grid>
+                  </Grid>
+                ) : (
+                  ""
+                )}
+
+                <Grid item>
                   {isSubmitting ? (
                     <LoadingButton
                       size="medium"
@@ -150,7 +185,7 @@ const LoginForm = ({ path }) => {
                       startIcon={<SaveIcon />}
                       variant="outlined"
                     >
-                      Log In
+                      {method === "login" ? "Log In" : "Sign Up"}
                     </LoadingButton>
                   ) : (
                     <Button
@@ -161,7 +196,7 @@ const LoginForm = ({ path }) => {
                       disabled={isSubmitting || !isDirty}
                       form="login-form"
                     >
-                      Log In
+                      {method === "login" ? "Log In" : "Sign Up"}
                     </Button>
                   )}
                 </Grid>
@@ -174,15 +209,19 @@ const LoginForm = ({ path }) => {
             </Box>
           </Grid>
 
-          <Grid item xs={1}>
-            <Typography variant="body2">
-              No account? No problem, sign up <Link to="/signup">here</Link>!
-            </Typography>
-          </Grid>
+          {method === "login" ? (
+            <Grid item xs={1}>
+              <Typography variant="body2">
+                No account? No problem, sign up <Link to="/signup">here</Link>!
+              </Typography>
+            </Grid>
+          ) : (
+            ""
+          )}
         </Grid>
       </Box>
     </ThemeProvider>
   );
 };
 
-export default LoginForm;
+export default AuthForm;
