@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { me } from "./store";
 import Homepage from "./components/Homepage";
+import AuthForm from "./components/Auth/AuthForm";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,8 @@ const App = () => {
           {/* Examples */}
 
           <Route path="/" element={<Homepage />} />
+          <Route path="/login" element={<AuthForm path={"/"} />} />
+          <Route path="/signup" element={<AuthForm path={"/"} />} />
 
           {/* <Route
             path="my-account"
