@@ -1,11 +1,19 @@
 const db = require("../db");
-const { STRING, BOOLEAN } = db.Sequelize.DataTypes;
+const { STRING, BOOLEAN, TEXT } = db.Sequelize.DataTypes;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const SALT_ROUNDS = 5;
 
 const User = db.define("user", {
+  username: {
+    type: STRING,
+    unique: true,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
   email: {
     type: STRING,
     unique: true,
@@ -17,6 +25,7 @@ const User = db.define("user", {
   },
   password: {
     type: STRING,
+    allowNull: false,
   },
   firstName: {
     type: STRING,
@@ -32,11 +41,16 @@ const User = db.define("user", {
       notEmpty: true,
     },
   },
-  isAdmin: {
-    type: BOOLEAN,
-    allowNull: false,
-    defaultValue: false,
+  imageURL: {
+    type: TEXT,
+    validate: {
+      isUrl: true,
+    },
   },
+  isPrivate: {
+    type: BOOLEAN,
+    defaultValue: false,
+  }
 });
 
 module.exports = User;
@@ -58,7 +72,6 @@ User.prototype.generateToken = function () {
  */
 User.authenticate = async function ({ email, password }) {
   const user = await this.findOne({ where: { email } });
-  console.log("USER: ", user);
   if (!user || !(await user.correctPassword(password))) {
     const error = Error("Incorrect email/password");
     error.status = 401;
