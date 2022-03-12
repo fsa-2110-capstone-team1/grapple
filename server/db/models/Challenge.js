@@ -4,6 +4,11 @@ const db = require("../db");
 const {INTEGER, BOOLEAN, DATE, STRING, TEXT, ENUM } = Sequelize;
 
 const Challenge = db.define("challenge", {
+  id:{
+    type: INTEGER,
+    unique: true,
+    primaryKey: true
+  },
   name: {
     type: STRING,
     allowNull: false,
@@ -18,7 +23,7 @@ const Challenge = db.define("challenge", {
       notEmpty: true,
     },
   },
-  imageURL: {
+  image: {
     type: TEXT,
     validate: {
       isUrl: true,
@@ -53,9 +58,15 @@ const Challenge = db.define("challenge", {
   isPrivate: {
     type: BOOLEAN,
     defaultValue: false,
-  }
- // catgory id
- // subcategoryid
+  }, 
+  categoryId:{
+    type: INTEGER,
+    unique: true
+  },
+  subCategoryId:{
+    type: INTEGER,
+    unique: true
+  },
 
 });
 
