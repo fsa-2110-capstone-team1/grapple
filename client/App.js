@@ -1,23 +1,23 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { me } from './store';
-import Homepage from './components/Homepage';
-import AuthForm from './components/Auth/AuthForm';
-import Navbar from './components/Navbar';
-import BrowsePeople from './components/People/BrowsePeople';
-import PersonProfileDetails from './components/People/PersonProfileDetails';
-import CreateChallenge from './components/Challenge/CreateChallenge';
-import BrowseChallenges from './components/Challenge/BrowseChallenges';
-import ChallengeDetails from './components/Challenge/ChallengeDetails';
-import EditChallenge from './components/Challenge/EditChallenge';
-import UserProfile from './components/User/UserProfile';
-import UserDashboard from './components/User/UserDashboard';
-import AdminChallenges from './components/Admin/AdminChallenges';
-import AdminUsers from './components/Admin/AdminUsers';
-import Footer from './components/Footer';
-import PageNotFound from './components/PageNotFound';
+import { me } from "./store";
+import Homepage from "./components/Homepage";
+import AuthForm from "./components/Auth/AuthForm";
+import Navbar from "./components/Navbar";
+import BrowsePeople from "./components/People/BrowsePeople";
+import PersonProfileDetails from "./components/People/PersonProfileDetails";
+import CreateChallenge from "./components/Challenge/CreateChallenge";
+import BrowseChallenges from "./components/Challenge/BrowseChallenges";
+import ChallengeDetails from "./components/Challenge/ChallengeDetails";
+import EditChallenge from "./components/Challenge/EditChallenge";
+import UserProfile from "./components/User/UserProfile";
+import UserDashboard from "./components/User/UserDashboard";
+import AdminChallenges from "./components/Admin/AdminChallenges";
+import AdminUsers from "./components/Admin/AdminUsers";
+import Footer from "./components/Footer";
+import PageNotFound from "./components/PageNotFound";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -36,8 +36,8 @@ const App = () => {
           {/* Examples */}
 
           <Route path="/" element={<Homepage />} />
-          <Route path="/login" element={<AuthForm path={'/'} />} />
-          <Route path="/signup" element={<AuthForm path={'/'} />} />
+          <Route path="/login" element={<AuthForm path={"/"} />} />
+          <Route path="/signup" element={<AuthForm path={"/"} />} />
           <Route path="/browsepeople" element={<BrowsePeople />} />
           <Route
             path="/personprofiledetails"
@@ -46,7 +46,10 @@ const App = () => {
           {/* NOTE: The above /personprofiledetails page will most likely be /personprofiledetails/:id 
           or something like that in the future. For now it is a hard coded path and a to do page.  */}
 
-          <Route path="/createchallenge" element={<CreateChallenge />} />
+          <Route
+            path="/createchallenge"
+            element={<CreateChallenge method={"create"} />}
+          />
           <Route path="/browsechallenges" element={<BrowseChallenges />} />
           <Route path="/challengedetails" element={<ChallengeDetails />} />
           {/* NOTE: Another route that will probably use an id but its hardcoded for now.
