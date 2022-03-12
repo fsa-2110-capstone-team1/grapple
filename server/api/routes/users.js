@@ -1,23 +1,26 @@
-const router = require("express").Router();
+const router = require('express').Router();
 const {
   models: { User },
-} = require("../../db");
+} = require('../../db');
 module.exports = router;
 
 // GET /api/users
-router.get("/", async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
       // do not include password (even though it's hashed, for extra protection since it's not needed by the FE)
       attributes: [
-        "id",
-        "email",
-        "firstName",
-        "lastName",
-        "isAdmin",
-        "createdAt",
+        'id',
+        'username',
+        'email',
+        'firstName',
+        'lastName',
+        'image',
+        'isPrivate',
+        'isAdmin',
+        'createdAt',
       ],
-      order: [["id"]],
+      order: [['id']],
     });
     res.json(users);
   } catch (err) {
@@ -26,7 +29,7 @@ router.get("/", async (req, res, next) => {
 });
 
 // PUT /api/users/:id
-router.put("/:id", async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
     //updating the entire user to be able to use this route to update any property
