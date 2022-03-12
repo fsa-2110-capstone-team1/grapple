@@ -41,13 +41,18 @@ const User = db.define("user", {
       notEmpty: true,
     },
   },
-  imageURL: {
+  image: {
     type: TEXT,
     validate: {
       isUrl: true,
     },
+    // defaultValue: TODO,
   },
   isPrivate: {
+    type: BOOLEAN,
+    defaultValue: false,
+  },
+  isAdmin: {
     type: BOOLEAN,
     defaultValue: false,
   }

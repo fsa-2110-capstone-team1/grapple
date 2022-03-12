@@ -1,8 +1,8 @@
 const {
   models: { Challenge },
-} = require("../../server/db/models");
+} = require("../../server/db");
 
-const { dataChallenges } = require("../../server/db");
+const { dataChallenges } = require("../../server/db/data");
 
 // Creating Challenges
 async function challengeSeed() {
@@ -14,8 +14,8 @@ async function challengeSeed() {
         description: challenge.description,
         image: challenge.image,
         type: challenge.type,
-        categoryId: challenge.categoryId,
-        subCategoryId: challenge.subCategoryId,
+        // categoryId: challenge.categoryId,
+        // subCategoryId: challenge.subCategoryId,
         startDateTime: challenge.startDateTime,
         endDateTime: challenge.endDateTime,
         targetNumber: challenge.targetNumber,
