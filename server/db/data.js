@@ -4,14 +4,14 @@ const dataChallenges = [
   "name": "10 minutes breathing exercise",
   "description": "Focusing on your breathing and taking three deep breaths will create a sense of calm in the mind and body.",
   "image": "picId-001.svg",
-  "type": "num",
+  "type": "unit",
   "categoryId": "1",
   "subCategoryId": null,
   "startDateTime": "04/01/2022",
   "endDateTime": "05/01/2022",
-  "targetNumber": 10,
+  "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -19,14 +19,14 @@ const dataChallenges = [
   "name": "5 minutes meditation",
   "description": "Being alone with your thoughts can seem daunting but even a quick meditation can encourage a mentally clear and emotionally calm, stable state. As with sport, you become better at meditation with practice.",
   "image": "picId-002.svg",
-  "type": "num",
+  "type": "unit",
   "categoryId": "1",
   "subCategoryId": null,
   "startDateTime": "04/15/2022",
   "endDateTime": "05/15/2022",
-  "targetNumber": 5,
+  "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -34,14 +34,14 @@ const dataChallenges = [
   "name": "20 minutes Home Yoga Workout",
   "description": "Even light movement can reduce stress in your body and clear distracting or cluttered thoughts from your mind.",
   "image": "picId-003.svg",
-  "type": "num",
+  "type": "unit",
   "categoryId": "2",
   "subCategoryId": null,
   "startDateTime": "04/10/2022",
   "endDateTime": "05/10/2022",
-  "targetNumber": 20,
+  "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -56,7 +56,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -64,14 +64,14 @@ const dataChallenges = [
   "name": "10 minutes to stretch during the workday",
   "description": "Taking small breaks for yourself to show care to your body throughout the day helps build stamina and decreases feelings of burnout.",
   "image": "picId-005.svg",
-  "type": "num",
+  "type": "unit",
   "categoryId": "2",
   "subCategoryId": null,
   "startDateTime": "03/31/2022",
   "endDateTime": "04/30/2022",
-  "targetNumber": 10,
+  "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -79,14 +79,14 @@ const dataChallenges = [
   "name": "Drink 10 glasses of water a day",
   "description": "Not only does hydration have a plethora of mental and physical benefits, but drinking more water gives you a healthy goal that is attainable every day if you maintain focus and stay mindful.",
   "image": "picId-006.svg",
-  "type": "num",
+  "type": "unit",
   "categoryId": "4",
   "subCategoryId": null,
   "startDateTime": "03/30/2022",
   "endDateTime": "04/29/2022",
-  "targetNumber": 10,
+  "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -101,7 +101,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -116,7 +116,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -131,7 +131,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -146,7 +146,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -161,7 +161,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -176,7 +176,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -191,7 +191,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -206,7 +206,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -221,7 +221,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -236,7 +236,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -251,7 +251,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -266,7 +266,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -281,7 +281,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -289,14 +289,14 @@ const dataChallenges = [
   "name": "8,000 steps a day",
   "description": "In an ideal world, the target for this should be 10,000 steps or more. But if you’re only about getting 1,500-2,000 steps a day right now, scaling up to 10,000 all of a sudden might feel a bit too hard. Aiming for 4,000 – 5,000 steps more than your current daily average should provide you a decent challenge.",
   "image": "picId-020.svg",
-  "type": "num",
+  "type": "unit",
   "categoryId": "2",
   "subCategoryId": null,
   "startDateTime": "04/15/2022",
   "endDateTime": "05/15/2022",
-  "targetNumber": 8000,
+  "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -311,7 +311,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -326,7 +326,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -341,7 +341,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -349,14 +349,14 @@ const dataChallenges = [
   "name": "Take a time out ",
   "description": "Set aside 15 minutes each day to be in a quiet environment. Sit still and practice breathing in for a count of ten and out for a count of 15",
   "image": "picId-024.svg",
-  "type": "num",
+  "type": "unit",
   "categoryId": "1",
   "subCategoryId": null,
   "startDateTime": "03/30/2022",
   "endDateTime": "04/29/2022",
-  "targetNumber": 15,
+  "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -364,14 +364,14 @@ const dataChallenges = [
   "name": "Reduce your monthly spending by $100",
   "description": "Cut one thing each day (it doesn’t have to be cummulative)",
   "image": "picId-025.svg",
-  "type": "num",
+  "type": "unit",
   "categoryId": "5",
   "subCategoryId": null,
   "startDateTime": "04/01/2022",
   "endDateTime": "05/01/2022",
-  "targetNumber": 100,
+  "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -386,7 +386,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -394,14 +394,14 @@ const dataChallenges = [
   "name": "Save $200 extra and add it to your emergency fund ",
   "description": "Find creative ways to reduce your costs or to increase your income by little bits and add those together",
   "image": "picId-027.svg",
-  "type": "num",
+  "type": "unit",
   "categoryId": "5",
   "subCategoryId": null,
   "startDateTime": "04/10/2022",
   "endDateTime": "05/10/2022",
-  "targetNumber": 200,
+  "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -416,7 +416,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -431,7 +431,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -446,7 +446,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -461,7 +461,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -476,7 +476,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -491,7 +491,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -506,7 +506,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -521,7 +521,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -536,7 +536,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -551,7 +551,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -566,7 +566,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -581,7 +581,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -596,7 +596,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -611,7 +611,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -626,7 +626,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -641,7 +641,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -656,7 +656,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -671,7 +671,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -686,7 +686,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -701,7 +701,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -716,7 +716,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -731,7 +731,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -746,7 +746,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -761,7 +761,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -776,7 +776,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -791,7 +791,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -806,7 +806,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -821,7 +821,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -829,14 +829,14 @@ const dataChallenges = [
   "name": "Walk It Out",
   "description": "Take a 15 minute walk every day",
   "image": "picId-056.svg",
-  "type": "num",
+  "type": "unit",
   "categoryId": "2",
   "subCategoryId": null,
   "startDateTime": "04/15/2022",
   "endDateTime": "05/15/2022",
-  "targetNumber": 15,
+  "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -851,7 +851,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -866,7 +866,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -881,7 +881,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -896,7 +896,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -911,7 +911,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -926,7 +926,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -941,7 +941,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -956,7 +956,7 @@ const dataChallenges = [
   "endDateTime": "04/25/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -971,7 +971,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -986,7 +986,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1001,7 +1001,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1016,7 +1016,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1031,7 +1031,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1046,7 +1046,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1061,7 +1061,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1076,7 +1076,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -1091,7 +1091,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1106,7 +1106,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1121,7 +1121,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1136,7 +1136,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1151,7 +1151,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1166,7 +1166,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1181,7 +1181,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1196,7 +1196,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1211,7 +1211,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1226,7 +1226,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1241,7 +1241,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -1256,7 +1256,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1264,14 +1264,14 @@ const dataChallenges = [
   "name": "Early 30",
   "description": "Wake up 30 minutes earlier and do something productive",
   "image": "picId-085.svg",
-  "type": "num",
+  "type": "unit",
   "categoryId": "3",
   "subCategoryId": null,
   "startDateTime": "04/01/2022",
   "endDateTime": "05/01/2022",
-  "targetNumber": 30,
+  "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -1286,7 +1286,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1301,7 +1301,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1316,7 +1316,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1331,7 +1331,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1346,7 +1346,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1361,7 +1361,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -1369,14 +1369,14 @@ const dataChallenges = [
   "name": "Sleep for at least 7 hours every day",
   "description": "The way I look at it, sleep is one of the three pillars that contribute to healthy living. Aim to get at least 7-8 hours of sleep every day for 30 days and see how your overall health improves!",
   "image": "picId-092.svg",
-  "type": "num",
+  "type": "unit",
   "categoryId": "3",
   "subCategoryId": null,
   "startDateTime": "04/15/2022",
   "endDateTime": "05/15/2022",
-  "targetNumber": 7,
+  "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1391,7 +1391,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -1399,14 +1399,14 @@ const dataChallenges = [
   "name": "Stretch or foam roll for 15 minutes",
   "description": "Give your tired and tight muscles a break with this gentle challenge.",
   "image": "picId-094.svg",
-  "type": "num",
+  "type": "unit",
   "categoryId": "2",
   "subCategoryId": null,
   "startDateTime": "04/11/2022",
   "endDateTime": "05/11/2022",
-  "targetNumber": 15,
+  "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1421,7 +1421,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -1429,14 +1429,14 @@ const dataChallenges = [
   "name": "Walk daily for 30 minutes",
   "description": "Walking is probably my favorite form of exercise, and I’ve been missing my daily walks lately. It is one of the gentlest forms of exercise and just about anyone can do it.",
   "image": "picId-096.svg",
-  "type": "num",
+  "type": "unit",
   "categoryId": "2",
   "subCategoryId": null,
   "startDateTime": "03/30/2022",
   "endDateTime": "04/29/2022",
-  "targetNumber": 30,
+  "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1451,7 +1451,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1459,14 +1459,14 @@ const dataChallenges = [
   "name": "Ready 20 pages a day",
   "description": "Bonus points if you make it non-fiction!",
   "image": "picId-098.svg",
-  "type": "num",
+  "type": "unit",
   "categoryId": "5",
   "subCategoryId": null,
   "startDateTime": "04/15/2022",
   "endDateTime": "05/15/2022",
-  "targetNumber": 20,
+  "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1481,7 +1481,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -1496,7 +1496,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1511,7 +1511,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1526,7 +1526,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1541,7 +1541,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1556,7 +1556,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -1571,7 +1571,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1586,7 +1586,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1601,7 +1601,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1616,7 +1616,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1631,7 +1631,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -1646,7 +1646,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -1661,7 +1661,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -1676,7 +1676,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -1691,7 +1691,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -1706,7 +1706,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1721,7 +1721,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1736,7 +1736,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1751,7 +1751,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1766,7 +1766,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1781,7 +1781,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1796,7 +1796,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -1811,7 +1811,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1826,7 +1826,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1841,7 +1841,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1856,7 +1856,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1871,7 +1871,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1886,7 +1886,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1901,7 +1901,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -1916,7 +1916,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1931,7 +1931,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1946,7 +1946,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -1961,7 +1961,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -1976,7 +1976,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -1991,7 +1991,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -2006,7 +2006,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -2021,7 +2021,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -2036,7 +2036,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -2051,7 +2051,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -2066,7 +2066,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -2081,7 +2081,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -2096,7 +2096,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -2111,7 +2111,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -2126,7 +2126,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -2141,7 +2141,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -2156,7 +2156,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -2171,7 +2171,7 @@ const dataChallenges = [
   "endDateTime": "05/01/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -2186,7 +2186,7 @@ const dataChallenges = [
   "endDateTime": "05/15/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -2201,7 +2201,7 @@ const dataChallenges = [
   "endDateTime": "05/10/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 1,
+  "difficulty": 1,
   "isPrivate": "false"
  },
  {
@@ -2216,7 +2216,7 @@ const dataChallenges = [
   "endDateTime": "05/11/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  },
  {
@@ -2231,7 +2231,7 @@ const dataChallenges = [
   "endDateTime": "04/30/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 3,
+  "difficulty": 3,
   "isPrivate": "false"
  },
  {
@@ -2246,7 +2246,7 @@ const dataChallenges = [
   "endDateTime": "04/29/2022",
   "targetNumber": null,
   "targetUnit": null,
-  "difficultyRating": 2,
+  "difficulty": 2,
   "isPrivate": "false"
  }
 ]
