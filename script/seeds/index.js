@@ -1,4 +1,5 @@
 const userSeed = require("./user");
+const challengeSeed = require("./challenge");
 
 const {
   db,
@@ -10,6 +11,7 @@ async function seed() {
   console.log("db synced!");
 
   const [users] = await Promise.all([userSeed()]);
+  const [challenges] = await Promise.all([challengeSeed()]);
 
   console.log(`
   
