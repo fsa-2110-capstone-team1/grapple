@@ -19,8 +19,9 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const connections = await Connection.findAll({
-      where: { requested_userId = req.params.id
-      }});
+      // where: { requested_userId = req.params.id
+      // }
+    });
     res.json(connections);
   } catch (err) {
     next(err);
@@ -41,8 +42,9 @@ router.post('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const connection = await Connection.findAll({
-      where: { requested_userId = req.params.id
-      }});
+      // where: { requested_userId = req.params.id
+      // }
+    });
     res.send(await connection.update(req.body));
   } catch (error) {
     next(error);
