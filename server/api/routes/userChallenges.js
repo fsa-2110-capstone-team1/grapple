@@ -19,9 +19,9 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const userChallenge = await UserChallenge.findAll({
-      where: {
-        userId = req.params.id
-      }
+      // where: {
+      //   userId = req.params.id
+      // }
     });
     res.json(userChallenge);
   } catch (err) {
@@ -43,9 +43,9 @@ router.post('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const userChallenge = await UserChallenge.findAll({
-      where: {
-        userId = req.params.id
-      }
+      // where: {
+      //   userId = req.params.id
+      // }
     });
     res.send(await userChallenge.update(req.body));
   } catch (error) {
