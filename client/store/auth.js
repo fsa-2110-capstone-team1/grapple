@@ -2,21 +2,18 @@ import axios from "axios";
 
 const TOKEN = "token";
 
-/**
- * ACTION TYPES
- */
+// ACTION TYPES
+
 const SET_AUTH = "SET_AUTH";
 const UPDATE_USER = "UPDATE_USER";
 
-/**
- * ACTION CREATORS
- */
+//ACTION CREATORS
+
 const setAuth = (auth) => ({ type: SET_AUTH, auth });
 const upUser = (user) => ({ type: UPDATE_USER, user });
 
-/**
- * THUNK CREATORS
- */
+//THUNK CREATORS
+
 export const me = () => async (dispatch) => {
   const token = window.localStorage.getItem(TOKEN);
   if (token) {
@@ -55,9 +52,8 @@ export const updateUser = (user) => {
   };
 };
 
-/**
- * REDUCER
- */
+//REDUCER
+
 export default function (state = {}, action) {
   switch (action.type) {
     case SET_AUTH:
