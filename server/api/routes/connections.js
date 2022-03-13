@@ -15,9 +15,12 @@ router.get('/', async (req, res, next) => {
 });
 
 // Get a single users connection
+// passing user id, not connection id (Kate)
 router.get('/:id', async (req, res, next) => {
   try {
-    const connections = await Connection.findByPk(req.params.id);
+    const connections = await Connection.findAll({
+      where: { requested_userId = req.params.id
+      }});
     res.json(connections);
   } catch (err) {
     next(err);
@@ -34,9 +37,12 @@ router.post('/', async (req, res, next) => {
 });
 
 // Edit a connection
+// passing user id, not connection id (Kate)
 router.put('/:id', async (req, res, next) => {
   try {
-    const connection = await Connection.findByPk(req.params.id);
+    const connection = await Connection.findAll({
+      where: { requested_userId = req.params.id
+      }});
     res.send(await connection.update(req.body));
   } catch (error) {
     next(error);

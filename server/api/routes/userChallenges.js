@@ -15,9 +15,14 @@ router.get('/', async (req, res, next) => {
 });
 
 // Get a single User challenge
+// passing user id, not userChallenge id (Kate)
 router.get('/:id', async (req, res, next) => {
   try {
-    const userChallenge = await UserChallenge.findByPk(req.params.id);
+    const userChallenge = await UserChallenge.findAll({
+      where: {
+        userId = req.params.id
+      }
+    });
     res.json(userChallenge);
   } catch (err) {
     next(err);
@@ -34,9 +39,14 @@ router.post('/', async (req, res, next) => {
 });
 
 // Edit a User challenge
+// passing user id, not userChallenge id (Kate)
 router.put('/:id', async (req, res, next) => {
   try {
-    const userChallenge = await UserChallenge.findByPk(req.params.id);
+    const userChallenge = await UserChallenge.findAll({
+      where: {
+        userId = req.params.id
+      }
+    });
     res.send(await userChallenge.update(req.body));
   } catch (error) {
     next(error);
