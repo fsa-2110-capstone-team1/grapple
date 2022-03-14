@@ -11,21 +11,19 @@ import {
   Button,
   Typography,
   MenuItem,
+  Slider,
+  FormControlLabel,
+  Switch,
 } from "@mui/material";
 import DatePicker from "@mui/lab/DatePicker";
-import DateTimePicker from "@mui/lab/DateTimePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { LoadingButton } from "@mui/lab";
 import SaveIcon from "@mui/icons-material/Save";
-import { authenticate } from "../../store";
 
 const CreateChallenge = ({ method }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const [startDate, setStartDate] = React.useState(new Date());
-  const [endDate, setEndDate] = React.useState(new Date() + 7);
 
   const {
     register,
@@ -104,6 +102,7 @@ const CreateChallenge = ({ method }) => {
                     id="description"
                     label="Description"
                     variant="outlined"
+                    multiline
                     {...register("description", { required: "Required field" })}
                     error={!!errors?.description}
                     helperText={
@@ -157,12 +156,11 @@ const CreateChallenge = ({ method }) => {
                           field: { onChange, value },
                           formState: { errors },
                         }) => (
-                          <DateTimePicker
+                          <DatePicker
                             onChange={onChange}
                             value={value}
                             minDateTime={new Date()}
                             label="Start Date"
-                            renderInput={(params) => <TextField {...params} />}
                             fullWidth
                             // onError={<span> "Not valid" </span>}
                             error={!!errors?.startDate}
@@ -174,6 +172,9 @@ const CreateChallenge = ({ method }) => {
                             //     : null
                             // }
                             required
+                            renderInput={(params) => (
+                              <TextField {...params} required />
+                            )}
                           />
                         )}
                       />
@@ -187,23 +188,112 @@ const CreateChallenge = ({ method }) => {
                           field: { onChange, value },
                           formState: { errors },
                         }) => (
-                          <DateTimePicker
+                          <DatePicker
                             onChange={onChange}
                             value={value}
                             minDateTime={new Date()}
                             label="End Date"
-                            renderInput={(params) => <TextField {...params} />}
                             fullWidth
                             error={!!errors?.endDate}
                             helperText={
                               errors?.endDate ? errors.endDate.message : null
                             }
                             required
+                            renderInput={(params) => (
+                              <TextField {...params} required />
+                            )}
                           />
                         )}
                       />
                     </Grid>
                   </LocalizationProvider>
+                </Grid>
+
+                <Grid item>
+                  <Typography id="target-goal" gutterBottom>
+                    Target Goal
+                  </Typography>
+                  <Grid item container spacing={2}>
+                    <Grid item xs={3}>
+                      <TextField
+                        id="targetNumber"
+                        label="Number"
+                        type="number"
+                        variant="outlined"
+                        {...register("targetNumber", { required: true })}
+                        error={!!errors?.targetNumber}
+                        helperText={
+                          errors?.targetNumber
+                            ? errors.targetNumber.message
+                            : null
+                        }
+                        fullWidth
+                        required
+                      />
+                    </Grid>
+                    <Grid item xs={9}>
+                      <TextField
+                        id="targetUnit"
+                        label="Unit"
+                        variant="outlined"
+                        {...register("targetUnit", { required: true })}
+                        error={!!errors?.targetUnit}
+                        helperText={
+                          errors?.targetUnit
+                            ? errors.targetUnit.message
+                            : "e.g. miles, books, days, etc"
+                        }
+                        fullWidth
+                        required
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+
+                <Grid item>
+                  <Typography id="difficulty-slider" gutterBottom>
+                    Difficulty Level*
+                  </Typography>
+                  <Slider
+                    aria-label="Difficulty"
+                    defaultValue={3}
+                    // getAriaValueText={valuetext}
+                    valueLabelDisplay="auto"
+                    step={1}
+                    marks={[
+                      {
+                        value: 1,
+                        label: "Super Easy",
+                      },
+                      {
+                        value: 2,
+                        label: "Easy",
+                      },
+                      {
+                        value: 3,
+                        label: "Normal",
+                      },
+                      {
+                        value: 4,
+                        label: "Hard",
+                      },
+                      {
+                        value: 5,
+                        label: "Super Hard",
+                      },
+                    ]}
+                    min={1}
+                    max={5}
+                    {...register("difficultyRating", { required: true })}
+                    required
+                  />
+                </Grid>
+
+                <Grid item>
+                  <FormControlLabel
+                    control={<Switch defaultChecked />}
+                    label="Private challenge (by invite only)"
+                  />
                 </Grid>
 
                 {/* BUTTONS */}
