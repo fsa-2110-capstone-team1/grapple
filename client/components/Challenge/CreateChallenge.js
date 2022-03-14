@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
@@ -20,6 +20,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { LoadingButton } from "@mui/lab";
 import SaveIcon from "@mui/icons-material/Save";
+import { addNewChallenge } from "../../store";
 
 const CreateChallenge = ({ method }) => {
   const dispatch = useDispatch();
@@ -42,8 +43,8 @@ const CreateChallenge = ({ method }) => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
-    console.log("submitted");
+    await dispatch(addNewChallenge(data));
+    alert("submitted");
   };
 
   return (
@@ -115,7 +116,7 @@ const CreateChallenge = ({ method }) => {
 
                 <Grid item>
                   <TextField
-                    id="imageUrl"
+                    id="image"
                     label="Image URL"
                     variant="outlined"
                     {...register("imageUrl")}
@@ -149,7 +150,7 @@ const CreateChallenge = ({ method }) => {
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <Grid item xs={6}>
                       <Controller
-                        name="startDate"
+                        name="startDateTime"
                         control={control}
                         rules={{ required: true }}
                         render={({
@@ -159,18 +160,12 @@ const CreateChallenge = ({ method }) => {
                           <DatePicker
                             onChange={onChange}
                             value={value}
-                            minDateTime={new Date()}
+                            minDate={new Date()}
                             label="Start Date"
                             fullWidth
-                            // onError={<span> "Not valid" </span>}
                             error={!!errors?.startDate}
                             minDateMessage="Date should not be in the past"
                             errorText="This is an error message."
-                            // helperText={
-                            //   errors?.startDate
-                            //     ? errors.startDate.message
-                            //     : null
-                            // }
                             required
                             renderInput={(params) => (
                               <TextField {...params} required />
@@ -181,7 +176,7 @@ const CreateChallenge = ({ method }) => {
                     </Grid>
                     <Grid item xs={6}>
                       <Controller
-                        name="endDate"
+                        name="endDateTime"
                         control={control}
                         rules={{ required: true }}
                         render={({
@@ -191,7 +186,7 @@ const CreateChallenge = ({ method }) => {
                           <DatePicker
                             onChange={onChange}
                             value={value}
-                            minDateTime={new Date()}
+                            minDate={new Date()}
                             label="End Date"
                             fullWidth
                             error={!!errors?.endDate}
@@ -284,7 +279,7 @@ const CreateChallenge = ({ method }) => {
                     ]}
                     min={1}
                     max={5}
-                    {...register("difficultyRating", { required: true })}
+                    {...register("difficulty", { required: true })}
                     required
                   />
                 </Grid>
@@ -293,6 +288,7 @@ const CreateChallenge = ({ method }) => {
                   <FormControlLabel
                     control={<Switch defaultChecked />}
                     label="Private challenge (by invite only)"
+                    {...register("isPrivate")}
                   />
                 </Grid>
 

@@ -1,11 +1,11 @@
-const router = require('express').Router();
+const router = require("express").Router();
 const {
   models: { Challenge },
-} = require('../../db');
+} = require("../../db");
 module.exports = router;
 
 // Get all challenges
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const challenges = await Challenge.findAll({});
     res.json(challenges);
@@ -15,7 +15,7 @@ router.get('/', async (req, res, next) => {
 });
 
 // Get a single challenge
-router.get('/:id', async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
     const challenge = await Challenge.findByPk(req.params.id);
     res.json(challenge);
@@ -25,7 +25,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 // Create a new challenge
-router.post('/', async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     res.status(201).send(await Challenge.create(req.body));
   } catch (error) {
@@ -34,7 +34,7 @@ router.post('/', async (req, res, next) => {
 });
 
 // Edit an exhisting challenge
-router.put('/:id', async (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
   try {
     const challenge = await Challenge.findByPk(req.params.id);
     res.send(await challenge.update(req.body));
@@ -44,7 +44,7 @@ router.put('/:id', async (req, res, next) => {
 });
 
 // Delete a challenge
-router.delete('/:id', async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   try {
     const challenge = await Challenge.findByPk(req.params.id);
     if (!challenge) {

@@ -1,14 +1,9 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const {INTEGER, BOOLEAN, DATE, STRING, TEXT, ENUM } = Sequelize;
+const { INTEGER, BOOLEAN, DATE, STRING, TEXT, ENUM } = Sequelize;
 
 const Challenge = db.define("challenge", {
-  id:{
-    type: INTEGER,
-    unique: true,
-    primaryKey: true
-  },
   name: {
     type: STRING,
     allowNull: false,
@@ -45,7 +40,7 @@ const Challenge = db.define("challenge", {
     type: INTEGER,
   },
   targetUnit: {
-    type: INTEGER,
+    type: STRING,
   },
   difficulty: {
     type: INTEGER,
@@ -53,21 +48,20 @@ const Challenge = db.define("challenge", {
     validate: {
       min: 1,
       max: 5,
-    }
+    },
   },
   isPrivate: {
     type: BOOLEAN,
     defaultValue: false,
-  }, 
-  categoryId:{
-    type: INTEGER,
-    unique: true
   },
-  subCategoryId:{
+  categoryId: {
     type: INTEGER,
-    unique: true
+    unique: true,
   },
-
+  subCategoryId: {
+    type: INTEGER,
+    unique: true,
+  },
 });
 
 module.exports = Challenge;
