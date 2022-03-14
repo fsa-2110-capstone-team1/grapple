@@ -159,22 +159,31 @@ const Navbar = () => {
               >
                 <MenuItem>
                   <Typography textAlign="center" onClick={handleCloseUserMenu}>
+                    
+                  <Link to="/userdashboard">
                     My Dashboard
+                    </Link>
                   </Typography>
                 </MenuItem>
                 <MenuItem>
                   <Typography textAlign="center" onClick={handleCloseUserMenu}>
-                    Profile
+                  <Link to="/userprofile">
+                  Profile
+                    </Link>
                   </Typography>
                 </MenuItem>
                 <MenuItem>
                   <Typography textAlign="center" onClick={handleCloseUserMenu}>
-                    Settings
+                  <Link to="/settings">
+                  Settings
+                    </Link>
                   </Typography>
                 </MenuItem>
                 <MenuItem>
                   <Typography textAlign="center" onClick={handleCloseUserMenu}>
-                    Logout
+                  <Link to="/dunnoyet">
+                  Logout
+                    </Link>
                   </Typography>
                 </MenuItem>
               </Menu>
