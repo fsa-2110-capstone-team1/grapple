@@ -1,8 +1,8 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import loggerMiddleware from "redux-logger";
-import thunkMiddleware from "redux-thunk";
-import auth from "./auth";
-import challenges from "./chellenges";
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import loggerMiddleware from 'redux-logger';
+import thunkMiddleware from 'redux-thunk';
+import auth from './auth';
+import { challenges } from './challenges';
 
 const reducer = combineReducers({
   auth,
@@ -10,7 +10,7 @@ const reducer = combineReducers({
 });
 
 let middleware;
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === 'development') {
   middleware = applyMiddleware(thunkMiddleware, loggerMiddleware);
 } else {
   middleware = applyMiddleware(thunkMiddleware);
@@ -19,5 +19,6 @@ if (process.env.NODE_ENV === "development") {
 const store = createStore(reducer, middleware);
 
 export default store;
-export * from "./auth";
-export * from "./chellenges";
+
+export * from './auth';
+export * from './challenges';
