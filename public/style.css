@@ -9,6 +9,8 @@ body {
   min-height: 100vh;
 }
 
+/* Nav css start */
+
 .nav-logo {
   width: 80px;
   height: auto;
@@ -22,8 +24,24 @@ body {
 
 a {
   text-decoration: none;
+  margin: 0;
+  padding: 0;
 }
 
-.footer-container{
-display:flex;
+.navbar-browse-challenge-link {
+  height: 0;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-browse-people-link {
+  height: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Nav css end */
+
+.footer-container {
+  display: flex;
 }
