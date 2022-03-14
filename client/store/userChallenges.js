@@ -66,7 +66,7 @@ export const removeUserChallenge = (userChallengeId) => {
 
 export default (state = [], action) => {
   switch (action.type) {
-    case GET_USERCHALLENGE:
+    case GET_USERCHALLENGES:
       return action.userChallenges;
     case CREATE_USERCHALLENGE:
       return [...state.userChallenges, action.userChallenge];
