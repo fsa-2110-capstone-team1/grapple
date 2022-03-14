@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { me } from "./store";
+import { me, getAllChallenges } from "./store";
 import Homepage from "./components/Homepage";
 import AuthForm from "./components/Auth/AuthForm";
 import Navbar from "./components/Navbar";
@@ -27,6 +27,7 @@ const App = () => {
 
   useEffect(async () => {
     const user = await dispatch(me());
+    const challenges = await dispatch(getAllChallenges());
   }, []);
 
   return (
@@ -67,8 +68,7 @@ const App = () => {
           {/* NOTE: Should /userdashboard be /home??
           When a user logs in they get directed straight to their dashboard? */}
 
-
-<Route path="/settings" element={<UserSettings />} />
+          <Route path="/settings" element={<UserSettings />} />
 
           <Route path="/admin/challenges" element={<AdminChallenges />} />
           <Route path="/admin/users" element={<AdminUsers />} />
