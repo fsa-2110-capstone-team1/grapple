@@ -21,7 +21,7 @@ const Challenge = db.define("challenge", {
   image: {
     type: TEXT,
     validate: {
-      isUrl: true,
+      // isUrl: true,
     },
   },
   type: {

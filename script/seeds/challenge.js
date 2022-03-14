@@ -9,7 +9,6 @@ async function challengeSeed() {
   const challenges = await Promise.all(
     dataChallenges.map((challenge) =>
       Challenge.create({
-        id: challenge.id,
         name: challenge.name,
         description: challenge.description,
         image: challenge.image,

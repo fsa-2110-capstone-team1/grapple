@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { me } from "./store";
+import { me, getAllChallenges } from "./store";
 import Homepage from "./components/Homepage";
 import AuthForm from "./components/Auth/AuthForm";
 import Navbar from "./components/Navbar";
@@ -27,6 +27,7 @@ const App = () => {
 
   useEffect(async () => {
     const user = await dispatch(me());
+    const challenges = await dispatch(getAllChallenges());
   }, []);
 
   return (
@@ -48,15 +49,15 @@ const App = () => {
           or something like that in the future. For now it is a hard coded path and a to do page.  */}
 
           <Route
-            path="/createchallenge"
+            path="/challenges/create"
             element={<CreateChallenge method={"create"} />}
           />
-          <Route path="/browsechallenges" element={<BrowseChallenges />} />
-          <Route path="/challengedetails" element={<ChallengeDetails />} />
+          <Route path="/challenges" element={<BrowseChallenges />} />
+          <Route path="/challenges/:id" element={<ChallengeDetails />} />
           {/* NOTE: Another route that will probably use an id but its hardcoded for now.
           The above /challengedetails page will be /challangedetails/:id  */}
 
-          <Route path="/editchallenge" element={<EditChallenge />} />
+          <Route path="/challenges/:id/edit" element={<EditChallenge />} />
           {/* NOTE: /editchallenge will be editchallenge/:id  */}
 
           <Route path="/userprofile" element={<UserProfile />} />
@@ -67,8 +68,7 @@ const App = () => {
           {/* NOTE: Should /userdashboard be /home??
           When a user logs in they get directed straight to their dashboard? */}
 
-
-<Route path="/settings" element={<UserSettings />} />
+          <Route path="/settings" element={<UserSettings />} />
 
           <Route path="/admin/challenges" element={<AdminChallenges />} />
           <Route path="/admin/users" element={<AdminUsers />} />

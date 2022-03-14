@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 // INITIAL STATE
 
@@ -9,11 +9,11 @@ import axios from 'axios';
 
 // ACTION TYPES
 
-const GET_ALL_CHALLENGES = 'GET_ALL_CHALLENGES';
-const GET_SINGLE_CHALLENGE = 'GET_SINGLE_CHALLENGE';
-const ADD_NEW_CHALLENGE = 'ADD_NEW_CHALLENGE';
-const UPDATE_CHALLENGE = 'UPDATE_CHALLENGE';
-const DELETE_CHALLENGE = 'DELETE_CHALLENGE';
+const GET_ALL_CHALLENGES = "GET_ALL_CHALLENGES";
+const GET_SINGLE_CHALLENGE = "GET_SINGLE_CHALLENGE";
+const ADD_NEW_CHALLENGE = "ADD_NEW_CHALLENGE";
+const UPDATE_CHALLENGE = "UPDATE_CHALLENGE";
+const DELETE_CHALLENGE = "DELETE_CHALLENGE";
 
 // ACTION CREATORS
 
@@ -36,7 +36,7 @@ const _deleteChallenge = (id) => ({ type: DELETE_CHALLENGE, id });
 
 export const getAllChallenges = () => {
   return async (dispatch) => {
-    const challenges = (await axios.get('/api/challenges')).data;
+    const challenges = (await axios.get("/api/challenges")).data;
     dispatch(_getAllChallenges(challenges));
   };
 };
@@ -50,7 +50,7 @@ export const getSingleChallenge = (id) => {
 
 export const addNewChallenge = (challenge) => {
   return async (dispatch) => {
-    const newChallenge = (await axios.post('/api/challenges'), challenge).data;
+    const newChallenge = (await axios.post("/api/challenges", challenge)).data;
     dispatch(_addNewChallenge(newChallenge));
   };
 };
