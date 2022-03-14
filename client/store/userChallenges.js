@@ -1,69 +1,86 @@
 import axios from "axios";
 
-// INITIAL STATE
-
-const initialState = {
-  userChallenges: [],
-  userChallenge: {},
-}
-
 // ACTION TYPES
 
-const GET_USERCHALLENGE_FOR_USER = "GET_USERCHALLENGE_FOR_USER"
-const CREATE_USERCHALLENGE = "CREATE_USERCHALLENGE"
-const UPDATE_USERCHALLENGE = "UPDATE_USERCHALLENGE"
-const REMOVE_USERCHALLENGE = "REMOVE_USERCHALLENGE"
+const GET_USERCHALLENGES = "GET_USERCHALLENGES";
+const CREATE_USERCHALLENGE = "CREATE_USERCHALLENGE";
+const UPDATE_USERCHALLENGE = "UPDATE_USERCHALLENGE";
+const REMOVE_USERCHALLENGE = "REMOVE_USERCHALLENGE";
 
 // ACTION CREATORS
 
-const _getUserChallengeForUser = (userChallenges) => ({ type: GET_USERCHALLENGE_FOR_USER, userChallenges });
-const _createUserChallengeForUser = (userChallenge) => ({ type: CREATE_USERCHALLENGE, userChallenge });
-const _updateUserChallengeForUser = (userChallenge) => ({ type: UPDATE_USERCHALLENGE, userChallenge });
-const _removeUserChallengeForUser = (userChallenge) => ({ type: REMOVE_USERCHALLENGE, userChallenge})
+const _getUserChallenges = (userChallenges) => ({
+  type: GET_USERCHALLENGES,
+  userChallenges,
+});
+const _createUserChallenge = (userChallenge) => ({
+  type: CREATE_USERCHALLENGE,
+  userChallenge,
+});
+const _updateUserChallenge = (userChallenge) => ({
+  type: UPDATE_USERCHALLENGE,
+  userChallenge,
+});
+const _removeUserChallenge = (userChallengeId) => ({
+  type: REMOVE_USERCHALLENGE,
+  userChallengeId,
+});
 
 //THUNK CREATORS
 
-export const getUserChallengeForUser = (userId) => {
+export const getUserChallenges = (userId) => {
   return async (dispatch) => {
-    const userChallenges = (await axios.get(`/api/userChallenges/${userId}`)).data
-    dispatch(_getUserChallengeForUser(userChallenges))
-  }
-}
+    const { data: userChallenges } = await axios.get(
+      `/api/userChallenges/${userId}`
+    );
+    dispatch(_getUserChallenges(userChallenges));
+  };
+};
 
-export const createUserChallengeForUser = (userChallenge) => {
+export const createUserChallenge = (userChallenge) => {
   return async (dispatch) => {
-    const newUserChallenge = (await axios.post('/api/userChallenges'), userChallenge).data
-    dispatch(_createUserChallengeForUser(newUserChallenge))
-  }
-}
+    const { data: newUserChallenge } = await axios.post(
+      "/api/userChallenges",
+      userChallenge
+    );
+    dispatch(_createUserChallenge(newUserChallenge));
+  };
+};
 
-export const updateUserChallengeForUser = (userChallenge) => {
+export const updateUserChallenge = (userChallenge) => {
   return async (dispatch) => {
-    userChallenge = (await axios.put(`/api/userChallenges/${userChallenge.userId}`, userChallenge)).data
-    dispatch(_updateUserChallengeForUser(userChallenge))
-  }
-}
+    const { data: updatedUserChallenge } = await axios.put(
+      `/api/userChallenges/${userChallenge.userId}`,
+      userChallenge
+    );
+    dispatch(_updateUserChallenge(updatedUserChallenge));
+  };
+};
 
-export const removeUserChallengeForUser = (userChallenge) => {
+export const removeUserChallenge = (userChallengeId) => {
   return async (dispatch) => {
-    await axios.delete(`/api/userChallenges/${userChallenge.userId}`, userChallenge).data
-    dispatch(_removeUserChallengeForUser(userChallenge))
-  }
-}
+    await axios.delete(`/api/userChallenges/${userChallengeId}`);
+    dispatch(_removeUserChallenge(userChallengeId));
+  };
+};
 
-export default (state = initialState, action) => {
+export default (state = [], action) => {
   switch (action.type) {
-    case GET_USERCHALLENGE_FOR_USER:
-      return { ...state, userChallenges: action.userChallenges }
+    case GET_USERCHALLENGE:
+      return action.userChallenges;
     case CREATE_USERCHALLENGE:
-      return { ...state, userChallenges: [...state.userChallenges, action.userChallenge] }
+      return [...state.userChallenges, action.userChallenge];
     case UPDATE_USERCHALLENGE:
-      return { ...state, userChallenge: action.userChallenge}
+      return state.map((userChallenge) =>
+        userChallenge.id === action.userChallenge.id
+          ? action.userChallenge
+          : userChallenge
+      );
     case REMOVE_USERCHALLENGE:
-      return {...state,
-        userChallenges: state.userChallenges.filter((userChallenge) => userChallenge.id !== action.userChallenge.id),
-      }
+      return state.filter(
+        (userChallenge) => userChallenge.id !== action.userChallengeId
+      );
     default:
-      return state
+      return state;
   }
-}
+};
