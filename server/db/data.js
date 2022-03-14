@@ -1,6 +1,6 @@
 const dataChallenges = [
     {
-   //   "id": 1,
+     "id": 1,
      "name": "10 minutes breathing exercise for a month",
      "description": "Taking deep breaths will create a sense of calm in the mind and body.",
      "image": "picId-001.svg",
@@ -15,7 +15,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 2,
+     "id": 2,
      "name": "5 minutes of meditation for a month",
      "description": "Quick meditation can encourage a mentally clear and emotionally calm, stable state. You become better with practice.",
      "image": "picId-002.svg",
@@ -30,7 +30,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 3,
+     "id": 3,
      "name": "20 minutes of Yoga",
      "description": "Light movement can reduce stress in your body and clear distracting or cluttered thoughts from your mind.",
      "image": "picId-003.svg",
@@ -45,7 +45,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 4,
+     "id": 4,
      "name": "Mid-day walk",
      "description": "A walk outside helps reset and re-energize you mentally and physically for the rest of your work day.",
      "image": "picId-004.svg",
@@ -60,7 +60,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 5,
+     "id": 5,
      "name": "10 minutes to stretch during the workday",
      "description": "Take small breaks for yourself to show care to your body throughout the day.",
      "image": "picId-005.svg",
@@ -75,7 +75,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 6,
+     "id": 6,
      "name": "Drink 10 glasses of water a day for a week",
      "description": "Hydration has a plethora of mental and physical benefits, that is attainable every day.",
      "image": "picId-006.svg",
@@ -90,7 +90,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 7,
+     "id": 7,
      "name": "Go for a mindful walk",
      "description": "Walking while observing your surroundings without looking at your phone or listening to music.",
      "image": "picId-007.svg",
@@ -105,7 +105,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 8,
+     "id": 8,
      "name": "Spend time on a hobby everyday for a week",
      "description": "What better way to boost your mood and mental wellness than to engage in a task you enjoy?",
      "image": "picId-008.svg",
@@ -120,7 +120,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 9,
+     "id": 9,
      "name": "Listen to your favorite music",
      "description": "Music has a powerful effect on the brain. Your favorite song can change your mindset and offer a mood boost.",
      "image": "picId-009.svg",
@@ -135,7 +135,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 10,
+     "id": 10,
      "name": "Go to bed 30 minutes earlier than usual for a week",
      "description": "There is nothing more important than sleep. An extra 30 minutes change alot. ",
      "image": "picId-010.svg",
@@ -150,7 +150,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 11,
+     "id": 11,
      "name": "Have a phone-free night",
      "description": "Unplug and recharge your body and mind. Putting down the phone can be a small step toward bettering your mental health. ",
      "image": "picId-011.svg",
@@ -165,7 +165,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 12,
+     "id": 12,
      "name": "Practice self-care",
      "description": "Taking time to care for yourself with a rejuvenating activity has both short-term and long-term benefits for mental well-being.",
      "image": "picId-012.svg",
@@ -180,7 +180,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 13,
+     "id": 13,
      "name": "Have a laugh",
      "description": "Laughter is the best medicine. Watch a comedy special or your favorite funny movie.",
      "image": "picId-013.svg",
@@ -195,7 +195,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 14,
+     "id": 14,
      "name": "Get creative",
      "description": "Creative expression, like drawing, painting, and writing, is linked to overall well-being.",
      "image": "picId-014.svg",
@@ -210,7 +210,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 15,
+     "id": 15,
      "name": "Dance it out",
      "description": "Dancing reduces levels of cortisol and increases endorphins, put on your favorite song and have a dance party for an instantly elevated mood. ",
      "image": "picId-015.svg",
@@ -225,7 +225,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 16,
+     "id": 16,
      "name": "Eat some dark chocolate",
      "description": "Flavonoids, caffeine, and theobromine in chocolate are thought to work together to improve alertness and mental skills.",
      "image": "picId-016.svg",
@@ -240,7 +240,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 17,
+     "id": 17,
      "name": "Eat nutritious meals",
      "description": "Incorporate fruits, vegetables, nuts, and legumes into your diet to protect your brain. Sugar and processed foods can lead to inflammation throughout the body and brain. ",
      "image": "picId-017.svg",
@@ -255,7 +255,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 18,
+     "id": 18,
      "name": "Tidy up your space",
      "description": "It is important that your space is a place you want to be in.",
      "image": "picId-018.svg",
@@ -270,7 +270,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 19,
+     "id": 19,
      "name": "Spend 20 minutes a day learning a new skill for a month",
      "description": "Learning a new skill requires a lot of focus which takes thoughts away from current stressors and can shift perspective. ",
      "image": "picId-019.svg",
@@ -285,7 +285,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 20,
+     "id": 20,
      "name": "10,000 steps a day for a week",
      "description": "Being mindful of movement will help improve your cardiovascular health. ",
      "image": "picId-020.svg",
@@ -300,7 +300,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 21,
+     "id": 21,
      "name": "Increase your vegetable intake",
      "description": "Try one vegetable each day for a month.",
      "image": "picId-021.svg",
@@ -315,7 +315,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 22,
+     "id": 22,
      "name": "No added sugar for a week",
      "description": "Replace your normal sugar treat with a healthy alternative.",
      "image": "picId-022.svg",
@@ -330,7 +330,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 23,
+     "id": 23,
      "name": "20 minutes of workout per day for a month",
      "description": "Sign up for an online service and commit to one workout a day.",
      "image": "picId-023.svg",
@@ -345,7 +345,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 24,
+     "id": 24,
      "name": "Take a time out ",
      "description": "Set aside 15 minutes each day to be in a quiet environment. Sit still and practice your breathing 15.",
      "image": "picId-024.svg",
@@ -360,7 +360,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 25,
+     "id": 25,
      "name": "Reduce your monthly spending by $100",
      "description": "Try to cut one thing every day.",
      "image": "picId-025.svg",
@@ -375,7 +375,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 26,
+     "id": 26,
      "name": "Try pantry cooking",
      "description": "Find creative ways to use the things you have in your pantry for all your meals. Only buy those grocery items that are perishable.",
      "image": "picId-026.svg",
@@ -390,7 +390,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 27,
+     "id": 27,
      "name": "Save $200 extra and add it to your emergency fund ",
      "description": "Find creative ways to reduce your costs or to increase your income by little bits and add those together.",
      "image": "picId-027.svg",
@@ -405,7 +405,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 28,
+     "id": 28,
      "name": "Declutter",
      "description": "Make a list of a few places you know you need to clear. Some places may take more than one day so break down those places into daily secions.",
      "image": "picId-028.svg",
@@ -420,7 +420,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 29,
+     "id": 29,
      "name": "Create routine and stick to it",
      "description": "Make a list of three things you will do every day and stick to it for 30 days.",
      "image": "picId-029.svg",
@@ -435,7 +435,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 30,
+     "id": 30,
      "name": "Kindness every day for a month",
      "description": "Do one small act of kindness every day for a month.",
      "image": "picId-030.svg",
@@ -450,7 +450,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 31,
+     "id": 31,
      "name": "Photo of yourself",
      "description": "Take a photo of yourself every day or take a photo of something that makes you happy.",
      "image": "picId-031.svg",
@@ -465,7 +465,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 32,
+     "id": 32,
      "name": "Give a gift",
      "description": "Give away items others appreciate to random people or send to friends.",
      "image": "picId-032.svg",
@@ -480,7 +480,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 33,
+     "id": 33,
      "name": "Try one new recipe a day for a week",
      "description": "Start with the items you currently have in your freezer and refrigerator. Look for new recipes to try.",
      "image": "picId-033.svg",
@@ -495,7 +495,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 34,
+     "id": 34,
      "name": "Make a smoothie",
      "description": "Try a lighter, and healthier breakfast",
      "image": "picId-034.svg",
@@ -510,7 +510,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 35,
+     "id": 35,
      "name": "Dine out with a friend once a month for a year",
      "description": "Make plans with a friend to eat at a new place. Mix up what friends or family you meet with and where you eat.",
      "image": "picId-035.svg",
@@ -525,7 +525,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 36,
+     "id": 36,
      "name": "Try something new",
      "description": "Try a new wine, a new tea, a new dish, or just a new fruit or vegetable every day.",
      "image": "picId-036.svg",
@@ -540,7 +540,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 37,
+     "id": 37,
      "name": "Draw a picture a day for a month ",
      "description": "Make a list of 30 images to draw or 30 feelings/words to show through your drawings.",
      "image": "picId-037.svg",
@@ -555,7 +555,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 38,
+     "id": 38,
      "name": "Write a short story everyday for a month",
      "description": "Have 30 short stories over the course of a month.",
      "image": "picId-038.svg",
@@ -570,7 +570,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 39,
+     "id": 39,
      "name": "Craft away for a week",
      "description": "Do one craft project every day. Keep them simple or quick so that you can get done in less than an hour.",
      "image": "picId-039.svg",
@@ -585,7 +585,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 40,
+     "id": 40,
      "name": "Write a poem or haiku everyday for a week",
      "description": "Use a list of feelings or words and turn them into a poem or haiku.",
      "image": "picId-040.svg",
@@ -600,7 +600,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 41,
+     "id": 41,
      "name": "Keep a daily journal for a month",
      "description": "write in your journal every morning or every evening.",
      "image": "picId-041.svg",
@@ -615,7 +615,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 42,
+     "id": 42,
      "name": "Do your hair every day for a week",
      "description": "Use new hair accessories or try putting your hair up in different ways (braids, buns, messy buns).",
      "image": "picId-042.svg",
@@ -630,7 +630,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 43,
+     "id": 43,
      "name": "Dress up every day",
      "description": "Dress like you are going to meet the love of your life or the President.",
      "image": "picId-043.svg",
@@ -645,7 +645,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 44,
+     "id": 44,
      "name": "“Positive affirmations everyday for a month",
      "description": "Write down five truths you aim to achieve as “I am” statements..",
      "image": "picId-044.svg",
@@ -660,7 +660,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 45,
+     "id": 45,
      "name": "Burpee",
      "description": "Do as many Burpees as you can in 1 minute.",
      "image": "picId-045.svg",
@@ -675,7 +675,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 46,
+     "id": 46,
      "name": "Double Duty Move Your Booty",
      "description": "Do as many push-ups as you can.",
      "image": "picId-046.svg",
@@ -690,7 +690,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 47,
+     "id": 47,
      "name": "Fresh Exercise",
      "description": "Do a new form of exercise when you workout instead of what you normally do.",
      "image": "picId-047.svg",
@@ -705,7 +705,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 48,
+     "id": 48,
      "name": "Lunge",
      "description": "Do as many lunges as you can in 1 minute.",
      "image": "picId-048.svg",
@@ -720,7 +720,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 49,
+     "id": 49,
      "name": "Park and Walk",
      "description": "Park farther away from the entrance of all places you drive.",
      "image": "picId-049.svg",
@@ -735,7 +735,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 50,
+     "id": 50,
      "name": "Plank It",
      "description": "Do a plank exercise for at least 1 minute for 30 days.",
      "image": "picId-050.svg",
@@ -750,7 +750,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 51,
+     "id": 51,
      "name": "Push Up",
      "description": "Do as many push ups as you can in 1 minute each day.",
      "image": "picId-051.svg",
@@ -765,7 +765,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 52,
+     "id": 52,
      "name": "Sit Up",
      "description": "Do as many sit-ups as you can comfortably do in one set each day.",
      "image": "picId-052.svg",
@@ -780,7 +780,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 53,
+     "id": 53,
      "name": "Squat",
      "description": "Do as many squats as you can in 1 minute.",
      "image": "picId-053.svg",
@@ -795,7 +795,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 54,
+     "id": 54,
      "name": "Step It Up",
      "description": "Instead of the escalator or elevator, use the stairs everywhere.",
      "image": "picId-054.svg",
@@ -810,7 +810,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 55,
+     "id": 55,
      "name": "Stretch It Out",
      "description": "Stretch every day for at least 15 min a day for a week.",
      "image": "picId-055.svg",
@@ -825,7 +825,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 56,
+     "id": 56,
      "name": "Walk It Out",
      "description": "Take a 15 minute walk every day for a week.",
      "image": "picId-056.svg",
@@ -840,7 +840,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 57,
+     "id": 57,
      "name": "A Spoonful of Sugar-free",
      "description": "No sugary foods or beverages.",
      "image": "picId-057.svg",
@@ -855,7 +855,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 58,
+     "id": 58,
      "name": "Breakfast Boost",
      "description": "Eat a healthy breakfast every day.",
      "image": "picId-058.svg",
@@ -870,7 +870,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 59,
+     "id": 59,
      "name": "Fruited Up",
      "description": "Eat three servings of fruit each day for a week.",
      "image": "picId-059.svg",
@@ -885,7 +885,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 60,
+     "id": 60,
      "name": "Get the Red Out",
      "description": "Cut out processed and red meats from your diet for a month.",
      "image": "picId-060.svg",
@@ -900,7 +900,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 61,
+     "id": 61,
      "name": "Go for H2O",
      "description": "Drink 64 oz of water each day before consuming other beverages.",
      "image": "picId-061.svg",
@@ -915,7 +915,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 62,
+     "id": 62,
      "name": "Good Grainy",
      "description": "Eat two servings of whole grains each day.",
      "image": "picId-062.svg",
@@ -930,7 +930,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 63,
+     "id": 63,
      "name": "Healthy Lunch",
      "description": "Make a healthy lunch or snack substitution every day for a month.",
      "image": "picId-063.svg",
@@ -945,7 +945,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 64,
+     "id": 64,
      "name": "Maintain Don’t Gain",
      "description": "Maintain or lose weight over the next 2 weeks.",
      "image": "picId-064.svg",
@@ -960,7 +960,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 65,
+     "id": 65,
      "name": "Master Chef",
      "description": "Prepare three healthy meals each week.",
      "image": "picId-065.svg",
@@ -975,7 +975,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 66,
+     "id": 66,
      "name": "No Night Time Munchies",
      "description": "No eating after 8 pm.",
      "image": "picId-066.svg",
@@ -990,7 +990,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 67,
+     "id": 67,
      "name": "Plan to Eat Well",
      "description": "Set and keep a specific nutrition goal.",
      "image": "picId-067.svg",
@@ -1005,7 +1005,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 68,
+     "id": 68,
      "name": "Restaurant Rehab",
      "description": "Make healthy food choices while eating out.",
      "image": "picId-068.svg",
@@ -1020,7 +1020,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 69,
+     "id": 69,
      "name": "Shop and Eat Healthy",
      "description": "Make healthy choices when shopping.",
      "image": "picId-069.svg",
@@ -1035,7 +1035,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 70,
+     "id": 70,
      "name": "Snack Down",
      "description": "Take out the snacks from your diet. It will force you to eat more consciously during breakfast, lunch and dinner.",
      "image": "picId-070.svg",
@@ -1050,7 +1050,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 71,
+     "id": 71,
      "name": "Stop the Pop",
      "description": "Soda is addictive and made up of artificial chemicals. Swap the soda for water.",
      "image": "picId-071.svg",
@@ -1065,7 +1065,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 72,
+     "id": 72,
      "name": "Veg Out for a month",
      "description": "Eat at least 3 servings of vegetables every day for a month.",
      "image": "picId-072.svg",
@@ -1080,7 +1080,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 73,
+     "id": 73,
      "name": "Watch the Plate",
      "description": "Limit portion sizes every day.",
      "image": "picId-073.svg",
@@ -1095,7 +1095,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 74,
+     "id": 74,
      "name": "Cut it out",
      "description": "Cut out processed foods for at least one meal each day for a month.",
      "image": "picId-074.svg",
@@ -1110,7 +1110,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 75,
+     "id": 75,
      "name": "Attitude of Gratitude",
      "description": "Write down one thing for which you are grateful every day.",
      "image": "picId-075.svg",
@@ -1125,7 +1125,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 76,
+     "id": 76,
      "name": "Breathe In Breathe Out",
      "description": "Take 3 minutes a day to practice a deep breathing technique.",
      "image": "picId-076.svg",
@@ -1140,7 +1140,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 77,
+     "id": 77,
      "name": "Kindness Counts",
      "description": "Do an act of kindness each day.",
      "image": "picId-077.svg",
@@ -1155,7 +1155,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 78,
+     "id": 78,
      "name": "LOL",
      "description": "Find humor in your day and share it with someone else.",
      "image": "picId-078.svg",
@@ -1170,7 +1170,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 79,
+     "id": 79,
      "name": "No Phone Zone",
      "description": "Eliminate cell phone use anytime when driving.",
      "image": "picId-079.svg",
@@ -1185,7 +1185,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 80,
+     "id": 80,
      "name": "Stress Down",
      "description": "Complete a stress relieving activity for 10 minutes each day.",
      "image": "picId-080.svg",
@@ -1200,7 +1200,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 81,
+     "id": 81,
      "name": "Sweet Dreams",
      "description": "Get 7-8 hours of sleep every day for a week.",
      "image": "picId-081.svg",
@@ -1215,7 +1215,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 82,
+     "id": 82,
      "name": "Unplug and Unwind",
      "description": "Stop electronic device use one hour prior to bedtime every night.",
      "image": "picId-082.svg",
@@ -1230,7 +1230,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 83,
+     "id": 83,
      "name": "Cash No Card",
      "description": "Put your credit cards away and use cash for purchases to help limit spending.",
      "image": "picId-083.svg",
@@ -1245,7 +1245,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 84,
+     "id": 84,
      "name": "Cut the Clutter",
      "description": "Spend 5 minutes cleaning your work space, car, home or yard every day.",
      "image": "picId-084.svg",
@@ -1260,7 +1260,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 85,
+     "id": 85,
      "name": "Early 30 for a week",
      "description": "Wake up 30 minutes earlier and do something productive.",
      "image": "picId-085.svg",
@@ -1275,7 +1275,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 86,
+     "id": 86,
      "name": "Prep Records",
      "description": "Gather all pertinent records for yourself and your family in one location.",
      "image": "picId-086.svg",
@@ -1290,7 +1290,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 87,
+     "id": 87,
      "name": "72-Hour Kit",
      "description": "Water, food, flashlight, first-aid kit etc. If diaster strikes, what will you need to last a few days?",
      "image": "picId-087.svg",
@@ -1305,7 +1305,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 88,
+     "id": 88,
      "name": "Floss",
      "description": "Floss everyday for a month.",
      "image": "picId-088.svg",
@@ -1320,7 +1320,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 89,
+     "id": 89,
      "name": "Post your goals for the week",
      "description": "Set a goal, write it down, post it where it is visible, and do it every day.",
      "image": "picId-089.svg",
@@ -1335,7 +1335,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 90,
+     "id": 90,
      "name": "Stop the Buzz",
      "description": "No more than one alcoholic beverage a day.",
      "image": "picId-090.svg",
@@ -1350,7 +1350,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 91,
+     "id": 91,
      "name": "Watch your Wallet every week",
      "description": "Track your daily spending and long it every week for three months.",
      "image": "picId-091.svg",
@@ -1365,7 +1365,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 92,
+     "id": 92,
      "name": "Sleep for at least 7 hours every day",
      "description": "Aim to get at least 7-8 hours of sleep every day and see how your overall health improves!",
      "image": "picId-092.svg",
@@ -1380,7 +1380,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 93,
+     "id": 93,
      "name": "Try intermittent fasting for a week",
      "description": "Intermittent fasting has been credited with improving overall health as well as helping with weight loss.",
      "image": "picId-093.svg",
@@ -1395,7 +1395,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 94,
+     "id": 94,
      "name": "Stretch or foam roll for 15 minutes for a week",
      "description": "Give your tired and tight muscles a break with this gentle challenge.",
      "image": "picId-094.svg",
@@ -1410,7 +1410,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 95,
+     "id": 95,
      "name": "Give up one bad habit",
      "description": "You already know one bad habit you need to break up with. It can be done!",
      "image": "picId-095.svg",
@@ -1425,7 +1425,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 96,
+     "id": 96,
      "name": "Walk for 30 minutes a day",
      "description": "It is one of the gentlest forms of exercise and just about anyone can do it.",
      "image": "picId-096.svg",
@@ -1440,7 +1440,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 97,
+     "id": 97,
      "name": "Stop complaining",
      "description": "Complaining does not solve any issue and only spreads more negativity.",
      "image": "picId-097.svg",
@@ -1455,7 +1455,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 98,
+     "id": 98,
      "name": "Ready 20 minutes a day for a month",
      "description": "Hopefully you can make it through a couple of books.",
      "image": "picId-098.svg",
@@ -1470,7 +1470,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 99,
+     "id": 99,
      "name": "Meditate daily",
      "description": "Spend at least 15 minutes clearing your mind and focusing on your breathing.",
      "image": "picId-099.svg",
@@ -1485,7 +1485,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 100,
+     "id": 100,
      "name": "Create a goal or vision board and log daily",
      "description": "Keep your board in a place where you can see it every day. It need only take a couple of minutes to log your progress or goals.",
      "image": "picId-100.svg",
@@ -1500,7 +1500,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 101,
+     "id": 101,
      "name": "Follow a bedtime routine",
      "description": "Stop eating two hours before bed, restrict device usage 30 minutes before bed or plan anything else to ensure a relaxing evening or full preperation for the next morning.",
      "image": "picId-101.svg",
@@ -1515,7 +1515,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 102,
+     "id": 102,
      "name": "Spend some time in nature",
      "description": "Walk to a nearby park or grow and tend to a couple of plants on your window sill. Any little thing counts.",
      "image": "picId-102.svg",
@@ -1530,7 +1530,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 103,
+     "id": 103,
      "name": "Try a daily destress not involving a screen",
      "description": "Give your eyes and mind a break from the endless scrolling and try something relaxing that does not involve a screen.",
      "image": "picId-103.svg",
@@ -1545,7 +1545,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 104,
+     "id": 104,
      "name": "Read or write daily affirmations for a month",
      "description": "Positive affirmations will lift your heart up increase the self love and your confidence will build up.",
      "image": "picId-104.svg",
@@ -1560,7 +1560,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 105,
+     "id": 105,
      "name": "Avoid negative self talk",
      "description": "Become your biggest cheerleader and see how your soul blossoms.",
      "image": "picId-105.svg",
@@ -1575,7 +1575,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 106,
+     "id": 106,
      "name": "Listen to an inspiring podcast everyday for a week",
      "description": "There is something for everyone, no matter what interests you.",
      "image": "picId-106.svg",
@@ -1590,7 +1590,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 107,
+     "id": 107,
      "name": "Make a point of smiling every day",
      "description": "Try injecting some light moments in your day, whatever works for you!",
      "image": "picId-107.svg",
@@ -1605,7 +1605,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 108,
+     "id": 108,
      "name": "Track your spending over the course of a month",
      "description": "A great first step towards creating financial discipline. Track your expenditures and income for a month will make you aware of your habits.",
      "image": "picId-108.svg",
@@ -1620,7 +1620,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 109,
+     "id": 109,
      "name": "Create and stick to a budget",
      "description": "If you have a decent handle on what your current expenses and income looks like, take it step further and set a budget for yourself.",
      "image": "picId-109.svg",
@@ -1635,7 +1635,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 110,
+     "id": 110,
      "name": "Try a 30 day shopping ban",
      "description": "Get specific about what is banned and what exceptions you are going to make.",
      "image": "picId-110.svg",
@@ -1650,7 +1650,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 111,
+     "id": 111,
      "name": "Learn a new language",
      "description": "Get the hang of the basics, there are great apps for learning a new language.",
      "image": "picId-111.svg",
@@ -1665,7 +1665,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 112,
+     "id": 112,
      "name": "Learn a few card magic tricks",
      "description": "This will make you a party favorite pretty soon!",
      "image": "picId-112.svg",
@@ -1680,7 +1680,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 113,
+     "id": 113,
      "name": "Make a short video every day for a month",
      "description": "It does not have to be a lengthy one, just create content for an audience or just yourself.",
      "image": "picId-113.svg",
@@ -1695,7 +1695,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 114,
+     "id": 114,
      "name": "Watch a TED TALK every day for a month",
      "description": "By the end of the challenge, you will likely find yourself buzzing with ideas on how to improve your life!",
      "image": "picId-114.svg",
@@ -1710,7 +1710,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 115,
+     "id": 115,
      "name": "Set your 3 priorities for each day",
      "description": "Having a daily list of important tasks can drastically improve your productivity.",
      "image": "picId-115.svg",
@@ -1725,7 +1725,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 116,
+     "id": 116,
      "name": "Give away/donate one thing every day for a month",
      "description": "Keep a box out in plain sight and over the course of 30 days, fill it with things that you no longer need.",
      "image": "picId-116.svg",
@@ -1740,7 +1740,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 117,
+     "id": 117,
      "name": "Create and commit to a meal plan for two months",
      "description": "Eat healthy, avoid wasting food and save time when cooking. Remember to leave a bit of room for spontaneity.",
      "image": "picId-117.svg",
@@ -1755,7 +1755,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 118,
+     "id": 118,
      "name": "Make your bed every day for 30 days",
      "description": "Make it a part of your morning routine!",
      "image": "picId-118.svg",
@@ -1770,7 +1770,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 119,
+     "id": 119,
      "name": "Build a capsule wardrobe",
      "description": "Create a small collection of garments designed to be worn together. Great goal to either save time getting dressed or to be more fashionable with your outfits",
      "image": "picId-119.svg",
@@ -1785,7 +1785,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 120,
+     "id": 120,
      "name": "Reach out to one new person every day for a month",
      "description": "Reach out to new people via Instagram, Twitter, emails. For social or for business, just do something every day that puts yourself out there.",
      "image": "picId-120.svg",
@@ -1800,7 +1800,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 121,
+     "id": 121,
      "name": "Post an Instagram story at least once a day for a month",
      "description": "It is a fantastic way to connect with your audience. Get comfortable talking to your followers and build a better relationship with them.",
      "image": "picId-121.svg",
@@ -1815,7 +1815,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 122,
+     "id": 122,
      "name": "Publish one post a day on your blog or Instagram or YouTube for a month",
      "description": "Creating quality content takes a lot of time and effort, plan for this challenge and it can be done!",
      "image": "picId-122.svg",
@@ -1830,7 +1830,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 123,
+     "id": 123,
      "name": "Eat at least one meal together with your partner/family a day for a month",
      "description": "Coming together at meal times is one of the best ways to connect with your partner/family on a daily basis.",
      "image": "picId-123.svg",
@@ -1845,7 +1845,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 124,
+     "id": 124,
      "name": "Call your parents/relatives/old friends",
      "description": "Human connection is certainly one of the most important things in life. Make those calls, and see how someone else lights up at being remembered.",
      "image": "picId-124.svg",
@@ -1860,7 +1860,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 125,
+     "id": 125,
      "name": "Write a love note to your partner or child",
      "description": "Small love notes brighten up your partner or child!",
      "image": "picId-125.svg",
@@ -1875,7 +1875,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 126,
+     "id": 126,
      "name": "Participate in your partner’s hobby",
      "description": "Show active interest in their hobby, show up, and let them know that their interests matter to you as well.",
      "image": "picId-126.svg",
@@ -1890,7 +1890,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 127,
+     "id": 127,
      "name": "Set up 30 surprises for your partner",
      "description": "This does not have to be a big thing. Get creative with your ideas. Buy their favorite bottle of wine. Cook their favorite meal.",
      "image": "picId-127.svg",
@@ -1905,7 +1905,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 128,
+     "id": 128,
      "name": "Brush your teeth for two minutes twice a day",
      "description": "It iss so easy and painless but so very hard to do well. Dental hygiene is more important than we realize.",
      "image": "picId-128.svg",
@@ -1920,7 +1920,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 129,
+     "id": 129,
      "name": "Floss every day",
      "description": "Floss thoroughly every day.",
      "image": "picId-129.svg",
@@ -1935,7 +1935,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 130,
+     "id": 130,
      "name": "Take your vitamins daily",
      "description": "All have nutritional deficiencies, especially if our diets are not perfect.",
      "image": "picId-130.svg",
@@ -1950,7 +1950,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 131,
+     "id": 131,
      "name": "Do brain training exercises for a month",
      "description": "Brain training is to push your brain to the point of frustration so that your neural connections strengthen. It can be incredibly difficult but pick an app and commit to doing the exercises.",
      "image": "picId-131.svg",
@@ -1965,7 +1965,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 132,
+     "id": 132,
      "name": "Detox your house",
      "description": "Our houses are filled with toxic and synthetic chemicals. Over the next 30 days, do a home makeover and replace your regular household items with organic, natural ones. ",
      "image": "picId-132.svg",
@@ -1980,7 +1980,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 133,
+     "id": 133,
      "name": "Take a cold shower in the morning",
      "description": "When you get up in the morning, head for the shower and turn it to cold. There are many health benefits of taking cold showers.",
      "image": "picId-133.svg",
@@ -1995,7 +1995,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 134,
+     "id": 134,
      "name": "Bike",
      "description": "Get on your bike and ride every day. Bike to work, bike around town or on hills or on trails.",
      "image": "picId-134.svg",
@@ -2010,7 +2010,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 135,
+     "id": 135,
      "name": "Take the stairs for a month",
      "description": "For 30 days, refuse to use the elevator.",
      "image": "picId-135.svg",
@@ -2025,7 +2025,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 136,
+     "id": 136,
      "name": "Whole body challenges for 30 days",
      "description": "Strenghtening one body part can be boring so find something, anything, to do daily for 30 days.",
      "image": "picId-136.svg",
@@ -2040,7 +2040,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 137,
+     "id": 137,
      "name": "Brainstorm daily for a month",
      "description": "This is an easy and fun way to train yourself to think more creatively.",
      "image": "picId-137.svg",
@@ -2055,7 +2055,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 138,
+     "id": 138,
      "name": "Clean up your digital clutter everyday",
      "description": "Work to clean up digital clutter: your email, your photos, your movies, your social media, passwords, documents.",
      "image": "picId-138.svg",
@@ -2070,7 +2070,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 139,
+     "id": 139,
      "name": "Check email once a day",
      "description": "A distraction and a time drain. Turn your email off on your phone and mobile devices and pick one time during the day to read and respond to emails. ",
      "image": "picId-139.svg",
@@ -2085,7 +2085,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 140,
+     "id": 140,
      "name": "No cussing",
      "description": "Because, well shit. Oh shit. I just said shit. Shit.",
      "image": "picId-140.svg",
@@ -2100,7 +2100,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 141,
+     "id": 141,
      "name": "No devices in the bedroom ",
      "description": "One of the most harmful ways to disrupt your sleep is to stare at a screen right before bedtime.",
      "image": "picId-141.svg",
@@ -2115,7 +2115,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 142,
+     "id": 142,
      "name": "No fast food for a month",
      "description": "A daily routine for some, it is addicting, cheap, and convenient, requiring a total, potentially very difficult shift in meal planning and preparation.",
      "image": "picId-142.svg",
@@ -2130,7 +2130,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 143,
+     "id": 143,
      "name": "No news for a month",
      "description": "No reading or watching the news. If something newsworthy happens, let someone else tell you about it. The news can be addicting and depressing.",
      "image": "picId-143.svg",
@@ -2145,7 +2145,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 144,
+     "id": 144,
      "name": "No social media for a week",
      "description": "Usually done out of habit, social media is a productivity drain on society.",
      "image": "picId-144.svg",
@@ -2160,7 +2160,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 145,
+     "id": 145,
      "name": "No TV",
      "description": "An hour or two of television every night is an hour or two we could spend doing more productive things.",
      "image": "picId-145.svg",
@@ -2175,7 +2175,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 146,
+     "id": 146,
      "name": "No caffeine",
      "description": "You might get headaches from the caffeine withdrawals, so be prepared for the symptoms. Caffeine is a drug yet is never treated as such.",
      "image": "picId-146.svg",
@@ -2190,7 +2190,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 147,
+     "id": 147,
      "name": "No gossiping for a month",
      "description": "Gossip is very tempting yet harmful. It is to speak with the intent of eroding another reputation or image. Take a break from the negativity.",
      "image": "picId-147.svg",
@@ -2205,7 +2205,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-       // "id": 148,
+       "id": 148,
        "name": "No sex",
        "description": "Abstinence is hard for some. Everyone has their own reasons for abstaining.",
        "image": "picId-148.svg",
@@ -2220,7 +2220,7 @@ const dataChallenges = [
        "isPrivate": "false"
       },
     {
-   //   "id": 149,
+     "id": 149,
      "name": "No internet for a week",
      "description": "No internet for a week. Everything used to be done offline such as banking, shopping, communicating, and working.",
      "image": "picId-149.svg",
@@ -2235,7 +2235,7 @@ const dataChallenges = [
      "isPrivate": "false"
     },
     {
-   //   "id": 150,
+     "id": 150,
      "name": "Learn lucid dreaming ",
      "description": "How amazing would it be to be aware that you are dreaming? It requires a lot of discipline.",
      "image": "picId-150.svg",
