@@ -1,69 +1,88 @@
 import axios from "axios";
 
-// INITIAL STATE
-
-const initialState = {
-  connections: [],
-  connection: {},
-}
-
 // ACTION TYPES
 
-const GET_CONNECTIONS_FOR_USER = "GET_CONNECTIONS_FOR_USER"
-const CREATE_CONNECTION = "CREATE_CONNECTION"
-const UPDATE_CONNECTION = "UPDATE_CONNECTION"
-const REMOVE_CONNECTION = "REMOVE_CONNECTION"
+const GET_CONNECTIONS = "GET_CONNECTIONS";
+const CREATE_CONNECTION = "CREATE_CONNECTION";
+const UPDATE_CONNECTION = "UPDATE_CONNECTION";
+const REMOVE_CONNECTION = "REMOVE_CONNECTION";
 
 // ACTION CREATORS
 
-const _getConnectionsForUser = (connections) => ({ type: GET_CONNECTIONS_FOR_USER, connections });
-const _createConnectionForUser = (connection) => ({ type: CREATE_CONNECTION, connection });
-const _updateConnectionForUser = (connection) => ({ type: UPDATE_CONNECTION, connection });
-const _removeConnectionForUser = (connection) => ({ type: REMOVE_CONNECTION, connection})
+const _getConnections = (connections) => ({
+  type: GET_CONNECTIONS,
+  connections,
+});
+const _createConnection = (connection) => ({
+  type: CREATE_CONNECTION,
+  connection,
+});
+const _updateConnection = (connection) => ({
+  type: UPDATE_CONNECTION,
+  connection,
+});
+const _removeConnection = (connectionId) => ({
+  type: REMOVE_CONNECTION,
+  connectionId,
+});
 
 //THUNK CREATORS
 
-export const getConnectionsForUser = (requestedUserId) => {
+export const getConnections = (requester_userId) => {
   return async (dispatch) => {
-    const connections = (await axios.get(`/api/connections/${requestedUserId}`)).data
-    dispatch(_getConnectionsForUser(connections))
-  }
-}
+    const { data: connections } = await axios.get(
+      `/api/connections/${requester_userId}`
+    );
+    dispatch(_getConnections(connections));
+  };
+};
 
-export const createConnectionForUser = (connection) => {
+export const createConnection = (requester_userId, requested_userId) => {
   return async (dispatch) => {
-    const newConnection = (await axios.post('/api/connections'), connection).data
-    dispatch(_createConnectionForUser(newConnection))
-  }
-}
+    const { data: newConnection } = await axios.post("/api/connections", {
+      requester_userId,
+      requested_userId,
+    });
+    dispatch(_createConnection(newConnection));
+  };
+};
 
-export const updateConnectionForUser = (connection) => {
+export const updateConnection = (
+  requester_userId,
+  requested_userId,
+  status
+) => {
   return async (dispatch) => {
-    connection = (await axios.put(`/api/connections/${connection.requested_UserId}`, connection)).data
-    dispatch(_updateConnectionForUser(connection))
-  }
-}
+    const { data: updatedConnection } = await axios.put(
+      `/api/connections/${connection.requested_UserId}`,
+      { requester_userId, requested_userId, status }
+    );
+    dispatch(_updateConnection(updatedConnection));
+  };
+};
 
-export const removeConnectionForUser = (connection) => {
+export const removeConnection = (connectionId) => {
   return async (dispatch) => {
-    await axios.delete(`/api/challenges/${connection.requested_UserId}`, connection).data
-    dispatch(_removeConnectionForUser(connection))
-  }
-}
+    await axios.delete(`/api/challenges/${connectionId}`);
+    dispatch(_removeConnection(connectionId));
+  };
+};
 
-export default (state = initialState, action) => {
+export default (state = [], action) => {
   switch (action.type) {
-    case GET_CONNECTIONS_FOR_USER:
-      return { ...state, connections: action.connections }
+    case GET_CONNECTIONS:
+      return action.connections;
     case CREATE_CONNECTION:
-      return { ...state, connections: [...state.connections, action.connection] }
-    case UPDATE_CHALLENGE:
-      return { ...state, connection: action.connection}
+      return [...state.connections, action.connection];
+    case UPDATE_CONNECTION:
+      return state.map((connection) =>
+        connection.id === action.connection.id ? action.connection : connection
+      );
     case REMOVE_CONNECTION:
-      return {...state,
-        connections: state.connections.filter((connection) => connection.id !== action.connection.id),
-      }
+      return state.filter(
+        (connection) => connection.id !== action.connectionId
+      );
     default:
-      return state
+      return state;
   }
-}
+};

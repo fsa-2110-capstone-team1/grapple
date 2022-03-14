@@ -2,7 +2,12 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { me, getAllChallenges } from "./store";
+import {
+  me,
+  getAllChallenges,
+  getConnections,
+  getUserChallenges,
+} from "./store";
 import Homepage from "./components/Homepage";
 import AuthForm from "./components/Auth/AuthForm";
 import Navbar from "./components/Navbar";
@@ -28,6 +33,8 @@ const App = () => {
   useEffect(async () => {
     const user = await dispatch(me());
     const challenges = await dispatch(getAllChallenges());
+    const userChallenges = await dispatch(getUserChallenges());
+    const connections = await dispatch(getConnections());
   }, []);
 
   return (
