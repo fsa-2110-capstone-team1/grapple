@@ -14,6 +14,8 @@ import {
   Slider,
   FormControlLabel,
   Switch,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import DatePicker from "@mui/lab/DatePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -42,13 +44,37 @@ const CreateChallenge = ({ method }) => {
     reset,
   } = useForm();
 
+  //Success snackbar
+  const [snackbar, setSnackbar] = React.useState(null);
+  const handleCloseSnackbar = () => setSnackbar(null);
+
   const onSubmit = async (data) => {
-    await dispatch(addNewChallenge(data));
-    alert("submitted");
+    try {
+      await dispatch(addNewChallenge(data));
+      setSnackbar({
+        children: "Challenge successfully added!",
+        severity: "success",
+      });
+    } catch (err) {
+      setSnackbar({
+        children: "Challenge could not be added!",
+        severity: "error",
+      });
+    }
   };
 
   return (
     <ThemeProvider theme={theme}>
+      {!!snackbar && (
+        <Snackbar
+          open
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          onClose={handleCloseSnackbar}
+          autoHideDuration={6000}
+        >
+          <Alert {...snackbar} onClose={handleCloseSnackbar} />
+        </Snackbar>
+      )}
       <Box
         sx={{
           width: "80vw",
@@ -160,7 +186,7 @@ const CreateChallenge = ({ method }) => {
                           <DatePicker
                             onChange={onChange}
                             value={value}
-                            minDate={new Date()}
+                            minDate={new Date().setHours(0, 0, 0, 0)}
                             label="Start Date"
                             fullWidth
                             error={!!errors?.startDate}
@@ -186,7 +212,7 @@ const CreateChallenge = ({ method }) => {
                           <DatePicker
                             onChange={onChange}
                             value={value}
-                            minDate={new Date()}
+                            minDate={new Date().setHours(0, 0, 0, 0)}
                             label="End Date"
                             fullWidth
                             error={!!errors?.endDate}
