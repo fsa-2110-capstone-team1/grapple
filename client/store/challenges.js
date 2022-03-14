@@ -59,7 +59,7 @@ export const deleteChallenge = (id) => {
   };
 };
 
-export const challenges = (state = [], action) => {
+export default (state = [], action) => {
   switch (action.type) {
     case GET_ALL_CHALLENGES:
       return action.challenges;
