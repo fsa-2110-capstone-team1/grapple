@@ -54,14 +54,14 @@ const Challenge = db.define("challenge", {
     type: BOOLEAN,
     defaultValue: false,
   },
-  categoryId: {
-    type: INTEGER,
+  category: {
+    type: STRING,
     unique: true,
   },
-  subCategoryId: {
-    type: INTEGER,
-    unique: true,
-  },
+  // subCategoryId: {
+  //   type: INTEGER,
+  //   unique: true,
+  // },
 });
 
 module.exports = Challenge;
