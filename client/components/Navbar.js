@@ -98,14 +98,14 @@ const Navbar = () => {
                   display: { xs: 'block', md: 'none' },
                 }}
               >
-                <Link to={'/browsechallenges'}>
+                <Link to={'/challenges'}>
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Typography textAlign="center" color="#C54B7B">
                       Challenges
                     </Typography>
                   </MenuItem>
                 </Link>
-                <Link to={'/browsepeople'}>
+                <Link to={'/people'}>
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Typography textAlign="center" color="#C54B7B">
                       People
@@ -127,10 +127,7 @@ const Navbar = () => {
               </Link>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <Link
-                className="navbar-browse-challenge-link"
-                to={'/browsechallenges'}
-              >
+              <Link className="navbar-browse-challenge-link" to={'/challenges'}>
                 <Button
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
@@ -138,7 +135,7 @@ const Navbar = () => {
                   Challenges
                 </Button>
               </Link>
-              <Link className="navbar-browse-people-link" to={'/browsepeople'}>
+              <Link className="navbar-browse-people-link" to={'/people'}>
                 <Button
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}
