@@ -9,7 +9,7 @@ export const BrowseChallenges = () => {
   const challenges = useSelector((state) => state.challenges);
 
 const [currentPage, setCurrentPage] = useState(1);
-  const [challengesPerPage] = useState(10);
+  const [challengesPerPage] = useState(12);
 
   const indexOfLastChallenge = currentPage * challengesPerPage;
   const indexofFirstChallenge = indexOfLastChallenge - challengesPerPage;
