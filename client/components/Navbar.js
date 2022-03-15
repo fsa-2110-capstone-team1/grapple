@@ -50,7 +50,7 @@ const Navbar = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppBar className="nav-bar" position="static">
+      <AppBar className="nav-bar" position="fixed">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography
@@ -148,7 +148,9 @@ const Navbar = () => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar src="/broken-image.jpg" />
+                  <Avatar
+                  // src="/broken-image.jpg"
+                  />
                 </IconButton>
               </Tooltip>
               <Menu
