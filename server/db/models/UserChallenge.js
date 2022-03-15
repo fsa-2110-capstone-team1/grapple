@@ -1,12 +1,12 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const {INTEGER, BOOLEAN, ENUM } = Sequelize;
+const { INTEGER, BOOLEAN, ENUM } = Sequelize;
 
 const UserChallenge = db.define("userChallenge", {
   status: {
-    type: ENUM('notStarted', 'inProgress', 'copmpleted', 'failed'),
-    defaultValue: 'notStarted',
+    type: ENUM("notStarted", "inProgress", "completed", "failed"),
+    defaultValue: "notStarted",
   },
   getsPoints: {
     type: BOOLEAN,
@@ -18,12 +18,10 @@ const UserChallenge = db.define("userChallenge", {
       min: 0,
       max: 100,
     },
-    defaultValue: 0
-    
-  }
- // userId
- // challengeId
-
+    defaultValue: 0,
+  },
+  // userId
+  // challengeId
 });
 
 module.exports = UserChallenge;
