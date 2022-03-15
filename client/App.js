@@ -42,40 +42,24 @@ const App = () => {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          {/* Examples */}
-
           <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<AuthForm path={"/"} />} />
           <Route path="/signup" element={<AuthForm path={"/"} />} />
-          <Route path="/browsepeople" element={<BrowsePeople />} />
-          <Route
-            path="/personprofiledetails"
-            element={<PersonProfileDetails />}
-          />
-          {/* NOTE: The above /personprofiledetails page will most likely be /personprofiledetails/:id 
-          or something like that in the future. For now it is a hard coded path and a to do page.  */}
-
+          <Route path="/people" element={<BrowsePeople />} />
+          <Route path="/people/:id" element={<PersonProfileDetails />} />
           <Route
             path="/challenges/create"
             element={<CreateChallenge method={"create"} />}
           />
           <Route path="/challenges" element={<BrowseChallenges />} />
           <Route path="/challenges/:id" element={<ChallengeDetails />} />
-          {/* NOTE: Another route that will probably use an id but its hardcoded for now.
-          The above /challengedetails page will be /challangedetails/:id  */}
-
           <Route path="/challenges/:id/edit" element={<EditChallenge />} />
-          {/* NOTE: /editchallenge will be editchallenge/:id  */}
-
-          <Route path="/userprofile" element={<UserProfile />} />
-          {/* NOTE: /userprofile could be userprofile/:id??
-          Would we need the users id for the route if they're logged in?  */}
-
-          <Route path="/userdashboard" element={<UserDashboard />} />
+          <Route path="/user/profile" element={<UserProfile />} />
+          <Route path="/user/dashboard" element={<UserDashboard />} />
           {/* NOTE: Should /userdashboard be /home??
           When a user logs in they get directed straight to their dashboard? */}
 
-          <Route path="/settings" element={<UserSettings />} />
+          <Route path="/user/settings" element={<UserSettings />} />
 
           <Route path="/admin/challenges" element={<AdminChallenges />} />
           <Route path="/admin/users" element={<AdminUsers />} />
