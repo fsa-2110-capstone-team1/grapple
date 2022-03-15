@@ -8,15 +8,10 @@ const UserChallenge = db.define("userChallenge", {
     type: ENUM("notStarted", "inProgress", "completed", "failed"),
     defaultValue: "notStarted",
   },
-  getsPoints: {
-    type: BOOLEAN,
-    defaultValue: false,
-  },
   currentProgress: {
     type: INTEGER,
     validate: {
-      min: 0,
-      max: 100,
+      min: 0
     },
     defaultValue: 0,
   },
