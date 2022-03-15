@@ -19,8 +19,8 @@ const PaginationFooter = ({
     <nav>
       <ul className="pagination">
         {pageNumbers.map((number) => (
-          <p key={number} 
-          className={number === currentPage ? "selected" : ""}
+          <li key={number} 
+          className={number === currentPage ? "selected" : "nonselected"}
           >
             <a
               onClick={() => {
@@ -38,7 +38,7 @@ const PaginationFooter = ({
             >
               {number}
             </a>
-          </p>
+          </li>
         ))}
       </ul>
     </nav>

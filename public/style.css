@@ -133,18 +133,34 @@ a:hover {
   background-color: white;
   border-radius: 5px;
   justify-content: center;
+
 }
+
 
 .pagination-item > li {
   color: #0b1426;
-  padding: 0.5rem;
+  padding: 10rem;
   text-decoration: bold;
 }
+
+
 .pagination > li.selected {
-  background-color: white;
+  color: black;
+  border-radius: 3px;
+  padding: 0.5rem;
+  font-size: 18px;
+  background-color: #248DA2;
+  margin-left: 5px;
+
+
+}
+
+.pagination > li.nonselected {
+  background-color: #248DA2;
   color: white;
   border-radius: 3px;
   padding: 0.5rem;
   font-size: 18px;
-  background-color: #11abda;
+  margin-left: 5px;
+  /* border: 1px solid black; */
 }
