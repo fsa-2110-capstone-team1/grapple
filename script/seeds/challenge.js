@@ -1260,7 +1260,7 @@ const dataChallenges = [
     description: "Get 7-8 hours of sleep every day for a week.",
     image: "badges/picId-081.svg",
     type: "num",
-    category: nmiscll,
+    category: null,
     // subCategoryId: null,
     startDateTime: "04/10/2022",
     endDateTime: "05/10/2022",
