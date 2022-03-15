@@ -43,10 +43,7 @@ const User = db.define("user", {
   },
   image: {
     type: TEXT,
-    validate: {
-      isUrl: true,
-    },
-    // defaultValue: TODO,
+    defaultValue: "/defaultUserImage.png",
   },
   isPrivate: {
     type: BOOLEAN,
@@ -55,7 +52,7 @@ const User = db.define("user", {
   isAdmin: {
     type: BOOLEAN,
     defaultValue: false,
-  }
+  },
 });
 
 module.exports = User;
