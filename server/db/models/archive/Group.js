@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
-const db = require("../db");
+const db = require("../../db");
 
-const {STRING, BOOLEAN} = Sequelize;
+const { STRING, BOOLEAN } = Sequelize;
 
 const Group = db.define("group", {
   groupName: {
@@ -13,11 +13,9 @@ const Group = db.define("group", {
     },
   },
   isPrivate: {
-  type: BOOLEAN,
-  defaultValue: false,
-  }
-  
-    
+    type: BOOLEAN,
+    defaultValue: false,
+  },
 });
 
 module.exports = Group;

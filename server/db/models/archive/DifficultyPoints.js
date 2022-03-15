@@ -1,10 +1,10 @@
 const Sequelize = require("sequelize");
-const db = require("../db");
+const db = require("../../db");
 
-const {INTEGER} = Sequelize;
+const { INTEGER } = Sequelize;
 
 const DifficultyPoints = db.define("difficultyPoints", {
-  // difficulty: { 
+  // difficulty: {
   //   type: INTEGER,
   //   defaultValue: 1,
   //   validate: {
@@ -19,7 +19,7 @@ const DifficultyPoints = db.define("difficultyPoints", {
     validate: {
       min: 1,
       max: 5,
-    }
+    },
   },
 });
 
