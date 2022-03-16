@@ -1,30 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { Grid, Box, Button, Typography } from "@mui/material";
 import ChallengeCard from "./ChallengeCard";
 import SearchChallenges from "./SearchChallenges";
 import PaginationFooter from "./PaginationFooter.js";
 
 export const BrowseChallenges = () => {
+  // const path = useLocation().pathname.split("/").pop();
   const challenges = useSelector((state) => state.challenges);
-
+  
 const [currentPage, setCurrentPage] = useState(1);
-  const [challengesPerPage] = useState(12);
+const [challengesPerPage] = useState(12);
+
+
+//sortedChallenges is suppose to become sorted from the sorted function, currently sortedChallenges isnt populating
+// down on line 32, that function works correctly,
+const [sortedChallenges, setSortedChallenges] = useState(challenges);
 
   const indexOfLastChallenge = currentPage * challengesPerPage;
   const indexofFirstChallenge = indexOfLastChallenge - challengesPerPage;
+
+
+  //  I want to change challenges.slice to sortedChallenges.slice
   const currentChallenges = challenges.slice(indexofFirstChallenge, indexOfLastChallenge)
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // const [order, setOrder] = useState("ASC")
-  // const sorting = (attr) => {
-  //   if (order === "ASC"){
-  //     const sorted = [...challenges].sort((a,b)=>
-  //     a[attr].toLowerCase() > b[attr].toLowerCase() ? 1 : -1
-  //     )
-  //   }
-  // };
+  const [order, setOrder] = useState("ASC")
+
+  const sorted = (attr) => {
+    if (order === "ASC"){
+      const sorted = [...challenges].sort((a,b)=>{
+      if (a[attr] > b[attr]){
+        return 1;
+      }
+      if (a[attr]< b[attr]){
+        return -1;
+      }
+      return 0;
+    })
+
+  }
+  setSortedChallenges(sorted);
+}
+
 
   return (
     <div>
@@ -33,9 +53,9 @@ const [currentPage, setCurrentPage] = useState(1);
       <div>
         <h1>Sort by</h1>
       <div className="sorters">
-      <p onClick={()=>sorting("name")}>Name &nbsp; </p> 
-      <p onClick={()=>sorting("difficulty")}>Difficulty &nbsp;</p>
-      <p onClick={()=>sorting("type")}>Type &nbsp;</p>
+      <p onClick={()=>sorted("name")}>Name &nbsp; </p> 
+      <p onClick={()=>sorted("difficulty")}>Difficulty &nbsp;</p>
+      <p onClick={()=>sorted("type")}>Type &nbsp;</p>
 
       </div>
       </div>
