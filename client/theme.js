@@ -17,7 +17,7 @@ export const theme = createTheme({
       dark: '#a62859',
       contrastText: '#fff',
     },
-    orange: {
+    orangey: {
       light: '#edb482',
       main: '#F57D52',
       dark: '#db5321',
