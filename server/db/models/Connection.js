@@ -1,7 +1,5 @@
-const Sequelize = require("sequelize");
 const db = require("../db");
-
-const { ENUM } = Sequelize;
+const { ENUM } = db.Sequelize.DataTypes;
 
 const Connection = db.define("connection", {
   status: {
