@@ -18,7 +18,6 @@ router.get("/", async (req, res, next) => {
 });
 
 // Get a single users connection
-// passing user id, not connection id (Kate)
 router.get("/:userId", async (req, res, next) => {
   try {
     const connections = await Connection.findAll({
@@ -44,15 +43,11 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// Edit a connection
-// passing user id, not connection id (Kate)
-router.put("/:id", async (req, res, next) => {
+// Change a connection to accepted
+router.put("/acceptRequest/:id", async (req, res, next) => {
   try {
-    const connection = await Connection.findAll({
-      // where: { requested_userId = req.params.id
-      // }
-    });
-    res.send(await connection.update(req.body));
+    const connection = await Connection.findByPk(req.params.id);
+    res.send(await connection.update({ status: "accepted" }));
   } catch (error) {
     next(error);
   }
