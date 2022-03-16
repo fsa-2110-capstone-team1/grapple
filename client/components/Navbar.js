@@ -102,14 +102,14 @@ const Navbar = () => {
               >
                 <Link to={'/challenges'}>
                   <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center" color="#C54B7B">
+                    <Typography textAlign="center" color="secondary">
                       Challenges
                     </Typography>
                   </MenuItem>
                 </Link>
                 <Link to={'/people'}>
                   <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center" color="#C54B7B">
+                    <Typography textAlign="center" color="secondary">
                       People
                     </Typography>
                   </MenuItem>
@@ -184,27 +184,27 @@ const Navbar = () => {
                   <div>
                     <Link to="/user/dashboard" onClick={handleCloseUserMenu}>
                       <MenuItem>
-                        <Typography textAlign="center" color="#C54B7B">
+                        <Typography textAlign="center" color="secondary">
                           My Dashboard
                         </Typography>
                       </MenuItem>
                     </Link>
                     <Link to="/user/profile" onClick={handleCloseUserMenu}>
                       <MenuItem>
-                        <Typography textAlign="center" color="#C54B7B">
+                        <Typography textAlign="center" color="secondary">
                           Profile
                         </Typography>
                       </MenuItem>
                     </Link>
                     <Link to="/settings" onClick={handleCloseUserMenu}>
                       <MenuItem>
-                        <Typography textAlign="center" color="#C54B7B">
+                        <Typography textAlign="center" color="secondary">
                           Settings
                         </Typography>
                       </MenuItem>
                     </Link>
                     <MenuItem onClick={logoutAndCloseMenu}>
-                      <Typography textAlign="center" color="#C54B7B">
+                      <Typography textAlign="center" color="secondary">
                         Logout
                       </Typography>
                     </MenuItem>
@@ -212,7 +212,7 @@ const Navbar = () => {
                 ) : (
                   <Link to="/login" onClick={handleCloseUserMenu}>
                     <MenuItem>
-                      <Typography textAlign="center" color="#C54B7B">
+                      <Typography textAlign="center" color="secondary">
                         Login
                       </Typography>
                     </MenuItem>
