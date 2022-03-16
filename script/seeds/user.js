@@ -42,7 +42,7 @@ async function userSeed() {
         password: user.login.password,
         firstName: user.name.first,
         lastName: user.name.last,
-        image: user.picture.medium,
+        image: user.picture.large,
       })
     )
   );
