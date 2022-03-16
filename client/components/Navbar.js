@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../theme';
+
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store';
@@ -78,8 +79,9 @@ const Navbar = () => {
                 onClick={handleOpenNavMenu}
                 color="inherit"
               >
-                <MenuIcon />
+                {!!id ? <MenuIcon /> : ''}
               </IconButton>
+
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorElNav}
@@ -127,22 +129,31 @@ const Navbar = () => {
               </Link>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <Link className="navbar-browse-challenge-link" to={'/challenges'}>
-                <Button
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  Challenges
-                </Button>
-              </Link>
-              <Link className="navbar-browse-people-link" to={'/people'}>
-                <Button
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  People
-                </Button>
-              </Link>
+              {!!id ? (
+                <>
+                  <Link
+                    className="navbar-browse-challenge-link"
+                    to={'/challenges'}
+                  >
+                    <Button
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 2, color: 'white', display: 'block' }}
+                    >
+                      Challenges
+                    </Button>
+                  </Link>
+                  <Link className="navbar-browse-people-link" to={'/people'}>
+                    <Button
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 2, color: 'white', display: 'block' }}
+                    >
+                      People
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                ''
+              )}
             </Box>
 
             <Box sx={{ flexGrow: 0 }}>
@@ -169,33 +180,35 @@ const Navbar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <Link to="/userdashboard" onClick={handleCloseUserMenu}>
-                  <MenuItem>
-                    <Typography textAlign="center" color="#C54B7B">
-                      My Dashboard
-                    </Typography>
-                  </MenuItem>
-                </Link>
-                <Link to="/userprofile" onClick={handleCloseUserMenu}>
-                  <MenuItem>
-                    <Typography textAlign="center" color="#C54B7B">
-                      Profile
-                    </Typography>
-                  </MenuItem>
-                </Link>
-                <Link to="/settings" onClick={handleCloseUserMenu}>
-                  <MenuItem>
-                    <Typography textAlign="center" color="#C54B7B">
-                      Settings
-                    </Typography>
-                  </MenuItem>
-                </Link>
                 {!!id ? (
-                  <MenuItem onClick={logoutAndCloseMenu}>
-                    <Typography textAlign="center" color="#C54B7B">
-                      Logout
-                    </Typography>
-                  </MenuItem>
+                  <div>
+                    <Link to="/user/dashboard" onClick={handleCloseUserMenu}>
+                      <MenuItem>
+                        <Typography textAlign="center" color="#C54B7B">
+                          My Dashboard
+                        </Typography>
+                      </MenuItem>
+                    </Link>
+                    <Link to="/user/profile" onClick={handleCloseUserMenu}>
+                      <MenuItem>
+                        <Typography textAlign="center" color="#C54B7B">
+                          Profile
+                        </Typography>
+                      </MenuItem>
+                    </Link>
+                    <Link to="/settings" onClick={handleCloseUserMenu}>
+                      <MenuItem>
+                        <Typography textAlign="center" color="#C54B7B">
+                          Settings
+                        </Typography>
+                      </MenuItem>
+                    </Link>
+                    <MenuItem onClick={logoutAndCloseMenu}>
+                      <Typography textAlign="center" color="#C54B7B">
+                        Logout
+                      </Typography>
+                    </MenuItem>
+                  </div>
                 ) : (
                   <Link to="/login" onClick={handleCloseUserMenu}>
                     <MenuItem>
