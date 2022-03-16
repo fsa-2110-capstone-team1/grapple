@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { Grid, Box, Button, Typography } from "@mui/material";
-import ChallengeCard from "./ChallengeCard";
-import SearchChallenges from "./SearchChallenges";
-import PaginationFooter from "./PaginationFooter.js";
+import ChallengeCard from "../ChallengeCard";
+import SearchChallenges from "../SearchChallenges";
+import PaginationFooter from "../PaginationFooter.js";
 import { Link } from 'react-router-dom';
 
-export const BrowseChallenges = () => {
+export const Diff3 = () => {
   // const path = useLocation().pathname.split("/").pop();
   const challenges = useSelector((state) => state.challenges);
 
+const filteredChallenges = challenges.filter(challenge => challenge.difficulty === 3)
+console.log(filteredChallenges)
   
 const [currentPage, setCurrentPage] = useState(1);
 const [challengesPerPage] = useState(12);
@@ -25,7 +27,7 @@ const [sortedChallenges, setSortedChallenges] = useState(challenges);
 
 
   //  I want to change challenges.slice to sortedChallenges.slice
-  const currentChallenges = challenges.slice(indexofFirstChallenge, indexOfLastChallenge)
+  const currentChallenges = filteredChallenges.slice(indexofFirstChallenge, indexOfLastChallenge)
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -48,11 +50,17 @@ const [sortedChallenges, setSortedChallenges] = useState(challenges);
 }
 
 
+if (!filteredChallenges) {
+  return "Sorry the challenges you are looking for are unreachable";
+}
+
+
   return (
     <div>
     <Grid container>
       <SearchChallenges data={challenges}/>
       <div>
+      <h2>Difficulty 3</h2>
         <h3>Sort by</h3>
       <div className="sorters">
       <p onClick={()=>sorted("name")}>Name &nbsp; </p> 
@@ -64,6 +72,7 @@ const [sortedChallenges, setSortedChallenges] = useState(challenges);
     <ul>
     <Link to={`/challenges/num` }> Num</Link >
     <Link to={`/challenges/unit` }> Unit</Link >
+    <h4>Difficulties</h4>
     <Link to={`/challenges/diff1` }> 1</Link >
     <Link to={`/challenges/diff2` }> 2</Link >
     <Link to={`/challenges/diff3` }> 3</Link >
@@ -83,8 +92,8 @@ const [sortedChallenges, setSortedChallenges] = useState(challenges);
       </Grid>
       <Grid item xs={1} />
     </Grid>
-    <PaginationFooter challengesPerPage={challengesPerPage} totalPosts={challenges.length} paginate={paginate} currentPage={currentPage} />
+    <PaginationFooter challengesPerPage={challengesPerPage} totalPosts={filteredChallenges.length} paginate={paginate} currentPage={currentPage} />
     </div>
   );
 };
-export default BrowseChallenges;
+export default Diff3;
