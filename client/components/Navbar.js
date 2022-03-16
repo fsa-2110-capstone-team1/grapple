@@ -137,7 +137,7 @@ const Navbar = () => {
                   >
                     <Button
                       onClick={handleCloseNavMenu}
-                      sx={{ my: 2, color: 'white', display: 'block' }}
+                      sx={{ my: 2, color: 'white.main', display: 'block' }}
                     >
                       Challenges
                     </Button>
@@ -145,7 +145,7 @@ const Navbar = () => {
                   <Link className="navbar-browse-people-link" to={'/people'}>
                     <Button
                       onClick={handleCloseNavMenu}
-                      sx={{ my: 2, color: 'white', display: 'block' }}
+                      sx={{ my: 2, color: 'white.main', display: 'block' }}
                     >
                       People
                     </Button>
