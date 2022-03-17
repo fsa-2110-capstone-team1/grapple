@@ -74,8 +74,6 @@ const PersonProfileDetails = () => {
     ]);
   }
 
-  console.log(connections);
-
   function handleAcceptRequest(connId) {
     dispatch(acceptConnection(connId));
     setConnections(
