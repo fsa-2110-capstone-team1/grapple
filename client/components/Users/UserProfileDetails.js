@@ -31,6 +31,7 @@ const PersonProfileDetails = () => {
     if (!!connections && !!user) {
       if (user) {
         const myConns = connections
+          .filter((conn) => conn.status === "accepted")
           .map((conn) => {
             if (conn.requester_userId === user.id) {
               return {
@@ -58,22 +59,37 @@ const PersonProfileDetails = () => {
         {user?.firstName} {user?.lastName}
       </h4>
       <h5>Member since {dateFormat(user?.createdAt, "mediumDate")}</h5>
+
+      {user?.id === auth?.id ? (
+        <div>
+          <h4>Friend Requests</h4>
+          {connections
+            .filter((conn) => conn.status === "pending")
+            .map((conn) => (
+              <li>
+                {
+                  publicUsers.find((user) => user.id === conn.requested_userId)
+                    ?.username
+                }
+                <button onClick={() => dispatch(acceptConnection(conn.id))}>
+                  Accept
+                </button>
+                <button onClick={() => dispatch(removeConnection(conn.id))}>
+                  Decline
+                </button>
+              </li>
+            ))}
+        </div>
+      ) : (
+        ""
+      )}
+
       <h4>Friends</h4>
       <ul>
         {friends.map((friend) => (
           <li>
-            {publicUsers.find((user) => user.id === friend.friendId)?.username}:{" "}
-            {friend.status}
-            {user?.id === auth?.id && friend.status !== "accepted" ? (
-              <div>
-                <button onClick={() => dispatch(acceptConnection(friend.id))}>
-                  Accept
-                </button>
-                <button onClick={() => dispatch(removeConnection(friend.id))}>
-                  Decline
-                </button>
-              </div>
-            ) : user?.id === auth?.id && friend.status === "accepted" ? (
+            {publicUsers.find((user) => user.id === friend.friendId)?.username}
+            {user?.id === auth?.id ? (
               <button onClick={() => dispatch(removeConnection(friend.id))}>
                 Remove
               </button>
@@ -98,7 +114,11 @@ const PersonProfileDetails = () => {
           ))}
       </ul>
       {user?.id !== auth?.id &&
-      !friends.find((friend) => friend.friendId === auth?.id) ? (
+      !connections.find(
+        (conn) =>
+          conn.requester_userId === auth?.id ||
+          conn.requested_userId === auth?.id
+      ) ? (
         <button onClick={() => dispatch(createConnection(auth.id, user.id))}>
           Add Friend
         </button>
