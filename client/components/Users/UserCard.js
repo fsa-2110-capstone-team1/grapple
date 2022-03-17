@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import dateFormat from "dateformat";
@@ -14,11 +14,57 @@ import {
 } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import theme from "../../theme";
-import { createConnection } from "../../store/connections";
+import {
+  getConnections,
+  acceptConnection,
+  createConnection,
+  removeConnection,
+} from "../../store/connections";
+import axios from "axios";
 
 export const UserCard = ({ user }) => {
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
+
+  const [connections, setConnections] = useState([]);
+
+  const { auth } = useSelector((state) => state);
+
+  const [friends, setFriends] = useState([]);
+
+  useEffect(async () => {
+    if (user.id) {
+      const { data: connections } = await axios.get(
+        `/api/connections/${user.id}`
+      );
+      setConnections(connections);
+    }
+  }, [user?.id]);
+
+  useEffect(() => {
+    if (!!connections && !!user) {
+      if (user) {
+        const myConns = connections
+          .filter((conn) => conn.status === "accepted")
+          .map((conn) => {
+            if (conn.requester_userId === user.id) {
+              return {
+                friendId: conn.requested_userId,
+                status: conn.status,
+                id: conn.id,
+              };
+            } else if (conn.requested_userId === user.id) {
+              return {
+                friendId: conn.requester_userId,
+                status: conn.status,
+                id: conn.id,
+              };
+            }
+          })
+          .filter((friend) => friend);
+        setFriends(myConns);
+      }
+    }
+  }, [connections]);
 
   return (
     <ThemeProvider theme={theme}>
