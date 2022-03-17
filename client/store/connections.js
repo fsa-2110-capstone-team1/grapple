@@ -4,7 +4,7 @@ import axios from "axios";
 
 const GET_CONNECTIONS = "GET_CONNECTIONS";
 const CREATE_CONNECTION = "CREATE_CONNECTION";
-const UPDATE_CONNECTION = "UPDATE_CONNECTION";
+const ACCEPT_CONNECTION = "ACCEPT_CONNECTION";
 const REMOVE_CONNECTION = "REMOVE_CONNECTION";
 
 // ACTION CREATORS
@@ -17,8 +17,8 @@ const _createConnection = (connection) => ({
   type: CREATE_CONNECTION,
   connection,
 });
-const _updateConnection = (connection) => ({
-  type: UPDATE_CONNECTION,
+const _acceptConnection = (connection) => ({
+  type: ACCEPT_CONNECTION,
   connection,
 });
 const _removeConnection = (connectionId) => ({
@@ -28,11 +28,9 @@ const _removeConnection = (connectionId) => ({
 
 //THUNK CREATORS
 
-export const getConnections = (requester_userId) => {
+export const getConnections = (userId) => {
   return async (dispatch) => {
-    const { data: connections } = await axios.get(
-      `/api/connections/${requester_userId}`
-    );
+    const { data: connections } = await axios.get(`/api/connections/${userId}`);
     dispatch(_getConnections(connections));
   };
 };
@@ -47,17 +45,12 @@ export const createConnection = (requester_userId, requested_userId) => {
   };
 };
 
-export const updateConnection = (
-  requester_userId,
-  requested_userId,
-  status
-) => {
+export const acceptConnection = (connectionId) => {
   return async (dispatch) => {
-    const { data: updatedConnection } = await axios.put(
-      `/api/connections/${connection.requested_UserId}`,
-      { requester_userId, requested_userId, status }
+    const { data: acceptedConnection } = await axios.put(
+      `/api/connections/acceptRequest/${connectionId}`
     );
-    dispatch(_updateConnection(updatedConnection));
+    dispatch(_acceptConnection(acceptedConnection));
   };
 };
 
@@ -73,8 +66,8 @@ export default (state = [], action) => {
     case GET_CONNECTIONS:
       return action.connections;
     case CREATE_CONNECTION:
-      return [...state.connections, action.connection];
-    case UPDATE_CONNECTION:
+      return [...state, action.connection];
+    case ACCEPT_CONNECTION:
       return state.map((connection) =>
         connection.id === action.connection.id ? action.connection : connection
       );

@@ -33,7 +33,14 @@ router.get("/public", async (req, res, next) => {
   try {
     const users = await User.findAll({
       // do not include password (even though it's hashed, for extra protection since it's not needed by the FE)
-      attributes: ["username", "firstName", "lastName", "image", "createdAt"],
+      attributes: [
+        "id",
+        "username",
+        "firstName",
+        "lastName",
+        "image",
+        "createdAt",
+      ],
       order: [["id"]],
     });
     res.json(users);

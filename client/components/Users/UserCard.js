@@ -1,6 +1,7 @@
 import React from "react";
-import { useNavigate, Link } from "react-router-dom";
-import dateFormat, { masks } from "dateformat";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import dateFormat from "dateformat";
 import {
   Grid,
   Card,
@@ -10,13 +11,14 @@ import {
   Button,
   Typography,
   ThemeProvider,
-  responsiveFontSizes,
 } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import theme from "../../theme";
+import { createConnection } from "../../store/connections";
 
 export const UserCard = ({ user }) => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
 
   return (
     <ThemeProvider theme={theme}>
@@ -67,7 +69,11 @@ export const UserCard = ({ user }) => {
 
             <Grid item xs={12} sm={3} lg={2} container>
               <CardActions sx={{ width: 1 }}>
-                <Button size="small" sx={{ width: 1 }}>
+                <Button
+                  size="small"
+                  sx={{ width: 1 }}
+                  onClick={() => dispatch(createConnection(auth.id, user.id))}
+                >
                   <Grid container spacing={0}>
                     <Grid item xs={2} md={4}>
                       <PersonAddIcon />
