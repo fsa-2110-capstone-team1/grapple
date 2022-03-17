@@ -20,9 +20,6 @@ setSearchedData(newSearch)
     }
 
 
-
-
-
     return (
         <div className="search">
             <div className="searchInputs"> 

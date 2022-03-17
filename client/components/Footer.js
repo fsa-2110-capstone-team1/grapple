@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return(
@@ -17,11 +18,6 @@ export const Footer = () => {
   <li>Facebook</li>
   <li>Instagram</li>
   <li>Youtube</li>
-</ul>
-<ul>
-  <h4>Get Started</h4>
-  <li>Log In</li>
-  <li>Sign Up</li>
 </ul>
    </div>
    </>

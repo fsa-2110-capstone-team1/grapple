@@ -2,44 +2,40 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { Grid, Box, Button, Typography } from "@mui/material";
-import ChallengeCard from "./ChallengeCard";
-import SearchChallenges from "./SearchChallenges";
-import PaginationFooter from "./PaginationFooter.js";
+import ChallengeCard from "../ChallengeCard";
+import SearchChallenges from "../SearchChallenges";
+import PaginationFooter from "../PaginationFooter.js";
 import { Link } from 'react-router-dom';
 
-export const BrowseChallenges = () => {
-
+export const Diff4 = () => {
   // const path = useLocation().pathname.split("/").pop();
   const challenges = useSelector((state) => state.challenges);
 
+const filteredChallenges = challenges.filter(challenge => challenge.difficulty === 4)
+console.log(filteredChallenges)
   
 const [currentPage, setCurrentPage] = useState(1);
 const [challengesPerPage] = useState(12);
-const [sortedChallenges, setSortedChallenges] = useState(challenges);
-useEffect(()=>{
-  setSortedChallenges(challenges)
-}, [challenges]
 
-)
+
 //sortedChallenges is suppose to become sorted from the sorted function, currently sortedChallenges isnt populating
 // down on line 32, that function works correctly,
-
+const [sortedChallenges, setSortedChallenges] = useState(challenges);
 
   const indexOfLastChallenge = currentPage * challengesPerPage;
   const indexofFirstChallenge = indexOfLastChallenge - challengesPerPage;
 
 
   //  I want to change challenges.slice to sortedChallenges.slice
-  const currentChallenges = challenges.slice(indexofFirstChallenge, indexOfLastChallenge)
+  const currentChallenges = filteredChallenges.slice(indexofFirstChallenge, indexOfLastChallenge)
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const [order, setOrder] = useState("ASC")
 
   const sorted = (attr) => {
-    let sortedArry;
     if (order === "ASC"){
-       sortedArry = [...challenges].sort((a,b)=>{
+      const sorted = [...challenges].sort((a,b)=>{
       if (a[attr] > b[attr]){
         return 1;
       }
@@ -50,9 +46,13 @@ useEffect(()=>{
     })
 
   }
-  setSortedChallenges(sortedArry);
+  setSortedChallenges(sorted);
 }
-console.log('1', sortedChallenges)
+
+
+if (!filteredChallenges) {
+  return "Sorry the challenges you are looking for are unreachable";
+}
 
 
   return (
@@ -60,11 +60,12 @@ console.log('1', sortedChallenges)
     <Grid container>
       <SearchChallenges data={challenges}/>
       <div>
+      <h2>Difficulty 4</h2>
         <h3>Sort by</h3>
       <div className="sorters">
-      <button onClick={()=>sorted("name")}>Name &nbsp; </button> 
-      <button onClick={()=>sorted("difficulty")}>Difficulty &nbsp;</button>
-      <button onClick={()=>sorted("type")}>Type &nbsp;</button>
+      <p onClick={()=>sorted("name")}>Name &nbsp; </p> 
+      <p onClick={()=>sorted("difficulty")}>Difficulty &nbsp;</p>
+      <p onClick={()=>sorted("type")}>Type &nbsp;</p>
       </div>
       <h3>Filter</h3>
       <div className="sorters">
@@ -82,7 +83,7 @@ console.log('1', sortedChallenges)
       </div>
       <Grid item xs={1} />
       <Grid item xs={10} container>
-        {sortedChallenges.map((challenge) => (
+        {currentChallenges.map((challenge) => (
           <Grid item key={challenge.id} xs={12} sm={6} md={4} lg={3} container>
             <ChallengeCard key={challenge.id} challenge={challenge} />
           </Grid>
@@ -90,8 +91,8 @@ console.log('1', sortedChallenges)
       </Grid>
       <Grid item xs={1} />
     </Grid>
-    <PaginationFooter challengesPerPage={challengesPerPage} totalPosts={challenges.length} paginate={paginate} currentPage={currentPage} />
+    <PaginationFooter challengesPerPage={challengesPerPage} totalPosts={filteredChallenges.length} paginate={paginate} currentPage={currentPage} />
     </div>
   );
 };
-export default BrowseChallenges;
+export default Diff4;

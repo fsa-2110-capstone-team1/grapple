@@ -10,6 +10,51 @@ body {
   /* margin: 0; */
 }
 
+/*  Home start */
+.home-title {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 175px;
+  margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 700px) {
+  .home {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.home-text-div {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.nother-div {
+  background-color: black;
+  color: white;
+  width: 50%;
+}
+
+.home-img-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.home-img {
+  width: 500px;
+  height: auto;
+  margin: 20px;
+}
+
+/* Home end*/
+
 /* Nav css start */
 
 .nav-logo {
@@ -52,18 +97,17 @@ a {
   display: flex;
 }
 
-
-.sorters{
-  display:flex
+.sorters {
+  display: flex;
 }
 
 /*css for search bar  */
-.searchInputs{
+.searchInputs {
   margin-top: 105px;
   display: flex;
 }
 
-.search input{
+.search input {
   background-color: white;
   border: 1px solid black;
   border-radius: 2px;
@@ -75,37 +119,37 @@ a {
   width: 300px;
 }
 
-.searchIcon{
-  height:60px;
+.searchIcon {
+  height: 60px;
   width: 50px;
   background-color: white;
-  display:grid;
+  display: grid;
   place-items: center;
 }
 
 input:focus {
-  outline:none;
+  outline: none;
 }
 
-.searchIcon svg{
-  font-size:35px;
+.searchIcon svg {
+  font-size: 35px;
 }
 
-.dataResult{
+.dataResult {
   margin-top: 5px;
   width: 300px;
   height: 200px;
   background-color: white;
-  box-shadow: rgba(0,0,0,0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   overflow: hidden;
   overflow-y: auto;
 }
 
 .dataResult ::-webkit-scrollbar {
-  display:none;
+  display: none;
 }
 
-.dataResult .dataItem{
+.dataResult .dataItem {
   width: 100px;
   height: 50px;
   /* display: flex; */
@@ -121,9 +165,41 @@ a {
 }
 
 a:hover {
-  background-color:lightgray;
+  background-color: lightgray;
 }
 
 #clearBtn {
   cursor: pointer;
+}
+.pagination {
+  display: flex;
+  list-style-type: none;
+  background-color: white;
+  border-radius: 5px;
+  justify-content: center;
+}
+
+.pagination-item > li {
+  color: #0b1426;
+  padding: 10rem;
+  text-decoration: bold;
+}
+
+.pagination > li.selected {
+  color: black;
+  border-radius: 3px;
+  padding: 0.5rem;
+  font-size: 18px;
+  background-color: #248da2;
+  margin-left: 5px;
+}
+
+.pagination > li.nonselected {
+  background-color: #248da2;
+  color: white;
+  border-radius: 3px;
+  padding: 0.5rem;
+  font-size: 18px;
+  margin-left: 5px;
+  /* border: 1px solid black; */
 }
