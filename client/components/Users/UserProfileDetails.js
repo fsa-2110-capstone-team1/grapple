@@ -63,7 +63,7 @@ const PersonProfileDetails = () => {
           <li>
             {publicUsers.find((user) => user.id === friend.friendId)?.username}:{" "}
             {friend.status}
-            {friend.status !== "accepted" ? (
+            {user?.id === auth?.id && friend.status !== "accepted" ? (
               <button onClick={() => dispatch(acceptConnection(friend.id))}>
                 Accept
               </button>
@@ -87,9 +87,13 @@ const PersonProfileDetails = () => {
             </li>
           ))}
       </ul>
-      <button onClick={() => dispatch(createConnection(auth.id, user.id))}>
-        Add Friend
-      </button>
+      {user?.id !== auth?.id ? (
+        <button onClick={() => dispatch(createConnection(auth.id, user.id))}>
+          Add Friend
+        </button>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
