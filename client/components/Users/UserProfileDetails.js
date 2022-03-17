@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import dateFormat from "dateformat";
-import { acceptConnection, createConnection } from "../../store/connections";
+import {
+  getConnections,
+  acceptConnection,
+  createConnection,
+} from "../../store/connections";
 
 const PersonProfileDetails = () => {
   const { username } = useParams();
@@ -10,36 +14,42 @@ const PersonProfileDetails = () => {
   const { connections, publicUsers, userChallenges, challenges, auth } =
     useSelector((state) => state);
 
-  const [friendIds, setFriendIds] = useState([]);
+  const [friends, setFriends] = useState([]);
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    if (!!connections && !!username && !!publicUsers) {
-      const foundUser = publicUsers.find((u) => u.username === username);
-      setUser(foundUser);
-      connections.map((conn) => {
-        if (conn.requester_userId === foundUser?.id) {
-          setFriendIds([
-            ...friendIds,
-            {
-              friendId: conn.requested_userId,
-              status: conn.status,
-              connId: conn.id,
-            },
-          ]);
-        } else if (conn.requested_userId === foundUser?.id) {
-          setFriendIds([
-            ...friendIds,
-            {
-              friendId: conn.requester_userId,
-              status: conn.status,
-              connId: conn.id,
-            },
-          ]);
-        }
-      });
+    const foundUser = publicUsers.find((u) => u.username === username);
+    setUser(foundUser);
+  }, [publicUsers]);
+
+  useEffect(() => {
+    if (user.id) dispatch(getConnections(user.id));
+  }, [user?.id]);
+
+  useEffect(() => {
+    if (!!connections && !!user) {
+      if (user) {
+        const myConns = connections
+          .map((conn) => {
+            if (conn.requester_userId === user.id) {
+              return {
+                friendId: conn.requested_userId,
+                status: conn.status,
+                id: conn.id,
+              };
+            } else if (conn.requested_userId === user.id) {
+              return {
+                friendId: conn.requester_userId,
+                status: conn.status,
+                id: conn.id,
+              };
+            }
+          })
+          .filter((friend) => friend);
+        setFriends(myConns);
+      }
     }
-  }, [publicUsers, connections]);
+  }, [connections]);
 
   return (
     <div>
@@ -49,17 +59,12 @@ const PersonProfileDetails = () => {
       <h5>Member since {dateFormat(user?.createdAt, "mediumDate")}</h5>
       <h4>Friends</h4>
       <ul>
-        {friendIds.map((friendId) => (
+        {friends.map((friend) => (
           <li>
-            {
-              publicUsers.find((user) => user.id === friendId.friendId)
-                ?.username
-            }
-            : {friendId.status}
-            {friendId.status !== "accepted" ? (
-              <button
-                onClick={() => dispatch(acceptConnection(friendId.connId))}
-              >
+            {publicUsers.find((user) => user.id === friend.friendId)?.username}:{" "}
+            {friend.status}
+            {friend.status !== "accepted" ? (
+              <button onClick={() => dispatch(acceptConnection(friend.id))}>
                 Accept
               </button>
             ) : (

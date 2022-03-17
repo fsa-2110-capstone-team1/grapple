@@ -38,12 +38,6 @@ const App = () => {
     const users = await dispatch(getPublicUsers());
   }, []);
 
-  useEffect(async () => {
-    if (user.id) {
-      const connections = await dispatch(getConnections(user.id));
-    }
-  }, [user.id]);
-
   return (
     <div>
       <BrowserRouter>
