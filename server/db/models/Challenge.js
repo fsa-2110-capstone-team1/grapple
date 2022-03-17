@@ -56,7 +56,7 @@ const Challenge = db.define("challenge", {
   },
   category: {
     type: STRING,
-    unique: true,
+    // unique: true,
   },
   // subCategoryId: {
   //   type: INTEGER,

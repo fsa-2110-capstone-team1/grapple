@@ -16,14 +16,16 @@ export const ChallengeDetails = () => {
 
 
 
-  const thisChallengeId = useParams().id;
-  const challenge = state.challenges[thisChallengeId]
+  const {id} = useParams()
+  const challenge = state.challenges.find(challenge => challenge.id === id*1)
 
+  console.log("challenge", challenge);
   if (!challenge) {
     return "Sorry the challenge you are looking for is unreachable";
   }
  
-  console.log(challenge);
+
+  // console.log(challenge);
 
   return (
     <Card
@@ -43,7 +45,7 @@ export const ChallengeDetails = () => {
     <CardMedia
       component="img"
       height="200"
-      image={challenge.image}
+      image={`/${challenge.image}`}
       alt="challenge cover photo"
     />
     <CardContent>
