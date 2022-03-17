@@ -2375,7 +2375,7 @@ async function challengeSeed() {
         description: challenge.description,
         image: challenge.image,
         type: challenge.type,
-        // category: cmiscallenge.categord,
+        category: challenge.category,
 // // misc      // subCategoryId: challenge.subCategoryId,
         startDateTime: challenge.startDateTime,
         endDateTime: challenge.endDateTime,

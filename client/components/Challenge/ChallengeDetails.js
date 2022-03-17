@@ -27,7 +27,6 @@ export const ChallengeDetails = () => {
     return "Sorry the challenge you are looking for is unreachable";
   }
  
-
   return (
     <Card
     sx={{

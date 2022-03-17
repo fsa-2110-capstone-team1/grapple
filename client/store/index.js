@@ -5,12 +5,14 @@ import auth from "./auth";
 import challenges from "./challenges";
 import connections from "./connections";
 import userChallenges from "./userChallenges";
+import publicUsers from "./users";
 
 const reducer = combineReducers({
   auth,
   challenges,
   connections,
   userChallenges,
+  publicUsers,
 });
 
 let middleware;
@@ -28,3 +30,4 @@ export * from "./auth";
 export * from "./challenges";
 export * from "./userChallenges";
 export * from "./connections";
+export * from "./users";

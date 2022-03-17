@@ -28,14 +28,21 @@ const _removeUserChallenge = (userChallengeId) => ({
 
 //THUNK CREATORS
 
-export const getUserChallenges = (userId) => {
+export const getUserChallenges = () => {
   return async (dispatch) => {
-    const { data: userChallenges } = await axios.get(
-      `/api/userChallenges/${userId}`
-    );
+    const { data: userChallenges } = await axios.get(`/api/userChallenges`);
     dispatch(_getUserChallenges(userChallenges));
   };
 };
+
+// export const getUserChallenges = (userId) => {
+//   return async (dispatch) => {
+//     const { data: userChallenges } = await axios.get(
+//       `/api/userChallenges/${userId}`
+//     );
+//     dispatch(_getUserChallenges(userChallenges));
+//   };
+// };
 
 export const createUserChallenge = (userChallenge) => {
   return async (dispatch) => {

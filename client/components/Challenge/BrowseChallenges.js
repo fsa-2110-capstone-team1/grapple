@@ -8,17 +8,22 @@ import PaginationFooter from "./PaginationFooter.js";
 import { Link } from 'react-router-dom';
 
 export const BrowseChallenges = () => {
+
   // const path = useLocation().pathname.split("/").pop();
   const challenges = useSelector((state) => state.challenges);
 
   
 const [currentPage, setCurrentPage] = useState(1);
 const [challengesPerPage] = useState(12);
+const [sortedChallenges, setSortedChallenges] = useState(challenges);
+useEffect(()=>{
+  setSortedChallenges(challenges)
+}, [challenges]
 
-
+)
 //sortedChallenges is suppose to become sorted from the sorted function, currently sortedChallenges isnt populating
 // down on line 32, that function works correctly,
-const [sortedChallenges, setSortedChallenges] = useState(challenges);
+
 
   const indexOfLastChallenge = currentPage * challengesPerPage;
   const indexofFirstChallenge = indexOfLastChallenge - challengesPerPage;
@@ -32,8 +37,9 @@ const [sortedChallenges, setSortedChallenges] = useState(challenges);
   const [order, setOrder] = useState("ASC")
 
   const sorted = (attr) => {
+    let sortedArry;
     if (order === "ASC"){
-      const sorted = [...challenges].sort((a,b)=>{
+       sortedArry = [...challenges].sort((a,b)=>{
       if (a[attr] > b[attr]){
         return 1;
       }
@@ -44,8 +50,9 @@ const [sortedChallenges, setSortedChallenges] = useState(challenges);
     })
 
   }
-  setSortedChallenges(sorted);
+  setSortedChallenges(sortedArry);
 }
+console.log('1', sortedChallenges)
 
 
   return (
@@ -55,9 +62,9 @@ const [sortedChallenges, setSortedChallenges] = useState(challenges);
       <div>
         <h3>Sort by</h3>
       <div className="sorters">
-      <p onClick={()=>sorted("name")}>Name &nbsp; </p> 
-      <p onClick={()=>sorted("difficulty")}>Difficulty &nbsp;</p>
-      <p onClick={()=>sorted("type")}>Type &nbsp;</p>
+      <button onClick={()=>sorted("name")}>Name &nbsp; </button> 
+      <button onClick={()=>sorted("difficulty")}>Difficulty &nbsp;</button>
+      <button onClick={()=>sorted("type")}>Type &nbsp;</button>
       </div>
       <h3>Filter</h3>
       <div className="sorters">
@@ -75,7 +82,7 @@ const [sortedChallenges, setSortedChallenges] = useState(challenges);
       </div>
       <Grid item xs={1} />
       <Grid item xs={10} container>
-        {currentChallenges.map((challenge) => (
+        {sortedChallenges.map((challenge) => (
           <Grid item key={challenge.id} xs={12} sm={6} md={4} lg={3} container>
             <ChallengeCard key={challenge.id} challenge={challenge} />
           </Grid>

@@ -13,8 +13,14 @@ UserChallenge.belongsTo(User);
 User.hasMany(UserChallenge);
 UserChallenge.belongsTo(Challenge);
 Challenge.hasMany(UserChallenge);
-Connection.belongsTo(User);
-User.hasMany(Connection);
+User.hasOne(Connection, {
+  as: "requester_user",
+  foreignKey: "requester_userId",
+});
+User.hasOne(Connection, {
+  as: "requested_user",
+  foreignKey: "requested_userId",
+});
 
 module.exports = {
   db,
