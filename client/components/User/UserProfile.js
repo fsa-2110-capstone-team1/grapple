@@ -1,11 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  Grid,
+  CartText,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+} from "@mui/material";
 
 export const UserProfile = () => {
+  const auth = useSelector((state) => state.auth);
+  console.log(auth);
+
   return (
-    <h3>
-      This page will have a users profile and all other information about the
-      user. It will also need an edit form so the user can edit their profile.
-    </h3>
+    <div className="profile">
+      <img
+        className="profile-header"
+        src="/homeImgs/grapple-home-runner.jpeg"
+        alt="background-image"
+      />
+
+      <i
+        className="material-icons"
+        id="profile-image"
+        style={{ marginTop: "20px", fontSize: "155px", color: "#dfdfdf" }}
+      >
+        face
+      </i>
+    </div>
   );
 };
 export default UserProfile;
