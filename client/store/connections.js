@@ -56,7 +56,7 @@ export const acceptConnection = (connectionId) => {
 
 export const removeConnection = (connectionId) => {
   return async (dispatch) => {
-    await axios.delete(`/api/challenges/${connectionId}`);
+    await axios.delete(`/api/connections/${connectionId}`);
     dispatch(_removeConnection(connectionId));
   };
 };

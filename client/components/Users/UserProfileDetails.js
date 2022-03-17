@@ -6,6 +6,7 @@ import {
   getConnections,
   acceptConnection,
   createConnection,
+  removeConnection,
 } from "../../store/connections";
 
 const PersonProfileDetails = () => {
@@ -66,6 +67,10 @@ const PersonProfileDetails = () => {
             {user?.id === auth?.id && friend.status !== "accepted" ? (
               <button onClick={() => dispatch(acceptConnection(friend.id))}>
                 Accept
+              </button>
+            ) : user?.id === auth?.id && friend.status === "accepted" ? (
+              <button onClick={() => dispatch(removeConnection(friend.id))}>
+                Remove
               </button>
             ) : (
               ""
