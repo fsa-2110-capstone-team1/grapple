@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -10,20 +10,23 @@ import {
   Button,
   Typography,
 } from "@mui/material";
+import {
+  getAllChallenges,
+} from '../../store';
 
 export const ChallengeDetails = () => {
   const state = useSelector((state) => state);
 
 
 
-  const thisChallengeId = useParams().id;
-  const challenge = state.challenges[thisChallengeId]
+  const {id} = useParams()
+  const challenge = state.challenges.find(challenge => challenge.id === id*1)
 
+  console.log("challenge", challenge);
   if (!challenge) {
     return "Sorry the challenge you are looking for is unreachable";
   }
  
-  console.log(challenge);
 
   return (
     <Card
@@ -43,7 +46,7 @@ export const ChallengeDetails = () => {
     <CardMedia
       component="img"
       height="200"
-      image={challenge.image}
+      image={`/${challenge.image}`}
       alt="challenge cover photo"
     />
     <CardContent>

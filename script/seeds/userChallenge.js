@@ -15,8 +15,8 @@ const getChallengeLength = (d1, d2) => {
   return diffDays;
 };
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 async function userChallengeSeed() {
@@ -36,7 +36,7 @@ async function userChallengeSeed() {
   const challengeLength = {};
   const usersIdWithChallengeId = {};
   //creating object with {userId: "amount of chellenges"} pair
-  users.forEach((user) => (userAmountOfChellenges[user.id] = getRandomInt(10)));
+  users.forEach((user) => (userAmountOfChellenges[user.id] = getRandomInt(1,10)));
   //creating object with {chellengeId: "length of the chellenge"} pair
   challenges.forEach(
     (challenge) =>
@@ -49,13 +49,13 @@ async function userChallengeSeed() {
   for (const userId in userAmountOfChellenges) {
     let amountOfChallenges = userAmountOfChellenges[userId];
     usersIdWithChallengeId[userId] = [];
-    let storage = [0];
+    let storage = [];
     while (amountOfChallenges > 0) {
-      challengeId = getRandomInt(challenges.length);
+      challengeId = getRandomInt(1, challenges.length);
       if (!storage.includes(challengeId)) {
         storage.push(challengeId);
         let obj = {};
-        obj[challengeId] = getRandomInt(challengeLength[challengeId]);
+        obj[challengeId] = getRandomInt(1, challengeLength[challengeId]);
         usersIdWithChallengeId[userId].push(obj);
         amountOfChallenges--;
       }
@@ -82,7 +82,7 @@ async function userChallengeSeed() {
   }
 
   await Promise.all(userChallenges);
-  
+
   console.log(`seeded ${userChallenges.length} users challenges`);
 
   return userChallenges;

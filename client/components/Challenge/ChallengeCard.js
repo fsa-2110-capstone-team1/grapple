@@ -31,7 +31,7 @@ export const ChallengeCard = ({ challenge }) => {
       <CardMedia
         component="img"
         height="200"
-        image={challenge.image}
+        image={`/${challenge.image}`}
         alt="challenge cover photo"
       />
       <CardContent>
