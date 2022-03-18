@@ -74,11 +74,11 @@ export default function BasicTabs() {
         <Link to={`/challenges/filter/diff5`}> 5</Link>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Link to={`/challenges/filter/cat1`}> Mental</Link>
-        <Link to={`/challenges/filter/cat2`}> Physical</Link>
-        <Link to={`/challenges/filter/cat3`}> Sleep</Link>
-        <Link to={`/challenges/filter/cat4`}> Food</Link>
-        <Link to={`/challenges/filter/cat5`}> Misc.</Link>
+        <Link to={`/challenges/filter/mental`}> Mental</Link>
+        <Link to={`/challenges/filter/physical`}> Physical</Link>
+        <Link to={`/challenges/filter/sleep`}> Sleep</Link>
+        <Link to={`/challenges/filter/food`}> Food</Link>
+        <Link to={`/challenges/filter/misc`}> Misc.</Link>
       </TabPanel>
     </Box>
   );

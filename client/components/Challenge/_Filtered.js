@@ -64,14 +64,18 @@ export const _Filtered = () => {
     );
   }
 
-  console.log(filteredChallenges);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [challengesPerPage] = useState(12);
+  const [sortedChallenges, setSortedChallenges] = useState(filteredChallenges);
+
+  useEffect(() => {
+    setSortedChallenges(challenges);
+  }, [challenges]);
 
   //sortedChallenges is suppose to become sorted from the sorted function, currently sortedChallenges isnt populating
   // down on line 32, that function works correctly,
-  const [sortedChallenges, setSortedChallenges] = useState(challenges);
+
 
   const indexOfLastChallenge = currentPage * challengesPerPage;
   const indexofFirstChallenge = indexOfLastChallenge - challengesPerPage;
@@ -85,10 +89,11 @@ export const _Filtered = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const [order, setOrder] = useState("ASC");
-
-  const sorted = (attr) => {
-    if (order === "ASC") {
-      const sorted = [...challenges].sort((a, b) => {
+  const sortedUp = (attr) => {
+    let sortedArry;
+    // if (order === "ASC")
+    {
+      sortedArry = [...challenges].sort((a, b) => {
         if (a[attr] > b[attr]) {
           return 1;
         }
@@ -98,8 +103,26 @@ export const _Filtered = () => {
         return 0;
       });
     }
-    setSortedChallenges(sorted);
+    setSortedChallenges(sortedArry);
   };
+
+  const sortedDown = (attr) => {
+    let sortedArry;
+    {
+      sortedArry = [...challenges].sort((a, b) => {
+        if (a[attr] < b[attr]) {
+          return 1;
+        }
+        if (a[attr] > b[attr]) {
+          return -1;
+        }
+        return 0;
+      });
+    }
+    setSortedChallenges(sortedArry);
+  };
+
+
 
   if (!filteredChallenges) {
     return "Sorry the challenges you are looking for are unreachable";
@@ -142,7 +165,7 @@ export const _Filtered = () => {
 
         <Grid item xs={1} />
         <Grid item xs={10} container>
-          {currentChallenges.map((challenge) => (
+          {sortedChallenges.map((challenge) => (
             <Grid
               item
               key={challenge.id}
