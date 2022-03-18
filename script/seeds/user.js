@@ -17,6 +17,7 @@ async function userSeed() {
       firstName: "Ben",
       lastName: "Greenspan",
       isAdmin: true,
+      image: "https://cdn-icons-png.flaticon.com/512/4333/4333609.png",
     }),
     User.create({
       username: "kate123",
@@ -25,6 +26,8 @@ async function userSeed() {
       firstName: "Kate",
       lastName: "Svetlakova",
       isAdmin: true,
+      image:
+        "https://cdn-icons.flaticon.com/png/512/924/premium/924915.png?token=exp=1647634538~hmac=2b097f5fdd85ff2873aec831485e3987",
     }),
     User.create({
       username: "louis123",
@@ -33,6 +36,7 @@ async function userSeed() {
       firstName: "Louis",
       lastName: "Rabeno",
       isAdmin: true,
+      image: "https://cdn-icons-png.flaticon.com/512/4128/4128176.png",
     }),
     User.create({
       username: "marina123",
@@ -41,6 +45,8 @@ async function userSeed() {
       firstName: "Marina",
       lastName: "Chevis",
       isAdmin: true,
+      image:
+        "https://cdn-icons.flaticon.com/png/512/4140/premium/4140047.png?token=exp=1647634484~hmac=3b435ab031b37c4afff01d191a7816e6",
     }),
   ]);
 

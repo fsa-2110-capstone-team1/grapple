@@ -202,7 +202,7 @@ const Navbar = () => {
                       display: "block",
                     }}
                   >
-                    Hi, {user.username}
+                    {user.username ? `Hi, ${user.username}` : ""}
                   </Typography>
                   <Avatar src={user.image} />
                 </Box>
