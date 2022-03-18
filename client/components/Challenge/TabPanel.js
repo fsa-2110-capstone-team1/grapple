@@ -62,16 +62,15 @@ export default function BasicTabs() {
       <TabPanel value={value} index={0}>
         <Link to={`/challenges/filter/num`}> Numbers</Link>
         <Link to={`/challenges/filter/unit`}> Units</Link>
+        <Link to={`/challenges/filter/all`}> All</Link>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Link to={`/challenges/filter/diff1`}> 1</Link>
-        <Link to={`/challenges/filter/diff2`}>
-          {" "}
-          2
-        </Link>
+        <Link to={`/challenges/filter/diff2`}> 2 </Link>
         <Link to={`/challenges/filter/diff3`}> 3</Link>
         <Link to={`/challenges/filter/diff4`}> 4</Link>
         <Link to={`/challenges/filter/diff5`}> 5</Link>
+        <Link to={`/challenges/filter/all`}> All</Link>
       </TabPanel>
       <TabPanel value={value} index={2}>
         <Link to={`/challenges/filter/mental`}> Mental</Link>
@@ -79,6 +78,7 @@ export default function BasicTabs() {
         <Link to={`/challenges/filter/sleep`}> Sleep</Link>
         <Link to={`/challenges/filter/food`}> Food</Link>
         <Link to={`/challenges/filter/misc`}> Misc.</Link>
+        <Link to={`/challenges/filter/all`}> All</Link>
       </TabPanel>
     </Box>
   );

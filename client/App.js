@@ -67,21 +67,6 @@ const App = () => {
 
           <Route path="/challenges/filter/:id" element={<_Filtered />} />
 
-          {/* <Route path="/challenges/num" element={<Num />} />
-          <Route path="/challenges/unit" element={<Unit />} />
-          <Route path="/challenges/diff1" element={<Diff1 />} />
-          <Route path="/challenges/diff2" element={<Diff2 />} />
-          <Route path="/challenges/diff3" element={<Diff3 />} />
-          <Route path="/challenges/diff4" element={<Diff4 />} />
-          <Route path="/challenges/diff5" element={<Diff5 />} />
-
-          <Route path="/challenges/cat1" element={<Cat1 />} />
-          <Route path="/challenges/cat2" element={<Cat2 />} />
-          <Route path="/challenges/cat3" element={<Cat3 />} />
-          <Route path="/challenges/cat4" element={<Cat4 />} />
-          <Route path="/challenges/cat5" element={<Cat5 />} />
-           */}
-
           <Route path="/user/settings" element={<UserSettings />} />
           <Route path="/admin/challenges" element={<AdminChallenges />} />
           <Route path="/admin/users" element={<AdminUsers />} />
