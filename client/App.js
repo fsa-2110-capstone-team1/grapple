@@ -37,7 +37,14 @@ const App = () => {
     const challenges = await dispatch(getAllChallenges());
     const userChallenges = await dispatch(getUserChallenges());
     const users = await dispatch(getPublicUsers());
+    const userConnections = await dispatch(getConnections(user.id));
   }, []);
+
+  useEffect(async () => {
+    if (user.id) {
+      const userConnections = await dispatch(getConnections(user.id));
+    }
+  }, [user?.id]);
 
   return (
     <div>
@@ -51,7 +58,11 @@ const App = () => {
           <Route path="/login" element={<AuthForm path={"/"} />} />
           <Route path="/signup" element={<AuthForm path={"/"} />} />
           <Route path="/users" element={<BrowseUsers />} />
-          <Route path="/users/:username" element={<UserProfileDetails />} />
+          <Route path="/users/:userGroup" element={<BrowseUsers />} />
+          <Route
+            path="/users/profile/:username"
+            element={<UserProfileDetails />}
+          />
           <Route
             path="/challenges/create"
             element={<CreateChallenge method={"create"} />}

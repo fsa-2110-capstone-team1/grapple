@@ -26,14 +26,14 @@ const UserProfileDetails = () => {
     setUser(foundUser);
   }, [publicUsers]);
 
-  useEffect(async () => {
-    if (user.id) {
-      const { data: connections } = await axios.get(
-        `/api/connections/${user.id}`
-      );
-      setConnections(connections);
-    }
-  }, [user?.id]);
+  // useEffect(async () => {
+  //   if (user.id) {
+  //     const { data: connections } = await axios.get(
+  //       `/api/connections/${user.id}`
+  //     );
+  //     setConnections(connections);
+  //   }
+  // }, [user?.id]);
 
   useEffect(() => {
     if (!!connections && !!user) {

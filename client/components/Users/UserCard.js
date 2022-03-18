@@ -32,7 +32,7 @@ export const UserCard = ({ user }) => {
   const [friends, setFriends] = useState([]);
 
   useEffect(async () => {
-    if (user.id) {
+    if (!!user.id) {
       const { data: connections } = await axios.get(
         `/api/connections/${user.id}`
       );
@@ -126,7 +126,7 @@ export const UserCard = ({ user }) => {
 
           <Grid item xs={6} sm={7} lg={8}>
             <CardContent>
-              <Link to={`/users/${user.username}`}>
+              <Link to={`/users/profile/${user.username}`}>
                 <Typography gutterBottom variant="h5" component="div">
                   {user.username}
                 </Typography>
