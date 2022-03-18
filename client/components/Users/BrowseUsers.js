@@ -42,7 +42,7 @@ export const BrowseUsers = () => {
         setUsers(publicUsers);
       }
     }
-  }, [connections, publicUsers, auth]);
+  }, [connections, publicUsers, auth?.id]);
 
   //scroll to top at page load
   useEffect(() => {

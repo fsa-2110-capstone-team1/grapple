@@ -114,7 +114,7 @@ export const UserCard = ({ user }) => {
             lg={2}
             sx={{ display: "flex", justifyContent: "center" }}
           >
-            <Link to={`/users/${user.username}`}>
+            <Link to={`/users/profile/${user.username}`}>
               <CardMedia
                 component="img"
                 image={user.image}
