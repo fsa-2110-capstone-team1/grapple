@@ -13,7 +13,7 @@ import Homepage from "./components/Homepage";
 import AuthForm from "./components/Auth/AuthForm";
 import Navbar from "./components/Navbar";
 import BrowseUsers from "./components/Users/BrowseUsers";
-import UserProfileDetails from "./components/Users/UserProfile2";
+import UserProfileDetails from "./components/Users/UserProfileDetails";
 import CreateChallenge from "./components/Challenge/CreateChallenge";
 import BrowseChallenges from "./components/Challenge/BrowseChallenges";
 import ChallengeDetails from "./components/Challenge/ChallengeDetails";

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import dateFormat from "dateformat";
 import {
   acceptConnection,
@@ -8,8 +8,13 @@ import {
   removeConnection,
 } from "../../store/connections";
 import axios from "axios";
+import { Grid, Box, Typography, Divider, Button } from "@mui/material";
+import SettingsIcon from "@mui/icons-material/Settings";
+import CheckIcon from "@mui/icons-material/Check";
+import ChallengeCard from "../Challenge/ChallengeCard";
 
 const UserProfileDetails = () => {
+  const navigate = useNavigate();
   const { username } = useParams();
   const dispatch = useDispatch();
   const { publicUsers, userChallenges, challenges, auth } = useSelector(
@@ -20,11 +25,13 @@ const UserProfileDetails = () => {
 
   const [friends, setFriends] = useState([]);
   const [user, setUser] = useState({});
+  const [isSelf, setIsSelf] = useState(false);
+  const [myChallenges, setMyChallenges] = useState([]);
 
   useEffect(() => {
     const foundUser = publicUsers.find((u) => u.username === username);
     setUser(foundUser);
-  }, [publicUsers]);
+  }, [username, publicUsers]);
 
   useEffect(async () => {
     if (user.id) {
@@ -61,6 +68,19 @@ const UserProfileDetails = () => {
     }
   }, [connections]);
 
+  useEffect(() => {
+    if (!!user?.id && !!auth?.id && user?.id === auth?.id) setIsSelf(true);
+  }, [user, auth]);
+
+  useEffect(() => {
+    const myChal = userChallenges
+      ?.filter((uc) => uc.userId === user?.id && uc.status === "inProgress")
+      .map((uc) =>
+        challenges.find((challenge) => challenge.id === uc.challengeId)
+      );
+    setMyChallenges(myChal);
+  }, [userChallenges, challenges, user?.id]);
+
   function handleAddFriend() {
     dispatch(createConnection(auth.id, user.id));
     setConnections([
@@ -89,90 +109,162 @@ const UserProfileDetails = () => {
   }
 
   return (
-    <div>
-      <h4>
-        {user?.firstName} {user?.lastName}{" "}
-        {user?.id === auth?.id ? "(ME!)" : ""}
-      </h4>
-      <h5>Member since {dateFormat(user?.createdAt, "mediumDate")}</h5>
+    <Box sx={{ minHeight: "100vh" }}>
+      <Grid container spacing={1}>
+        <Grid item xs={1} />
+        {/* MAIN MIDDLE SECTION */}
+        <Grid item xs={10} container direction="column" spacing={4}>
+          {/* TOP SECTION */}
 
-      {user?.id === auth?.id ? (
-        <div>
-          <h4>Friend Requests</h4>
-          {connections
-            .filter(
-              (conn) =>
-                //pending friend requests
-                conn.status === "pending" && auth.id === conn.requested_userId
-            )
-            .map((conn) => (
-              <li key={conn.id}>
-                {
-                  publicUsers.find((user) => user.id === conn.requester_userId)
-                    ?.username
-                }
-                <button onClick={() => handleAcceptRequest(conn.id)}>
-                  Accept
-                </button>
-                <button onClick={() => handleRemoveConnection(conn.id)}>
-                  Decline
-                </button>
-              </li>
-            ))}
-        </div>
-      ) : (
-        ""
-      )}
+          <Grid
+            item
+            container
+            spacing={3}
+            sx={{ display: "flex", alignItems: "center" }}
+          >
+            <Grid item xs={3}>
+              <Box
+                component="img"
+                src={user?.image}
+                sx={{ width: "80%", borderRadius: 50 }}
+              />
+            </Grid>
+            <Grid item xs={7} container direction="column" spacing={1}>
+              {/* username, for auth: edit profile and settings, for non auth: add/accept/decline friend */}
+              <Grid item container spacing={3}>
+                <Grid item>
+                  <Typography variant="h5">{user?.username}</Typography>
+                </Grid>
+                {isSelf ? (
+                  <>
+                    <Grid item>
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={() => navigate("/user/profile")}
+                      >
+                        Edit Profile
+                      </Button>
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        size="small"
+                        onClick={() => navigate("/user/settings")}
+                      >
+                        <SettingsIcon />
+                      </Button>
+                    </Grid>
+                  </>
+                ) : (
+                  <Grid item>
+                    {isSelf ? (
+                      ""
+                    ) : friends.find(
+                        (friend) => friend.friendId === auth?.id
+                      ) ? (
+                      <Button size="small" variant="outlined" disabled>
+                        <CheckIcon fontSize="small" /> Friends
+                      </Button>
+                    ) : connections.find(
+                        (conn) => conn.requester_userId === auth?.id
+                      ) ? (
+                      <Button size="small" variant="outlined" disabled>
+                        Request Pending
+                      </Button>
+                    ) : connections.find(
+                        (conn) => conn.requested_userId === auth?.id
+                      ) ? (
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={() =>
+                          handleAcceptRequest(
+                            connections.find(
+                              (conn) => conn.requested_userId === auth?.id
+                            ).id
+                          )
+                        }
+                      >
+                        Accept Request
+                      </Button>
+                    ) : (
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={() => handleAddFriend()}
+                      >
+                        Add Friend
+                      </Button>
+                    )}
+                  </Grid>
+                )}
+              </Grid>
 
-      <h4>Friends</h4>
-      <ul>
-        {friends.map((friend) => (
-          <li key={friend.id}>
-            {publicUsers.find((user) => user.id === friend.friendId)?.username}
-            {user?.id === auth?.id ? (
-              <button onClick={() => handleRemoveConnection(friend.id)}>
-                Remove
-              </button>
-            ) : (
-              ""
-            )}
-          </li>
-        ))}
-      </ul>
+              {/* First and Last names */}
+              <Grid item>
+                <Typography variant="h6">
+                  {user?.firstName} {user?.lastName}
+                </Typography>
+              </Grid>
 
-      <h4>Challenges</h4>
-      <ul>
-        {userChallenges
-          ?.filter((uc) => uc.userId === user?.id)
-          .map((uc) => (
-            <li key={uc.id}>
-              {
-                challenges.find((challenge) => challenge.id === uc.challengeId)
-                  ?.name
-              }
-            </li>
-          ))}
-      </ul>
-      {user?.id === auth?.id ? (
-        ""
-      ) : friends.find((friend) => friend.friendId === auth?.id) ? (
-        <button disabled>Already Friends</button>
-      ) : connections.find((conn) => conn.requester_userId === auth?.id) ? (
-        <button disabled>Request Pending</button>
-      ) : connections.find((conn) => conn.requested_userId === auth?.id) ? (
-        <button
-          onClick={() =>
-            handleAcceptRequest(
-              connections.find((conn) => conn.requested_userId === auth?.id).id
-            )
-          }
-        >
-          Accept Request
-        </button>
-      ) : (
-        <button onClick={() => handleAddFriend()}>Add Friend</button>
-      )}
-    </div>
+              {/* Friends and friend requests */}
+              <Grid
+                item
+                container
+                spacing={3}
+                sx={{ display: "flex", alignItems: "flex-start" }}
+              >
+                <Grid item>
+                  <Typography>
+                    <b>{friends.length}</b> Friend(s)
+                  </Typography>
+                </Grid>
+                {isSelf && !!connections.length && (
+                  <Grid item>
+                    <Link to="/user/friendRequests">
+                      <Typography sx={{ color: "black" }}>
+                        <b>{connections.length}</b> Friend Request(s)
+                      </Typography>
+                    </Link>
+                  </Grid>
+                )}
+              </Grid>
+            </Grid>
+          </Grid>
+
+          {/* BADGES */}
+          <Divider sx={{ mt: 4 }} />
+          <Grid item>
+            {" "}
+            <Typography variant="h5">Badges</Typography>
+          </Grid>
+
+          {/* CHALLENGES */}
+          <Divider sx={{ mt: 4 }} />
+          <Grid item>
+            <Typography variant="h5">Challenges</Typography>
+            <Grid container>
+              <Grid item xs={12} container>
+                {myChallenges.map((challenge) => (
+                  <Grid
+                    item
+                    key={challenge.id}
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    lg={3}
+                    container
+                  >
+                    <ChallengeCard key={challenge.id} challenge={challenge} />
+                  </Grid>
+                ))}
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+        <Grid item xs={1} />
+      </Grid>
+    </Box>
   );
 };
 export default UserProfileDetails;
