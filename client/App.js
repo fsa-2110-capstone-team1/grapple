@@ -26,6 +26,7 @@ import AdminUsers from "./components/Admin/AdminUsers";
 import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
 import _Filtered from "./components/Challenge/_Filtered";
+import FriendRequests from "./components/User/FriendRequests";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -37,7 +38,12 @@ const App = () => {
     const challenges = await dispatch(getAllChallenges());
     const userChallenges = await dispatch(getUserChallenges());
     const users = await dispatch(getPublicUsers());
+    const userConnections = await dispatch(getConnections(user.id));
   }, []);
+
+  useEffect(async () => {
+    const userConnections = await dispatch(getConnections(user.id));
+  }, [user?.id]);
 
   return (
     <div>
@@ -51,7 +57,11 @@ const App = () => {
           <Route path="/login" element={<AuthForm path={"/"} />} />
           <Route path="/signup" element={<AuthForm path={"/"} />} />
           <Route path="/users" element={<BrowseUsers />} />
-          <Route path="/users/:username" element={<UserProfileDetails />} />
+          <Route path="/users/:userGroup" element={<BrowseUsers />} />
+          <Route
+            path="/users/profile/:username"
+            element={<UserProfileDetails />}
+          />
           <Route
             path="/challenges/create"
             element={<CreateChallenge method={"create"} />}
@@ -60,6 +70,7 @@ const App = () => {
           <Route path="/challenges/:id" element={<ChallengeDetails />} />
           <Route path="/challenges/:id/edit" element={<EditChallenge />} />
           <Route path="/user/profile" element={<UserProfile />} />
+          <Route path="/user/friendRequests" element={<FriendRequests />} />
           <Route path="/user/dashboard" element={<UserDashboard />} />
           {/* NOTE: Should /userdashboard be /home??
           When a user logs in they get directed straight to their dashboard? */}

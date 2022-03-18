@@ -233,7 +233,7 @@ const Navbar = () => {
                       </MenuItem>
                     </Link>
                     <Link
-                      to={`/users/${user.username}`}
+                      to={`/users/profile/${user.username}`}
                       onClick={handleCloseUserMenu}
                     >
                       <MenuItem>
