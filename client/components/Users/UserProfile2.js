@@ -74,7 +74,7 @@ const UserProfileDetails = () => {
 
   useEffect(() => {
     const myChal = userChallenges
-      ?.filter((uc) => uc.userId === user?.id)
+      ?.filter((uc) => uc.userId === user?.id && uc.status === "inProgress")
       .map((uc) =>
         challenges.find((challenge) => challenge.id === uc.challengeId)
       );
