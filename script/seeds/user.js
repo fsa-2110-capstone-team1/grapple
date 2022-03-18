@@ -11,7 +11,7 @@ async function userSeed() {
   // Creating Users
   const users = await Promise.all([
     User.create({
-      username: "Ben123",
+      username: "ben123",
       email: "ben@hello.com",
       password: "123",
       firstName: "Ben",
@@ -19,15 +19,15 @@ async function userSeed() {
       isAdmin: true,
     }),
     User.create({
-      username: "Kate123",
-      email: "Kate@hello.com",
+      username: "kate123",
+      email: "kate@hello.com",
       password: "123",
       firstName: "Kate",
       lastName: "Svetlakova",
       isAdmin: true,
     }),
     User.create({
-      username: "Louis123",
+      username: "louis123",
       email: "louis@hello.com",
       password: "123",
       firstName: "Louis",
@@ -35,8 +35,8 @@ async function userSeed() {
       isAdmin: true,
     }),
     User.create({
-      username: "Marina123",
-      email: "Marina@hello.com",
+      username: "marina123",
+      email: "marina@hello.com",
       password: "123",
       firstName: "Marina",
       lastName: "Chevis",

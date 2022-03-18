@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import {
   me,
@@ -25,8 +25,7 @@ import AdminChallenges from "./components/Admin/AdminChallenges";
 import AdminUsers from "./components/Admin/AdminUsers";
 import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
-import _Filtered from './components/Challenge/_Filtered'
-
+import _Filtered from "./components/Challenge/_Filtered";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -51,8 +50,8 @@ const App = () => {
           <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<AuthForm path={"/"} />} />
           <Route path="/signup" element={<AuthForm path={"/"} />} />
-          <Route path="/people" element={<BrowseUsers />} />
-          <Route path="/people/:username" element={<UserProfileDetails />} />
+          <Route path="/users" element={<BrowseUsers />} />
+          <Route path="/users/:username" element={<UserProfileDetails />} />
           <Route
             path="/challenges/create"
             element={<CreateChallenge method={"create"} />}
