@@ -11,36 +11,42 @@ async function userSeed() {
   // Creating Users
   const users = await Promise.all([
     User.create({
-      username: "Ben123",
+      username: "ben123",
       email: "ben@hello.com",
       password: "123",
       firstName: "Ben",
       lastName: "Greenspan",
       isAdmin: true,
+      image: "https://cdn-icons-png.flaticon.com/512/4333/4333609.png",
     }),
     User.create({
-      username: "Kate123",
-      email: "Kate@hello.com",
+      username: "kate123",
+      email: "kate@hello.com",
       password: "123",
       firstName: "Kate",
       lastName: "Svetlakova",
       isAdmin: true,
+      image:
+        "https://cdn-icons.flaticon.com/png/512/924/premium/924915.png?token=exp=1647634538~hmac=2b097f5fdd85ff2873aec831485e3987",
     }),
     User.create({
-      username: "Louis123",
+      username: "louis123",
       email: "louis@hello.com",
       password: "123",
       firstName: "Louis",
       lastName: "Rabeno",
       isAdmin: true,
+      image: "https://cdn-icons-png.flaticon.com/512/4128/4128176.png",
     }),
     User.create({
-      username: "Marina123",
-      email: "Marina@hello.com",
+      username: "marina123",
+      email: "marina@hello.com",
       password: "123",
       firstName: "Marina",
       lastName: "Chevis",
       isAdmin: true,
+      image:
+        "https://cdn-icons.flaticon.com/png/512/4140/premium/4140047.png?token=exp=1647634484~hmac=3b435ab031b37c4afff01d191a7816e6",
     }),
   ]);
 
