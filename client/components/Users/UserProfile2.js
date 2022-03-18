@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import dateFormat from "dateformat";
 import {
   acceptConnection,
@@ -11,6 +11,7 @@ import axios from "axios";
 import { Grid, Box, Typography, Divider, Button } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CheckIcon from "@mui/icons-material/Check";
+import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
 
 const UserProfileDetails = () => {
   const { username } = useParams();
@@ -191,10 +192,25 @@ const UserProfileDetails = () => {
               </Grid>
 
               {/* Friends and friend requests */}
-              <Grid item container spacing={3}>
-                <Grid item>{friends.length} Friends</Grid>
-                {isSelf && (
-                  <Grid item>{connections.length} Friend Requests</Grid>
+              <Grid
+                item
+                container
+                spacing={3}
+                sx={{ display: "flex", alignItems: "flex-start" }}
+              >
+                <Grid item>
+                  <Typography>
+                    <b>{friends.length}</b> Friend(s)
+                  </Typography>
+                </Grid>
+                {isSelf && !!connections.length && (
+                  <Grid item>
+                    <Link to="/user/friendRequests">
+                      <Typography sx={{ color: "black" }}>
+                        <b>{connections.length}</b> Friend Request(s)
+                      </Typography>
+                    </Link>
+                  </Grid>
                 )}
               </Grid>
             </Grid>
