@@ -32,7 +32,7 @@ export const UserCard = ({ user }) => {
   const [friends, setFriends] = useState([]);
 
   useEffect(async () => {
-    if (user.id) {
+    if (!!user.id) {
       const { data: connections } = await axios.get(
         `/api/connections/${user.id}`
       );

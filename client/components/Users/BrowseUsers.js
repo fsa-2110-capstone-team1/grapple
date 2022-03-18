@@ -49,8 +49,6 @@ export const BrowseUsers = () => {
     window.scrollTo(0, 0);
   }, [location]);
 
-  console.log(users);
-
   return (
     <Grid container>
       {/* <SearchUsers data={publicUsers} /> */}

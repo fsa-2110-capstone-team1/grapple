@@ -26,7 +26,6 @@ import AdminUsers from "./components/Admin/AdminUsers";
 import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
 import _Filtered from "./components/Challenge/_Filtered";
-import FriendRequests from "./components/User/FriendRequests";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -42,7 +41,9 @@ const App = () => {
   }, []);
 
   useEffect(async () => {
-    const userConnections = await dispatch(getConnections(user.id));
+    if (user.id) {
+      const userConnections = await dispatch(getConnections(user.id));
+    }
   }, [user?.id]);
 
   return (
@@ -70,7 +71,6 @@ const App = () => {
           <Route path="/challenges/:id" element={<ChallengeDetails />} />
           <Route path="/challenges/:id/edit" element={<EditChallenge />} />
           <Route path="/user/profile" element={<UserProfile />} />
-          <Route path="/user/friendRequests" element={<FriendRequests />} />
           <Route path="/user/dashboard" element={<UserDashboard />} />
           {/* NOTE: Should /userdashboard be /home??
           When a user logs in they get directed straight to their dashboard? */}
