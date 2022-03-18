@@ -228,7 +228,9 @@ const UserProfileDetails = () => {
                         <b>
                           {
                             connections.filter(
-                              (conn) => conn.status === "pending"
+                              (conn) =>
+                                conn.requested_userId === auth?.id &&
+                                conn.status === "pending"
                             ).length
                           }
                         </b>{" "}
