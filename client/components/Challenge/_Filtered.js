@@ -11,67 +11,75 @@ import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 
 export const _Filtered = () => {
   // const path = useLocation().pathname.split("/").pop();
-  const challenges = useSelector((state) => state.challenges);
+  let challenges = useSelector((state) => state.challenges);
   const prop = useParams().id;
-  let filteredChallenges;
+   
   if (prop === "unit") {
-    filteredChallenges = challenges.filter(
+    challenges = challenges.filter(
       (challenge) => challenge.type === "unit"
     );
   } else if (prop === "num") {
-    filteredChallenges = challenges.filter(
+    challenges = challenges.filter(
       (challenge) => challenge.type === "num"
     );
   } else if (prop === "diff1") {
-    filteredChallenges = challenges.filter(
+    challenges = challenges.filter(
       (challenge) => challenge.difficulty === 1
     );
   } else if (prop === "diff2") {
-    filteredChallenges = challenges.filter(
+    challenges = challenges.filter(
       (challenge) => challenge.difficulty === 2
     );
   } else if (prop === "diff3") {
-    filteredChallenges = challenges.filter(
+    challenges = challenges.filter(
       (challenge) => challenge.difficulty === 3
     );
   } else if (prop === "diff4") {
-    filteredChallenges = challenges.filter(
+    challenges = challenges.filter(
       (challenge) => challenge.difficulty === 4
     );
   } else if (prop === "diff5") {
-    filteredChallenges = challenges.filter(
+    challenges = challenges.filter(
       (challenge) => challenge.difficulty === 5
     );
   } else if (prop === "mental") {
-    filteredChallenges = challenges.filter(
+    challenges = challenges.filter(
       (challenge) => challenge.category === "mental"
     );
   } else if (prop === "physical") {
-    filteredChallenges = challenges.filter(
+    challenges = challenges.filter(
       (challenge) => challenge.category === "physical"
     );
   } else if (prop === "sleep") {
-    filteredChallenges = challenges.filter(
+    challenges = challenges.filter(
       (challenge) => challenge.category === "sleep"
     );
   } else if (prop === "food") {
-    filteredChallenges = challenges.filter(
+    challenges = challenges.filter(
       (challenge) => challenge.category === "food"
     );
   } else if (prop === "misc") {
-    filteredChallenges = challenges.filter(
+    challenges = challenges.filter(
       (challenge) => challenge.category === "misc"
     );
   }
+  else {
+    challenges = challenges;
+ }
+
+ if (!challenges) {
+  return "Sorry the challenges you are looking for are unreachable";
+}
+console.log(challenges)
 
 
   const [currentPage, setCurrentPage] = useState(1);
   const [challengesPerPage] = useState(12);
-  const [sortedChallenges, setSortedChallenges] = useState(filteredChallenges);
+  const [sortedChallenges, setSortedChallenges] = useState(challenges);
 
   useEffect(() => {
-    setSortedChallenges(filteredChallenges);
-  }, [challenges]);
+    setSortedChallenges(challenges);
+  }, []);
 
   //sortedChallenges is suppose to become sorted from the sorted function, currently sortedChallenges isnt populating
   // down on line 32, that function works correctly,
@@ -81,7 +89,7 @@ export const _Filtered = () => {
   const indexofFirstChallenge = indexOfLastChallenge - challengesPerPage;
 
   //  I want to change challenges.slice to sortedChallenges.slice
-  const currentChallenges = filteredChallenges.slice(
+  const currentChallenges = sortedChallenges.slice(
     indexofFirstChallenge,
     indexOfLastChallenge
   );
@@ -125,8 +133,8 @@ export const _Filtered = () => {
 
 
 
-  if (!filteredChallenges) {
-    return "Sorry the challenges you are looking for are unreachable";
+  if (!challenges) {
+    setSortedChallenges(challenges);
   }
 
   return (
@@ -184,7 +192,7 @@ export const _Filtered = () => {
       </Grid>
       <PaginationFooter
         challengesPerPage={challengesPerPage}
-        totalPosts={filteredChallenges.length}
+        totalPosts={challenges.length}
         paginate={paginate}
         currentPage={currentPage}
       />
