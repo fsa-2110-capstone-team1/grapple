@@ -12,6 +12,7 @@ import { Grid, Box, Typography, Divider, Button } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CheckIcon from "@mui/icons-material/Check";
 import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
+import ChallengeCard from "../Challenge/ChallengeCard";
 
 const UserProfileDetails = () => {
   const { username } = useParams();
@@ -25,6 +26,7 @@ const UserProfileDetails = () => {
   const [friends, setFriends] = useState([]);
   const [user, setUser] = useState({});
   const [isSelf, setIsSelf] = useState(false);
+  const [myChallenges, setMyChallenges] = useState([]);
 
   useEffect(() => {
     const foundUser = publicUsers.find((u) => u.username === username);
@@ -70,7 +72,14 @@ const UserProfileDetails = () => {
     if (!!user?.id && !!auth?.id && user?.id === auth?.id) setIsSelf(true);
   }, [user, auth]);
 
-  console.log(user);
+  useEffect(() => {
+    const myChal = userChallenges
+      ?.filter((uc) => uc.userId === user?.id)
+      .map((uc) =>
+        challenges.find((challenge) => challenge.id === uc.challengeId)
+      );
+    setMyChallenges(myChal);
+  }, [userChallenges, challenges, user?.id]);
 
   function handleAddFriend() {
     dispatch(createConnection(auth.id, user.id));
@@ -227,6 +236,23 @@ const UserProfileDetails = () => {
           <Divider sx={{ mt: 4 }} />
           <Grid item>
             <Typography variant="h5">Challenges</Typography>
+            <Grid container>
+              <Grid item xs={12} container>
+                {myChallenges.map((challenge) => (
+                  <Grid
+                    item
+                    key={challenge.id}
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    lg={3}
+                    container
+                  >
+                    <ChallengeCard key={challenge.id} challenge={challenge} />
+                  </Grid>
+                ))}
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
         <Grid item xs={1} />
