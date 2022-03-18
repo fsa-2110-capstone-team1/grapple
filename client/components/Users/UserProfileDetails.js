@@ -225,7 +225,14 @@ const UserProfileDetails = () => {
                   <Grid item>
                     <Link to="/users/friendRequests">
                       <Typography sx={{ color: "black" }}>
-                        <b>{connections.length}</b> Friend Request(s)
+                        <b>
+                          {
+                            connections.filter(
+                              (conn) => conn.status === "pending"
+                            ).length
+                          }
+                        </b>{" "}
+                        Friend Request(s)
                       </Typography>
                     </Link>
                   </Grid>
