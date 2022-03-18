@@ -25,19 +25,8 @@ import AdminChallenges from "./components/Admin/AdminChallenges";
 import AdminUsers from "./components/Admin/AdminUsers";
 import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
+import _Filtered from './components/Challenge/_Filtered'
 
-import Cat1 from './components/Challenge/Filter/Cat1'
-import Cat2 from './components/Challenge/Filter/Cat2'
-import Cat3 from './components/Challenge/Filter/Cat3'
-import Cat4 from './components/Challenge/Filter/Cat4'
-import Cat5 from './components/Challenge/Filter/Cat5'
-import Diff1 from './components/Challenge/Filter/Diff1'
-import Diff2 from './components/Challenge/Filter/Diff2'
-import Diff3 from './components/Challenge/Filter/Diff3'
-import Diff4 from './components/Challenge/Filter/Diff4'
-import Diff5 from './components/Challenge/Filter/Diff5'
-import Unit from './components/Challenge/Filter/Unit'
-import Num from './components/Challenge/Filter/Num'
 
 const App = () => {
   const dispatch = useDispatch();
@@ -76,21 +65,24 @@ const App = () => {
           {/* NOTE: Should /userdashboard be /home??
           When a user logs in they get directed straight to their dashboard? */}
 
-          <Route path="/challenges/num" element={<Num />} />
+          <Route path="/challenges/filter/:id" element={<_Filtered />} />
+
+          {/* <Route path="/challenges/num" element={<Num />} />
           <Route path="/challenges/unit" element={<Unit />} />
           <Route path="/challenges/diff1" element={<Diff1 />} />
           <Route path="/challenges/diff2" element={<Diff2 />} />
           <Route path="/challenges/diff3" element={<Diff3 />} />
           <Route path="/challenges/diff4" element={<Diff4 />} />
           <Route path="/challenges/diff5" element={<Diff5 />} />
+
           <Route path="/challenges/cat1" element={<Cat1 />} />
           <Route path="/challenges/cat2" element={<Cat2 />} />
           <Route path="/challenges/cat3" element={<Cat3 />} />
           <Route path="/challenges/cat4" element={<Cat4 />} />
           <Route path="/challenges/cat5" element={<Cat5 />} />
-          
-          <Route path="/user/settings" element={<UserSettings />} />
+           */}
 
+          <Route path="/user/settings" element={<UserSettings />} />
           <Route path="/admin/challenges" element={<AdminChallenges />} />
           <Route path="/admin/users" element={<AdminUsers />} />
 
