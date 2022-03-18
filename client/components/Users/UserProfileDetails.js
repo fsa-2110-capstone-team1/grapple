@@ -9,7 +9,7 @@ import {
 } from "../../store/connections";
 import axios from "axios";
 
-const PersonProfileDetails = () => {
+const UserProfileDetails = () => {
   const { username } = useParams();
   const dispatch = useDispatch();
   const { publicUsers, userChallenges, challenges, auth } = useSelector(
@@ -106,7 +106,7 @@ const PersonProfileDetails = () => {
                 conn.status === "pending" && auth.id === conn.requested_userId
             )
             .map((conn) => (
-              <li>
+              <li key={conn.id}>
                 {
                   publicUsers.find((user) => user.id === conn.requester_userId)
                     ?.username
@@ -127,7 +127,7 @@ const PersonProfileDetails = () => {
       <h4>Friends</h4>
       <ul>
         {friends.map((friend) => (
-          <li>
+          <li key={friend.id}>
             {publicUsers.find((user) => user.id === friend.friendId)?.username}
             {user?.id === auth?.id ? (
               <button onClick={() => handleRemoveConnection(friend.id)}>
@@ -145,7 +145,7 @@ const PersonProfileDetails = () => {
         {userChallenges
           ?.filter((uc) => uc.userId === user?.id)
           .map((uc) => (
-            <li>
+            <li key={uc.id}>
               {
                 challenges.find((challenge) => challenge.id === uc.challengeId)
                   ?.name
@@ -175,4 +175,4 @@ const PersonProfileDetails = () => {
     </div>
   );
 };
-export default PersonProfileDetails;
+export default UserProfileDetails;
