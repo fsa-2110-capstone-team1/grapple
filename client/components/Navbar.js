@@ -232,7 +232,10 @@ const Navbar = () => {
                         </Typography>
                       </MenuItem>
                     </Link>
-                    <Link to="/user/profile" onClick={handleCloseUserMenu}>
+                    <Link
+                      to={`/users/${user.username}`}
+                      onClick={handleCloseUserMenu}
+                    >
                       <MenuItem>
                         <Typography textAlign="center" color="secondary">
                           My Profile
