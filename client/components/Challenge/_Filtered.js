@@ -70,7 +70,7 @@ export const _Filtered = () => {
   const [sortedChallenges, setSortedChallenges] = useState(filteredChallenges);
 
   useEffect(() => {
-    setSortedChallenges(challenges);
+    setSortedChallenges(filteredChallenges);
   }, [challenges]);
 
   //sortedChallenges is suppose to become sorted from the sorted function, currently sortedChallenges isnt populating
@@ -85,6 +85,7 @@ export const _Filtered = () => {
     indexofFirstChallenge,
     indexOfLastChallenge
   );
+
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -165,7 +166,7 @@ export const _Filtered = () => {
 
         <Grid item xs={1} />
         <Grid item xs={10} container>
-          {sortedChallenges.map((challenge) => (
+          {currentChallenges.map((challenge) => (
             <Grid
               item
               key={challenge.id}

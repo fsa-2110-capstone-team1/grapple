@@ -27,10 +27,11 @@ export const BrowseChallenges = () => {
   const indexofFirstChallenge = indexOfLastChallenge - challengesPerPage;
 
   //  I want to change challenges.slice to sortedChallenges.slice
-  const currentChallenges = challenges.slice(
+  const currentChallenges = sortedChallenges.slice(
     indexofFirstChallenge,
     indexOfLastChallenge
   );
+
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -104,7 +105,7 @@ export const BrowseChallenges = () => {
         </div>
         <Grid item xs={1} />
         <Grid item xs={10} container>
-          {sortedChallenges.map((challenge) => (
+          {currentChallenges.map((challenge) => (
             <Grid
               item
               key={challenge.id}
