@@ -215,13 +215,15 @@ const UserProfileDetails = () => {
                 sx={{ display: "flex", alignItems: "flex-start" }}
               >
                 <Grid item>
-                  <Typography>
-                    <b>{friends.length}</b> Friend(s)
-                  </Typography>
+                  <Link to="/users/friends">
+                    <Typography sx={{ color: "black" }}>
+                      <b>{friends.length}</b> Friend(s)
+                    </Typography>
+                  </Link>
                 </Grid>
                 {isSelf && !!connections.length && (
                   <Grid item>
-                    <Link to="/user/friendRequests">
+                    <Link to="/users/friendRequests">
                       <Typography sx={{ color: "black" }}>
                         <b>{connections.length}</b> Friend Request(s)
                       </Typography>
