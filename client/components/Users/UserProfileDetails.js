@@ -174,19 +174,38 @@ const UserProfileDetails = () => {
                     ) : connections.find(
                         (conn) => conn.requested_userId === auth?.id
                       ) ? (
-                      <Button
-                        size="small"
-                        variant="outlined"
-                        onClick={() =>
-                          handleAcceptRequest(
-                            connections.find(
-                              (conn) => conn.requested_userId === auth?.id
-                            ).id
-                          )
-                        }
-                      >
-                        Accept Request
-                      </Button>
+                      <Grid container spacing={1}>
+                        <Grid item>
+                          <Button
+                            size="small"
+                            variant="outlined"
+                            onClick={() =>
+                              handleAcceptRequest(
+                                connections.find(
+                                  (conn) => conn.requested_userId === auth?.id
+                                ).id
+                              )
+                            }
+                          >
+                            Accept Request
+                          </Button>
+                        </Grid>
+                        <Grid item>
+                          <Button
+                            size="small"
+                            variant="outlined"
+                            onClick={() =>
+                              handleRemoveConnection(
+                                connections.find(
+                                  (conn) => conn.requested_userId === auth?.id
+                                ).id
+                              )
+                            }
+                          >
+                            Decline Request
+                          </Button>
+                        </Grid>
+                      </Grid>
                     ) : (
                       <Button
                         size="small"
