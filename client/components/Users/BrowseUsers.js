@@ -43,7 +43,7 @@ export const BrowseUsers = () => {
         setUsers(publicUsers);
       }
     }
-  }, [connections, publicUsers, auth?.id]);
+  }, [connections, publicUsers, auth?.id, userGroup]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(8);
@@ -81,7 +81,10 @@ export const BrowseUsers = () => {
                   friends!
                 </Typography>
               ) : (
-                <Typography> "No users found."</Typography>
+                <Typography>
+                  {" "}
+                  No users found. {<Link to="/users">Browse all users</Link>}.
+                </Typography>
               )}
             </Grid>
           ) : (
