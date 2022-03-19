@@ -35,7 +35,9 @@ const UserProfileDetails = () => {
   const [myChallenges, setMyChallenges] = useState([]);
 
   useEffect(() => {
-    const foundUser = publicUsers.find((u) => u.username === username);
+    const foundUser = publicUsers.find(
+      (u) => u.username === (username || auth.username)
+    );
     setUser(foundUser);
   }, [username, publicUsers]);
 
