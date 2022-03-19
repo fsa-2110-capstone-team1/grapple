@@ -74,14 +74,13 @@ const UserProfileDetails = () => {
 
   useEffect(() => {
     const myChal = userChallenges
-      ?.filter((uc) => uc.userId === user?.id && uc.status === "inProgress")
-      .map((uc) =>
-        challenges.find((challenge) => challenge.id === uc.challengeId)
-      );
+      ?.filter((uc) => uc.userId === user?.id)
+      .map((uc) => ({
+        ...challenges.find((challenge) => challenge.id === uc.challengeId),
+        status: uc.status,
+      }));
     setMyChallenges(myChal);
   }, [userChallenges, challenges, user?.id]);
-
-  console.log(myChallenges);
 
   function handleAddFriend() {
     dispatch(createConnection(auth.id, user.id));
@@ -109,6 +108,8 @@ const UserProfileDetails = () => {
     dispatch(removeConnection(connId));
     setConnections(connections.filter((conn) => conn.id !== connId));
   }
+
+  console.log(myChallenges);
 
   return (
     <Box sx={{ minHeight: "100vh" }}>
@@ -275,22 +276,54 @@ const UserProfileDetails = () => {
           {/* CHALLENGES */}
           <Divider sx={{ mt: 4 }} />
           <Grid item>
-            <Typography variant="h5">Challenges</Typography>
+            <Typography variant="h5">Ongoing Challenges</Typography>
             <Grid container>
               <Grid item xs={12} container>
-                {myChallenges.map((challenge) => (
-                  <Grid
-                    item
-                    key={challenge.id}
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                    container
-                  >
-                    <ChallengeCard key={challenge.id} challenge={challenge} />
-                  </Grid>
-                ))}
+                {myChallenges
+                  .filter(
+                    (ch) =>
+                      ch.status === "inProgress" || ch.status === "notStarted"
+                  )
+                  .map((challenge) => (
+                    <Grid
+                      item
+                      key={challenge.id}
+                      xs={12}
+                      sm={6}
+                      md={4}
+                      lg={3}
+                      container
+                    >
+                      <ChallengeCard key={challenge.id} challenge={challenge} />
+                    </Grid>
+                  ))}
+              </Grid>
+            </Grid>
+          </Grid>
+
+          <Divider sx={{ mt: 4 }} />
+          <Grid item>
+            <Typography variant="h5">Completed Challenges</Typography>
+            <Grid container>
+              <Grid item xs={12} container>
+                {myChallenges
+                  .filter(
+                    (ch) =>
+                      !ch.status === "pending" && !ch.status === "notStarted"
+                  )
+                  .map((challenge) => (
+                    <Grid
+                      item
+                      key={challenge.id}
+                      xs={12}
+                      sm={6}
+                      md={4}
+                      lg={3}
+                      container
+                    >
+                      <ChallengeCard key={challenge.id} challenge={challenge} />
+                    </Grid>
+                  ))}
               </Grid>
             </Grid>
           </Grid>
