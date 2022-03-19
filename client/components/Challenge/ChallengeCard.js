@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {
   Grid,
   Card,
@@ -9,9 +10,24 @@ import {
   Button,
   Typography,
 } from "@mui/material";
+import CheckIcon from "@mui/icons-material/Check";
 
 export const ChallengeCard = ({ challenge }) => {
   const navigate = useNavigate();
+
+  const { auth, userChallenges } = useSelector((state) => state);
+
+  const [isUserParticipant, setIsUserParticipant] = useState(false);
+
+  useEffect(() => {
+    if (
+      !!userChallenges.find(
+        (uc) => uc.challengeId === challenge.id && uc.userId === auth.id
+      )
+    ) {
+      setIsUserParticipant(true);
+    }
+  }, [auth?.id, userChallenges]);
 
   return (
     <Card
@@ -43,7 +59,13 @@ export const ChallengeCard = ({ challenge }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Join Challenge</Button>
+        {isUserParticipant ? (
+          <Button size="small" disabled>
+            <CheckIcon fontSize="small" /> Joined
+          </Button>
+        ) : (
+          <Button size="small">Join Challenge</Button>
+        )}
         <Button
           size="small"
           onClick={() => navigate(`/challenges/${challenge.id}`)}

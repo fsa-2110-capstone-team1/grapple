@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 // import SearchIcon from "@material-ui/icons/Search";
 
-const SearchChallenges = ({ data }) => {
+const SearchUsers = ({ data }) => {
   const [searchedData, setSearchedData] = useState([]);
   const navigate = useNavigate();
   const updateList = (e) => {
     const search = e.target.value;
     const newSearch = data.filter((searching) => {
-      return searching.name.toLowerCase().includes(search.toLowerCase());
+      return searching.username.toLowerCase().includes(search.toLowerCase());
     });
     if (search === "") {
       setSearchedData([]);
@@ -23,20 +23,20 @@ const SearchChallenges = ({ data }) => {
       <div className="searchInputs">
         <input
           type="text"
-          placeholder={"Search for Challenge"}
+          placeholder={"Search for User"}
           onChange={updateList}
         />
         <div className="searchIcon"></div>
       </div>
       {searchedData.length != 0 && (
         <div className="dataResult">
-          {searchedData.slice(0, 15).map((challenge, key) => {
+          {searchedData.slice(0, 15).map((user, key) => {
             return (
               <a
                 className="dataItem"
-                onClick={() => navigate(`/challenges/${challenge.id}`)}
+                onClick={() => navigate(`/people/${user.username}`)}
               >
-                <p>{challenge.name}</p>
+                <p>{user.username}</p>
               </a>
             );
           })}
@@ -46,4 +46,4 @@ const SearchChallenges = ({ data }) => {
   );
 };
 
-export default SearchChallenges;
+export default SearchUsers;

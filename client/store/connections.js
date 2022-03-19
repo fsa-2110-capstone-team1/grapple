@@ -30,8 +30,12 @@ const _removeConnection = (connectionId) => ({
 
 export const getConnections = (userId) => {
   return async (dispatch) => {
-    const { data: connections } = await axios.get(`/api/connections/${userId}`);
-    dispatch(_getConnections(connections));
+    if (userId) {
+      const { data: connections } = await axios.get(
+        `/api/connections/${userId}`
+      );
+      dispatch(_getConnections(connections));
+    }
   };
 };
 

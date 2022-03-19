@@ -1,29 +1,34 @@
-import React, { useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '../theme';
+import React, { useState } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "../theme";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ColorLensIcon from "@mui/icons-material/ColorLens";
+import Divider from "@mui/material/Divider";
+import MoreIcon from "@mui/icons-material/MoreVert";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../store';
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../store";
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const id = useSelector((state) => state.auth.id) || '';
-  const user = useSelector((state) => state.auth.username) || [];
+  const id = useSelector((state) => state.auth.id) || "";
+  const user = useSelector((state) => state.auth) || {};
 
   const dispatch = useDispatch();
   let navigate = useNavigate();
@@ -46,7 +51,7 @@ const Navbar = () => {
   const logoutAndCloseMenu = () => {
     dispatch(logout());
     handleCloseUserMenu();
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
@@ -55,12 +60,12 @@ const Navbar = () => {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography
-              variant="h6"
+              variant="h5"
               noWrap
               component="div"
               sx={{
                 mr: 2,
-                display: { xs: 'none', md: 'flex' },
+                display: { xs: "none", md: "flex" },
               }}
             >
               <Link to="/">
@@ -69,8 +74,7 @@ const Navbar = () => {
                 </Button>
               </Link>
             </Typography>
-
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -79,38 +83,38 @@ const Navbar = () => {
                 onClick={handleOpenNavMenu}
                 color="inherit"
               >
-                {!!id ? <MenuIcon /> : ''}
+                {!!id ? <MenuIcon /> : ""}
               </IconButton>
 
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorElNav}
                 anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
+                  vertical: "bottom",
+                  horizontal: "left",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
+                  vertical: "top",
+                  horizontal: "left",
                 }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
                 sx={{
-                  display: { xs: 'block', md: 'none' },
+                  display: { xs: "block", md: "none" },
                 }}
               >
-                <Link to={'/challenges'}>
+                <Link to={"/challenges"}>
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Typography textAlign="center" color="secondary">
                       Challenges
                     </Typography>
                   </MenuItem>
                 </Link>
-                <Link to={'/people'}>
+                <Link to={"/users"}>
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Typography textAlign="center" color="secondary">
-                      People
+                      Users
                     </Typography>
                   </MenuItem>
                 </Link>
@@ -120,7 +124,7 @@ const Navbar = () => {
               variant="h6"
               noWrap
               component="div"
-              sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
             >
               <Link to="/">
                 <Button>
@@ -128,54 +132,93 @@ const Navbar = () => {
                 </Button>
               </Link>
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Box sx={{ flexGrow: 5, display: { xs: "none", md: "flex" } }}>
               {!!id ? (
                 <>
                   <Link
                     className="navbar-browse-challenge-link"
-                    to={'/challenges'}
+                    to={"/challenges"}
                   >
                     <Button
                       onClick={handleCloseNavMenu}
-                      sx={{ my: 2, color: 'white.main', display: 'block' }}
+                      sx={{ my: 2, color: "white.main", display: "block" }}
                     >
                       Challenges
                     </Button>
                   </Link>
-                  <Link className="navbar-browse-people-link" to={'/people'}>
+                  <Link className="navbar-browse-people-link" to={"/users"}>
                     <Button
                       onClick={handleCloseNavMenu}
-                      sx={{ my: 2, color: 'white.main', display: 'block' }}
+                      sx={{ my: 2, color: "white.main", display: "block" }}
                     >
-                      People
+                      Users
                     </Button>
                   </Link>
                 </>
               ) : (
-                ''
+                ""
               )}
             </Box>
+            {/* <Box sx={{ flexGrow: 1 }} /> */}
 
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar
-                  // src="/broken-image.jpg"
-                  />
-                </IconButton>
-              </Tooltip>
+            <Box sx={{ flexGrow: 0.25, textAlign: "end" }}>
+              <IconButton
+                onClick={handleOpenUserMenu}
+                sx={[
+                  {
+                    p: 0,
+                    width: "-webkit-fill-available",
+                    my: 2,
+                    color: "white.main",
+                    display: "block",
+                  },
+                  {
+                    "&:hover": {
+                      backgroundColor: "transparent",
+                      textDecoration: "underline",
+                    },
+                  },
+                  {
+                    "&:focus": {
+                      backgroundColor: "transparent",
+                      textDecoration: "underline",
+                    },
+                  },
+                ]}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-around",
+                    width: "-webkit-fill-available",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      flex: 2,
+                      my: 2,
+                      color: "white.main",
+                      display: "block",
+                    }}
+                  >
+                    {user.username ? `Hi, ${user.username}` : ""}
+                  </Typography>
+                  <Avatar src={user.image} />
+                </Box>
+              </IconButton>
               <Menu
-                sx={{ mt: '45px' }}
+                sx={{ mt: "45px" }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
@@ -189,10 +232,13 @@ const Navbar = () => {
                         </Typography>
                       </MenuItem>
                     </Link>
-                    <Link to="/user/profile" onClick={handleCloseUserMenu}>
+                    <Link
+                      to={`/users/profile/${user.username}`}
+                      onClick={handleCloseUserMenu}
+                    >
                       <MenuItem>
                         <Typography textAlign="center" color="secondary">
-                          Profile
+                          My Profile
                         </Typography>
                       </MenuItem>
                     </Link>

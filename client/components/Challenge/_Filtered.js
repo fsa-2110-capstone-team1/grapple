@@ -1,27 +1,89 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { Grid, Box, Button, Typography } from "@mui/material";
 import ChallengeCard from "./ChallengeCard";
 import SearchChallenges from "./SearchChallenges";
 import PaginationFooter from "./PaginationFooter.js";
-import { Link } from "react-router-dom";
+import TabPanel from "./TabPanel";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
-import TabPanel from "./TabPanel";
 
-export const BrowseChallenges = () => {
+export const _Filtered = () => {
   // const path = useLocation().pathname.split("/").pop();
-  const challenges = useSelector((state) => state.challenges);
+  let challenges = useSelector((state) => state.challenges);
+  const prop = useParams().id;
+   
+  if (prop === "unit") {
+    challenges = challenges.filter(
+      (challenge) => challenge.type === "unit"
+    );
+  } else if (prop === "num") {
+    challenges = challenges.filter(
+      (challenge) => challenge.type === "num"
+    );
+  } else if (prop === "diff1") {
+    challenges = challenges.filter(
+      (challenge) => challenge.difficulty === 1
+    );
+  } else if (prop === "diff2") {
+    challenges = challenges.filter(
+      (challenge) => challenge.difficulty === 2
+    );
+  } else if (prop === "diff3") {
+    challenges = challenges.filter(
+      (challenge) => challenge.difficulty === 3
+    );
+  } else if (prop === "diff4") {
+    challenges = challenges.filter(
+      (challenge) => challenge.difficulty === 4
+    );
+  } else if (prop === "diff5") {
+    challenges = challenges.filter(
+      (challenge) => challenge.difficulty === 5
+    );
+  } else if (prop === "mental") {
+    challenges = challenges.filter(
+      (challenge) => challenge.category === "mental"
+    );
+  } else if (prop === "physical") {
+    challenges = challenges.filter(
+      (challenge) => challenge.category === "physical"
+    );
+  } else if (prop === "sleep") {
+    challenges = challenges.filter(
+      (challenge) => challenge.category === "sleep"
+    );
+  } else if (prop === "food") {
+    challenges = challenges.filter(
+      (challenge) => challenge.category === "food"
+    );
+  } else if (prop === "misc") {
+    challenges = challenges.filter(
+      (challenge) => challenge.category === "misc"
+    );
+  }
+  else {
+    challenges = challenges;
+ }
+
+ if (!challenges) {
+  return "Sorry the challenges you are looking for are unreachable";
+}
+console.log(challenges)
+
 
   const [currentPage, setCurrentPage] = useState(1);
   const [challengesPerPage] = useState(12);
   const [sortedChallenges, setSortedChallenges] = useState(challenges);
+
   useEffect(() => {
     setSortedChallenges(challenges);
-  }, [challenges]);
+  }, []);
+
   //sortedChallenges is suppose to become sorted from the sorted function, currently sortedChallenges isnt populating
   // down on line 32, that function works correctly,
+
 
   const indexOfLastChallenge = currentPage * challengesPerPage;
   const indexofFirstChallenge = indexOfLastChallenge - challengesPerPage;
@@ -36,7 +98,6 @@ export const BrowseChallenges = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const [order, setOrder] = useState("ASC");
-
   const sortedUp = (attr) => {
     let sortedArry;
     // if (order === "ASC")
@@ -70,12 +131,19 @@ export const BrowseChallenges = () => {
     setSortedChallenges(sortedArry);
   };
 
+
+
+  if (!challenges) {
+    setSortedChallenges(challenges);
+  }
+
   return (
     <div>
       <Grid container>
         <SearchChallenges data={challenges} />
         <div>
           <TabPanel />
+          <h3>Sort by</h3>
           <div className="sorters">
             <button onClick={() => sortedUp("name")}>
               <ArrowCircleUpIcon />
@@ -103,6 +171,7 @@ export const BrowseChallenges = () => {
             </button>
           </div>
         </div>
+
         <Grid item xs={1} />
         <Grid item xs={10} container>
           {currentChallenges.map((challenge) => (
@@ -130,4 +199,4 @@ export const BrowseChallenges = () => {
     </div>
   );
 };
-export default BrowseChallenges;
+export default _Filtered;
