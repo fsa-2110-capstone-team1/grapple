@@ -141,7 +141,7 @@ const UserProfileDetails = () => {
                       <Button
                         size="small"
                         variant="outlined"
-                        onClick={() => navigate("/user/profile")}
+                        onClick={() => navigate("/user/profile/edit")}
                       >
                         Edit Profile
                       </Button>
@@ -215,6 +215,7 @@ const UserProfileDetails = () => {
                 sx={{ display: "flex", alignItems: "flex-start" }}
               >
                 <Grid item>
+                  {/* TODO: remove link to friends for non auth users */}
                   <Link to="/users/friends">
                     <Typography sx={{ color: "black" }}>
                       <b>{friends.length}</b> Friend(s)
