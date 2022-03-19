@@ -4,6 +4,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { Grid } from "@mui/material";
 import UserCard from "./UserCard";
 import SearchUsers from "./SearchUsers";
+import PaginationFooter from "./PaginationFooter"
 
 export const BrowseUsers = () => {
   const { auth, publicUsers, connections } = useSelector((state) => state);
@@ -44,19 +45,31 @@ export const BrowseUsers = () => {
     }
   }, [connections, publicUsers, auth?.id]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(8);
+
+  const indexOfLastChallenge = currentPage * usersPerPage;
+  const indexofFirstChallenge = indexOfLastChallenge - usersPerPage;
+
+  const currentUsers = users.slice(indexofFirstChallenge, indexOfLastChallenge);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+
   //scroll to top at page load
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
 
   return (
+    <div>
     // TODO: add a "no friends or no requests message"
     <Grid container>
-      {/* <SearchUsers data={publicUsers} /> */}
+      <SearchUsers data={publicUsers} />
       <Grid item xs={0.5} sm={0.5} md={1} lg={1.5} />
       <Grid item xs={11} sm={11} md={10} lg={9} container spacing={2}>
-        {!!users?.length &&
-          users
+        {!!currentUsers?.length &&
+          currentUsers
             ?.filter((user) => user.id !== auth.id)
             .map((user) => (
               <Grid
@@ -74,21 +87,15 @@ export const BrowseUsers = () => {
             ))}
       </Grid>
       <Grid item xs={0.5} sm={0.5} md={1} lg={1.5} />
-      {/* 
-      <Grid item xs={0.5} md={1} />
-
-      <Grid item xs={11} md={10} container>
-        {!!users?.length &&
-          users
-            ?.filter((user) => user.id !== auth.id)
-            .map((user) => (
-              <Grid item key={user.username} xs={12} container>
-                <UserCard key={user.username} user={user} />
-              </Grid>
-            ))}
-      </Grid>
-      <Grid item xs={0.5} md={1} /> */}
-    </Grid>
+  </Grid>
+      <PaginationFooter
+        challengesPerPage={usersPerPage}
+        totalPosts={publicUsers.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
+</div>
+  
   );
 };
 export default BrowseUsers;
