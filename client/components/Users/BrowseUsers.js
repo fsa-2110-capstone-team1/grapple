@@ -50,6 +50,7 @@ export const BrowseUsers = () => {
   }, [location]);
 
   return (
+    // TODO: add a "no friends or no requests message"
     <Grid container>
       {/* <SearchUsers data={publicUsers} /> */}
       <Grid item xs={0.5} sm={0.5} md={1} lg={1.5} />
