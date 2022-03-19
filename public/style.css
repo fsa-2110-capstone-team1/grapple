@@ -248,7 +248,7 @@ a:hover {
   width: -webkit-fill-available;
 }
 .image-stack::after {
-  content: " ";
+  content: ' ';
   display: table;
   clear: both;
 }
@@ -263,7 +263,7 @@ a:hover {
   left: 0;
   margin-bottom: 55px;
 
-  object-fit:cover;
+  object-fit: cover;
 
   box-sizing: border-box;
 }
@@ -280,7 +280,7 @@ a:hover {
   bottom: 0;
   box-shadow: inherit;
 
-/*   background-color:white;
+  /*   background-color:white;
   /* margin-top: "20px"; */
   margin-right: -50%;
   margin-left: 0px;
@@ -288,7 +288,7 @@ a:hover {
   position: relative;
   z-index: 1;
   font-size: 155px;
-  color: "#dfdfdf" 
+  color: '#dfdfdf';
 }
 
 .profile-list {
@@ -296,7 +296,7 @@ a:hover {
   min-width: 50%;
   max-width: 360px;
   width: 100%;
-  flex: none */
+  flex: none;
   background-color: white;
 }
 
