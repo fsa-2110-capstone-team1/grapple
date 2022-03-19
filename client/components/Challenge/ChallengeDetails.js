@@ -28,15 +28,23 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export const ChallengeDetails = () => {
   const challenges = useSelector((state) => state.challenges);
-  // const state = useSelector((state) => state);
-  // console.log('STATE', state);
+
+  const user = useSelector((state) => state.publicUsers);
 
   const { id } = useParams();
+  //xhange this to challenge id??
 
   const userChallenges = useSelector((state) => state.userChallenges);
   const currUserChall =
-    userChallenges.filter((userChallenge) => userChallenge.userId === id * 1) ||
-    [];
+    userChallenges.filter(
+      (userChallenge) => userChallenge.challengeId === id * 1
+    ) || [];
+
+  // const enrolledUsers =
+  //   currUserChall.find((chall) => chall.id === user.id * 1) || [];
+  console.log('All the users', user);
+  console.log('currUserChall', currUserChall);
+  // console.log('enrolled users', enrolledUsers);
 
   const challenge =
     challenges.find((challenge) => challenge.id === id * 1) || {};

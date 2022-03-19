@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import dateFormat from "dateformat";
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import dateFormat from 'dateformat';
 import {
   acceptConnection,
   createConnection,
   removeConnection,
-} from "../../store/connections";
-import axios from "axios";
-import { Grid, Box, Typography, Divider, Button } from "@mui/material";
-import SettingsIcon from "@mui/icons-material/Settings";
-import CheckIcon from "@mui/icons-material/Check";
-import ChallengeCard from "../Challenge/ChallengeCard";
+} from '../../store/connections';
+import axios from 'axios';
+import { Grid, Box, Typography, Divider, Button } from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
+import CheckIcon from '@mui/icons-material/Check';
+import ChallengeCard from '../Challenge/ChallengeCard';
 
 const UserProfileDetails = () => {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const UserProfileDetails = () => {
     if (!!connections && !!user) {
       if (user) {
         const myConns = [...connections]
-          .filter((conn) => conn.status === "accepted")
+          .filter((conn) => conn.status === 'accepted')
           .map((conn) => {
             if (conn.requester_userId === user.id) {
               return {
@@ -90,7 +90,7 @@ const UserProfileDetails = () => {
         id: -1,
         requester_userId: auth.id,
         requested_userId: user.id,
-        status: "pending",
+        status: 'pending',
       },
     ]);
   }
@@ -99,7 +99,7 @@ const UserProfileDetails = () => {
     dispatch(acceptConnection(connId));
     setConnections(
       connections.map((conn) =>
-        conn.id === connId ? { ...conn, status: "accepted" } : conn
+        conn.id === connId ? { ...conn, status: 'accepted' } : conn
       )
     );
   }
@@ -112,7 +112,7 @@ const UserProfileDetails = () => {
   console.log(myChallenges);
 
   return (
-    <Box sx={{ minHeight: "100vh" }}>
+    <Box sx={{ minHeight: '100vh' }}>
       <Grid container spacing={1}>
         <Grid item xs={1} />
         {/* MAIN MIDDLE SECTION */}
@@ -123,13 +123,13 @@ const UserProfileDetails = () => {
             item
             container
             spacing={3}
-            sx={{ display: "flex", alignItems: "center" }}
+            sx={{ display: 'flex', alignItems: 'center' }}
           >
             <Grid item xs={3}>
               <Box
                 component="img"
                 src={user?.image}
-                sx={{ width: "80%", borderRadius: 50 }}
+                sx={{ width: '80%', borderRadius: 50 }}
               />
             </Grid>
             <Grid item xs={7} container direction="column" spacing={1}>
@@ -144,7 +144,7 @@ const UserProfileDetails = () => {
                       <Button
                         size="small"
                         variant="outlined"
-                        onClick={() => navigate("/user/profile/edit")}
+                        onClick={() => navigate('/user/profile/edit')}
                       >
                         Edit Profile
                       </Button>
@@ -152,7 +152,7 @@ const UserProfileDetails = () => {
                     <Grid item>
                       <Button
                         size="small"
-                        onClick={() => navigate("/user/settings")}
+                        onClick={() => navigate('/user/settings')}
                       >
                         <SettingsIcon />
                       </Button>
@@ -161,7 +161,7 @@ const UserProfileDetails = () => {
                 ) : (
                   <Grid item>
                     {isSelf ? (
-                      ""
+                      ''
                     ) : friends.find(
                         (friend) => friend.friendId === auth?.id
                       ) ? (
@@ -234,12 +234,12 @@ const UserProfileDetails = () => {
                 item
                 container
                 spacing={3}
-                sx={{ display: "flex", alignItems: "flex-start" }}
+                sx={{ display: 'flex', alignItems: 'flex-start' }}
               >
                 <Grid item>
                   {/* TODO: remove link to friends for non auth users */}
                   <Link to="/users/friends">
-                    <Typography sx={{ color: "black" }}>
+                    <Typography sx={{ color: 'black' }}>
                       <b>{friends.length}</b> Friend(s)
                     </Typography>
                   </Link>
@@ -247,16 +247,16 @@ const UserProfileDetails = () => {
                 {isSelf && !!connections.length && (
                   <Grid item>
                     <Link to="/users/friendRequests">
-                      <Typography sx={{ color: "black" }}>
+                      <Typography sx={{ color: 'black' }}>
                         <b>
                           {
                             connections.filter(
                               (conn) =>
                                 conn.requested_userId === auth?.id &&
-                                conn.status === "pending"
+                                conn.status === 'pending'
                             ).length
                           }
-                        </b>{" "}
+                        </b>{' '}
                         Friend Request(s)
                       </Typography>
                     </Link>
@@ -269,7 +269,7 @@ const UserProfileDetails = () => {
           {/* BADGES */}
           <Divider sx={{ mt: 4 }} />
           <Grid item>
-            {" "}
+            {' '}
             <Typography variant="h5">Badges</Typography>
           </Grid>
 
