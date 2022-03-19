@@ -81,6 +81,8 @@ const UserProfileDetails = () => {
     setMyChallenges(myChal);
   }, [userChallenges, challenges, user?.id]);
 
+  console.log(myChallenges);
+
   function handleAddFriend() {
     dispatch(createConnection(auth.id, user.id));
     setConnections([
