@@ -61,9 +61,12 @@ export const BrowseUsers = () => {
   }, [location]);
 
   return (
+    <>
     <div>
       <Grid container>
+         <div className="searchContainer">
         <SearchUsers data={publicUsers} />
+        </div>
         <Grid item xs={0.5} sm={0.5} md={1} lg={1.5} />
         <Grid item xs={11} sm={11} md={10} lg={9} container spacing={2}>
           {!currentUsers?.length ? (
@@ -115,6 +118,7 @@ export const BrowseUsers = () => {
         currentPage={currentPage}
       />
     </div>
+    </>
   );
 };
 export default BrowseUsers;
