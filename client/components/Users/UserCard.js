@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import dateFormat from "dateformat";
 import {
@@ -11,6 +11,7 @@ import {
   Button,
   Typography,
   ThemeProvider,
+  CardActionArea,
 } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import theme from "../../theme";
@@ -21,9 +22,14 @@ import {
   removeConnection,
 } from "../../store/connections";
 import axios from "axios";
+import CheckIcon from "@mui/icons-material/Check";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import AlarmIcon from "@mui/icons-material/Alarm";
 
 export const UserCard = ({ user }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [connections, setConnections] = useState([]);
 
@@ -97,82 +103,64 @@ export const UserCard = ({ user }) => {
     <ThemeProvider theme={theme}>
       <Card
         sx={{
+          maxWidth: 345,
+          minWidth: 275,
           // Provide some spacing between cards
           margin: 1.5,
-          width: 1,
+          // Use flex layout with column direction for components in the card
+          // (CardContent and CardActions)
+          display: "flex",
+          flexDirection: "column",
+          // Justify the content so that CardContent will always be at the top of the card,
+          // and CardActions will be at the bottom
+          justifyContent: "space-between",
         }}
       >
-        <Grid
-          container
-          spacing={{ xs: 2, md: 3, lg: 3 }}
-          columns={{ xs: 10, sm: 12, lg: 12 }}
+        <CardActionArea
+          onClick={() => navigate(`/users/profile/${user.username}`)}
         >
-          <Grid
-            item
-            xs={4}
-            sm={2}
-            lg={2}
-            sx={{ display: "flex", justifyContent: "center" }}
-          >
-            <Link to={`/users/profile/${user.username}`}>
-              <CardMedia
-                component="img"
-                image={user.image}
-                alt="user photo"
-                sx={{ borderRadius: 50 }}
-              />
-            </Link>
-          </Grid>
+          <CardMedia
+            component="img"
+            height="200"
+            image={`${user.image}`}
+            alt="user photo"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {user.username}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" height="auto">
+              {user.firstName} {user.lastName}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" height="auto">
+              Member since {dateFormat(user.createdAt, "mediumDate")}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
 
-          <Grid item xs={6} sm={7} lg={8}>
-            <CardContent>
-              <Link to={`/users/profile/${user.username}`}>
-                <Typography gutterBottom variant="h5" component="div">
-                  {user.username}
-                </Typography>
-              </Link>
-              <Typography variant="body2" color="text.secondary" height="auto">
-                {user.firstName} {user.lastName}
-              </Typography>
-              <Typography variant="body2" color="text.secondary" height="auto">
-                Member since {dateFormat(user.createdAt, "mediumDate")}
-              </Typography>
-            </CardContent>
-          </Grid>
-          <Grid item xs={12} sm={3} lg={2} container>
-            <CardActions sx={{ width: 1 }}>
-              {user?.id === auth?.id ? (
-                ""
-              ) : friends.find((friend) => friend.friendId === auth?.id) ? (
-                <Button size="small" sx={{ width: 1 }} disabled>
-                  <Grid container spacing={0}>
-                    <Grid item xs={2} md={4}>
-                      <PersonAddIcon />
-                    </Grid>
-                    <Grid item xs={6} md={8}>
-                      <Typography>Already Friends</Typography>
-                    </Grid>
-                  </Grid>
-                </Button>
-              ) : connections.find(
-                  (conn) => conn.requester_userId === auth?.id
-                ) ? (
-                <Button size="small" sx={{ width: 1 }} disabled>
-                  <Grid container spacing={0}>
-                    <Grid item xs={2} md={4}>
-                      <PersonAddIcon />
-                    </Grid>
-                    <Grid item xs={6} md={8}>
-                      <Typography>Request Pending</Typography>
-                    </Grid>
-                  </Grid>
-                </Button>
-              ) : connections.find(
-                  (conn) => conn.requested_userId === auth?.id
-                ) ? (
+        <CardActions sx={{ mb: 1, display: "flex", justifyContent: "center" }}>
+          {user?.id === auth?.id ? (
+            ""
+          ) : friends.find((friend) => friend.friendId === auth?.id) ? (
+            <Button size="small" variant="contained" disabled>
+              <CheckIcon fontSize="small" />
+              Friends
+            </Button>
+          ) : connections.find((conn) => conn.requester_userId === auth?.id) ? (
+            <Button size="small" variant="contained" disabled>
+              <AlarmIcon fontSize="small" />
+              Request Pending
+            </Button>
+          ) : connections.find((conn) => conn.requested_userId === auth?.id) ? (
+            <Grid
+              container
+              spacing={1}
+              sx={{ display: "flex", justifyContent: "center" }}
+            >
+              <Grid item>
                 <Button
                   size="small"
-                  sx={{ width: 1 }}
+                  variant="contained"
                   onClick={() =>
                     handleAcceptRequest(
                       connections.find(
@@ -181,34 +169,38 @@ export const UserCard = ({ user }) => {
                     )
                   }
                 >
-                  <Grid container spacing={0}>
-                    <Grid item xs={2} md={4}>
-                      <PersonAddIcon />
-                    </Grid>
-                    <Grid item xs={6} md={8}>
-                      <Typography>Accept Request</Typography>
-                    </Grid>
-                  </Grid>
+                  <ThumbUpIcon fontSize="small" />
+                  Accept
                 </Button>
-              ) : (
+              </Grid>
+              <Grid item>
                 <Button
                   size="small"
-                  sx={{ width: 1 }}
-                  onClick={() => handleAddFriend()}
+                  variant="contained"
+                  onClick={() =>
+                    handleRemoveConnection(
+                      connections.find(
+                        (conn) => conn.requested_userId === auth?.id
+                      ).id
+                    )
+                  }
                 >
-                  <Grid container spacing={0}>
-                    <Grid item xs={2} md={4}>
-                      <PersonAddIcon />
-                    </Grid>
-                    <Grid item xs={6} md={8}>
-                      <Typography>Add Friend</Typography>
-                    </Grid>
-                  </Grid>
+                  <ThumbDownIcon fontSize="small" />
+                  Decline
                 </Button>
-              )}
-            </CardActions>
-          </Grid>
-        </Grid>
+              </Grid>
+            </Grid>
+          ) : (
+            <Button
+              size="small"
+              variant="contained"
+              onClick={() => handleAddFriend()}
+            >
+              <PersonAddIcon fontSize="small" />
+              <Typography>{"    "}</Typography> Add Friend
+            </Button>
+          )}
+        </CardActions>
       </Card>
     </ThemeProvider>
   );

@@ -1,11 +1,11 @@
-const router = require('express').Router();
+const router = require("express").Router();
 const {
   models: { UserChallenge },
-} = require('../../db');
+} = require("../../db");
 module.exports = router;
 
 // Get all User challenges
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const userChallenge = await UserChallenge.findAll({});
     res.json(userChallenge);
@@ -15,13 +15,22 @@ router.get('/', async (req, res, next) => {
 });
 
 // Get a single User challenge
-// passing user id, not userChallenge id (Kate)
-router.get('/:id', async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
+  try {
+    const userChallenge = await UserChallenge.findAll({});
+    res.json(userChallenge);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Get all User challenges for a user
+router.get("/user/:userId", async (req, res, next) => {
   try {
     const userChallenge = await UserChallenge.findAll({
-      // where: {
-      //   userId = req.params.id
-      // }
+      where: {
+        userId: req.params.userId,
+      },
     });
     res.json(userChallenge);
   } catch (err) {
@@ -30,7 +39,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 // Create a new User challenge
-router.post('/', async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     res.status(201).send(await UserChallenge.create(req.body));
   } catch (error) {
@@ -40,7 +49,7 @@ router.post('/', async (req, res, next) => {
 
 // Edit a User challenge
 // passing user id, not userChallenge id (Kate)
-router.put('/:id', async (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
   try {
     const userChallenge = await UserChallenge.findAll({
       // where: {
@@ -54,7 +63,7 @@ router.put('/:id', async (req, res, next) => {
 });
 
 // Delete a User challenge
-router.delete('/:id', async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   try {
     const userChallenge = await UserChallenge.findByPk(req.params.id);
     if (!userChallenge) {

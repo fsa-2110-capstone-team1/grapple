@@ -52,7 +52,21 @@ export const BrowseUsers = () => {
   return (
     <Grid container>
       {/* <SearchUsers data={publicUsers} /> */}
+      <Grid item xs={1} />
+      <Grid item xs={10} container>
+        {!!users?.length &&
+          users
+            ?.filter((user) => user.id !== auth.id)
+            .map((user) => (
+              <Grid item key={user.id} xs={12} sm={6} md={4} lg={3} container>
+                <UserCard key={user.username} user={user} />
+              </Grid>
+            ))}
+      </Grid>
+      <Grid item xs={1} />
+      {/* 
       <Grid item xs={0.5} md={1} />
+
       <Grid item xs={11} md={10} container>
         {!!users?.length &&
           users
@@ -63,7 +77,7 @@ export const BrowseUsers = () => {
               </Grid>
             ))}
       </Grid>
-      <Grid item xs={0.5} md={1} />
+      <Grid item xs={0.5} md={1} /> */}
     </Grid>
   );
 };
