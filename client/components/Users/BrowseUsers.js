@@ -63,21 +63,31 @@ export const BrowseUsers = () => {
 
   return (
     <div>
+    // TODO: add a "no friends or no requests message"
     <Grid container>
       <SearchUsers data={publicUsers} />
-      <Grid item xs={1} />
-      <Grid item xs={10} container>
+      <Grid item xs={0.5} sm={0.5} md={1} lg={1.5} />
+      <Grid item xs={11} sm={11} md={10} lg={9} container spacing={2}>
         {!!currentUsers?.length &&
           currentUsers
             ?.filter((user) => user.id !== auth.id)
             .map((user) => (
-              <Grid item key={user.id} xs={12} sm={6} md={4} lg={3} container>
+              <Grid
+                item
+                key={user.id}
+                xs={12}
+                sm={6}
+                md={4}
+                lg={4}
+                xl={3}
+                container
+              >
                 <UserCard key={user.username} user={user} />
               </Grid>
             ))}
       </Grid>
-      <Grid item xs={1} />
-      </Grid>
+      <Grid item xs={0.5} sm={0.5} md={1} lg={1.5} />
+  </Grid>
       <PaginationFooter
         challengesPerPage={usersPerPage}
         totalPosts={publicUsers.length}
