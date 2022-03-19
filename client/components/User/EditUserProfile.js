@@ -4,7 +4,7 @@ import {
   Card,
   CardMedia,
 } from "@mui/material";
-import { UserProfileForm } from "./UserForm";
+import { UserProfileForm } from "./UserProfileForm";
 
 export const EditUserProfile = () => {
   const userProfile = useSelector((state) => state.auth);

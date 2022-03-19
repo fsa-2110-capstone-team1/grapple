@@ -43,6 +43,7 @@ export const logout = () => (dispatch) => {
 
 export const updateUser = (user) => {
   return async (dispatch) => {
+    console.log("here in store")
     try {
       const newUser = (await axios.put(`/api/users/${user.id}`, user)).data;
       dispatch(upUser(newUser));
