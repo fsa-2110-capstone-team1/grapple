@@ -9,6 +9,7 @@ import {
   CardMedia,
   Button,
   Typography,
+  CardActionArea,
 } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 
@@ -44,34 +45,32 @@ export const ChallengeCard = ({ challenge }) => {
         justifyContent: "space-between",
       }}
     >
-      <CardMedia
-        component="img"
-        height="200"
-        image={`/${challenge.image}`}
-        alt="challenge cover photo"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {challenge.name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" height="auto">
-          {challenge.description}
-        </Typography>
-      </CardContent>
-      <CardActions>
+      <CardActionArea onClick={() => navigate(`/challenges/${challenge.id}`)}>
+        <CardMedia
+          component="img"
+          height="200"
+          image={`/${challenge.image}`}
+          alt="challenge cover photo"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {challenge.name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary" height="auto">
+            {challenge.description}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions sx={{ mb: 1, display: "flex", justifyContent: "center" }}>
         {isUserParticipant ? (
-          <Button size="small" disabled>
+          <Button size="small" variant="contained" disabled>
             <CheckIcon fontSize="small" /> Joined
           </Button>
         ) : (
-          <Button size="small">Join Challenge</Button>
+          <Button variant="contained" size="small">
+            Join Challenge
+          </Button>
         )}
-        <Button
-          size="small"
-          onClick={() => navigate(`/challenges/${challenge.id}`)}
-        >
-          View Details
-        </Button>
       </CardActions>
     </Card>
   );
