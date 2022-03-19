@@ -27,7 +27,7 @@ async function userSeed() {
       lastName: "Svetlakova",
       isAdmin: true,
       image:
-        "https://cdn-icons.flaticon.com/png/512/924/premium/924915.png?token=exp=1647634538~hmac=2b097f5fdd85ff2873aec831485e3987",
+        "https://img.icons8.com/external-avatar-andi-nur-abdillah/344/external-avatar-business-avatar-circle-avatar-andi-nur-abdillah-18.png",
     }),
     User.create({
       username: "louis123",
@@ -46,7 +46,7 @@ async function userSeed() {
       lastName: "Chevis",
       isAdmin: true,
       image:
-        "https://cdn-icons.flaticon.com/png/512/4140/premium/4140047.png?token=exp=1647634484~hmac=3b435ab031b37c4afff01d191a7816e6",
+        "https://img.icons8.com/external-avatar-andi-nur-abdillah/344/external-avatar-business-avatar-circle-avatar-andi-nur-abdillah.png",
     }),
   ]);
 
