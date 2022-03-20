@@ -45,15 +45,19 @@ export const joinChallenge = (userId, challengeId) => {
   };
 };
 
-export const updateChallengeProgress = ({ userChallengeId, value }) => {
-  return async (dispatch) => {
-    const { data: updatedUserChallenge } = await axios.put(
-      `/api/userChallenges/${userChallengeId}/updateProgress`,
-      { value }
-    );
-    dispatch(_updateChallengeProgress(updatedUserChallenge));
+export const updateChallengeProgress =
+  ({ userChallengeId, value }) =>
+  async (dispatch) => {
+    try {
+      const { data: updatedUserChallenge } = await axios.put(
+        `/api/userChallenges/${userChallengeId}/updateProgress`,
+        { value }
+      );
+      return dispatch(_updateChallengeProgress(updatedUserChallenge));
+    } catch (error) {
+      return dispatch(_updateChallengeProgress({ id: userChallengeId, error }));
+    }
   };
-};
 
 export const leaveChallenge = ({ userChallengeId }) => {
   return async (dispatch) => {
@@ -71,7 +75,11 @@ export default (state = [], action) => {
     case UPDATE_CHALLENGE_PROGRESS:
       return state.map((userChallenge) =>
         userChallenge.id === action.userChallenge.id
-          ? action.userChallenge
+          ? {
+              ...userChallenge,
+              ...action.userChallenge,
+              error: action.userChallenge.error,
+            }
           : userChallenge
       );
     case LEAVE_CHALLENGE:

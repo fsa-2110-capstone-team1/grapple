@@ -33,6 +33,8 @@ export const TestChallengeTracking = () => {
   const [challenge, setChallenge] = useState({});
   const [userChallenge, setUserChallenge] = useState({});
 
+  console.log(userChallenge);
+
   useEffect(() => {
     const chal = challenges.find((ch) => ch.id === challengeId * 1);
     if (chal) {
@@ -212,6 +214,9 @@ export const TestChallengeTracking = () => {
                 >
                   Log Progress
                 </Button>
+                {userChallenge.error?.response.data && (
+                  <Typography>{userChallenge.error?.response.data}</Typography>
+                )}
               </Box>
             )}
           </Box>

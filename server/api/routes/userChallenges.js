@@ -52,8 +52,13 @@ router.put("/:id/updateProgress", async (req, res, next) => {
   try {
     const userChallenge = await UserChallenge.findByPk(req.params.id);
     res.send(await userChallenge.updateProgress(req.body.value));
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    if (err.name === "SequelizeValidationError") {
+      console.log(err);
+      res.status(401).send("Current progress must be greater or equal to 0.");
+    } else {
+      next(err);
+    }
   }
 });
 

@@ -50,7 +50,6 @@ UserChallenge.beforeUpdate(async (userChallenge) => {
       userChallenge.update({ status: "Not Started" });
       //set to in progress if it had previously been completed but user backtracked value
     }
-    console.log("here");
   } catch (err) {
     console.log(err);
   }
