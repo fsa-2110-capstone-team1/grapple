@@ -84,6 +84,8 @@ export const TestChallengeTracking = () => {
     reset,
   } = useForm();
 
+  console.log(errors);
+
   const onSubmit = async (data) => {
     //no need to update if value is 0
     if (Number(data.value)) {
@@ -203,7 +205,9 @@ export const TestChallengeTracking = () => {
                   {...register("value", {
                     required: "Required field",
                   })}
-                  error={!!errors?.value}
+                  error={
+                    userChallenge.currentProgress + Number(watch("value")) < 0
+                  }
                   helperText={
                     userChallenge.currentProgress + Number(watch("value")) < 0
                       ? "Current progress total can't be less than 0"
