@@ -281,9 +281,50 @@ const UserProfileDetails = () => {
 
           {/* BADGES */}
           <Divider sx={{ mt: 4 }} />
-          <Grid item>
-            {" "}
-            <Typography variant="h5">Badges</Typography>
+          <Grid item container direction="column" spacing={2}>
+            <Grid item>
+              <Typography variant="h5">
+                Badges (Completed Challenges)
+              </Typography>
+            </Grid>
+            <Grid item container>
+              {myChallenges
+                .filter((ch) => ch.status === "Completed")
+                .map((challenge) => (
+                  <Grid
+                    item
+                    key={challenge.id}
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    lg={3}
+                    container
+                  >
+                    {/* <Link to={`/challenges/${challenge.id}`}> */}
+                    <Box
+                      key={challenge.id}
+                      component="img"
+                      src={`/${challenge.image}`}
+                      sx={[
+                        {
+                          borderRadius: "50px",
+                          width: "80px",
+                          border: "3px solid #c54c7b",
+                          padding: "5px",
+                        },
+                        {
+                          "&:hover": {
+                            backgroundColor: "transparent",
+                            cursor: "pointer",
+                          },
+                        },
+                      ]}
+                      onClick={() => navigate(`/challenges/${challenge.id}`)}
+                    />
+                    {/* </Link> */}
+                  </Grid>
+                ))}
+            </Grid>
           </Grid>
 
           {/* CHALLENGES */}
@@ -292,7 +333,7 @@ const UserProfileDetails = () => {
             <Grid item>
               <Typography variant="h5">Ongoing Challenges</Typography>
             </Grid>
-            <Grid container>
+            <Grid item container>
               {myChallenges
                 .filter(
                   (ch) =>
@@ -317,31 +358,12 @@ const UserProfileDetails = () => {
           </Grid>
 
           <Divider sx={{ mt: 1 }} />
+
           <Grid item container direction="column" spacing={1}>
             <Grid item>
-              <Typography variant="h5">Completed Challenges</Typography>
-            </Grid>
-            <Grid container>
-              {myChallenges
-                .filter((ch) => ch.status === "Completed")
-                .map((challenge) => (
-                  <Grid
-                    item
-                    key={challenge.id}
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                    container
-                  >
-                    <ChallengeCard key={challenge.id} challenge={challenge} />
-                  </Grid>
-                ))}
-            </Grid>
-          </Grid>
-          <Grid item container direction="column" spacing={1}>
-            <Grid item>
-              <Typography variant="h5">Failed Challenges</Typography>
+              <Typography variant="h5">
+                "I'll Do Better Next Time" Challenges
+              </Typography>
             </Grid>
             <Grid container>
               {myChallenges
