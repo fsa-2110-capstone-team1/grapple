@@ -35,12 +35,12 @@ export const getUserChallenges = () => {
   };
 };
 
-export const joinChallenge = (userChallenge) => {
+export const joinChallenge = (userId, challengeId) => {
   return async (dispatch) => {
-    const { data: newUserChallenge } = await axios.post(
-      "/api/userChallenges",
-      userChallenge
-    );
+    const { data: newUserChallenge } = await axios.post("/api/userChallenges", {
+      userId,
+      challengeId,
+    });
     dispatch(_joinChallenge(newUserChallenge));
   };
 };
@@ -67,7 +67,7 @@ export default (state = [], action) => {
     case GET_USERCHALLENGES:
       return action.userChallenges;
     case JOIN_CHALLENGE:
-      return [...state.userChallenges, action.userChallenge];
+      return [...state, action.userChallenge];
     case UPDATE_CHALLENGE_PROGRESS:
       return state.map((userChallenge) =>
         userChallenge.id === action.userChallenge.id
