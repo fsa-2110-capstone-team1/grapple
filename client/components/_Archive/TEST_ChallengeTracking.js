@@ -139,7 +139,11 @@ export const TestChallengeTracking = () => {
               {...{
                 buttonVariant: "contained",
                 buttonSize: "small",
-                buttonText: "Leave Challenge",
+                buttonDisabled: challenge.status === "Ended",
+                buttonText:
+                  challenge.status === "Ended"
+                    ? "Challenge Ended"
+                    : "Leave Challenge",
                 dialogTitle: "Are you sure you want to leave this challenge?",
                 dialogText:
                   "This action is permanent. Once you leave the challenge, you will need to re-join and start over.",
@@ -180,35 +184,36 @@ export const TestChallengeTracking = () => {
               %)
             </Typography>
             <Divider sx={{ m: 5 }} />
-
-            <Box
-              component="form"
-              onSubmit={handleSubmit(onSubmit)}
-              sx={{ marginTop: 2 }}
-              id="challenge-progress-form"
-            >
-              <TextField
-                id="value"
-                required
-                variant="outlined"
-                label="Value"
-                type="number"
-                defaultValue={0}
-                {...register("value", {
-                  required: "Required field",
-                })}
-                error={!!errors?.value}
-                helperText="Use negative numbers to backtrack progress."
-              />
-              <Button
-                variant="contained"
-                size="small"
-                type="submit"
-                form="challenge-progress-form"
+            {challenge.status === "In Progress" && (
+              <Box
+                component="form"
+                onSubmit={handleSubmit(onSubmit)}
+                sx={{ marginTop: 2 }}
+                id="challenge-progress-form"
               >
-                Log Progress
-              </Button>
-            </Box>
+                <TextField
+                  id="value"
+                  required
+                  variant="outlined"
+                  label="Value"
+                  type="number"
+                  defaultValue={0}
+                  {...register("value", {
+                    required: "Required field",
+                  })}
+                  error={!!errors?.value}
+                  helperText="Use negative numbers to backtrack progress."
+                />
+                <Button
+                  variant="contained"
+                  size="small"
+                  type="submit"
+                  form="challenge-progress-form"
+                >
+                  Log Progress
+                </Button>
+              </Box>
+            )}
           </Box>
         )}
       </Box>

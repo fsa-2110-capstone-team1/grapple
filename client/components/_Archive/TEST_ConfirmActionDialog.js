@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 export default function ButtonWithAlertDialog({
   buttonSize,
   buttonVariant,
+  buttonDisabled,
   buttonText,
   dialogTitle,
   dialogText,
@@ -44,6 +45,7 @@ export default function ButtonWithAlertDialog({
         variant={buttonVariant}
         size={buttonSize}
         onClick={handleClickOpen}
+        disabled={buttonDisabled}
       >
         {buttonText}
       </Button>
