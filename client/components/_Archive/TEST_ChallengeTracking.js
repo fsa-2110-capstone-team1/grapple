@@ -19,6 +19,7 @@ import {
   leaveChallenge,
 } from "../../store";
 import TEST_ConfirmActionDialog from "./TEST_ConfirmActionDialog";
+import dateFormat from "dateformat";
 
 export const TestChallengeTracking = () => {
   const { challengeId } = useParams();
@@ -33,7 +34,22 @@ export const TestChallengeTracking = () => {
   const [userChallenge, setUserChallenge] = useState({});
 
   useEffect(() => {
-    setChallenge(challenges.find((ch) => ch.id === challengeId * 1));
+    const chal = challenges.find((ch) => ch.id === challengeId * 1);
+    if (chal) {
+      const currentDate = new Date();
+      const startDate = new Date(chal.startDateTime);
+      const endDate = new Date(chal.endDateTime);
+      const challengeStatus =
+        currentDate < startDate
+          ? "Not Started"
+          : currentDate >= startDate && currentDate <= endDate
+          ? "In Progress"
+          : "Ended";
+      setChallenge({
+        ...chal,
+        status: challengeStatus,
+      });
+    }
   }, [challengeId, challenges]);
 
   useEffect(() => {
@@ -102,6 +118,13 @@ export const TestChallengeTracking = () => {
         <Grid>
           <Typography gutterBottom variant="h5" component="div">
             {challenge?.name} (ID: {challenge?.id})
+          </Typography>
+          <Typography variant="body1" color="text.secondary" height="auto">
+            Dates: {dateFormat(challenge?.startDateTime, "mediumDate")} -{" "}
+            {dateFormat(challenge?.endDateTime, "mediumDate")}
+          </Typography>
+          <Typography variant="body1" color="text.secondary" height="auto">
+            Status: {challenge?.status}
           </Typography>
           <Typography variant="body2" color="text.secondary" height="auto">
             {challenge?.description}
