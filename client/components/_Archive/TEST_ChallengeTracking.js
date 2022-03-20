@@ -33,8 +33,6 @@ export const TestChallengeTracking = () => {
   const [challenge, setChallenge] = useState({});
   const [userChallenge, setUserChallenge] = useState({});
 
-  console.log(userChallenge);
-
   useEffect(() => {
     const chal = challenges.find((ch) => ch.id === challengeId * 1);
     if (chal) {
@@ -98,6 +96,8 @@ export const TestChallengeTracking = () => {
     }
     reset();
   };
+
+  console.log(userChallenge.currentProgress + watch("value") * 1);
 
   return (
     <ThemeProvider theme={theme}>
@@ -204,13 +204,20 @@ export const TestChallengeTracking = () => {
                     required: "Required field",
                   })}
                   error={!!errors?.value}
-                  helperText="Use negative numbers to backtrack progress."
+                  helperText={
+                    userChallenge.currentProgress + Number(watch("value")) < 0
+                      ? "Current progress total can't be less than 0"
+                      : "Use negative numbers to backtrack progress"
+                  }
                 />
                 <Button
                   variant="contained"
                   size="small"
                   type="submit"
                   form="challenge-progress-form"
+                  disabled={
+                    userChallenge.currentProgress + Number(watch("value")) < 0
+                  }
                 >
                   Log Progress
                 </Button>
