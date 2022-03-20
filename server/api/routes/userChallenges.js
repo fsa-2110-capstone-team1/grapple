@@ -47,16 +47,11 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// Edit a User challenge
-// passing user id, not userChallenge id (Kate)
-router.put("/:id", async (req, res, next) => {
+// Update progress to a User challenge; payload: { method (add or subtract), value }
+router.put("/:id/updateProgress", async (req, res, next) => {
   try {
-    const userChallenge = await UserChallenge.findAll({
-      // where: {
-      //   userId = req.params.id
-      // }
-    });
-    res.send(await userChallenge.update(req.body));
+    const userChallenge = await UserChallenge.findByPk(req.params.id);
+    res.send(await userChallenge.updateProgress(req.body.value));
   } catch (error) {
     next(error);
   }

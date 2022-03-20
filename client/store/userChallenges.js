@@ -45,11 +45,11 @@ export const joinChallenge = (userId, challengeId) => {
   };
 };
 
-export const updateChallengeProgress = (userChallenge) => {
+export const updateChallengeProgress = ({ userChallengeId, value }) => {
   return async (dispatch) => {
     const { data: updatedUserChallenge } = await axios.put(
-      `/api/userChallenges/${userChallenge.userId}`,
-      userChallenge
+      `/api/userChallenges/${userChallengeId}/updateProgress`,
+      { value }
     );
     dispatch(_updateChallengeProgress(updatedUserChallenge));
   };

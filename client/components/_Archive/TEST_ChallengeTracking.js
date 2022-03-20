@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 import {
   Grid,
   Box,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
   Button,
   Typography,
-  CardActionArea,
+  Divider,
+  TextField,
 } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import theme from "../../theme";
 import { ThemeProvider } from "@mui/material/styles";
-import { joinChallenge } from "../../store";
+import {
+  joinChallenge,
+  updateChallengeProgress,
+  leaveChallenge,
+} from "../../store";
 
 export const TestChallengeTracking = () => {
   const { challengeId } = useParams();
@@ -45,11 +47,38 @@ export const TestChallengeTracking = () => {
           (uc) => uc.challengeId === challengeId * 1 && uc.userId === auth.id
         )
       );
+    } else {
+      setIsUserParticipant(false);
+      setUserChallenge({});
     }
   }, [auth?.id, userChallenges, challengeId]);
 
-  console.log(challenge);
-  console.log(userChallenge);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: {
+      errors,
+      isSubmitting,
+      isSubmitSuccessful,
+      isDirty,
+      dirtyFields,
+    },
+    reset,
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    //no need to update if value is 0
+    if (Number(data.value)) {
+      dispatch(
+        updateChallengeProgress({
+          userChallengeId: userChallenge.id,
+          value: data.value,
+        })
+      );
+    }
+    reset();
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -82,8 +111,12 @@ export const TestChallengeTracking = () => {
         </Grid>
         <Box sx={{ m: 1, display: "flex", justifyContent: "center" }}>
           {isUserParticipant ? (
-            <Button size="small" variant="contained" disabled>
-              <CheckIcon fontSize="small" /> Joined
+            <Button
+              variant="contained"
+              size="small"
+              onClick={() => dispatch(leaveChallenge(userChallenge.id))}
+            >
+              Leave Challenge
             </Button>
           ) : (
             <Button
@@ -108,8 +141,43 @@ export const TestChallengeTracking = () => {
             <Typography>Joined On: {userChallenge.createdAt} </Typography>
             <Typography>Status: {userChallenge.status} </Typography>
             <Typography>
-              Current Progress: {userChallenge.currentProgress}
+              Current Progress: {userChallenge.currentProgress} (
+              {(
+                (userChallenge.currentProgress / challenge.targetNumber) *
+                100
+              ).toFixed(1)}
+              %)
             </Typography>
+            <Divider sx={{ m: 5 }} />
+
+            <Box
+              component="form"
+              onSubmit={handleSubmit(onSubmit)}
+              sx={{ marginTop: 2 }}
+              id="challenge-progress-form"
+            >
+              <TextField
+                id="value"
+                required
+                variant="outlined"
+                label="Value"
+                type="number"
+                defaultValue={0}
+                {...register("value", {
+                  required: "Required field",
+                })}
+                error={!!errors?.value}
+                helperText="Use negative numbers to backtrack progress."
+              />
+              <Button
+                variant="contained"
+                size="small"
+                type="submit"
+                form="challenge-progress-form"
+              >
+                Log Progress
+              </Button>
+            </Box>
           </Box>
         )}
       </Box>

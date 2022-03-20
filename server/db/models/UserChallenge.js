@@ -11,12 +11,23 @@ const UserChallenge = db.define("userChallenge", {
   currentProgress: {
     type: INTEGER,
     validate: {
-      min: 0
+      min: 0,
     },
     defaultValue: 0,
   },
   // userId
   // challengeId
 });
+
+// update progress
+UserChallenge.prototype.updateProgress = function (value) {
+  try {
+    return this.update({
+      currentProgress: this.currentProgress + value * 1,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 module.exports = UserChallenge;
