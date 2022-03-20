@@ -117,8 +117,6 @@ const UserProfileDetails = () => {
     setConnections(connections.filter((conn) => conn.id !== connId));
   }
 
-  console.log(myChallenges);
-
   return (
     <Box sx={{ minHeight: "100vh" }}>
       <Grid container spacing={1}>

@@ -19,7 +19,24 @@ const UserChallenge = db.define("userChallenge", {
   // challengeId
 });
 
-// update status based on progress vs. challenge goal
+// dont allow duplicate userId/challengeId (ie dont allow joining the same challenge twice unless they drop out first)
+UserChallenge.beforeCreate(async (userChallenge) => {
+  const duplicate = await UserChallenge.findOne({
+    where: {
+      challengeId: userChallenge.challengeId,
+      userId: userChallenge.userId,
+    },
+  });
+  //set to completed if progress >= target
+  if (duplicate) {
+    //throw error
+    const error = Error("You have already joined this challenge!");
+    error.status = 401;
+    throw error;
+  }
+});
+
+//  update status based on challenge dates and current progress vs. target goal
 UserChallenge.beforeUpdate(async (userChallenge) => {
   try {
     const challenge = await userChallenge.getChallenge();
