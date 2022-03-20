@@ -84,17 +84,22 @@ export const TestChallengeTracking = () => {
     reset,
   } = useForm();
 
+  // controlling value field to allow decimals
+  const [value, setValue] = useState("0.0");
+
   const onSubmit = async (data) => {
+    console.log(Number(data.value));
     //no need to update if value is 0
     if (Number(data.value)) {
       dispatch(
         updateChallengeProgress({
           userChallengeId: userChallenge.id,
-          value: data.value,
+          value: Number(data.value),
         })
       );
     }
     reset();
+    setValue("0.0");
   };
 
   return (
@@ -197,7 +202,6 @@ export const TestChallengeTracking = () => {
                   variant="outlined"
                   label="Value"
                   type="number"
-                  defaultValue={0}
                   {...register("value", {
                     required: "Required field",
                   })}
@@ -208,6 +212,14 @@ export const TestChallengeTracking = () => {
                     userChallenge.currentProgress + Number(watch("value")) < 0
                       ? "Current progress total can't be less than 0"
                       : "Use negative numbers to backtrack progress"
+                  }
+                  value={value}
+                  inputProps={{
+                    // maxLength: 3,
+                    step: ".1",
+                  }}
+                  onChange={(e) =>
+                    setValue(parseFloat(e.target.value).toFixed(1))
                   }
                 />
                 <Button

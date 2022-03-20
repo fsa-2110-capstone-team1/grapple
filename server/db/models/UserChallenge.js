@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const { INTEGER, BOOLEAN, ENUM } = Sequelize;
+const { INTEGER, BOOLEAN, ENUM, DECIMAL } = Sequelize;
 
 const UserChallenge = db.define("userChallenge", {
   status: {
@@ -9,7 +9,7 @@ const UserChallenge = db.define("userChallenge", {
     defaultValue: "Not Started",
   },
   currentProgress: {
-    type: INTEGER,
+    type: DECIMAL,
     validate: {
       min: 0,
     },
@@ -76,7 +76,7 @@ UserChallenge.beforeUpdate(async (userChallenge) => {
 UserChallenge.prototype.updateProgress = function (value) {
   try {
     return this.update({
-      currentProgress: this.currentProgress + value * 1,
+      currentProgress: Number(this.currentProgress) + Number(value),
     });
   } catch (err) {
     console.log(err);
