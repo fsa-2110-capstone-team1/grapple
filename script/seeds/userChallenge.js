@@ -36,7 +36,9 @@ async function userChallengeSeed() {
   const challengeLength = {};
   const usersIdWithChallengeId = {};
   //creating object with {userId: "amount of chellenges"} pair
-  users.forEach((user) => (userAmountOfChellenges[user.id] = getRandomInt(1,10)));
+  users.forEach(
+    (user) => (userAmountOfChellenges[user.id] = getRandomInt(1, 10))
+  );
   //creating object with {chellengeId: "length of the chellenge"} pair
   challenges.forEach(
     (challenge) =>
@@ -70,7 +72,6 @@ async function userChallengeSeed() {
         new Promise((resolve) => {
           resolve(
             UserChallenge.create({
-              status: "inProgress",
               currentProgress: Object.entries(user)[0][1],
               userId: userId,
               challengeId: Object.entries(user)[0][0],
@@ -81,7 +82,7 @@ async function userChallengeSeed() {
     });
   }
 
-  await Promise.all(userChallenges);
+  await Promise.all([...userChallenges]);
 
   console.log(`seeded ${userChallenges.length} users challenges`);
 

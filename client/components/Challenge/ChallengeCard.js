@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Grid,
   Card,
@@ -14,9 +14,11 @@ import {
 import CheckIcon from "@mui/icons-material/Check";
 import theme from "../../theme";
 import { ThemeProvider } from "@mui/material/styles";
+import { joinChallenge } from "../../store";
 
 export const ChallengeCard = ({ challenge }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { auth, userChallenges } = useSelector((state) => state);
 
@@ -70,7 +72,11 @@ export const ChallengeCard = ({ challenge }) => {
               <CheckIcon fontSize="small" /> Joined
             </Button>
           ) : (
-            <Button variant="contained" size="small">
+            <Button
+              variant="contained"
+              size="small"
+              onClick={() => dispatch(joinChallenge(auth.id, challenge.id))}
+            >
               Join Challenge
             </Button>
           )}

@@ -3,9 +3,9 @@ import axios from "axios";
 // ACTION TYPES
 
 const GET_USERCHALLENGES = "GET_USERCHALLENGES";
-const CREATE_USERCHALLENGE = "CREATE_USERCHALLENGE";
-const UPDATE_USERCHALLENGE = "UPDATE_USERCHALLENGE";
-const REMOVE_USERCHALLENGE = "REMOVE_USERCHALLENGE";
+const JOIN_CHALLENGE = "JOIN_CHALLENGE";
+const UPDATE_CHALLENGE_PROGRESS = "UPDATE_CHALLENGE_PROGRESS";
+const LEAVE_CHALLENGE = "LEAVE_CHALLENGE";
 
 // ACTION CREATORS
 
@@ -13,16 +13,16 @@ const _getUserChallenges = (userChallenges) => ({
   type: GET_USERCHALLENGES,
   userChallenges,
 });
-const _createUserChallenge = (userChallenge) => ({
-  type: CREATE_USERCHALLENGE,
+const _joinChallenge = (userChallenge) => ({
+  type: JOIN_CHALLENGE,
   userChallenge,
 });
-const _updateUserChallenge = (userChallenge) => ({
-  type: UPDATE_USERCHALLENGE,
+const _updateChallengeProgress = (userChallenge) => ({
+  type: UPDATE_CHALLENGE_PROGRESS,
   userChallenge,
 });
-const _removeUserChallenge = (userChallengeId) => ({
-  type: REMOVE_USERCHALLENGE,
+const _leaveChallenge = (userChallengeId) => ({
+  type: LEAVE_CHALLENGE,
   userChallengeId,
 });
 
@@ -35,39 +35,34 @@ export const getUserChallenges = () => {
   };
 };
 
-// export const getUserChallenges = (userId) => {
-//   return async (dispatch) => {
-//     const { data: userChallenges } = await axios.get(
-//       `/api/userChallenges/${userId}`
-//     );
-//     dispatch(_getUserChallenges(userChallenges));
-//   };
-// };
-
-export const createUserChallenge = (userChallenge) => {
+export const joinChallenge = (userId, challengeId) => {
   return async (dispatch) => {
-    const { data: newUserChallenge } = await axios.post(
-      "/api/userChallenges",
-      userChallenge
-    );
-    dispatch(_createUserChallenge(newUserChallenge));
+    const { data: newUserChallenge } = await axios.post("/api/userChallenges", {
+      userId,
+      challengeId,
+    });
+    dispatch(_joinChallenge(newUserChallenge));
   };
 };
 
-export const updateUserChallenge = (userChallenge) => {
-  return async (dispatch) => {
-    const { data: updatedUserChallenge } = await axios.put(
-      `/api/userChallenges/${userChallenge.userId}`,
-      userChallenge
-    );
-    dispatch(_updateUserChallenge(updatedUserChallenge));
+export const updateChallengeProgress =
+  ({ userChallengeId, value }) =>
+  async (dispatch) => {
+    try {
+      const { data: updatedUserChallenge } = await axios.put(
+        `/api/userChallenges/${userChallengeId}/updateProgress`,
+        { value }
+      );
+      return dispatch(_updateChallengeProgress(updatedUserChallenge));
+    } catch (error) {
+      return dispatch(_updateChallengeProgress({ id: userChallengeId, error }));
+    }
   };
-};
 
-export const removeUserChallenge = (userChallengeId) => {
+export const leaveChallenge = ({ userChallengeId }) => {
   return async (dispatch) => {
     await axios.delete(`/api/userChallenges/${userChallengeId}`);
-    dispatch(_removeUserChallenge(userChallengeId));
+    dispatch(_leaveChallenge(userChallengeId));
   };
 };
 
@@ -75,15 +70,19 @@ export default (state = [], action) => {
   switch (action.type) {
     case GET_USERCHALLENGES:
       return action.userChallenges;
-    case CREATE_USERCHALLENGE:
-      return [...state.userChallenges, action.userChallenge];
-    case UPDATE_USERCHALLENGE:
+    case JOIN_CHALLENGE:
+      return [...state, action.userChallenge];
+    case UPDATE_CHALLENGE_PROGRESS:
       return state.map((userChallenge) =>
         userChallenge.id === action.userChallenge.id
-          ? action.userChallenge
+          ? {
+              ...userChallenge,
+              ...action.userChallenge,
+              error: action.userChallenge.error,
+            }
           : userChallenge
       );
-    case REMOVE_USERCHALLENGE:
+    case LEAVE_CHALLENGE:
       return state.filter(
         (userChallenge) => userChallenge.id !== action.userChallengeId
       );
