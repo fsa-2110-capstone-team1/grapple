@@ -18,6 +18,7 @@ import {
   updateChallengeProgress,
   leaveChallenge,
 } from "../../store";
+import TEST_ConfirmActionDialog from "./TEST_ConfirmActionDialog";
 
 export const TestChallengeTracking = () => {
   const { challengeId } = useParams();
@@ -111,13 +112,20 @@ export const TestChallengeTracking = () => {
         </Grid>
         <Box sx={{ m: 1, display: "flex", justifyContent: "center" }}>
           {isUserParticipant ? (
-            <Button
-              variant="contained"
-              size="small"
-              onClick={() => dispatch(leaveChallenge(userChallenge.id))}
-            >
-              Leave Challenge
-            </Button>
+            <TEST_ConfirmActionDialog
+              {...{
+                buttonVariant: "contained",
+                buttonSize: "small",
+                buttonText: "Leave Challenge",
+                dialogTitle: "Are you sure you want to leave this challenge?",
+                dialogText:
+                  "This action is permanent. Once you leave the challenge, you will need to re-join and start over.",
+                disagreeText: "Cancel",
+                agreeText: "Leave Challenge",
+                dispatchAction: leaveChallenge,
+                dispatchParams: { userChallengeId: userChallenge.id },
+              }}
+            />
           ) : (
             <Button
               variant="contained"

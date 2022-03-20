@@ -55,7 +55,7 @@ export const updateChallengeProgress = ({ userChallengeId, value }) => {
   };
 };
 
-export const leaveChallenge = (userChallengeId) => {
+export const leaveChallenge = ({ userChallengeId }) => {
   return async (dispatch) => {
     await axios.delete(`/api/userChallenges/${userChallengeId}`);
     dispatch(_leaveChallenge(userChallengeId));
