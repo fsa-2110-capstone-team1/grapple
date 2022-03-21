@@ -272,15 +272,16 @@ a:hover {
 }
 
 .profile-container {
-  display: flex;
+  /* display: flex; */
   justify-content: center;
+  min-height: 50vh;
 }
 .profile {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 70%;
+  /* width: 70%; */
   align-items: center;
 }
 
@@ -299,37 +300,30 @@ a:hover {
 }
 
 #profile-header {
-  /* position: relative; */
-  /* float: center; */
   width: 100%;
   height: 150px;
   background-size: 100% 100%;
   top: 0;
   left: 0;
   margin-bottom: 55px;
-
   object-fit: cover;
-
   box-sizing: border-box;
 }
 
 #profile-image {
-  /* position: fixed; */
   float: left;
   height: 156px;
   width: 156px;
+  object-fit:cover;
   top: 50px;
   left: calc(50% - 78px);
   border: 5px solid silver;
   border-radius: 50%;
   bottom: 0;
   box-shadow: inherit;
-
-  /*   background-color:white;
-  /* margin-top: "20px"; */
+  background-color:white;
+  margin-top: "20px";
   margin-right: -50%;
-  margin-left: 0px;
-  /* padding-top:15%; */
   position: relative;
   z-index: 1;
   font-size: 155px;

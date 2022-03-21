@@ -242,7 +242,7 @@ const Navbar = () => {
                         </Typography>
                       </MenuItem>
                     </Link>
-                    <Link to="/settings" onClick={handleCloseUserMenu}>
+                    <Link to="/user/settings" onClick={handleCloseUserMenu}>
                       <MenuItem>
                         <Typography textAlign="center" color="secondary">
                           Settings

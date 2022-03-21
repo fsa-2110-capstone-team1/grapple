@@ -56,6 +56,7 @@ export const ChallengeCard = ({ challenge }) => {
             height="200"
             image={`/${challenge.image}`}
             alt="challenge cover photo"
+            sx={{objectFit:"contain"}}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">

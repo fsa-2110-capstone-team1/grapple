@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   Grid,
@@ -18,6 +18,10 @@ import Switch from "@mui/material/Switch";
 import FormLabel from "@mui/material/FormLabel";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Stack from "@mui/material/Stack";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "../../theme";
+import PropTypes from "prop-types";
+import LinearProgress from "@mui/material/LinearProgress";
 
 export const UserProfileForm = ({ preloadedValues }) => {
   const {
@@ -49,6 +53,11 @@ export const UserProfileForm = ({ preloadedValues }) => {
       });
     }
   };
+  const [progress, setProgress] = React.useState(50);
+
+  useEffect(() => {
+    setProgress(50);
+  }, [fileName]);
 
   const onChange = async (e) => {
     console.log("e", e);
@@ -57,27 +66,52 @@ export const UserProfileForm = ({ preloadedValues }) => {
     const fileRef = ref(storage, file.name);
     setFileName(file.name);
     await uploadBytes(fileRef, file).then((snapshot) => {
-      console.log("Uploaded a blob or file!");
+      // console.log("Uploaded a blob or file!");
     });
     await getDownloadURL(ref(storage, file.name)).then((url) => {
       setImageUrl(url);
+      // console.log("Got the url!");
+      setProgress(100);
     });
   };
 
+  function LinearProgressWithLabel(props) {
+    return (
+      <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box sx={{ width: "100%", mr: 1 }}>
+          <LinearProgress variant="determinate" {...props} />
+        </Box>
+        <Box sx={{ minWidth: 35 }}>
+          <Typography variant="body2" color="text.secondary">{`${Math.round(
+            props.value
+          )}%`}</Typography>
+        </Box>
+      </Box>
+    );
+  }
+
+  LinearProgressWithLabel.propTypes = {
+    /**
+     * The value of the progress indicator for the determinate and buffer variants.
+     * Value between 0 and 100.
+     */
+    value: PropTypes.number.isRequired,
+  };
+
   return (
-    <div className="profile-container">
-      {!!snackbar && (
-        <Snackbar
-          open
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-          onClose={handleCloseSnackbar}
-          autoHideDuration={6000}
-        >
-          <Alert {...snackbar} onClose={handleCloseSnackbar} />
-        </Snackbar>
-      )}
-      <CardContent>
-        <Grid item xs={12} sx={{ width: "100%" }}>
+    <ThemeProvider theme={theme}>
+      <div className="profile-container">
+        {!!snackbar && (
+          <Snackbar
+            open
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            onClose={handleCloseSnackbar}
+            autoHideDuration={6000}
+          >
+            <Alert {...snackbar} onClose={handleCloseSnackbar} />
+          </Snackbar>
+        )}
+        <CardContent>
           <Box
             component="form"
             onSubmit={handleSubmit(onSubmit)}
@@ -86,6 +120,83 @@ export const UserProfileForm = ({ preloadedValues }) => {
           >
             <Grid container spacing={3} direction="column">
               {/* FORM FIELDS */}
+              <Grid item>
+                <Grid container spacing={3}>
+                  <Grid item xs={6}>
+                    <TextField
+                      id="firstName"
+                      label="First Name"
+                      variant="outlined"
+                      autoFocus
+                      {...register("firstName", {
+                        required: "Required field",
+                      })}
+                      error={!!errors?.firstName}
+                      helperText={
+                        errors?.firstName ? errors.firstName.message : null
+                      }
+                      fullWidth
+                      required
+                    />
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <TextField
+                      id="lastName"
+                      label="Last Name"
+                      variant="outlined"
+                      autoFocus
+                      {...register("lastName", {
+                        required: "Required field",
+                      })}
+                      error={!!errors?.lastName}
+                      helperText={
+                        errors?.lastName ? errors.lastName.message : null
+                      }
+                      fullWidth
+                      required
+                    />
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <TextField
+                      id="username"
+                      label="Username"
+                      variant="outlined"
+                      autoFocus
+                      {...register("username", {
+                        required: "Required field",
+                      })}
+                      error={!!errors?.username}
+                      helperText={
+                        errors?.username ? errors.username.message : null
+                      }
+                      fullWidth
+                      required
+                    />
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <TextField
+                      id="email"
+                      label="Email address"
+                      variant="outlined"
+                      autoFocus
+                      {...register("email", {
+                        required: "Required field",
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9._%+-]+\.[A-Z]{2,}$/i,
+                          message: "Invalid email address",
+                        },
+                      })}
+                      error={!!errors?.email}
+                      helperText={errors?.email ? errors.email.message : null}
+                      fullWidth
+                      required
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
               <Grid item>
                 <label htmlFor="image">
                   <input
@@ -102,115 +213,21 @@ export const UserProfileForm = ({ preloadedValues }) => {
                     variant="contained"
                     component="span"
                   >
-                    Update Photo
+                    Upload Profile Picture
                   </Button>
-                  <div className="file-name">
+                  <Typography
+                    variant="h8"
+                    className="file-name"
+                    sx={{ margin: "50px" }}
+                  >
                     {fileName.length > 0 ? fileName : null}
-                  </div>
+                    {fileName.length > 0 ? (
+                      <LinearProgressWithLabel value={progress} />
+                    ) : null}
+                  </Typography>
                 </label>
               </Grid>
-              <Grid item>
-                <TextField
-                  id="firstName"
-                  label="First Name"
-                  variant="outlined"
-                  autoFocus
-                  {...register("firstName", {
-                    required: "Required field",
-                  })}
-                  error={!!errors?.firstName}
-                  helperText={
-                    errors?.firstName ? errors.firstName.message : null
-                  }
-                  fullWidth
-                  required
-                />
-              </Grid>
-
-              <Grid item>
-                <TextField
-                  id="lastName"
-                  label="Last Name"
-                  variant="outlined"
-                  autoFocus
-                  {...register("lastName", {
-                    required: "Required field",
-                  })}
-                  error={!!errors?.lastName}
-                  helperText={errors?.lastName ? errors.lastName.message : null}
-                  fullWidth
-                  required
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  id="username"
-                  label="Username"
-                  variant="outlined"
-                  autoFocus
-                  {...register("username", {
-                    required: "Required field",
-                  })}
-                  error={!!errors?.username}
-                  helperText={errors?.username ? errors.username.message : null}
-                  fullWidth
-                  required
-                />
-              </Grid>
-
-              <Grid item>
-                <TextField
-                  id="email"
-                  label="Email address"
-                  variant="outlined"
-                  autoFocus
-                  {...register("email", {
-                    required: "Required field",
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9._%+-]+\.[A-Z]{2,}$/i,
-                      message: "Invalid email address",
-                    },
-                  })}
-                  error={!!errors?.email}
-                  helperText={errors?.email ? errors.email.message : null}
-                  fullWidth
-                  required
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  id="password"
-                  label="Password"
-                  type="password"
-                  variant="outlined"
-                  {...register("password", { required: "Required field" })}
-                  error={!!errors?.password}
-                  helperText={errors?.password ? errors.password.message : null}
-                  fullWidth
-                />
-              </Grid>
-
-              {/* <Grid item>
-                <TextField
-                  id="image"
-                  label="Image URL"
-                  variant="outlined"
-                  {...register("image")}
-                  error={!!errors?.image}
-                  helperText={errors?.image ? errors.image.message : null}
-                  fullWidth
-                />
-              </Grid> */}
-              <FormLabel component="legend">Type of your account</FormLabel>
-              <Stack direction="row" spacing={1} alignItems="center">
-                <Typography>Public</Typography>
-                <FormControlLabel
-                  id="isPrivate"
-                  control={<Switch color="primary" />}
-                  label="Private"
-                  {...register("isPrivate")}
-                />
-              </Stack>
+              
               {/* BUTTON */}
               <Grid item>
                 <Button
@@ -225,8 +242,8 @@ export const UserProfileForm = ({ preloadedValues }) => {
               </Grid>
             </Grid>
           </Box>
-        </Grid>
-      </CardContent>
-    </div>
+        </CardContent>
+      </div>
+    </ThemeProvider>
   );
 };
