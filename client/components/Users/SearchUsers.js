@@ -2,16 +2,54 @@ import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
+import Popper from "@mui/material/Popper";
+import { makeStyles, createStyles } from "@mui/styles";
+import {spacing } from "@mui/system/"
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      "& .MuiAutocomplete-listbox": {
+  height: "180px",
+  // width: "100px",
+//  backgroundColor: "#4ab5a3",
+        fontSize: 18,
+        // color:'white'
+        // padding-left: "20px",
+        padding: '15px'
+      },
+    },
+  })
+);
+
+const CustomPopper = (props) => {
+  const classes = useStyles();
+  return <Popper {...props} className={classes.root} placement="bottom" />;
+};
 
 export default function SearchUsers({ data }) {
   return (
-    <div className='search'>
-      <Stack spacing={2} sx={{ width: 300 }}>
+    <div className="search">
+      <Stack spacing={2} sx={{ width: 300, height: 100 }}>
         <Autocomplete
           freeSolo
+          // classes={classes}
           id="free-solo-2-demo"
           disableClearable
           options={data.map((option) => option.username)}
+          renderOption={(option) => (
+            <React.Fragment>
+              <span
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  window.location.href = `/users/profile/${option.key}`;
+                }}
+              >
+                <p>{option.key}</p>
+              </span>
+            </React.Fragment>
+          )}
+          PopperComponent={CustomPopper}
           renderInput={(params) => (
             <TextField
               {...params}
