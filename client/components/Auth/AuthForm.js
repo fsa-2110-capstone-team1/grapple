@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '../../theme';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "../../theme";
 import {
   Grid,
   Box,
@@ -11,16 +11,16 @@ import {
   Button,
   Typography,
   Divider,
-} from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
-import SaveIcon from '@mui/icons-material/Save';
-import { authenticate } from '../../store';
+} from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
+import { authenticate } from "../../store";
 
 const AuthForm = ({ path }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const method = location.pathname.substring(1) || 'signup'; //login or signup
+  const method = location.pathname.substring(1) || "signup"; //login or signup
 
   const authError = useSelector((state) => state.auth.error);
 
@@ -40,10 +40,8 @@ const AuthForm = ({ path }) => {
 
   const onSubmit = async (data) => {
     const authed = await dispatch(authenticate(data, method));
-    //authed === undefined when authenticate is successful
-    //navigate back to where they were before login
-    if (!authed) {
-      navigate(path || location.pathname);
+    if (authed.auth.username) {
+      navigate(`/users/profile/${authed.auth.username}`);
     }
   };
 
@@ -51,17 +49,17 @@ const AuthForm = ({ path }) => {
     <ThemeProvider theme={theme}>
       <Box
         sx={{
-          width: '80vw',
-          border: '1px solid black',
-          margin: 'auto',
+          width: "80vw",
+          border: "1px solid black",
+          margin: "auto",
           padding: 5,
         }}
       >
         <Grid
           container
           direction="column"
-          justifyContent={'center'}
-          alignItems={'center'}
+          justifyContent={"center"}
+          alignItems={"center"}
           spacing={3}
           sx={{
             width: 1,
@@ -69,36 +67,36 @@ const AuthForm = ({ path }) => {
         >
           <Grid item xs={1}>
             <Typography variant="h4">
-              {method === 'login' ? 'Log In' : 'Sign Up'}
+              {method === "login" ? "Log In" : "Sign Up"}
             </Typography>
           </Grid>
 
           <Grid
             item
             xs={4}
-            direction={'column'}
+            direction={"column"}
             container
             spacing={3}
-            alignItems={'center'}
-            sx={{ width: '100%', pb: 2 }}
+            alignItems={"center"}
+            sx={{ width: "100%", pb: 2 }}
           >
-            <Grid item xs={6} textAlign={'center'} sx={{ width: '60%' }}>
+            <Grid item xs={6} textAlign={"center"} sx={{ width: "60%" }}>
               <Button variant="contained" fullWidth>
                 Continue with Google
               </Button>
             </Grid>
-            <Grid item xs={6} sx={{ width: '60%' }}>
+            <Grid item xs={6} sx={{ width: "60%" }}>
               <Button variant="contained" fullWidth>
                 Continue with Facebook
               </Button>
             </Grid>
           </Grid>
 
-          <Grid item sx={{ width: '100%' }} textAlign={'center'}>
+          <Grid item sx={{ width: "100%" }} textAlign={"center"}>
             <Divider variant="middle"> OR </Divider>
           </Grid>
 
-          <Grid item xs={5} sx={{ width: '60%' }}>
+          <Grid item xs={5} sx={{ width: "60%" }}>
             <Box
               component="form"
               onSubmit={handleSubmit(onSubmit)}
@@ -112,11 +110,11 @@ const AuthForm = ({ path }) => {
                     label="Email"
                     variant="outlined"
                     autoFocus
-                    {...register('email', {
-                      required: 'Required field',
+                    {...register("email", {
+                      required: "Required field",
                       pattern: {
                         value: /^[A-Z0-9._%+-]+@[A-Z0-9._%+-]+\.[A-Z]{2,}$/i,
-                        message: 'Invalid email address',
+                        message: "Invalid email address",
                       },
                     })}
                     error={!!errors?.email}
@@ -130,7 +128,7 @@ const AuthForm = ({ path }) => {
                     label="Password"
                     type="password"
                     variant="outlined"
-                    {...register('password', { required: 'Required field' })}
+                    {...register("password", { required: "Required field" })}
                     error={!!errors?.password}
                     helperText={
                       errors?.password ? errors.password.message : null
@@ -138,15 +136,15 @@ const AuthForm = ({ path }) => {
                     fullWidth
                   />
                 </Grid>
-                {method === 'signup' ? (
+                {method === "signup" ? (
                   <Grid item container spacing={2}>
                     <Grid item xs={6}>
                       <TextField
                         id="firstName"
                         label="First Name"
                         variant="outlined"
-                        {...register('firstName', {
-                          required: 'Required field',
+                        {...register("firstName", {
+                          required: "Required field",
                         })}
                         error={!!errors?.firstName}
                         helperText={
@@ -160,8 +158,8 @@ const AuthForm = ({ path }) => {
                         id="lastName"
                         label="Last Name"
                         variant="outlined"
-                        {...register('lastName', {
-                          required: 'Required field',
+                        {...register("lastName", {
+                          required: "Required field",
                         })}
                         error={!!errors?.lastName}
                         helperText={
@@ -172,7 +170,7 @@ const AuthForm = ({ path }) => {
                     </Grid>
                   </Grid>
                 ) : (
-                  ''
+                  ""
                 )}
 
                 <Grid item>
@@ -185,7 +183,7 @@ const AuthForm = ({ path }) => {
                       startIcon={<SaveIcon />}
                       variant="outlined"
                     >
-                      {method === 'login' ? 'Log In' : 'Sign Up'}
+                      {method === "login" ? "Log In" : "Sign Up"}
                     </LoadingButton>
                   ) : (
                     <Button
@@ -196,7 +194,7 @@ const AuthForm = ({ path }) => {
                       disabled={isSubmitting || !isDirty}
                       form="login-form"
                     >
-                      {method === 'login' ? 'Log In' : 'Sign Up'}
+                      {method === "login" ? "Log In" : "Sign Up"}
                     </Button>
                   )}
                 </Grid>
@@ -209,7 +207,7 @@ const AuthForm = ({ path }) => {
             </Box>
           </Grid>
 
-          {method === 'login' ? (
+          {method === "login" ? (
             <Grid item xs={1}>
               <Typography variant="body2">
                 No account? No problem, sign up <Link to="/signup">here</Link>!

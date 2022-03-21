@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import dateFormat from "dateformat";
 import {
@@ -104,16 +104,8 @@ export const UserCard = ({ user }) => {
       <Card
         sx={{
           maxWidth: 345,
-          minWidth: 275,
-          // Provide some spacing between cards
-          margin: 1.5,
-          // Use flex layout with column direction for components in the card
-          // (CardContent and CardActions)
-          display: "flex",
-          flexDirection: "column",
-          // Justify the content so that CardContent will always be at the top of the card,
-          // and CardActions will be at the bottom
-          justifyContent: "space-between",
+          pl: 4,
+          pr: 4,
         }}
       >
         <CardActionArea
@@ -124,6 +116,7 @@ export const UserCard = ({ user }) => {
             height="200"
             image={`${user.image}`}
             alt="user photo"
+            sx={{ borderRadius: 50 }}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">

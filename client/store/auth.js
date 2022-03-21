@@ -30,7 +30,7 @@ export const authenticate = (data, method) => async (dispatch) => {
   try {
     const res = await axios.post(`/auth/${method}`, { data });
     window.localStorage.setItem(TOKEN, res.data.token);
-    dispatch(me());
+    return dispatch(me());
   } catch (authError) {
     return dispatch(setAuth({ error: authError }));
   }
@@ -43,7 +43,7 @@ export const logout = () => (dispatch) => {
 
 export const updateUser = (user) => {
   return async (dispatch) => {
-    console.log("here in store")
+    console.log("here in store");
     try {
       const newUser = (await axios.put(`/api/users/${user.id}`, user)).data;
       dispatch(upUser(newUser));

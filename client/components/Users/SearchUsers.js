@@ -1,49 +1,67 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import * as React from "react";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import Autocomplete from "@mui/material/Autocomplete";
+import Popper from "@mui/material/Popper";
+import { makeStyles, createStyles } from "@mui/styles";
+import {spacing } from "@mui/system/"
 
-// import SearchIcon from "@material-ui/icons/Search";
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      "& .MuiAutocomplete-listbox": {
+  height: "180px",
+  // width: "100px",
+//  backgroundColor: "#4ab5a3",
+        fontSize: 18,
+        // color:'white'
+        // padding-left: "20px",
+        padding: '15px'
+      },
+    },
+  })
+);
 
-const SearchUsers = ({ data }) => {
-  const [searchedData, setSearchedData] = useState([]);
-  const navigate = useNavigate();
-  const updateList = (e) => {
-    const search = e.target.value;
-    const newSearch = data.filter((searching) => {
-      return searching.username.toLowerCase().includes(search.toLowerCase());
-    });
-    if (search === "") {
-      setSearchedData([]);
-    } else {
-      setSearchedData(newSearch);
-    }
-  };
-
-  return (
-    <div className="search">
-      <div className="searchInputs">
-        <input
-          type="text"
-          placeholder={"Search for User"}
-          onChange={updateList}
-        />
-        <div className="searchIcon"></div>
-      </div>
-      {searchedData.length != 0 && (
-        <div className="dataResult">
-          {searchedData.slice(0, 15).map((user, key) => {
-            return (
-              <a
-                className="dataItem"
-                onClick={() => navigate(`/people/${user.username}`)}
-              >
-                <p>{user.username}</p>
-              </a>
-            );
-          })}
-        </div>
-      )}
-    </div>
-  );
+const CustomPopper = (props) => {
+  const classes = useStyles();
+  return <Popper {...props} className={classes.root} placement="bottom" />;
 };
 
-export default SearchUsers;
+export default function SearchUsers({ data }) {
+  return (
+    <div className="search">
+      <Stack spacing={2} sx={{ width: 300, height: 100 }}>
+        <Autocomplete
+          freeSolo
+          // classes={classes}
+          id="free-solo-2-demo"
+          disableClearable
+          options={data.map((option) => option.username)}
+          renderOption={(option) => (
+            <React.Fragment>
+              <span
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  window.location.href = `/users/profile/${option.key}`;
+                }}
+              >
+                <p>{option.key}</p>
+              </span>
+            </React.Fragment>
+          )}
+          PopperComponent={CustomPopper}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Search for Users"
+              InputProps={{
+                ...params.InputProps,
+                type: "search",
+              }}
+            />
+          )}
+        />
+      </Stack>
+    </div>
+  );
+}

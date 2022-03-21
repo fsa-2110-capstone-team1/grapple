@@ -176,7 +176,7 @@ a {
 
 .search input {
   background-color: white;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-radius: 2px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
@@ -356,4 +356,11 @@ a:hover {
 .sorters > button:hover {
   background-color: #4ab5a3;
   color: white;
+}
+
+.searchContainer {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  margin-left: 50px;
+border: white;
 }
