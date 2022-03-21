@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
-import { Grid } from "@mui/material";
+import { useLocation, useParams, Link } from "react-router-dom";
+import { Grid, Typography } from "@mui/material";
 import UserCard from "./UserCard";
 import SearchUsers from "./SearchUsers";
+import PaginationFooter from "./PaginationFooter";
 
 export const BrowseUsers = () => {
   const { auth, publicUsers, connections } = useSelector((state) => state);
@@ -42,7 +43,17 @@ export const BrowseUsers = () => {
         setUsers(publicUsers);
       }
     }
-  }, [connections, publicUsers, auth?.id]);
+  }, [connections, publicUsers, auth?.id, userGroup]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(8);
+
+  const indexOfLastChallenge = currentPage * usersPerPage;
+  const indexofFirstChallenge = indexOfLastChallenge - usersPerPage;
+
+  const currentUsers = users.slice(indexofFirstChallenge, indexOfLastChallenge);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   //scroll to top at page load
   useEffect(() => {
@@ -50,21 +61,64 @@ export const BrowseUsers = () => {
   }, [location]);
 
   return (
-    <Grid container>
-      {/* <SearchUsers data={publicUsers} /> */}
-      <Grid item xs={0.5} md={1} />
-      <Grid item xs={11} md={10} container>
-        {!!users?.length &&
-          users
-            ?.filter((user) => user.id !== auth.id)
-            .map((user) => (
-              <Grid item key={user.username} xs={12} container>
-                <UserCard key={user.username} user={user} />
-              </Grid>
-            ))}
+    <>
+    <div>
+      <Grid container>
+         <div className="searchContainer">
+        <SearchUsers data={publicUsers} />
+        </div>
+        <Grid item xs={0.5} sm={0.5} md={1} lg={1.5} />
+        <Grid item xs={11} sm={11} md={10} lg={9} container spacing={2}>
+          {!currentUsers?.length ? (
+            <Grid item>
+              {userGroup === "friends" ? (
+                <Typography>
+                  You don't have any friends yet...
+                  {<Link to="/users">Browse users</Link>} to add them as
+                  friends!
+                </Typography>
+              ) : userGroup === "friendRequests" ? (
+                <Typography>
+                  You don't have any pending friend requests...{" "}
+                  {<Link to="/users">Browse users</Link>} to add them as
+                  friends!
+                </Typography>
+              ) : (
+                <Typography>
+                  {" "}
+                  No users found. {<Link to="/users">Browse all users</Link>}.
+                </Typography>
+              )}
+            </Grid>
+          ) : (
+            currentUsers
+              ?.filter((user) => user.id !== auth.id)
+              .map((user) => (
+                <Grid
+                  item
+                  key={user.id}
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  lg={4}
+                  xl={3}
+                  container
+                >
+                  <UserCard key={user.username} user={user} />
+                </Grid>
+              ))
+          )}
+        </Grid>
+        <Grid item xs={0.5} sm={0.5} md={1} lg={1.5} />
       </Grid>
-      <Grid item xs={0.5} md={1} />
-    </Grid>
+      <PaginationFooter
+        challengesPerPage={usersPerPage}
+        totalPosts={publicUsers.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
+    </div>
+    </>
   );
 };
 export default BrowseUsers;

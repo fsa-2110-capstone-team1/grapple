@@ -1,13 +1,13 @@
 * {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   min-height: 100vh;
-  /* margin: 0; */
+  margin: 0;
 }
 
 /*  Home start */
@@ -59,7 +59,7 @@ body {
 
 /* the one below */
 .meditate-img-div {
-  background-image: url('../homeImgs/grapple-cycle-group.jpeg');
+  background-image: url("../homeImgs/grapple-cycle-group.jpeg");
   background-size: cover;
   background-position: center;
   padding: 13em;
@@ -92,7 +92,7 @@ body {
 }
 
 .nav {
-  margin-bottom: 90px;
+  margin-bottom: 120px;
 }
 
 a {
@@ -249,7 +249,7 @@ a:hover {
   width: -webkit-fill-available;
 }
 .image-stack::after {
-  content: ' ';
+  content: " ";
   display: table;
   clear: both;
 }
@@ -282,7 +282,7 @@ a:hover {
   position: relative;
   z-index: 1;
   font-size: 155px;
-  color: '#dfdfdf';
+  color: "#dfdfdf";
 }
 
 .profile-list {
@@ -305,4 +305,10 @@ a:hover {
 .sorters > button:hover {
   background-color: #4ab5a3;
   color: white;
+}
+
+.searchContainer {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  margin-left: 50px;
 }

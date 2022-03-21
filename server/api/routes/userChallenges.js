@@ -1,11 +1,11 @@
-const router = require('express').Router();
+const router = require("express").Router();
 const {
   models: { UserChallenge },
-} = require('../../db');
+} = require("../../db");
 module.exports = router;
 
 // Get all User challenges
-router.get('/', async (req, res, next) => {
+router.get("/", async (req, res, next) => {
   try {
     const userChallenge = await UserChallenge.findAll({});
     res.json(userChallenge);
@@ -15,13 +15,22 @@ router.get('/', async (req, res, next) => {
 });
 
 // Get a single User challenge
-// passing user id, not userChallenge id (Kate)
-router.get('/:id', async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
+  try {
+    const userChallenge = await UserChallenge.findAll({});
+    res.json(userChallenge);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Get all User challenges for a user
+router.get("/user/:userId", async (req, res, next) => {
   try {
     const userChallenge = await UserChallenge.findAll({
-      // where: {
-      //   userId = req.params.id
-      // }
+      where: {
+        userId: req.params.userId,
+      },
     });
     res.json(userChallenge);
   } catch (err) {
@@ -30,7 +39,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 // Create a new User challenge
-router.post('/', async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     res.status(201).send(await UserChallenge.create(req.body));
   } catch (error) {
@@ -38,23 +47,23 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-// Edit a User challenge
-// passing user id, not userChallenge id (Kate)
-router.put('/:id', async (req, res, next) => {
+// Update progress to a User challenge; payload: { method (add or subtract), value }
+router.put("/:id/updateProgress", async (req, res, next) => {
   try {
-    const userChallenge = await UserChallenge.findAll({
-      // where: {
-      //   userId = req.params.id
-      // }
-    });
-    res.send(await userChallenge.update(req.body));
-  } catch (error) {
-    next(error);
+    const userChallenge = await UserChallenge.findByPk(req.params.id);
+    res.send(await userChallenge.updateProgress(req.body.value));
+  } catch (err) {
+    if (err.name === "SequelizeValidationError") {
+      console.log(err);
+      res.status(401).send("Current progress must be greater or equal to 0.");
+    } else {
+      next(err);
+    }
   }
 });
 
 // Delete a User challenge
-router.delete('/:id', async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   try {
     const userChallenge = await UserChallenge.findByPk(req.params.id);
     if (!userChallenge) {

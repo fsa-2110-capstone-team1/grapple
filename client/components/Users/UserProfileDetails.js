@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import dateFormat from "dateformat";
 import {
   acceptConnection,
@@ -14,6 +14,12 @@ import CheckIcon from "@mui/icons-material/Check";
 import ChallengeCard from "../Challenge/ChallengeCard";
 
 const UserProfileDetails = () => {
+  //scroll to top at page load
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
   const navigate = useNavigate();
   const { username } = useParams();
   const dispatch = useDispatch();
@@ -29,7 +35,9 @@ const UserProfileDetails = () => {
   const [myChallenges, setMyChallenges] = useState([]);
 
   useEffect(() => {
-    const foundUser = publicUsers.find((u) => u.username === username);
+    const foundUser = publicUsers.find(
+      (u) => u.username === (username || auth.username)
+    );
     setUser(foundUser);
   }, [username, publicUsers]);
 
@@ -74,10 +82,11 @@ const UserProfileDetails = () => {
 
   useEffect(() => {
     const myChal = userChallenges
-      ?.filter((uc) => uc.userId === user?.id && uc.status === "inProgress")
-      .map((uc) =>
-        challenges.find((challenge) => challenge.id === uc.challengeId)
-      );
+      ?.filter((uc) => uc.userId === user?.id)
+      .map((uc) => ({
+        ...challenges.find((challenge) => challenge.id === uc.challengeId),
+        status: uc.status,
+      }));
     setMyChallenges(myChal);
   }, [userChallenges, challenges, user?.id]);
 
@@ -174,19 +183,38 @@ const UserProfileDetails = () => {
                     ) : connections.find(
                         (conn) => conn.requested_userId === auth?.id
                       ) ? (
-                      <Button
-                        size="small"
-                        variant="outlined"
-                        onClick={() =>
-                          handleAcceptRequest(
-                            connections.find(
-                              (conn) => conn.requested_userId === auth?.id
-                            ).id
-                          )
-                        }
-                      >
-                        Accept Request
-                      </Button>
+                      <Grid container spacing={1}>
+                        <Grid item>
+                          <Button
+                            size="small"
+                            variant="outlined"
+                            onClick={() =>
+                              handleAcceptRequest(
+                                connections.find(
+                                  (conn) => conn.requested_userId === auth?.id
+                                ).id
+                              )
+                            }
+                          >
+                            Accept Request
+                          </Button>
+                        </Grid>
+                        <Grid item>
+                          <Button
+                            size="small"
+                            variant="outlined"
+                            onClick={() =>
+                              handleRemoveConnection(
+                                connections.find(
+                                  (conn) => conn.requested_userId === auth?.id
+                                ).id
+                              )
+                            }
+                          >
+                            Decline Request
+                          </Button>
+                        </Grid>
+                      </Grid>
                     ) : (
                       <Button
                         size="small"
@@ -215,12 +243,17 @@ const UserProfileDetails = () => {
                 sx={{ display: "flex", alignItems: "flex-start" }}
               >
                 <Grid item>
-                  {/* TODO: remove link to friends for non auth users */}
-                  <Link to="/users/friends">
+                  {isSelf ? (
+                    <Link to="/users/friends">
+                      <Typography sx={{ color: "black" }}>
+                        <b>{friends.length}</b> Friend(s)
+                      </Typography>
+                    </Link>
+                  ) : (
                     <Typography sx={{ color: "black" }}>
                       <b>{friends.length}</b> Friend(s)
                     </Typography>
-                  </Link>
+                  )}
                 </Grid>
                 {isSelf && !!connections.length && (
                   <Grid item>
@@ -246,18 +279,67 @@ const UserProfileDetails = () => {
 
           {/* BADGES */}
           <Divider sx={{ mt: 4 }} />
-          <Grid item>
-            {" "}
-            <Typography variant="h5">Badges</Typography>
+          <Grid item container direction="column" spacing={2}>
+            <Grid item>
+              <Typography variant="h5">
+                Badges (Completed Challenges)
+              </Typography>
+            </Grid>
+            <Grid item container>
+              {myChallenges
+                .filter((ch) => ch.status === "Completed")
+                .map((challenge) => (
+                  <Grid
+                    item
+                    key={challenge.id}
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    lg={3}
+                    container
+                  >
+                    {/* <Link to={`/challenges/${challenge.id}`}> */}
+                    <Box
+                      key={challenge.id}
+                      component="img"
+                      src={`/${challenge.image}`}
+                      sx={[
+                        {
+                          borderRadius: "50px",
+                          width: "80px",
+                          border: "3px solid #c54c7b",
+                          padding: "5px",
+                        },
+                        {
+                          "&:hover": {
+                            backgroundColor: "transparent",
+                            cursor: "pointer",
+                          },
+                        },
+                      ]}
+                      onClick={() => navigate(`/challenges/${challenge.id}`)}
+                    />
+                    {/* </Link> */}
+                  </Grid>
+                ))}
+            </Grid>
           </Grid>
 
           {/* CHALLENGES */}
           <Divider sx={{ mt: 4 }} />
-          <Grid item>
-            <Typography variant="h5">Challenges</Typography>
-            <Grid container>
-              <Grid item xs={12} container>
-                {myChallenges.map((challenge) => (
+          <Grid item container direction="column" spacing={1}>
+            <Grid item>
+              <Typography variant="h5">Ongoing Challenges</Typography>
+            </Grid>
+            <Grid item container>
+              {myChallenges
+                .filter(
+                  (ch) =>
+                    (ch.status === "In Progress" ||
+                      ch.status === "Not Started") &&
+                    new Date() <= new Date(ch.endDateTime)
+                )
+                .map((challenge) => (
                   <Grid
                     item
                     key={challenge.id}
@@ -270,7 +352,37 @@ const UserProfileDetails = () => {
                     <ChallengeCard key={challenge.id} challenge={challenge} />
                   </Grid>
                 ))}
-              </Grid>
+            </Grid>
+          </Grid>
+
+          <Divider sx={{ mt: 1 }} />
+
+          <Grid item container direction="column" spacing={1}>
+            <Grid item>
+              <Typography variant="h5">
+                "I'll Do Better Next Time" Challenges
+              </Typography>
+            </Grid>
+            <Grid container>
+              {myChallenges
+                .filter(
+                  (ch) =>
+                    ch.status !== "Completed" &&
+                    new Date() > new Date(ch.endDateTime)
+                )
+                .map((challenge) => (
+                  <Grid
+                    item
+                    key={challenge.id}
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    lg={3}
+                    container
+                  >
+                    <ChallengeCard key={challenge.id} challenge={challenge} />
+                  </Grid>
+                ))}
             </Grid>
           </Grid>
         </Grid>

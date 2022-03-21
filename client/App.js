@@ -27,6 +27,7 @@ import AdminUsers from "./components/Admin/AdminUsers";
 import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
 import _Filtered from "./components/Challenge/_Filtered";
+import TestChallengeTracking from "./components/_Archive/TEST_ChallengeTracking";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -90,6 +91,11 @@ const App = () => {
               </RequireAuth>
             }
           /> */}
+
+          <Route
+            path="/test/challenges/:challengeId"
+            element={<TestChallengeTracking />}
+          />
 
           <Route path="*" element={<PageNotFound />} />
         </Routes>
