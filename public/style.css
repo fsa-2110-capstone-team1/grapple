@@ -1,12 +1,11 @@
 * {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   min-height: 100vh;
   margin: 0;
 }
@@ -58,22 +57,67 @@ body {
 
 /* ChallengeDetails.js start*/
 
-/* the one below */
-.meditate-img-div {
-  background-image: url("../homeImgs/grapple-cycle-group.jpeg");
-  background-size: cover;
+.bike-img-div {
+  background-image: url('../homeImgs/grapple-cycle-group.jpeg');
+  /* background-size: 100%; */
+  width: 100%;
+  /* background-repeat: no-repeat; */
   background-position: center;
-  padding: 13em;
+  padding: 10em;
+  margin-top: -28px;
 }
 
-.single-challenge-div {
-  padding: 50px;
-  background-color: black;
-}
-
-.single-challenge-bttns {
+.description-icon-div {
   display: flex;
-  justify-content: center;
+  align-items: center;
+}
+
+.description-icon {
+  padding-right: 10px;
+}
+
+.runner-icon-div {
+  display: flex;
+  align-items: center;
+}
+
+.runner-icon {
+  padding-right: 10px;
+}
+
+.boxing-icon-div {
+  display: flex;
+  align-items: center;
+}
+
+.boxing-icon {
+  padding-right: 10px;
+}
+
+.enrolled-div {
+  display: flex;
+  align-items: center;
+}
+
+.sad-face {
+  padding-right: 10px;
+}
+
+.electric-bolt {
+  padding-right: 10px;
+}
+
+.participant-div {
+  font-weight: bold;
+}
+
+.place-holder {
+  padding-right: 10px;
+}
+
+.user-link-li {
+  padding-left: 35px;
+  list-style: none;
 }
 
 /* ChallengeDetails.js end*/
@@ -249,7 +293,7 @@ a:hover {
   width: -webkit-fill-available;
 }
 .image-stack::after {
-  content: " ";
+  content: ' ';
   display: table;
   clear: both;
 }
@@ -289,7 +333,7 @@ a:hover {
   position: relative;
   z-index: 1;
   font-size: 155px;
-  color: "#dfdfdf";
+  color: '#dfdfdf';
 }
 
 .profile-list {
