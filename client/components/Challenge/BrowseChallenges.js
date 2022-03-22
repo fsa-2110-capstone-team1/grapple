@@ -12,46 +12,33 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
-import Filterer from "./Drawer/Filterer";
 import Searcher from "./Drawer/Searcher";
 import { useSelector } from "react-redux";
 import { Grid, Box, Button, Typography } from "@mui/material";
 import PaginationFooter from "./PaginationFooter.js";
 import ChallengeCard from "./ChallengeCard";
-
-// const { publicUsers } = useSelector((state) => state);
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 const drawerWidth = 200;
-
 function ResponsiveDrawer(props) {
   // const path = useLocation().pathname.split("/").pop();
   const challenges = useSelector((state) => state.challenges);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [challengesPerPage] = useState(12);
   const [sortedChallenges, setSortedChallenges] = useState(challenges);
   useEffect(() => {
     setSortedChallenges(challenges);
   }, [challenges]);
-  //sortedChallenges is suppose to become sorted from the sorted function, currently sortedChallenges isnt populating
-  // down on line 32, that function works correctly,
 
-  const indexOfLastChallenge = currentPage * challengesPerPage;
-  const indexofFirstChallenge = indexOfLastChallenge - challengesPerPage;
 
-  //  I want to change challenges.slice to sortedChallenges.slice
-  const currentChallenges = sortedChallenges.slice(
-    indexofFirstChallenge,
-    indexOfLastChallenge
-  );
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
+  ///////////Sorting functions
   const [order, setOrder] = useState("ASC");
 
   const sortedUp = (attr) => {
     let sortedArry;
-    // if (order === "ASC")
     {
       sortedArry = [...challenges].sort((a, b) => {
         if (a[attr] > b[attr]) {
@@ -82,12 +69,44 @@ function ResponsiveDrawer(props) {
     setSortedChallenges(sortedArry);
   };
 
+
+//////////////////////Filtering function
+const [difficulty, setDifficulty] = useState(0);
+const [category, setCategory] = useState('All');
+
+
+const handleChangeDiff = (event) => {
+  setDifficulty(event.target.value);
+};
+
+const handleChangeCat = (event) => {
+  setCategory(event.target.value);
+};
+
+console.log(difficulty)
+console.log(category)
+
+  /////////Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [challengesPerPage] = useState(12);
+  const indexOfLastChallenge = currentPage * challengesPerPage;
+  const indexofFirstChallenge = indexOfLastChallenge - challengesPerPage;
+  const currentChallenges = sortedChallenges.slice(
+    indexofFirstChallenge,
+    indexOfLastChallenge
+  );
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  ///////Located on the site window
 
   const drawer = (
     <div>
@@ -113,7 +132,54 @@ function ResponsiveDrawer(props) {
         ))}
       </List>
       <Divider />
-      <Filterer />
+
+
+      <>
+    <h3>Filter By</h3>
+    &nbsp;
+    <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Difficulty</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={difficulty}
+          label="difficulty"
+          onChange={handleChangeDiff}
+        >
+          
+          <MenuItem value={0}>All</MenuItem>
+          <MenuItem value={1}>1</MenuItem>
+          <MenuItem value={2}>2</MenuItem>
+          <MenuItem value={3}>3</MenuItem>
+          <MenuItem value={4}>4</MenuItem>
+          <MenuItem value={5}>5</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
+&nbsp;&nbsp;
+        <Box sx={{ minWidth: 120 }}>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label1">Category</InputLabel>
+          <Select
+            labelId="demo-simple-select-label1"
+            id="demo-simple-select1"
+            value={category}
+            label="category"
+            onChange={handleChangeCat}
+          >
+            <MenuItem value={'All'}>All</MenuItem>
+            <MenuItem value={'Mental'}>Mental</MenuItem>
+            <MenuItem value={'Physical'}>Physical</MenuItem>
+            <MenuItem value={'Sleep'}>Sleep</MenuItem>
+            <MenuItem value={'Food'}>Food</MenuItem>
+            <MenuItem value={'Misc'}>Misc</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>  
+      </>
+
+
       &nbsp;
     </div>
   );
@@ -124,19 +190,11 @@ function ResponsiveDrawer(props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      {/* <AppBar
-        position="fixed"
-        sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-        }}
-      ></AppBar> */}
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
           variant="temporary"
@@ -208,22 +266,17 @@ function ResponsiveDrawer(props) {
           <Grid item xs={1} />
         </Grid>
         <PaginationFooter
-        challengesPerPage={challengesPerPage}
-        totalPosts={challenges.length}
-        // paginate={paginate}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+          challengesPerPage={challengesPerPage}
+          totalPosts={challenges.length}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </Box>
     </Box>
   );
 }
 
 ResponsiveDrawer.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 
