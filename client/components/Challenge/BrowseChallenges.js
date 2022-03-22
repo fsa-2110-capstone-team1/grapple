@@ -26,7 +26,7 @@ const drawerWidth = 200;
 function ResponsiveDrawer(props) {
   // const path = useLocation().pathname.split("/").pop();
   let challenges = useSelector((state) => state.challenges);
-
+ let currentChallenges = ['butt']
 
 //////////////////////Filtering function
 const [difficulty, setDifficulty] = useState('');
@@ -70,11 +70,10 @@ if (!filteredCatDiffChallenges){
 }
 else (toSortChallenges = filteredCatDiffChallenges)
 
-console.log(toSortChallenges)
-
+// console.log(toSortChallenges)
 
   ///////////Sorting functions
-  const [sortedChallenges, setSortedChallenges] = useState(toSortChallenges);
+  const [sortedChallenges, setSortedChallenges] = useState('');
   useEffect(() => {
     setSortedChallenges(challenges);
   }, [challenges]);
@@ -114,11 +113,13 @@ console.log(toSortChallenges)
   };
 
 
-if (!toSortChallenges) {
-return "Sorry the challenges you are looking for are unreachable";
-}
+// let setChallenges = sortedChallenges
 
-console.log('sorted', sortedChallenges)
+// console.log('curr', currentChallenges);
+
+// if (sortedChallenges.length){
+// console.log('sortedChallenges', sortedChallenges)
+// }
 
 
 /////////Pagination
@@ -126,7 +127,7 @@ console.log('sorted', sortedChallenges)
   const [challengesPerPage] = useState(12);
   const indexOfLastChallenge = currentPage * challengesPerPage;
   const indexofFirstChallenge = indexOfLastChallenge - challengesPerPage;
-  const currentChallenges = sortedChallenges.slice(
+   currentChallenges = sortedChallenges.slice(
     indexofFirstChallenge,
     indexOfLastChallenge
   );
@@ -140,6 +141,10 @@ console.log('sorted', sortedChallenges)
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  (
+  console.log('cc', currentChallenges)
+  )
 
   ///////Located on the site window
 
@@ -222,6 +227,8 @@ console.log('sorted', sortedChallenges)
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
+
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -284,7 +291,7 @@ console.log('sorted', sortedChallenges)
         <Grid container>
           <Grid item xs={1} />
           <Grid item xs={10} container>
-            {currentChallenges.map((challenge) => (
+            {toSortChallenges?.map((challenge) => (
               <Grid
                 item
                 key={challenge.id}
@@ -302,7 +309,7 @@ console.log('sorted', sortedChallenges)
         </Grid>
         <PaginationFooter
           challengesPerPage={challengesPerPage}
-          totalPosts={challenges.length}
+          totalPosts={toSortChallenges.length}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
         />
