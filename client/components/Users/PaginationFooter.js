@@ -7,44 +7,34 @@ const PaginationFooter = ({
   challengesPerPage,
   paginate,
   currentPage,
+  setCurrentPage,
+
   // path,
 }) => {
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalPosts / challengesPerPage); i++) {
     pageNumbers.push(i);
   }
-  console.log(pageNumbers)
+
+  const [page, setPage] = React.useState(1);
+  const handleChange = (event, value) => {
+    setPage(value);
+    setCurrentPage(value);
+  };
 
   return (
     <nav>
       <ul className="pagination">
         <Stack spacing={2}>
-          <Pagination count={pageNumbers.length}  
-           onClick={() => {console.log(page);}} 
-           color="primary" />
+          <Pagination
+            count={pageNumbers.length}
+            page={page}
+            onChange={handleChange}
+          />
         </Stack>
-
-
-
-
-        {pageNumbers.map((number) => (
-          <li
-            key={number}
-            className={number === currentPage ? "selected" : "nonselected"}
-          >
-            <a
-              onClick={() => {
-                paginate(number);
-              }}
-            >
-              {number}
-            </a>
-          </li>
-        ))}
       </ul>
     </nav>
   );
 };
 
 export default PaginationFooter;
-
