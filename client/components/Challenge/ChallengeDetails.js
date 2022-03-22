@@ -6,9 +6,19 @@ import SportsMmaIcon from '@mui/icons-material/SportsMma';
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import DescriptionIcon from '@mui/icons-material/Description';
-import { Divider, Grid, Button, Box, Paper, styled } from '@mui/material';
+import DateRangeIcon from '@mui/icons-material/DateRange';
+import {
+  Divider,
+  Grid,
+  Button,
+  Box,
+  Paper,
+  Typography,
+  styled,
+} from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../theme';
+import dateFormat from 'dateformat';
 import { getAllChallenges } from '../../store';
 
 export const ChallengeDetails = () => {
@@ -52,87 +62,117 @@ export const ChallengeDetails = () => {
           spacing={2}
           sx={{ alignItems: 'center' }}
         >
-          <Grid item xs={12} sx={{ textAlign: 'center' }}>
-            <h1>Challenge: {challenge.name}</h1>
+          <Grid item sx={{ textAlign: 'center' }}>
+            <Typography variant="h3" sx={{ margin: '40px' }}>
+              Challenge: {challenge.name}
+            </Typography>
             <Divider />
           </Grid>
-          <Grid item xs={12}>
-            <Button size="large">Join Challenge</Button>
-            <Button size="large">Invite A friend</Button>
-          </Grid>
+          <Grid item container spacing={6} sx={{ alignItems: 'center' }}>
+            {/* Grid item below is left railing */}
 
-          <Grid
-            item
-            container
-            spacing={2}
-            xs={12}
-            sx={{ alignItems: 'center' }}
-          >
-            <Grid item xs={1} sx={{ textAlign: 'right' }}></Grid>
-            <Grid item xs={3}>
-              <div className="description-icon-div">
+            <Grid item xs={1} md={2} sx={{ textAlign: 'right' }}></Grid>
+            <Grid item xs={10} md={4}>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <DescriptionIcon className="description-icon" />
-                <p>Overview: {challenge.description}</p>
-              </div>
-              <div className="boxing-icon-div">
+                <Typography variant="p">
+                  Overview: {challenge.description}
+                </Typography>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <SportsMmaIcon className="boxing-icon" />
                 <h4>Difficulty Rating: {challenge.difficulty}</h4>
-              </div>
-              <div className="enrolled-div">
-                {enrolledUsers.length === 0 ? (
-                  <SentimentVeryDissatisfiedIcon className="sad-face" />
-                ) : (
-                  <ElectricBoltIcon className="electric-bolt" />
-                )}
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <DateRangeIcon className="date-range-icon" />
                 <p>
-                  {enrolledUsers.length === 0
-                    ? 'No one currently enrolled in this challenge.'
-                    : enrolledUsers.length === 1
-                    ? `${enrolledUsers.length} person enrolled in this challenge!`
-                    : `${enrolledUsers.length} people enrolled in this challenge!`}
+                  Start Date:{' '}
+                  {dateFormat(challenge.startDateTime, 'mediumDate')}
                 </p>
-              </div>
-              {enrolledUsers.length >= 1 ? (
-                <div className="runner-icon-div">
-                  <DirectionsRunIcon className="runner-icon" />
-                  <p className="participant-div">Participants</p>
-                </div>
-              ) : (
-                ''
-              )}
-              <div>
-                {enrolledUsers.length >= 1
-                  ? enrolledUsers?.map((user) => (
-                      <Link
-                        key={user.id}
-                        to={`/users/profile/${user.username}`}
-                      >
-                        <li className="user-link-li">{user.username}</li>
-                      </Link>
-                    ))
-                  : ''}
-              </div>
+
+                {/* </Paper> */}
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <DateRangeIcon className="date-range-icon" />
+                <p>
+                  End Date: {dateFormat(challenge.endDateTime, 'mediumDate')}
+                </p>
+              </Box>
             </Grid>
-            <Grid item xs={4} />
-            <Grid item xs={3} sx={{ textAlign: 'center' }}>
-              <Paper
-                sx={{
-                  backgroundColor: theme.palette.primary.main,
-                  color: theme.palette.white.main,
-                }}
-              >
-                <p>Start Date: {challenge.startDateTime}</p>
-              </Paper>
-              <Paper
-                sx={{
-                  backgroundColor: theme.palette.primary.main,
-                  color: theme.palette.white.main,
-                }}
-              >
-                <p>End Date: {challenge.endDateTime}</p>
-              </Paper>
+            <Grid item xs={1.5} />
+            <Grid
+              item
+              container
+              direction="column"
+              xs={10}
+              md={4}
+              sx={{ pl: '40px' }}
+            >
+              <Grid item>
+                <Button
+                  size="large"
+                  sx={{
+                    paddingLeft: '40px',
+                    paddingRight: '40px',
+                    paddingTop: '20px',
+                    paddingBottom: '20px',
+                    backgroundColor: theme.palette.secondary.main,
+                    color: theme.palette.braun.main,
+                  }}
+                >
+                  Join Challenge
+                </Button>
+              </Grid>
+              {/* <Button size="large">Invite A friend</Button> */}
+              <Grid item>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    textAlign: 'left',
+                    marginTop: '20px',
+                    marginBottom: '20px',
+                  }}
+                >
+                  {enrolledUsers.length === 0 ? (
+                    <SentimentVeryDissatisfiedIcon className="sad-face-icon" />
+                  ) : (
+                    <ElectricBoltIcon className="electric-bolt" />
+                  )}
+                  <Typography variant="p">
+                    {enrolledUsers.length === 0
+                      ? 'No one currently enrolled in this challenge.'
+                      : enrolledUsers.length === 1
+                      ? `${enrolledUsers.length} person enrolled in this challenge!`
+                      : `${enrolledUsers.length} people enrolled in this challenge!`}
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item>
+                {enrolledUsers.length >= 1 ? (
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <DirectionsRunIcon className="runner-icon" />
+                    <p className="participant-div">Participants</p>
+                  </Box>
+                ) : (
+                  ''
+                )}
+                <Box>
+                  {enrolledUsers.length >= 1
+                    ? enrolledUsers?.map((user) => (
+                        <Link
+                          key={user.id}
+                          to={`/users/profile/${user.username}`}
+                        >
+                          <li className="user-link-li">{user.username}</li>
+                        </Link>
+                      ))
+                    : ''}
+                </Box>
+              </Grid>
             </Grid>
-            <Grid item xs={1} />
+            {/* Grid item below is right railing */}
+            <Grid item xs={0.5} />
           </Grid>
         </Grid>
       </Box>
