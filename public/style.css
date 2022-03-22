@@ -67,39 +67,23 @@ body {
   margin-top: -28px;
 }
 
-.description-icon-div {
-  display: flex;
-  align-items: center;
-}
-
 .description-icon {
   padding-right: 10px;
-}
-
-.runner-icon-div {
-  display: flex;
-  align-items: center;
-}
-
-.runner-icon {
-  padding-right: 10px;
-}
-
-.boxing-icon-div {
-  display: flex;
-  align-items: center;
 }
 
 .boxing-icon {
   padding-right: 10px;
 }
 
-.enrolled-div {
-  display: flex;
-  align-items: center;
+.date-range-icon {
+  padding-right: 10px;
 }
 
-.sad-face {
+.sad-face-icon {
+  padding-right: 10px;
+}
+
+.runner-icon {
   padding-right: 10px;
 }
 
@@ -117,6 +101,7 @@ body {
 
 .user-link-li {
   padding-left: 35px;
+  text-align: left;
   list-style: none;
 }
 
@@ -314,15 +299,15 @@ a:hover {
   float: left;
   height: 156px;
   width: 156px;
-  object-fit:cover;
+  object-fit: cover;
   top: 50px;
   left: calc(50% - 78px);
   border: 5px solid silver;
   border-radius: 50%;
   bottom: 0;
   box-shadow: inherit;
-  background-color:white;
-  margin-top: "20px";
+  background-color: white;
+  margin-top: '20px';
   margin-right: -50%;
   position: relative;
   z-index: 1;
@@ -356,5 +341,5 @@ a:hover {
   margin-top: 30px;
   margin-bottom: 10px;
   margin-left: 50px;
-border: white;
+  border: white;
 }
