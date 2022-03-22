@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -6,14 +6,20 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 export default function Filterer() {
-  const [difficulty, setDifficulty] = React.useState('');
-  const [category, setCategory] = React.useState('');
+  const [difficulty, setDifficulty] = useState(0);
+  const [category, setCategory] = useState('All');
 
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const handleChangeDiff = (event) => {
+    setDifficulty(event.target.value);
   };
 
+  const handleChangeCat = (event) => {
+    setCategory(event.target.value);
+  };
+
+  console.log(difficulty)
+  console.log(category)
   return (
     <>
     <h3>Filter By</h3>
@@ -26,7 +32,7 @@ export default function Filterer() {
           id="demo-simple-select"
           value={difficulty}
           label="difficulty"
-          onChange={handleChange}
+          onChange={handleChangeDiff}
         >
           
           <MenuItem value={0}>All</MenuItem>
@@ -47,7 +53,7 @@ export default function Filterer() {
             id="demo-simple-select1"
             value={category}
             label="category"
-            onChange={handleChange}
+            onChange={handleChangeCat}
           >
             <MenuItem value={'All'}>All</MenuItem>
             <MenuItem value={'Mental'}>Mental</MenuItem>

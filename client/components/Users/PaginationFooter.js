@@ -1,4 +1,6 @@
 import React from "react";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 const PaginationFooter = ({
   totalPosts,
@@ -11,10 +13,20 @@ const PaginationFooter = ({
   for (let i = 1; i <= Math.ceil(totalPosts / challengesPerPage); i++) {
     pageNumbers.push(i);
   }
+  console.log(pageNumbers)
 
   return (
     <nav>
       <ul className="pagination">
+        <Stack spacing={2}>
+          <Pagination count={pageNumbers.length}  
+           onClick={() => {console.log(page);}} 
+           color="primary" />
+        </Stack>
+
+
+
+
         {pageNumbers.map((number) => (
           <li
             key={number}
@@ -35,3 +47,4 @@ const PaginationFooter = ({
 };
 
 export default PaginationFooter;
+

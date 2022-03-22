@@ -98,14 +98,14 @@ function ResponsiveDrawer(props) {
       <Divider />
       <h3>Sort By</h3>
       <List>
-        {["Name", "Difficulty", "Category"].map((text, index) => (
+        {["name", "difficulty", "category"].map((text, index) => (
           <div className="sorting">
             <ListItem>
               <div className="arrow">
-                <ArrowCircleUpIcon onClick={() => console.log({ text })} />
+                <ArrowCircleUpIcon onClick={() => sortedUp(text)} />
               </div>
               <div className="arrow">
-                <ArrowCircleDownIcon onClick={() => console.log({ text })} />
+                <ArrowCircleDownIcon onClick={() => sortedDown(text)} />
               </div>
               <ListItemText primary={text} />
             </ListItem>
