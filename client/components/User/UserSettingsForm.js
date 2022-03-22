@@ -87,6 +87,7 @@ export const UserSettingsForm = ({ preloadedValues }) => {
                   error={!!errors?.password}
                   helperText={errors?.password ? errors.password.message : null}
                   fullWidth
+                  
                 />
               </Grid>
               <Grid item>
@@ -95,7 +96,7 @@ export const UserSettingsForm = ({ preloadedValues }) => {
                   label="Confirm New Password"
                   type="password"
                   variant="outlined"
-                  defaultValue={confirmpassword}
+                  // defaultValue={confirmpassword}
                   {...register("confirmpassword", { required: "Required field",  validate: (val) => {
                     if (watch('password') !== val) {
                       errors.password = {}

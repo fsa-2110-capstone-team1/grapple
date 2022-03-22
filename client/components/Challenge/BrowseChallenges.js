@@ -12,7 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
-import Searcher from "./Drawer/Searcher";
+import Searcher from "./Searcher";
 import { useSelector } from "react-redux";
 import { Grid, Box, Button, Typography } from "@mui/material";
 import PaginationFooter from "./PaginationFooter.js";
@@ -26,7 +26,7 @@ const drawerWidth = 200;
 function ResponsiveDrawer(props) {
   // const path = useLocation().pathname.split("/").pop();
   let challenges = useSelector((state) => state.challenges);
- let currentChallenges = ['butt']
+ let currentChallenges = []
 
 //////////////////////Filtering function
 const [difficulty, setDifficulty] = useState('');
