@@ -358,3 +358,53 @@ a:hover {
   margin-left: 50px;
 border: white;
 }
+
+
+.sorters > button {
+  background-color: white;
+  border: none;
+  transition-duration: 0.4s;
+  height: 60px;
+  border-radius: 30px;
+}
+
+.sorters > button:hover {
+  background-color: #4ab5a3;
+  color: white;
+}
+
+.sorting > button {
+  background-color: white;
+  border: none;
+  transition-duration: 0.4s;
+  height: 60px;
+  border-radius: 30px;
+}
+
+.sorting > button:hover {
+  background-color: #4ab5a3;
+  color: white;
+}
+
+
+
+.searchContainer {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  margin-left: 50px;
+border: white;
+}
+
+.arrow{
+  background-color: white;
+  border: none;
+  transition-duration: 0.4s;
+  height: 25px;
+  border-radius: 30px;
+}
+
+.arrow:hover{
+  background-color: #4ab5a3;
+  color: white;
+  
+}

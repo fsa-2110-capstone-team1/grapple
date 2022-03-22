@@ -28,6 +28,7 @@ import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
 import _Filtered from "./components/Challenge/_Filtered";
 import TestChallengeTracking from "./components/_Archive/TEST_ChallengeTracking";
+import ChallengeDrawer from "./components/Challenge/ChallengeDrawer";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -79,6 +80,7 @@ const App = () => {
 
           <Route path="/challenges/filter/:id" element={<_Filtered />} />
 
+          <Route path="/ChallengeDrawer/" element={<ChallengeDrawer />} />
           <Route path="/user/settings" element={<UserSettings />} />
           <Route path="/admin/challenges" element={<AdminChallenges />} />
           <Route path="/admin/users" element={<AdminUsers />} />
