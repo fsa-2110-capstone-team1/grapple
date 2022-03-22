@@ -25,22 +25,66 @@ import MenuItem from '@mui/material/MenuItem';
 const drawerWidth = 200;
 function ResponsiveDrawer(props) {
   // const path = useLocation().pathname.split("/").pop();
-  const challenges = useSelector((state) => state.challenges);
+  let challenges = useSelector((state) => state.challenges);
 
-  const [sortedChallenges, setSortedChallenges] = useState(challenges);
+
+//////////////////////Filtering function
+const [difficulty, setDifficulty] = useState('');
+const [category, setCategory] = useState('');
+
+
+const handleChangeDiff = (event) => {
+  setDifficulty(event.target.value);
+};
+
+const handleChangeCat = (event) => {
+  setCategory(event.target.value);
+};
+
+
+let filteredDiffChallenges;
+let filteredCatDiffChallenges;
+let toSortChallenges;
+
+if (!difficulty) {
+  filteredDiffChallenges = challenges
+}
+else (
+  filteredDiffChallenges = challenges.filter(
+    (challenge) => challenge.difficulty === difficulty
+  ))
+
+  if (!category) {
+    filteredCatDiffChallenges = filteredDiffChallenges
+  }
+  else (
+    filteredDiffChallenges = filteredDiffChallenges.filter(
+      (challenge) => challenge.category === category
+    )
+    )
+
+
+
+if (!filteredCatDiffChallenges){
+  toSortChallenges = filteredDiffChallenges
+}
+else (toSortChallenges = filteredCatDiffChallenges)
+
+console.log(toSortChallenges)
+
+
+  ///////////Sorting functions
+  const [sortedChallenges, setSortedChallenges] = useState(toSortChallenges);
   useEffect(() => {
     setSortedChallenges(challenges);
   }, [challenges]);
 
-
-
-  ///////////Sorting functions
   const [order, setOrder] = useState("ASC");
 
   const sortedUp = (attr) => {
     let sortedArry;
     {
-      sortedArry = [...challenges].sort((a, b) => {
+      sortedArry = [...toSortChallenges].sort((a, b) => {
         if (a[attr] > b[attr]) {
           return 1;
         }
@@ -56,7 +100,7 @@ function ResponsiveDrawer(props) {
   const sortedDown = (attr) => {
     let sortedArry;
     {
-      sortedArry = [...challenges].sort((a, b) => {
+      sortedArry = [...toSortChallenges].sort((a, b) => {
         if (a[attr] < b[attr]) {
           return 1;
         }
@@ -70,23 +114,14 @@ function ResponsiveDrawer(props) {
   };
 
 
-//////////////////////Filtering function
-const [difficulty, setDifficulty] = useState(0);
-const [category, setCategory] = useState('All');
+if (!toSortChallenges) {
+return "Sorry the challenges you are looking for are unreachable";
+}
+
+console.log('sorted', sortedChallenges)
 
 
-const handleChangeDiff = (event) => {
-  setDifficulty(event.target.value);
-};
-
-const handleChangeCat = (event) => {
-  setCategory(event.target.value);
-};
-
-console.log(difficulty)
-console.log(category)
-
-  /////////Pagination
+/////////Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [challengesPerPage] = useState(12);
   const indexOfLastChallenge = currentPage * challengesPerPage;
@@ -168,12 +203,12 @@ console.log(category)
             label="category"
             onChange={handleChangeCat}
           >
-            <MenuItem value={'All'}>All</MenuItem>
-            <MenuItem value={'Mental'}>Mental</MenuItem>
-            <MenuItem value={'Physical'}>Physical</MenuItem>
-            <MenuItem value={'Sleep'}>Sleep</MenuItem>
-            <MenuItem value={'Food'}>Food</MenuItem>
-            <MenuItem value={'Misc'}>Misc</MenuItem>
+            <MenuItem value={0}>All</MenuItem>
+            <MenuItem value={'mental'}>Mental</MenuItem>
+            <MenuItem value={'physical'}>Physical</MenuItem>
+            <MenuItem value={'sleep'}>Sleep</MenuItem>
+            <MenuItem value={'food'}>Food</MenuItem>
+            <MenuItem value={'misc'}>Misc</MenuItem>
           </Select>
         </FormControl>
       </Box>  
