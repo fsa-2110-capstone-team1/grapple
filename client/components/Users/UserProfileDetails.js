@@ -20,8 +20,6 @@ const UserProfileDetails = () => {
     window.scrollTo(0, 0);
   }, [location]);
 
-  
-
   const navigate = useNavigate();
   const { username } = useParams();
   const dispatch = useDispatch();
@@ -137,7 +135,7 @@ const UserProfileDetails = () => {
               <Box
                 component="img"
                 src={user?.image}
-                sx={{ width: "150px", height: "150px", borderRadius: 50, objectFit: "cover" }}
+                sx={{ width: "80%", borderRadius: 50 }}
               />
             </Grid>
             <Grid item xs={7} container direction="column" spacing={1}>
