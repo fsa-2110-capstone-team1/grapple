@@ -17,66 +17,58 @@ import { useSelector } from "react-redux";
 import { Grid, Box, Button, Typography } from "@mui/material";
 import PaginationFooter from "./PaginationFooter.js";
 import ChallengeCard from "./ChallengeCard";
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 const drawerWidth = 200;
 function ResponsiveDrawer(props) {
   // const path = useLocation().pathname.split("/").pop();
   let challenges = useSelector((state) => state.challenges);
- let currentChallenges = []
+  let currentChallenges = [];
 
-//////////////////////Filtering function
-const [difficulty, setDifficulty] = useState('');
-const [category, setCategory] = useState('');
+  //////////////////////Filtering function
+  const [difficulty, setDifficulty] = useState("");
+  const [category, setCategory] = useState("");
 
+  const handleChangeDiff = (event) => {
+    setDifficulty(event.target.value);
+  };
 
-const handleChangeDiff = (event) => {
-  setDifficulty(event.target.value);
-};
+  const handleChangeCat = (event) => {
+    setCategory(event.target.value);
+  };
 
-const handleChangeCat = (event) => {
-  setCategory(event.target.value);
-};
+  let filteredDiffChallenges;
+  let filteredCatDiffChallenges;
+  let toSortChallenges;
 
-
-let filteredDiffChallenges;
-let filteredCatDiffChallenges;
-let toSortChallenges;
-
-if (!difficulty) {
-  filteredDiffChallenges = challenges
-}
-else (
-  filteredDiffChallenges = challenges.filter(
-    (challenge) => challenge.difficulty === difficulty
-  ))
+  if (!difficulty) {
+    filteredDiffChallenges = challenges;
+  } else
+    filteredDiffChallenges = challenges.filter(
+      (challenge) => challenge.difficulty === difficulty
+    );
 
   if (!category) {
-    filteredCatDiffChallenges = filteredDiffChallenges
-  }
-  else (
+    filteredCatDiffChallenges = filteredDiffChallenges;
+  } else
     filteredDiffChallenges = filteredDiffChallenges.filter(
       (challenge) => challenge.category === category
-    )
-    )
+    );
 
+  if (!filteredCatDiffChallenges) {
+    toSortChallenges = filteredDiffChallenges;
+  } else toSortChallenges = filteredCatDiffChallenges;
 
-
-if (!filteredCatDiffChallenges){
-  toSortChallenges = filteredDiffChallenges
-}
-else (toSortChallenges = filteredCatDiffChallenges)
-
-// console.log(toSortChallenges)
+  // console.log(toSortChallenges)
 
   ///////////Sorting functions
-  const [sortedChallenges, setSortedChallenges] = useState('');
+  const [sortedChallenges, setSortedChallenges] = useState(toSortChallenges);
   useEffect(() => {
-    setSortedChallenges(challenges);
-  }, [challenges]);
+    setSortedChallenges(toSortChallenges);
+  }, [filteredCatDiffChallenges]);
 
   const [order, setOrder] = useState("ASC");
 
@@ -112,28 +104,22 @@ else (toSortChallenges = filteredCatDiffChallenges)
     setSortedChallenges(sortedArry);
   };
 
+  // console.log('curr', currentChallenges);
 
-// let setChallenges = sortedChallenges
+  // if (sortedChallenges.length){
+  // console.log('sortedChallenges', sortedChallenges)
+  // }
 
-// console.log('curr', currentChallenges);
-
-// if (sortedChallenges.length){
-// console.log('sortedChallenges', sortedChallenges)
-// }
-
-
-/////////Pagination
+  /////////Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [challengesPerPage] = useState(12);
   const indexOfLastChallenge = currentPage * challengesPerPage;
   const indexofFirstChallenge = indexOfLastChallenge - challengesPerPage;
-   currentChallenges = sortedChallenges.slice(
+  currentChallenges = sortedChallenges.slice(
     indexofFirstChallenge,
     indexOfLastChallenge
   );
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-
 
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -141,10 +127,14 @@ else (toSortChallenges = filteredCatDiffChallenges)
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  console.log('og Challenge', challenges)
+  console.log('diffFilter', filteredDiffChallenges)
+  console.log('catFilter', filteredCatDiffChallenges)
+  console.log('toSort', toSortChallenges)
+  console.log('sorted', sortedChallenges)
+  console.log('paginated', currentChallenges)
 
-  (
-  console.log('cc', currentChallenges)
-  )
+  // console.log(sortCount);
 
   ///////Located on the site window
 
@@ -172,62 +162,55 @@ else (toSortChallenges = filteredCatDiffChallenges)
         ))}
       </List>
       <Divider />
-
-
       <>
-    <h3>Filter By</h3>
-    &nbsp;
-    <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Difficulty</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={difficulty}
-          label="difficulty"
-          onChange={handleChangeDiff}
-        >
-          
-          <MenuItem value={0}>All</MenuItem>
-          <MenuItem value={1}>1</MenuItem>
-          <MenuItem value={2}>2</MenuItem>
-          <MenuItem value={3}>3</MenuItem>
-          <MenuItem value={4}>4</MenuItem>
-          <MenuItem value={5}>5</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
-&nbsp;&nbsp;
+        <h3>Filter By</h3>
+        &nbsp;
         <Box sx={{ minWidth: 120 }}>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label1">Category</InputLabel>
-          <Select
-            labelId="demo-simple-select-label1"
-            id="demo-simple-select1"
-            value={category}
-            label="category"
-            onChange={handleChangeCat}
-          >
-            <MenuItem value={0}>All</MenuItem>
-            <MenuItem value={'mental'}>Mental</MenuItem>
-            <MenuItem value={'physical'}>Physical</MenuItem>
-            <MenuItem value={'sleep'}>Sleep</MenuItem>
-            <MenuItem value={'food'}>Food</MenuItem>
-            <MenuItem value={'misc'}>Misc</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>  
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Difficulty</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={difficulty}
+              label="difficulty"
+              onChange={handleChangeDiff}
+            >
+              <MenuItem value={0}>All</MenuItem>
+              <MenuItem value={1}>1</MenuItem>
+              <MenuItem value={2}>2</MenuItem>
+              <MenuItem value={3}>3</MenuItem>
+              <MenuItem value={4}>4</MenuItem>
+              <MenuItem value={5}>5</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
+        &nbsp;&nbsp;
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label1">Category</InputLabel>
+            <Select
+              labelId="demo-simple-select-label1"
+              id="demo-simple-select1"
+              value={category}
+              label="category"
+              onChange={handleChangeCat}
+            >
+              <MenuItem value={0}>All</MenuItem>
+              <MenuItem value={"mental"}>Mental</MenuItem>
+              <MenuItem value={"physical"}>Physical</MenuItem>
+              <MenuItem value={"sleep"}>Sleep</MenuItem>
+              <MenuItem value={"food"}>Food</MenuItem>
+              <MenuItem value={"misc"}>Misc</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
       </>
-
-
       &nbsp;
     </div>
   );
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
-
-
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -291,7 +274,7 @@ else (toSortChallenges = filteredCatDiffChallenges)
         <Grid container>
           <Grid item xs={1} />
           <Grid item xs={10} container>
-            {toSortChallenges?.map((challenge) => (
+            {challenges?.map((challenge) => (
               <Grid
                 item
                 key={challenge.id}
