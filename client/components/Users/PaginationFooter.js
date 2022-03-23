@@ -1,10 +1,14 @@
 import React from "react";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 const PaginationFooter = ({
   totalPosts,
   challengesPerPage,
   paginate,
   currentPage,
+  setCurrentPage,
+
   // path,
 }) => {
   const pageNumbers = [];
@@ -12,23 +16,22 @@ const PaginationFooter = ({
     pageNumbers.push(i);
   }
 
+  const [page, setPage] = React.useState(1);
+  const handleChange = (event, value) => {
+    setPage(value);
+    setCurrentPage(value);
+  };
+
   return (
     <nav>
       <ul className="pagination">
-        {pageNumbers.map((number) => (
-          <li
-            key={number}
-            className={number === currentPage ? "selected" : "nonselected"}
-          >
-            <a
-              onClick={() => {
-                paginate(number);
-              }}
-            >
-              {number}
-            </a>
-          </li>
-        ))}
+        <Stack spacing={2}>
+          <Pagination
+            count={pageNumbers.length}
+            page={page}
+            onChange={handleChange}
+          />
+        </Stack>
       </ul>
     </nav>
   );

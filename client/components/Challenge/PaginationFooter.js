@@ -1,10 +1,15 @@
 import React from "react";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 
 const PaginationFooter = ({
   totalPosts,
   challengesPerPage,
   paginate,
   currentPage,
+  setCurrentPage,
+
   // path,
 }) => {
   const pageNumbers = [];
@@ -12,32 +17,22 @@ const PaginationFooter = ({
     pageNumbers.push(i);
   }
 
+  const [page, setPage] = React.useState(1);
+  const handleChange = (event, value) => {
+    setPage(value);
+    setCurrentPage(value);
+  };
+
   return (
     <nav>
       <ul className="pagination">
-        {pageNumbers.map((number) => (
-          <li
-            key={number}
-            className={number === currentPage ? "selected" : "nonselected"}
-          >
-            <a
-              onClick={() => {
-                paginate(number);
-              }}
-              // href={
-              //   path === "a-z"
-              //     ? "#/products/sorted/a-z"
-              //     : path === "low-high"
-              //     ? "#/products/sorted/price/low-high"
-              //     : path === "high-low"
-              //     ? "#/products/sorted/price/high-low"
-              //     : "#/"
-              // }
-            >
-              {number}
-            </a>
-          </li>
-        ))}
+        <Stack spacing={2}>
+          <Pagination
+            count={pageNumbers.length}
+            page={page}
+            onChange={handleChange}
+          />
+        </Stack>
       </ul>
     </nav>
   );

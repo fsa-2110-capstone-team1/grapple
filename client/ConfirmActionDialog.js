@@ -12,6 +12,7 @@ export default function ButtonWithAlertDialog({
   buttonVariant,
   buttonDisabled,
   buttonText,
+  buttonSx,
   dialogTitle,
   dialogText,
   disagreeText,
@@ -46,6 +47,7 @@ export default function ButtonWithAlertDialog({
         size={buttonSize}
         onClick={handleClickOpen}
         disabled={buttonDisabled}
+        sx={buttonSx}
       >
         {buttonText}
       </Button>

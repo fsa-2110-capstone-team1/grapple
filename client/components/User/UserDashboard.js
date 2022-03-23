@@ -12,6 +12,16 @@ import { Grid, Box, Typography, Divider, Button } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CheckIcon from "@mui/icons-material/Check";
 import ChallengeCard from "../Challenge/ChallengeCard";
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow , { tableRowClasses }from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import {OngoingChalTable} from "./UserDashboard/OngoingChalTable"
+
 
 
 export const UserDashboard = () => {
@@ -146,82 +156,17 @@ export const UserDashboard = () => {
                 <Grid item>
                   <Typography variant="h5">Welcome {user?.username}!</Typography>
                 </Grid>
-                {isSelf ? (
-                  <>
-                    <Grid item>
-                      <Button
-                        size="medium"
-                        fullWidth
-                        variant="contained"
-                        onClick={() => navigate("/challenges/create")}
-                      >
-                        + Start new challenge
-                      </Button>
-                    </Grid>
-                    
-                  </>
-                ) : (
-                  <Grid item>
-                    {isSelf ? (
-                      ""
-                    ) : friends.find(
-                        (friend) => friend.friendId === auth?.id
-                      ) ? (
-                      <Button size="small" variant="outlined" disabled>
-                        <CheckIcon fontSize="small" /> Friends
-                      </Button>
-                    ) : connections.find(
-                        (conn) => conn.requester_userId === auth?.id
-                      ) ? (
-                      <Button size="small" variant="outlined" disabled>
-                        Request Pending
-                      </Button>
-                    ) : connections.find(
-                        (conn) => conn.requested_userId === auth?.id
-                      ) ? (
-                      <Grid container spacing={1}>
-                        <Grid item>
-                          <Button
-                            size="small"
-                            variant="outlined"
-                            onClick={() =>
-                              handleAcceptRequest(
-                                connections.find(
-                                  (conn) => conn.requested_userId === auth?.id
-                                ).id
-                              )
-                            }
-                          >
-                            Accept Request
-                          </Button>
-                        </Grid>
-                        <Grid item>
-                          <Button
-                            size="small"
-                            variant="outlined"
-                            onClick={() =>
-                              handleRemoveConnection(
-                                connections.find(
-                                  (conn) => conn.requested_userId === auth?.id
-                                ).id
-                              )
-                            }
-                          >
-                            Decline Request
-                          </Button>
-                        </Grid>
-                      </Grid>
-                    ) : (
-                      <Button
-                        size="small"
-                        variant="outlined"
-                        onClick={() => handleAddFriend()}
-                      >
-                        Add Friend
-                      </Button>
-                    )}
-                  </Grid>
-                )}
+                <Grid item>
+                  <Button
+                    size="medium"
+                    fullWidth
+                    variant="contained"
+                    onClick={() => navigate("/challenges/create")}
+                  >
+                    + Start new challenge
+                  </Button>
+                </Grid>
+                
               </Grid>
 
               {/* First and Last names */}
@@ -231,48 +176,12 @@ export const UserDashboard = () => {
                 </Typography>
               </Grid>
 
-              {/* Friends and friend requests */}
-              <Grid
-                item
-                container
-                spacing={3}
-                sx={{ display: "flex", alignItems: "flex-start" }}
-              >
-                <Grid item>
-                  {isSelf ? (
-                    <Link to="/users/friends">
-                      <Typography sx={{ color: "black" }}>
-                        <b>{friends.length}</b> Friend(s)
-                      </Typography>
-                    </Link>
-                  ) : (
-                    <Typography sx={{ color: "black" }}>
-                      <b>{friends.length}</b> Friend(s)
-                    </Typography>
-                  )}
-                </Grid>
-                {isSelf && !!connections.length && (
-                  <Grid item>
-                    <Link to="/users/friendRequests">
-                      <Typography sx={{ color: "black" }}>
-                        <b>
-                          {
-                            connections.filter(
-                              (conn) =>
-                                conn.requested_userId === auth?.id &&
-                                conn.status === "pending"
-                            ).length
-                          }
-                        </b>{" "}
-                        Friend Request(s)
-                      </Typography>
-                    </Link>
-                  </Grid>
-                )}
-              </Grid>
+  
+              
             </Grid>
           </Grid>
-
+          <OngoingChalTable myChallenges={myChallenges}/>
+          
           {/* BADGES */}
           <Divider sx={{ mt: 4 }} />
           <Grid item container direction="column" spacing={2}>

@@ -116,6 +116,7 @@ export const BrowseUsers = () => {
         totalPosts={publicUsers.length}
         paginate={paginate}
         currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
     </div>
     </>
