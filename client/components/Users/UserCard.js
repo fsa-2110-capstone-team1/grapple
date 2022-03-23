@@ -116,7 +116,7 @@ export const UserCard = ({ user }) => {
             height="200"
             image={`${user.image}`}
             alt="user photo"
-            sx={{ borderRadius: 50, width: "210px", height: "210px", marginTop: "20px" }}
+            sx={{ borderRadius: 50 }}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
