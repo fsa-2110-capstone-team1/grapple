@@ -26,7 +26,7 @@ export const Details = ({ challenge }) => {
       <Grid container direction="column" spacing={2}>
         <Grid item>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <DescriptionIcon className="description-icon" />
+            <DescriptionIcon sx={{ pr: "10px" }} />
             <Typography variant="p">
               Overview: {challenge.description}
             </Typography>
@@ -34,7 +34,15 @@ export const Details = ({ challenge }) => {
         </Grid>
         <Grid item>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <SportsMmaIcon className="boxing-icon" />
+            <FlagIcon sx={{ pr: "10px" }} />
+            <Typography variant="p">
+              Goal: {challenge.targetNumber} {challenge.targetUnit}
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid item>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <SportsMmaIcon sx={{ pr: "10px" }} />
             <Typography variant="p">
               Difficulty Rating: {challenge.difficulty}
             </Typography>
@@ -42,7 +50,7 @@ export const Details = ({ challenge }) => {
         </Grid>
         <Grid item>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <DateRangeIcon className="date-range-icon" />
+            <DateRangeIcon sx={{ pr: "10px" }} />
             <Typography variant="p">
               Dates: {dateFormat(challenge.startDateTime, "mediumDate")} -{" "}
               {dateFormat(challenge.endDateTime, "mediumDate")}

@@ -24,15 +24,10 @@ import {
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../../theme";
 import dateFormat from "dateformat";
-import {
-  getAllChallenges,
-  joinChallenge,
-  updateChallengeProgress,
-  leaveChallenge,
-} from "../../../store";
 import ConfirmActionDialog from "../../../ConfirmActionDialog";
 import Details from "./Details";
 import JoinChallenge from "./JoinChallenge";
+import TrackProgress from "./TrackProgress";
 
 export const ChallengeDetails = () => {
   const navigate = useNavigate();
@@ -96,7 +91,9 @@ export const ChallengeDetails = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      {/* main page */}
       <Grid container direction="column" spacing={3}>
+        {/* hero image */}
         <Grid item xs={3}>
           <Box
             component="img"
@@ -110,28 +107,30 @@ export const ChallengeDetails = () => {
             }}
           />
         </Grid>
-        <Grid item xs={9}>
+
+        {/* main section */}
+        <Grid item xs={5}>
           <Grid
             container
             direction="column"
             spacing={2}
             sx={{ alignItems: "center" }}
           >
+            {/* title */}
             <Grid item sx={{ textAlign: "center" }}>
-              <Typography variant="h3">Challenge: {challenge.name}</Typography>
+              <Typography variant="h3">{challenge.name}</Typography>
               <Divider />
             </Grid>
-            <Grid item container spacing={20} sx={{ alignItems: "center" }}>
+
+            {/* main description section */}
+            <Grid item container spacing={2} sx={{ alignItems: "center" }}>
               {/* Left railing */}
-              <Grid item xs={0.5} md={0.5} />
+              <Grid item xs={0.5} md={0.5} sx={{ mr: "60px" }} />
 
               {/* Left details section */}
               <Grid item xs={10} md={5}>
                 <Details challenge={challenge} />
               </Grid>
-
-              {/* Middle Space */}
-              {/* <Grid item xs={1.5} /> */}
 
               {/* Right join challenge section */}
               <Grid item xs={10} md={5}>
@@ -139,6 +138,27 @@ export const ChallengeDetails = () => {
                   challenge={challenge}
                   userChallenge={userChallenge}
                   enrolledUsers={enrolledUsers}
+                  userId={auth?.id}
+                />
+              </Grid>
+
+              {/* Right railing */}
+              <Grid item xs={0.5} md={0.5} />
+            </Grid>
+
+            <Grid item sx={{ width: "80vw" }}>
+              <Divider />
+            </Grid>
+
+            {/* Track challenge progress section */}
+            <Grid item xs={4} container sx={{ alignItems: "center" }}>
+              {/* Left railing */}
+              <Grid item xs={0.5} md={0.5} sx={{ mr: "60px" }} />
+
+              <Grid item xs={10}>
+                <TrackProgress
+                  userChallenge={userChallenge}
+                  challenge={challenge}
                 />
               </Grid>
 

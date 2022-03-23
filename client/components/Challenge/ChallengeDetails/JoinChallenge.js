@@ -20,7 +20,12 @@ import dateFormat from "dateformat";
 import { joinChallenge, leaveChallenge } from "../../../store";
 import ConfirmActionDialog from "../../../ConfirmActionDialog";
 
-export const JoinChallenge = ({ challenge, userChallenge, enrolledUsers }) => {
+export const JoinChallenge = ({
+  challenge,
+  userChallenge,
+  enrolledUsers,
+  userId,
+}) => {
   const dispatch = useDispatch();
 
   return (
@@ -69,7 +74,7 @@ export const JoinChallenge = ({ challenge, userChallenge, enrolledUsers }) => {
                   backgroundColor: theme.palette.secondary.main,
                   color: theme.palette.braun.main,
                 }}
-                onClick={() => dispatch(joinChallenge(auth.id, challenge.id))}
+                onClick={() => dispatch(joinChallenge(userId, challenge.id))}
               >
                 Join Challenge
               </Button>
