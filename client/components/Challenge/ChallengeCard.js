@@ -39,6 +39,7 @@ export const ChallengeCard = ({ challenge }) => {
       <Card
         sx={{
           maxWidth: 345,
+          
           // Provide some spacing between cards
           margin: 1.5,
           // Use flex layout with column direction for components in the card
@@ -56,13 +57,13 @@ export const ChallengeCard = ({ challenge }) => {
             height="200"
             image={`/${challenge.image}`}
             alt="challenge cover photo"
-            sx={{objectFit:"contain"}}
+            sx={{objectFit:"contain", marginTop: "20px"}}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {challenge.name}
             </Typography>
-            <Typography variant="body2" color="text.secondary" height="auto">
+            <Typography variant="body2" sx={{minWidth: "206px"}} color="text.secondary" height="auto">
               {challenge.description}
             </Typography>
           </CardContent>
