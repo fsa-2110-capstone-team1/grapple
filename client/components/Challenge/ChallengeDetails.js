@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
-import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
-import SportsMmaIcon from '@mui/icons-material/SportsMma';
-import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import DescriptionIcon from '@mui/icons-material/Description';
-import DateRangeIcon from '@mui/icons-material/DateRange';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import SportsMmaIcon from "@mui/icons-material/SportsMma";
+import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
+import DescriptionIcon from "@mui/icons-material/Description";
+import DateRangeIcon from "@mui/icons-material/DateRange";
+import CheckIcon from "@mui/icons-material/Check";
 import {
   Divider,
   Grid,
@@ -14,24 +15,34 @@ import {
   Box,
   Paper,
   Typography,
+  TextField,
   styled,
-} from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '../../theme';
-import dateFormat from 'dateformat';
-import { getAllChallenges } from '../../store';
+} from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "../../theme";
+import dateFormat from "dateformat";
+import {
+  getAllChallenges,
+  joinChallenge,
+  updateChallengeProgress,
+  leaveChallenge,
+} from "../../store";
+import ConfirmActionDialog from "../../ConfirmActionDialog";
 
 export const ChallengeDetails = () => {
-  const challenges = useSelector((state) => state.challenges);
-
-  const publicUsers = useSelector((state) => state.publicUsers);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // This is the challenge id.
   const { id } = useParams();
 
-  const userChallenges = useSelector((state) => state.userChallenges);
+  const { challenges, publicUsers, userChallenges, auth } = useSelector(
+    (state) => state
+  );
 
   const [enrolledUsers, setEnrolledUsers] = useState([]);
+  const [challenge, setChallenge] = useState({});
+  const [userChallenge, setUserChallenge] = useState({});
 
   useEffect(() => {
     setEnrolledUsers(
@@ -43,14 +54,40 @@ export const ChallengeDetails = () => {
     );
   }, [id, publicUsers, challenges]);
 
-  // const userNames = enrolledUsers?.map((user) => user?.username);
+  useEffect(() => {
+    const chal = challenges.find((ch) => ch.id === id * 1);
+    if (chal) {
+      const currentDate = new Date();
+      const startDate = new Date(chal.startDateTime);
+      const endDate = new Date(chal.endDateTime);
+      const challengeStatus =
+        currentDate < startDate
+          ? "Not Started"
+          : currentDate >= startDate && currentDate <= endDate
+          ? "In Progress"
+          : "Ended";
+      setChallenge({
+        ...chal,
+        status: challengeStatus,
+      });
+    }
+  }, [id, challenges]);
 
-  const challenge =
-    challenges.find((challenge) => challenge.id === id * 1) || {};
-
-  if (!challenge) {
-    return 'Sorry the challenge you are looking for is unreachable';
-  }
+  useEffect(() => {
+    if (
+      !!userChallenges.find(
+        (uc) => uc.challengeId === id * 1 && uc.userId === auth.id
+      )
+    ) {
+      setUserChallenge(
+        userChallenges.find(
+          (uc) => uc.challengeId === id * 1 && uc.userId === auth.id
+        )
+      );
+    } else {
+      setUserChallenge({});
+    }
+  }, [auth?.id, userChallenges, id]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -60,42 +97,42 @@ export const ChallengeDetails = () => {
           container
           direction="column"
           spacing={2}
-          sx={{ alignItems: 'center' }}
+          sx={{ alignItems: "center" }}
         >
-          <Grid item sx={{ textAlign: 'center' }}>
-            <Typography variant="h3" sx={{ margin: '40px' }}>
+          <Grid item sx={{ textAlign: "center" }}>
+            <Typography variant="h3" sx={{ margin: "40px" }}>
               Challenge: {challenge.name}
             </Typography>
             <Divider />
           </Grid>
-          <Grid item container spacing={6} sx={{ alignItems: 'center' }}>
+          <Grid item container spacing={6} sx={{ alignItems: "center" }}>
             {/* Grid item below is left railing */}
 
-            <Grid item xs={1} md={2} sx={{ textAlign: 'right' }}></Grid>
+            <Grid item xs={1} md={2} sx={{ textAlign: "right" }}></Grid>
             <Grid item xs={10} md={4}>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
                 <DescriptionIcon className="description-icon" />
                 <Typography variant="p">
                   Overview: {challenge.description}
                 </Typography>
               </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
                 <SportsMmaIcon className="boxing-icon" />
                 <h4>Difficulty Rating: {challenge.difficulty}</h4>
               </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
                 <DateRangeIcon className="date-range-icon" />
                 <p>
-                  Start Date:{' '}
-                  {dateFormat(challenge.startDateTime, 'mediumDate')}
+                  Start Date:{" "}
+                  {dateFormat(challenge.startDateTime, "mediumDate")}
                 </p>
 
                 {/* </Paper> */}
               </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
                 <DateRangeIcon className="date-range-icon" />
                 <p>
-                  End Date: {dateFormat(challenge.endDateTime, 'mediumDate')}
+                  End Date: {dateFormat(challenge.endDateTime, "mediumDate")}
                 </p>
               </Box>
             </Grid>
@@ -106,32 +143,66 @@ export const ChallengeDetails = () => {
               direction="column"
               xs={10}
               md={4}
-              sx={{ pl: '40px' }}
+              sx={{ pl: "40px" }}
             >
               <Grid item>
-                <Button
-                  size="large"
-                  sx={{
-                    paddingLeft: '40px',
-                    paddingRight: '40px',
-                    paddingTop: '20px',
-                    paddingBottom: '20px',
-                    backgroundColor: theme.palette.secondary.main,
-                    color: theme.palette.braun.main,
-                  }}
-                >
-                  Join Challenge
-                </Button>
+                <Box sx={{ m: 1, display: "flex", justifyContent: "center" }}>
+                  {!!userChallenge.id ? (
+                    <ConfirmActionDialog
+                      {...{
+                        buttonVariant: "contained",
+                        buttonSize: "large",
+                        buttonDisabled: challenge.status === "Ended",
+                        buttonText:
+                          challenge.status === "Ended"
+                            ? "Challenge Ended"
+                            : "Leave Challenge",
+                        dialogTitle:
+                          "Are you sure you want to leave this challenge?",
+                        dialogText:
+                          "This action is permanent. Once you leave the challenge, you will need to re-join and start over.",
+                        disagreeText: "Cancel",
+                        agreeText: "Leave Challenge",
+                        dispatchAction: leaveChallenge,
+                        dispatchParams: { userChallengeId: userChallenge.id },
+                        buttonSx: {
+                          paddingLeft: "40px",
+                          paddingRight: "40px",
+                          paddingTop: "20px",
+                          paddingBottom: "20px",
+                          backgroundColor: theme.palette.secondary.main,
+                          color: theme.palette.braun.main,
+                        },
+                      }}
+                    />
+                  ) : (
+                    <Button
+                      variant="contained"
+                      size="large"
+                      sx={{
+                        paddingLeft: "40px",
+                        paddingRight: "40px",
+                        paddingTop: "20px",
+                        paddingBottom: "20px",
+                        backgroundColor: theme.palette.secondary.main,
+                        color: theme.palette.braun.main,
+                      }}
+                      onClick={() => dispatch(joinChallenge(auth.id, id))}
+                    >
+                      Join Challenge
+                    </Button>
+                  )}
+                </Box>
               </Grid>
               {/* <Button size="large">Invite A friend</Button> */}
               <Grid item>
                 <Box
                   sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    textAlign: 'left',
-                    marginTop: '20px',
-                    marginBottom: '20px',
+                    display: "flex",
+                    alignItems: "center",
+                    textAlign: "left",
+                    marginTop: "20px",
+                    marginBottom: "20px",
                   }}
                 >
                   {enrolledUsers.length === 0 ? (
@@ -141,7 +212,7 @@ export const ChallengeDetails = () => {
                   )}
                   <Typography variant="p">
                     {enrolledUsers.length === 0
-                      ? 'No one currently enrolled in this challenge.'
+                      ? "No one currently enrolled in this challenge."
                       : enrolledUsers.length === 1
                       ? `${enrolledUsers.length} person enrolled in this challenge!`
                       : `${enrolledUsers.length} people enrolled in this challenge!`}
@@ -150,12 +221,12 @@ export const ChallengeDetails = () => {
               </Grid>
               <Grid item>
                 {enrolledUsers.length >= 1 ? (
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
                     <DirectionsRunIcon className="runner-icon" />
                     <p className="participant-div">Participants</p>
                   </Box>
                 ) : (
-                  ''
+                  ""
                 )}
                 <Box>
                   {enrolledUsers.length >= 1
@@ -167,7 +238,7 @@ export const ChallengeDetails = () => {
                           <li className="user-link-li">{user.username}</li>
                         </Link>
                       ))
-                    : ''}
+                    : ""}
                 </Box>
               </Grid>
             </Grid>

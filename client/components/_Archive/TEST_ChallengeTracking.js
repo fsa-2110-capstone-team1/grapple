@@ -18,7 +18,7 @@ import {
   updateChallengeProgress,
   leaveChallenge,
 } from "../../store";
-import TEST_ConfirmActionDialog from "./TEST_ConfirmActionDialog";
+import TEST_ConfirmActionDialog from "../../ConfirmActionDialog";
 import dateFormat from "dateformat";
 
 export const TestChallengeTracking = () => {
