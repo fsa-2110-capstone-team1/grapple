@@ -68,8 +68,6 @@ const Filter = ({
     }
   };
 
-  console.log(filters);
-
   return (
     <Box>
       <Box sx={{ mt: 3 }}>

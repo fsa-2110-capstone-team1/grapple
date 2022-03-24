@@ -31,6 +31,10 @@ function FilterDrawer({
   filteredChallenges,
   setFilteredChallenges,
   setActivePage,
+  sort,
+  setSort,
+  sortedChallenges,
+  setSortedChallenges,
 }) {
   return (
     <Box sx={{ display: "flex" }}>
@@ -62,8 +66,13 @@ function FilterDrawer({
             </Grid>
             <Grid item>
               <Typography variant="h6">Sort By</Typography>
-              {/* Maybe pass filteredchallenges? or challenges? */}
-              <Sort challenges={filteredChallenges} />
+              <Sort
+                setActivePage={setActivePage}
+                sort={sort}
+                setSort={setSort}
+                filteredChallenges={filteredChallenges}
+                setFilteredChallenges={setFilteredChallenges}
+              />
             </Grid>
             <Grid item>
               <Divider />

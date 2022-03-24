@@ -27,21 +27,32 @@ import FilterDrawer from "./FilterDrawer";
 function BrowseChallenges() {
   const challenges = useSelector((state) => state.challenges);
 
+  //filtering
   const [filters, setFilters] = useState({});
   const [filteredChallenges, setFilteredChallenges] = useState([]);
   useEffect(() => {
     setFilteredChallenges(challenges);
   }, [challenges]);
 
+  //sorting
+  const [sort, setSort] = useState({ order: "asc", orderBy: "id" });
+
   //pagination calculations
   const [activePage, setActivePage] = useState(1);
   const challengesPerPage = 9;
   const count = filteredChallenges.length;
   const totalPages = Math.ceil(count / challengesPerPage);
-  const calculatedChallenges = filteredChallenges.slice(
-    (activePage - 1) * challengesPerPage,
-    activePage * challengesPerPage
-  );
+
+  const [calculatedChallenges, setCalculatedChallenges] = useState([]);
+  useEffect(() => {
+    console.log(filteredChallenges);
+    setCalculatedChallenges(
+      filteredChallenges.slice(
+        (activePage - 1) * challengesPerPage,
+        activePage * challengesPerPage
+      )
+    );
+  }, [sort, filters, filteredChallenges]);
 
   return (
     <Box sx={{ minHeight: "100vh" }}>
@@ -50,11 +61,13 @@ function BrowseChallenges() {
         <Grid item xs={2}>
           <FilterDrawer
             challenges={challenges}
+            setActivePage={setActivePage}
             filters={filters}
             setFilters={setFilters}
             filteredChallenges={filteredChallenges}
             setFilteredChallenges={setFilteredChallenges}
-            setActivePage={setActivePage}
+            sort={sort}
+            setSort={setSort}
           />
         </Grid>
         {/* grid with cards (right side) */}

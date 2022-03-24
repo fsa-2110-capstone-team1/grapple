@@ -5,9 +5,58 @@ import ListItemText from "@mui/material/ListItemText";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 
-function Sort({ challenges }) {
-  const sort = (attribute, direction) => {
-    console.log("sort goes here for: ", attribute, direction);
+const Sort = ({
+  setActivePage,
+  sort,
+  setSort,
+  filteredChallenges,
+  setFilteredChallenges,
+}) => {
+  useEffect(() => {
+    setFilteredChallenges(sortChallenges(filteredChallenges, sort));
+  }, [sort]);
+
+  const sortChallenges = (filteredChallenges, sort) => {
+    return filteredChallenges.sort((a, b) => {
+      const { order, orderBy } = sort;
+
+      if (!a[orderBy]) return 1;
+      if (!b[orderBy]) return -1;
+
+      if (order === "asc") {
+        if (Number(a[orderBy])) {
+          return a[orderBy] - b[orderBy];
+        } else {
+          if (a[orderBy] > b[orderBy]) {
+            return 1;
+          } else if (a[orderBy] < b[orderBy]) {
+            return -1;
+          } else {
+            return 0;
+          }
+        }
+      } else {
+        if (Number(a[orderBy])) {
+          return b[orderBy] - a[orderBy];
+        } else {
+          if (a[orderBy] < b[orderBy]) {
+            return 1;
+          } else if (a[orderBy] > b[orderBy]) {
+            return -1;
+          } else {
+            return 0;
+          }
+        }
+      }
+    });
+  };
+
+  const handleSort = (order, attribute) => {
+    setActivePage(1);
+    setSort(() => ({
+      order,
+      orderBy: attribute,
+    }));
   };
 
   return (
@@ -15,14 +64,17 @@ function Sort({ challenges }) {
       {["Name", "Difficulty", "Category"].map((attribute, index) => (
         <ListItem key={index}>
           <ListItemText primary={attribute} />
-          <ArrowCircleUpIcon onClick={() => sort(attribute, direction)} />
+          <ArrowCircleUpIcon
+            sx={{ cursor: "pointer" }}
+            onClick={() => handleSort("asc", attribute.toLowerCase())}
+          />
           <ArrowCircleDownIcon
-            onClick={() => sortedDown(attribute, direction)}
+            onClick={() => handleSort("desc", attribute.toLowerCase())}
           />
         </ListItem>
       ))}
     </List>
   );
-}
+};
 
 export default Sort;
