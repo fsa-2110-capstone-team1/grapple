@@ -9,23 +9,26 @@ import {
   MenuItem,
 } from "@mui/material";
 
-function Filter({
+const Filter = ({
   challenges,
   filters,
   setFilters,
   filteredChallenges,
   setFilteredChallenges,
   setActivePage,
-}) {
-  //   const filteredChallenges = filterChallenges(challenges, filters);
+}) => {
+  //update filtered challenges every time a new filter is added
+  useEffect(() => {
+    setFilteredChallenges(filterChallenges(challenges, filters));
+  }, [filters]);
 
   function filterChallenges(challenges, filters) {
     if (!Object.keys(filters).length) return challenges;
 
-    return challenges.filter((row) => {
-      return Object.keys(filters).every((accessor) => {
-        const value = row[accessor];
-        const searchValue = filters[accessor];
+    return challenges.filter((challenge) => {
+      return Object.keys(filters).every((attribute) => {
+        const value = challenge[attribute];
+        const searchValue = filters[attribute];
 
         if (typeof value === "string") {
           return value.toLowerCase().includes(searchValue.toLowerCase());
@@ -47,36 +50,37 @@ function Filter({
     });
   }
 
-  const handleFilter = (value, accessor) => {
+  const handleFilter = (value, attribute) => {
     setActivePage(1);
 
     if (value) {
       setFilters((prevFilters) => ({
         ...prevFilters,
-        [accessor]: value,
+        [attribute]: value,
       }));
     } else {
       setFilters((prevFilters) => {
         const updatedFilters = { ...prevFilters };
-        delete updatedFilters[accessor];
+        delete updatedFilters[attribute];
 
         return updatedFilters;
       });
     }
   };
 
+  console.log(filters);
+
   return (
     <Box>
       <Box sx={{ mt: 3 }}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Difficulty</InputLabel>
+          <InputLabel id="difficulty">Difficulty</InputLabel>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            // value={difficulty}
-            value={0}
+            labelId="difficulty"
+            id="difficulty-select"
+            value={filters["difficulty"] || 0}
             label="difficulty"
-            // onChange={handleChangeDiff}
+            onChange={(e) => handleFilter(e.target.value, "difficulty")}
           >
             <MenuItem value={0}>All</MenuItem>
             <MenuItem value={1}>1</MenuItem>
@@ -89,14 +93,13 @@ function Filter({
       </Box>
       <Box sx={{ mt: 3 }}>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label1">Category</InputLabel>
+          <InputLabel id="category">Category</InputLabel>
           <Select
-            labelId="demo-simple-select-label1"
-            id="demo-simple-select1"
-            // value={category}
-            value={0}
+            labelId="category"
+            id="category-select"
+            value={filters["category"] || 0}
             label="category"
-            // onChange={handleChangeCat}
+            onChange={(e) => handleFilter(e.target.value, "category")}
           >
             <MenuItem value={0}>All</MenuItem>
             <MenuItem value={"mental"}>Mental</MenuItem>
@@ -109,6 +112,6 @@ function Filter({
       </Box>
     </Box>
   );
-}
+};
 
 export default Filter;

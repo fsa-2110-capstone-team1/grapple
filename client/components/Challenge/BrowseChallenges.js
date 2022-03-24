@@ -25,18 +25,19 @@ import MenuItem from "@mui/material/MenuItem";
 import FilterDrawer from "./FilterDrawer";
 
 function BrowseChallenges() {
-  // const path = useLocation().pathname.split("/").pop();
   const challenges = useSelector((state) => state.challenges);
 
-  // Pagination calculations
-  const [activePage, setActivePage] = useState(1);
   const [filters, setFilters] = useState({});
-  const [filteredChallenges, setFilteredChallenges] = useState(challenges);
+  const [filteredChallenges, setFilteredChallenges] = useState([]);
+  useEffect(() => {
+    setFilteredChallenges(challenges);
+  }, [challenges]);
+
+  //pagination calculations
+  const [activePage, setActivePage] = useState(1);
   const challengesPerPage = 9;
-  // const count = challenges.length;
   const count = filteredChallenges.length;
   const totalPages = Math.ceil(count / challengesPerPage);
-  // const calculatedRows = challenges.slice(
   const calculatedChallenges = filteredChallenges.slice(
     (activePage - 1) * challengesPerPage,
     activePage * challengesPerPage
