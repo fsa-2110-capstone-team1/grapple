@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -27,6 +27,12 @@ const CustomPopper = (props) => {
 };
 
 export default function Searcher({ data }) {
+  const [options, setOptions] = useState([]);
+
+  useEffect(() => {
+    setOptions(data.map((option) => option.name));
+  }, [data]);
+
   return (
     <div className="search">
       <Stack
@@ -38,16 +44,14 @@ export default function Searcher({ data }) {
           // classes={classes}
           // id="free-solo-2-demo"
           disableClearable
-          options={data.map(
-            (option) => {
-              option.name;
-            }
+          options={
+            options
             //   (
             //   // <div key={option}>{option.name}</div>
             // )
-          )}
-          renderOption={(option) => (
-            <React.Fragment>
+          }
+          renderOption={(option, index) => (
+            <div key={index}>
               <span
                 style={{ cursor: "pointer" }}
                 onClick={() => {
@@ -60,7 +64,7 @@ export default function Searcher({ data }) {
               >
                 <p>{option.key}</p>
               </span>
-            </React.Fragment>
+            </div>
           )}
           PopperComponent={CustomPopper}
           renderInput={(params) => (
