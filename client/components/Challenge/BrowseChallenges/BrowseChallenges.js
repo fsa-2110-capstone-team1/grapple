@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Grid, Box } from "@mui/material";
-import PaginationFooter from "./PaginationFooter.js";
-import ChallengeCard from "./ChallengeCard";
+import PaginationFooter from "./PaginationFooter";
+import ChallengeCard from "../ChallengeCard";
 import FilterDrawer from "./FilterDrawer";
 
 function BrowseChallenges() {

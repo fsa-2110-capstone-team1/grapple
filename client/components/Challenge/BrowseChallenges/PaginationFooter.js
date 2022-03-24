@@ -1,7 +1,5 @@
 import React from "react";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
+import { Pagination, Stack, Typography } from "@mui/material";
 
 const PaginationFooter = ({
   activePage,

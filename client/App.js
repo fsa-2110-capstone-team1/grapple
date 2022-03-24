@@ -15,7 +15,7 @@ import Navbar from "./components/Navbar";
 import BrowseUsers from "./components/Users/BrowseUsers";
 import UserProfileDetails from "./components/Users/UserProfileDetails";
 import CreateChallenge from "./components/Challenge/CreateChallenge";
-import BrowseChallenges from "./components/Challenge/BrowseChallenges";
+import BrowseChallenges from "./components/Challenge/BrowseChallenges/BrowseChallenges";
 import ChallengeDetails from "./components/Challenge/ChallengeDetails/Main";
 import EditChallenge from "./components/Challenge/EditChallenge";
 import UserProfile from "./components/User/UserProfile";
