@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 const PaginationFooter = ({
   activePage,
   count,
-  rowsPerPage,
+  challengesPerPage,
   totalPages,
   setActivePage,
 }) => {

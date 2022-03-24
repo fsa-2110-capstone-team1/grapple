@@ -31,76 +31,37 @@ function BrowseChallenges() {
   // Pagination calculations
   const [activePage, setActivePage] = useState(1);
   const [filters, setFilters] = useState({});
-  const rowsPerPage = 9;
-  const filteredRows = filterRows(challenges, filters);
+  const [filteredChallenges, setFilteredChallenges] = useState(challenges);
+  const challengesPerPage = 9;
   // const count = challenges.length;
-  const count = filteredRows.length;
-  const totalPages = Math.ceil(count / rowsPerPage);
+  const count = filteredChallenges.length;
+  const totalPages = Math.ceil(count / challengesPerPage);
   // const calculatedRows = challenges.slice(
-  const calculatedRows = filteredRows.slice(
-    (activePage - 1) * rowsPerPage,
-    activePage * rowsPerPage
+  const calculatedChallenges = filteredChallenges.slice(
+    (activePage - 1) * challengesPerPage,
+    activePage * challengesPerPage
   );
 
-  function filterRows(rows, filters) {
-    if (!Object.keys(filters).length) return rows;
-
-    return rows.filter((row) => {
-      return Object.keys(filters).every((accessor) => {
-        const value = row[accessor];
-        const searchValue = filters[accessor];
-
-        if (typeof value === "string") {
-          return value.toLowerCase().includes(searchValue.toLowerCase());
-        }
-
-        if (typeof value === "boolean") {
-          return (
-            (searchValue === "true" && value) ||
-            (searchValue === "false" && !value)
-          );
-        }
-
-        if (typeof value === "number") {
-          return value == searchValue;
-        }
-
-        return false;
-      });
-    });
-  }
-
-  const handleSearch = (value, accessor) => {
-    setActivePage(1);
-
-    if (value) {
-      setFilters((prevFilters) => ({
-        ...prevFilters,
-        [accessor]: value,
-      }));
-    } else {
-      setFilters((prevFilters) => {
-        const updatedFilters = { ...prevFilters };
-        delete updatedFilters[accessor];
-
-        return updatedFilters;
-      });
-    }
-  };
-
   return (
-    <Box>
+    <Box sx={{ minHeight: "100vh" }}>
       <Grid container>
         {/* Filter drawer */}
         <Grid item xs={2}>
-          <FilterDrawer challenges={challenges} />
+          <FilterDrawer
+            challenges={challenges}
+            filters={filters}
+            setFilters={setFilters}
+            filteredChallenges={filteredChallenges}
+            setFilteredChallenges={setFilteredChallenges}
+            setActivePage={setActivePage}
+          />
         </Grid>
         {/* grid with cards (right side) */}
         <Grid item xs={10}>
-          <Grid container>
+          <Grid container sx={{ minHeight: "70vh" }}>
             <Grid item xs={1} />
             <Grid item xs={10} container>
-              {calculatedRows?.map((challenge) => (
+              {calculatedChallenges?.map((challenge) => (
                 <Grid
                   item
                   key={challenge.id}
@@ -119,7 +80,7 @@ function BrowseChallenges() {
           <PaginationFooter
             activePage={activePage}
             count={count}
-            rowsPerPage={rowsPerPage}
+            challengesPerPage={challengesPerPage}
             totalPages={totalPages}
             setActivePage={setActivePage}
           />
