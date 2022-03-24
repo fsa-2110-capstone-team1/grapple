@@ -65,10 +65,23 @@ const Sort = ({
         <ListItem key={index}>
           <ListItemText primary={attribute} />
           <ArrowCircleUpIcon
+            color={
+              sort["orderBy"] === attribute.toLowerCase() &&
+              sort["order"] === "asc"
+                ? "primary"
+                : ""
+            }
             sx={{ cursor: "pointer" }}
             onClick={() => handleSort("asc", attribute.toLowerCase())}
           />
           <ArrowCircleDownIcon
+            color={
+              sort["orderBy"] === attribute.toLowerCase() &&
+              sort["order"] === "desc"
+                ? "primary"
+                : ""
+            }
+            sx={{ cursor: "pointer" }}
             onClick={() => handleSort("desc", attribute.toLowerCase())}
           />
         </ListItem>

@@ -45,7 +45,6 @@ function BrowseChallenges() {
 
   const [calculatedChallenges, setCalculatedChallenges] = useState([]);
   useEffect(() => {
-    console.log(filteredChallenges);
     setCalculatedChallenges(
       filteredChallenges.slice(
         (activePage - 1) * challengesPerPage,
