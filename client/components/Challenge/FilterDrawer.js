@@ -21,84 +21,21 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import Sort from "./Sort";
+import Filter from "./Filter";
 
-function FilterDrawer({ challenges }) {
-  const drawer = (
-    <>
-      {/* Toolbar to bump drawer down by the nav bar height */}
-      <Toolbar />
-      <Grid container direction="column" spacing={2} sx={{ mt: 2 }}>
-        <Grid item>
-          <Typography variant="h6" sx={{ mb: 1 }}>
-            Search
-          </Typography>
-          <Searcher data={challenges} />
-        </Grid>
-        <Grid item>
-          <Divider />
-        </Grid>
-        <Grid item>
-          <Typography variant="h6">Sort By</Typography>
-          <List>
-            {["Name", "Difficulty", "Category"].map((text, index) => (
-              <ListItem key={index}>
-                <ListItemText primary={text} />
-                <ArrowCircleUpIcon onClick={() => sortedUp(text)} />
-                <ArrowCircleDownIcon onClick={() => sortedDown(text)} />
-              </ListItem>
-            ))}
-          </List>
-        </Grid>
-        <Grid item>
-          <Divider />
-        </Grid>
-        <Grid item>
-          <Typography variant="h6">Filter By</Typography>
-          <Box sx={{ mt: 3 }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Difficulty</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                // value={difficulty}
-                value={0}
-                label="difficulty"
-                // onChange={handleChangeDiff}
-              >
-                <MenuItem value={0}>All</MenuItem>
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-                <MenuItem value={4}>4</MenuItem>
-                <MenuItem value={5}>5</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-          <Box sx={{ mt: 3 }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label1">Category</InputLabel>
-              <Select
-                labelId="demo-simple-select-label1"
-                id="demo-simple-select1"
-                // value={category}
-                value={0}
-                label="category"
-                // onChange={handleChangeCat}
-              >
-                <MenuItem value={0}>All</MenuItem>
-                <MenuItem value={"mental"}>Mental</MenuItem>
-                <MenuItem value={"physical"}>Physical</MenuItem>
-                <MenuItem value={"sleep"}>Sleep</MenuItem>
-                <MenuItem value={"food"}>Food</MenuItem>
-                <MenuItem value={"misc"}>Misc</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-        </Grid>
-      </Grid>
-    </>
-  );
-
+function FilterDrawer({
+  challenges,
+  filters,
+  setFilters,
+  filteredChallenges,
+  setFilteredChallenges,
+  setActivePage,
+  sort,
+  setSort,
+  sortedChallenges,
+  setSortedChallenges,
+}) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -114,7 +51,45 @@ function FilterDrawer({ challenges }) {
         }}
         open
       >
-        {drawer}
+        <>
+          {/* Toolbar to bump drawer down by the nav bar height */}
+          <Toolbar />
+          <Grid container direction="column" spacing={2} sx={{ mt: 2 }}>
+            <Grid item>
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                Search
+              </Typography>
+              <Searcher data={challenges} />
+            </Grid>
+            <Grid item>
+              <Divider />
+            </Grid>
+            <Grid item>
+              <Typography variant="h6">Sort By</Typography>
+              <Sort
+                setActivePage={setActivePage}
+                sort={sort}
+                setSort={setSort}
+                filteredChallenges={filteredChallenges}
+                setFilteredChallenges={setFilteredChallenges}
+              />
+            </Grid>
+            <Grid item>
+              <Divider />
+            </Grid>
+            <Grid item>
+              <Typography variant="h6">Filter By</Typography>
+              <Filter
+                challenges={challenges}
+                filters={filters}
+                setFilters={setFilters}
+                filteredChallenges={filteredChallenges}
+                setFilteredChallenges={setFilteredChallenges}
+                setActivePage={setActivePage}
+              />
+            </Grid>
+          </Grid>
+        </>
       </Drawer>
     </Box>
   );
