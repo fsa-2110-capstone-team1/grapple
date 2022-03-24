@@ -9,13 +9,13 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       "& .MuiAutocomplete-listbox": {
-  height: "180px",
-  // width: "100px",
-//  backgroundColor: "#4ab5a3",
+        height: "180px",
+        // width: "100px",
+        //  backgroundColor: "#4ab5a3",
         fontSize: 18,
         // color:'white'
         // padding-left: "20px",
-        padding: '15px'
+        padding: "15px",
       },
     },
   })
@@ -29,20 +29,30 @@ const CustomPopper = (props) => {
 export default function Searcher({ data }) {
   return (
     <div className="search">
-      <Stack spacing={2} sx={{ width: 300, height: 100 }}>
+      <Stack
+        spacing={2}
+        // sx={{ width: 300, height: 100 }}
+      >
         <Autocomplete
           freeSolo
           // classes={classes}
           // id="free-solo-2-demo"
           disableClearable
-          options={data.map((option) => option.name)}
+          options={data.map(
+            (option) => {
+              option.name;
+            }
+            //   (
+            //   // <div key={option}>{option.name}</div>
+            // )
+          )}
           renderOption={(option) => (
             <React.Fragment>
               <span
                 style={{ cursor: "pointer" }}
                 onClick={() => {
-                  const goTo = data.find((user)=> user.name === option.key)
-                    // const user = publicUsers?.find((user) => user.id === friendId);
+                  const goTo = data.find((user) => user.name === option.key);
+                  // const user = publicUsers?.find((user) => user.id === friendId);
                   console.log(goTo);
                   // console.log(option.key)
                   window.location.href = `/challenges/${goTo.id}`;
@@ -63,7 +73,7 @@ export default function Searcher({ data }) {
               }}
             />
           )}
-          getOptionLabel={(option)=> `${option}`}
+          getOptionLabel={(option) => `${option}`}
         />
       </Stack>
     </div>

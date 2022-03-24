@@ -56,7 +56,11 @@ const Navbar = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppBar className="nav-bar" position="fixed">
+      <AppBar
+        className="nav-bar"
+        position="fixed"
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography

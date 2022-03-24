@@ -20,8 +20,6 @@ const UserProfileDetails = () => {
     window.scrollTo(0, 0);
   }, [location]);
 
-  
-
   const navigate = useNavigate();
   const { username } = useParams();
   const dispatch = useDispatch();
@@ -37,11 +35,19 @@ const UserProfileDetails = () => {
   const [myChallenges, setMyChallenges] = useState([]);
 
   useEffect(() => {
-    const foundUser = publicUsers.find(
-      (u) => u.username === (username || auth.username)
-    );
-    setUser(foundUser);
-  }, [username, publicUsers]);
+    if (!!auth?.id && username === auth?.username) setIsSelf(true);
+  }, [username, auth]);
+
+  useEffect(() => {
+    if (isSelf) {
+      setUser(auth);
+    } else {
+      const foundUser = publicUsers.find(
+        (u) => u.username === (username || auth.username)
+      );
+      setUser(foundUser);
+    }
+  }, [JSON.stringify(auth), publicUsers, isSelf]);
 
   useEffect(async () => {
     if (user.id) {
@@ -77,10 +83,6 @@ const UserProfileDetails = () => {
       }
     }
   }, [connections]);
-
-  useEffect(() => {
-    if (!!user?.id && !!auth?.id && user?.id === auth?.id) setIsSelf(true);
-  }, [user, auth]);
 
   useEffect(() => {
     const myChal = userChallenges
@@ -137,7 +139,12 @@ const UserProfileDetails = () => {
               <Box
                 component="img"
                 src={user?.image}
-                sx={{ width: "150px", height: "150px", borderRadius: 50, objectFit: "cover" }}
+                sx={{
+                  width: "150px",
+                  height: "150px",
+                  borderRadius: 50,
+                  objectFit: "cover",
+                }}
               />
             </Grid>
             <Grid item xs={7} container direction="column" spacing={1}>
