@@ -23,8 +23,6 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
 function FilterDrawer({ challenges }) {
-  const drawerWidth = 300;
-
   const drawer = (
     <>
       {/* Toolbar to bump drawer down by the nav bar height */}
@@ -42,18 +40,12 @@ function FilterDrawer({ challenges }) {
         <Grid item>
           <Typography variant="h6">Sort By</Typography>
           <List>
-            {["name", "difficulty", "category"].map((text, index) => (
-              <div className="sorting" key={index}>
-                <ListItem>
-                  <div className="arrow">
-                    <ArrowCircleUpIcon onClick={() => sortedUp(text)} />
-                  </div>
-                  <div className="arrow">
-                    <ArrowCircleDownIcon onClick={() => sortedDown(text)} />
-                  </div>
-                  <ListItemText primary={text} />
-                </ListItem>
-              </div>
+            {["Name", "Difficulty", "Category"].map((text, index) => (
+              <ListItem key={index}>
+                <ListItemText primary={text} />
+                <ArrowCircleUpIcon onClick={() => sortedUp(text)} />
+                <ArrowCircleDownIcon onClick={() => sortedDown(text)} />
+              </ListItem>
             ))}
           </List>
         </Grid>
@@ -110,26 +102,20 @@ function FilterDrawer({ challenges }) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
+      <Drawer
+        variant="permanent"
+        sx={{
+          display: { xs: "none", sm: "block" },
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            width: "20vw",
+            padding: "30px",
+          },
+        }}
+        open
       >
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: "none", sm: "block" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: "20vw",
-              padding: "30px",
-            },
-          }}
-          open
-        >
-          {drawer}
-        </Drawer>
-      </Box>
+        {drawer}
+      </Drawer>
     </Box>
   );
 }

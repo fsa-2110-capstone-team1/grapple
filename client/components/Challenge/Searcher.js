@@ -38,7 +38,14 @@ export default function Searcher({ data }) {
           // classes={classes}
           // id="free-solo-2-demo"
           disableClearable
-          options={data.map((option) => option.name)}
+          options={data.map(
+            (option) => {
+              option.name;
+            }
+            //   (
+            //   // <div key={option}>{option.name}</div>
+            // )
+          )}
           renderOption={(option) => (
             <React.Fragment>
               <span

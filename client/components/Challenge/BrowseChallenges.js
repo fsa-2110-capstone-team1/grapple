@@ -31,6 +31,7 @@ function ResponsiveDrawer() {
   return (
     <Box>
       <Grid container>
+        {/* Filter drawer */}
         <Grid item xs={2}>
           <FilterDrawer challenges={challenges} />
         </Grid>
