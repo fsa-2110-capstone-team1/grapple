@@ -27,72 +27,66 @@ import FilterDrawer from "./FilterDrawer";
 function BrowseChallenges() {
   // const path = useLocation().pathname.split("/").pop();
   const challenges = useSelector((state) => state.challenges);
+
+  // Pagination calculations
   const [activePage, setActivePage] = useState(1);
+  const [filters, setFilters] = useState({});
   const rowsPerPage = 9;
-  const count = challenges.length;
+  const filteredRows = filterRows(challenges, filters);
+  // const count = challenges.length;
+  const count = filteredRows.length;
   const totalPages = Math.ceil(count / rowsPerPage);
-  const calculatedRows = challenges.slice(
+  // const calculatedRows = challenges.slice(
+  const calculatedRows = filteredRows.slice(
     (activePage - 1) * rowsPerPage,
     activePage * rowsPerPage
   );
 
-  console.log("calc rows", calculatedRows);
+  function filterRows(rows, filters) {
+    if (!Object.keys(filters).length) return rows;
 
-  //let currentChallenges;
-  // let sortedChallenges
-  //let toSortChallenges;
+    return rows.filter((row) => {
+      return Object.keys(filters).every((accessor) => {
+        const value = row[accessor];
+        const searchValue = filters[accessor];
 
-  ///Filter from URL
-  //const path = useLocation().pathname.split("/");
+        if (typeof value === "string") {
+          return value.toLowerCase().includes(searchValue.toLowerCase());
+        }
 
-  // console.log("path", path);
-  // console.log('tester', path[3])
+        if (typeof value === "boolean") {
+          return (
+            (searchValue === "true" && value) ||
+            (searchValue === "false" && !value)
+          );
+        }
 
-  // let preChallenges = challenges;
-  // let prepChallenges;
-  // if (challenges.length) {
-  //   if (
-  //     (path[2] === "filter" && path[3] === "1") ||
-  //     path[3] === "2" ||
-  //     path[3] === "3" ||
-  //     path[3] === "4" ||
-  //     path[3] === "5"
-  //   ) {
-  //     preChallenges = challenges.filter(
-  //       (challenge) => challenge.difficulty === path[3] * 1
-  //     );
-  //   }
+        if (typeof value === "number") {
+          return value == searchValue;
+        }
 
-  //   if (
-  //     (path[2] === "filter" && path[4] === "physical") ||
-  //     path[4] === "food" ||
-  //     path[4] === "misc" ||
-  //     path[4] === "sleep" ||
-  //     path[4] === "mental"
-  //   ) {
-  //     prepChallenges = preChallenges.filter(
-  //       (challenge) => challenge.category === path[4]
-  //     );
-  //   }
+        return false;
+      });
+    });
+  }
 
-  //   if (
-  //     ((path[2] === "sortby" && path[3] === "name") ||
-  //       path[3] === "difficulty" ||
-  //       path[3] === "category") &&
-  //     (path[4] === "asc" || path[4] === "desc")
-  //   ) {
-  //   }
+  const handleSearch = (value, accessor) => {
+    setActivePage(1);
 
-  //   if (
-  //     ((path[5] === "sortby" && path[6] === "name") ||
-  //       path[6] === "difficulty" ||
-  //       path[6] === "category") &&
-  //     (path[7] === "asc" || path[7] === "desc")
-  //   ) {
-  //   }
+    if (value) {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        [accessor]: value,
+      }));
+    } else {
+      setFilters((prevFilters) => {
+        const updatedFilters = { ...prevFilters };
+        delete updatedFilters[accessor];
 
-  //   console.log(preChallenges);
-  // }
+        return updatedFilters;
+      });
+    }
+  };
 
   return (
     <Box>

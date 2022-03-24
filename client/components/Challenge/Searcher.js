@@ -3,18 +3,15 @@ import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Autocomplete from "@mui/material/Autocomplete";
 import Popper from "@mui/material/Popper";
-import { makeStyles, createStyles } from "@mui/styles";
+import { makeStyles, createStyles, ThemeProvider } from "@mui/styles";
+import theme from "../../theme";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       "& .MuiAutocomplete-listbox": {
         height: "180px",
-        // width: "100px",
-        //  backgroundColor: "#4ab5a3",
         fontSize: 18,
-        // color:'white'
-        // padding-left: "20px",
         padding: "15px",
       },
     },
@@ -22,8 +19,15 @@ const useStyles = makeStyles((theme) =>
 );
 
 const CustomPopper = (props) => {
-  const classes = useStyles();
-  return <Popper {...props} className={classes.root} placement="bottom" />;
+  return (
+    <ThemeProvider theme={theme}>
+      <Popper
+        {...props}
+        placement="bottom"
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, width: "400px" }}
+      />
+    </ThemeProvider>
+  );
 };
 
 export default function Searcher({ data }) {
@@ -35,30 +39,18 @@ export default function Searcher({ data }) {
 
   return (
     <div className="search">
-      <Stack
-        spacing={2}
-        // sx={{ width: 300, height: 100 }}
-      >
+      <Stack spacing={2}>
         <Autocomplete
           freeSolo
-          // classes={classes}
-          // id="free-solo-2-demo"
           disableClearable
-          options={
-            options
-            //   (
-            //   // <div key={option}>{option.name}</div>
-            // )
-          }
+          options={data.map((option) => option.name)}
           renderOption={(option, index) => (
             <div key={index}>
               <span
                 style={{ cursor: "pointer" }}
                 onClick={() => {
                   const goTo = data.find((user) => user.name === option.key);
-                  // const user = publicUsers?.find((user) => user.id === friendId);
                   console.log(goTo);
-                  // console.log(option.key)
                   window.location.href = `/challenges/${goTo.id}`;
                 }}
               >
