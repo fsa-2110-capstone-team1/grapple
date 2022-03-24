@@ -76,6 +76,19 @@ const App = () => {
           {/* NOTE: Should /userdashboard be /home??
           When a user logs in they get directed straight to their dashboard? */}
 
+          <Route
+            path="/challenges/filter/:diff/:cat"
+            element={<BrowseChallenges />}
+          />
+          <Route
+            path="/challenges/sortby/:attr/:dir"
+            element={<BrowseChallenges />}
+          />
+          <Route
+            path="/challenges/filter/:diff/:cat/sortby/:attr/:dir"
+            element={<BrowseChallenges />}
+          />
+
           <Route path="/user/settings" element={<UserSettings />} />
           <Route path="/admin/challenges" element={<AdminChallenges />} />
           <Route path="/admin/users" element={<AdminUsers />} />

@@ -21,12 +21,66 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 const drawerWidth = 200;
 function ResponsiveDrawer(props) {
-  // const path = useLocation().pathname.split("/").pop();
   let challenges = useSelector((state) => state.challenges);
-  let currentChallenges = [];
+  let currentChallenges;
+  // let sortedChallenges
+  let toSortChallenges;
+
+  ///Filter from URL
+  const path = useLocation().pathname.split("/");
+
+  // console.log("path", path);
+  // console.log('tester', path[3])
+
+  // let preChallenges = challenges;
+  // let prepChallenges;
+  // if (challenges.length) {
+  //   if (
+  //     (path[2] === "filter" && path[3] === "1") ||
+  //     path[3] === "2" ||
+  //     path[3] === "3" ||
+  //     path[3] === "4" ||
+  //     path[3] === "5"
+  //   ) {
+  //     preChallenges = challenges.filter(
+  //       (challenge) => challenge.difficulty === path[3] * 1
+  //     );
+  //   }
+
+  //   if (
+  //     (path[2] === "filter" && path[4] === "physical") ||
+  //     path[4] === "food" ||
+  //     path[4] === "misc" ||
+  //     path[4] === "sleep" ||
+  //     path[4] === "mental"
+  //   ) {
+  //     prepChallenges = preChallenges.filter(
+  //       (challenge) => challenge.category === path[4]
+  //     );
+  //   }
+
+  //   if (
+  //     ((path[2] === "sortby" && path[3] === "name") ||
+  //       path[3] === "difficulty" ||
+  //       path[3] === "category") &&
+  //     (path[4] === "asc" || path[4] === "desc")
+  //   ) {
+  //   }
+
+  //   if (
+  //     ((path[5] === "sortby" && path[6] === "name") ||
+  //       path[6] === "difficulty" ||
+  //       path[6] === "category") &&
+  //     (path[7] === "asc" || path[7] === "desc")
+  //   ) {
+  //   }
+
+  //   console.log(preChallenges);
+  // }
 
   //////////////////////Filtering function
   const [difficulty, setDifficulty] = useState("");
@@ -34,6 +88,7 @@ function ResponsiveDrawer(props) {
 
   const handleChangeDiff = (event) => {
     setDifficulty(event.target.value);
+    // history.push
   };
 
   const handleChangeCat = (event) => {
@@ -42,7 +97,6 @@ function ResponsiveDrawer(props) {
 
   let filteredDiffChallenges;
   let filteredCatDiffChallenges;
-  let toSortChallenges;
 
   if (!difficulty) {
     filteredDiffChallenges = challenges;
@@ -64,11 +118,19 @@ function ResponsiveDrawer(props) {
 
   // console.log(toSortChallenges)
 
-  ///////////Sorting functions
+  /////////Sorting functions
+  // console.log('j test', toSortChallenges)
+
+  // if (toSortChallenges.length){
+
   const [sortedChallenges, setSortedChallenges] = useState(toSortChallenges);
+  // if (sortedChallenges.length){
+
+  // }
+
   useEffect(() => {
     setSortedChallenges(toSortChallenges);
-  }, [filteredCatDiffChallenges]);
+  }, [difficulty, category]);
 
   const [order, setOrder] = useState("ASC");
 
@@ -104,21 +166,18 @@ function ResponsiveDrawer(props) {
     setSortedChallenges(sortedArry);
   };
 
-  // console.log('curr', currentChallenges);
-
-  // if (sortedChallenges.length){
-  // console.log('sortedChallenges', sortedChallenges)
-  // }
-
   /////////Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [challengesPerPage] = useState(12);
+
   const indexOfLastChallenge = currentPage * challengesPerPage;
   const indexofFirstChallenge = indexOfLastChallenge - challengesPerPage;
+
   currentChallenges = sortedChallenges.slice(
     indexofFirstChallenge,
     indexOfLastChallenge
   );
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const { window } = props;
@@ -127,12 +186,13 @@ function ResponsiveDrawer(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  console.log('og Challenge', challenges)
-  console.log('diffFilter', filteredDiffChallenges)
-  console.log('catFilter', filteredCatDiffChallenges)
-  console.log('toSort', toSortChallenges)
-  console.log('sorted', sortedChallenges)
-  console.log('paginated', currentChallenges)
+  
+  // console.log("og Challenge", challenges);
+  // console.log("diffFilter", filteredDiffChallenges);
+  // console.log("catFilter", toSortChallenges);
+  // console.log("toSort", toSortChallenges);
+  // console.log("sorted", sortedChallenges);
+  // console.log("paginated", currentChallenges);
 
   // console.log(sortCount);
 
@@ -274,7 +334,7 @@ function ResponsiveDrawer(props) {
         <Grid container>
           <Grid item xs={1} />
           <Grid item xs={10} container>
-            {challenges?.map((challenge) => (
+            {currentChallenges.map((challenge) => (
               <Grid
                 item
                 key={challenge.id}
