@@ -39,7 +39,6 @@ const UserProfileDetails = () => {
   }, [username, auth]);
 
   useEffect(() => {
-    console.log("here");
     if (isSelf) {
       setUser(auth);
     } else {

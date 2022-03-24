@@ -22,85 +22,90 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
-const drawerWidth = 600;
-function ResponsiveDrawer(props) {
-  // const path = useLocation().pathname.split("/").pop();
-  let challenges = useSelector((state) => state.challenges);
-  let currentChallenges = [];
+function FilterDrawer({ challenges }) {
+  const drawerWidth = 300;
 
   const drawer = (
-    <div>
+    <>
+      {/* Toolbar to bump drawer down by the nav bar height */}
       <Toolbar />
-      <Divider />
-      <h3>Search</h3>
-      <Searcher data={challenges} />
-      <Divider />
-      <h3>Sort By</h3>
-      <List>
-        {["name", "difficulty", "category"].map((text, index) => (
-          <div className="sorting">
-            <ListItem>
-              <div className="arrow">
-                <ArrowCircleUpIcon onClick={() => sortedUp(text)} />
+      <Grid container direction="column" spacing={2} sx={{ mt: 2 }}>
+        <Grid item>
+          <Typography variant="h6" sx={{ mb: 1 }}>
+            Search
+          </Typography>
+          <Searcher data={challenges} />
+        </Grid>
+        <Grid item>
+          <Divider />
+        </Grid>
+        <Grid item>
+          <Typography variant="h6">Sort By</Typography>
+          <List>
+            {["name", "difficulty", "category"].map((text, index) => (
+              <div className="sorting" key={index}>
+                <ListItem>
+                  <div className="arrow">
+                    <ArrowCircleUpIcon onClick={() => sortedUp(text)} />
+                  </div>
+                  <div className="arrow">
+                    <ArrowCircleDownIcon onClick={() => sortedDown(text)} />
+                  </div>
+                  <ListItemText primary={text} />
+                </ListItem>
               </div>
-              <div className="arrow">
-                <ArrowCircleDownIcon onClick={() => sortedDown(text)} />
-              </div>
-              <ListItemText primary={text} />
-            </ListItem>
-          </div>
-        ))}
-      </List>
-      <Divider />
-      <>
-        <h3>Filter By</h3>
-        &nbsp;
-        <Box sx={{ minWidth: 120 }}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Difficulty</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={difficulty}
-              label="difficulty"
-              onChange={handleChangeDiff}
-            >
-              <MenuItem value={0}>All</MenuItem>
-              <MenuItem value={1}>1</MenuItem>
-              <MenuItem value={2}>2</MenuItem>
-              <MenuItem value={3}>3</MenuItem>
-              <MenuItem value={4}>4</MenuItem>
-              <MenuItem value={5}>5</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
-        &nbsp;&nbsp;
-        <Box sx={{ minWidth: 120 }}>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label1">Category</InputLabel>
-            <Select
-              labelId="demo-simple-select-label1"
-              id="demo-simple-select1"
-              value={category}
-              label="category"
-              onChange={handleChangeCat}
-            >
-              <MenuItem value={0}>All</MenuItem>
-              <MenuItem value={"mental"}>Mental</MenuItem>
-              <MenuItem value={"physical"}>Physical</MenuItem>
-              <MenuItem value={"sleep"}>Sleep</MenuItem>
-              <MenuItem value={"food"}>Food</MenuItem>
-              <MenuItem value={"misc"}>Misc</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
-      </>
-      &nbsp;
-    </div>
+            ))}
+          </List>
+        </Grid>
+        <Grid item>
+          <Divider />
+        </Grid>
+        <Grid item>
+          <Typography variant="h6">Filter By</Typography>
+          <Box sx={{ mt: 3 }}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Difficulty</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                // value={difficulty}
+                value={0}
+                label="difficulty"
+                // onChange={handleChangeDiff}
+              >
+                <MenuItem value={0}>All</MenuItem>
+                <MenuItem value={1}>1</MenuItem>
+                <MenuItem value={2}>2</MenuItem>
+                <MenuItem value={3}>3</MenuItem>
+                <MenuItem value={4}>4</MenuItem>
+                <MenuItem value={5}>5</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+          <Box sx={{ mt: 3 }}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label1">Category</InputLabel>
+              <Select
+                labelId="demo-simple-select-label1"
+                id="demo-simple-select1"
+                // value={category}
+                value={0}
+                label="category"
+                // onChange={handleChangeCat}
+              >
+                <MenuItem value={0}>All</MenuItem>
+                <MenuItem value={"mental"}>Mental</MenuItem>
+                <MenuItem value={"physical"}>Physical</MenuItem>
+                <MenuItem value={"sleep"}>Sleep</MenuItem>
+                <MenuItem value={"food"}>Food</MenuItem>
+                <MenuItem value={"misc"}>Misc</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+        </Grid>
+      </Grid>
+    </>
   );
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -111,30 +116,13 @@ function ResponsiveDrawer(props) {
         aria-label="mailbox folders"
       >
         <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
-        >
-          {drawer}
-        </Drawer>
-        <Drawer
           variant="permanent"
           sx={{
             display: { xs: "none", sm: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: drawerWidth,
+              width: "20vw",
+              padding: "30px",
             },
           }}
           open
@@ -142,57 +130,8 @@ function ResponsiveDrawer(props) {
           {drawer}
         </Drawer>
       </Box>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-        }}
-      >
-        <Toolbar />
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={handleDrawerToggle}
-          sx={{ mr: 2, display: { sm: "none" } }}
-        >
-          <MenuIcon />
-        </IconButton>
-
-        <Grid container>
-          <Grid item xs={1} />
-          <Grid item xs={10} container>
-            {challenges?.map((challenge) => (
-              <Grid
-                item
-                key={challenge.id}
-                xs={12}
-                sm={6}
-                md={4}
-                lg={3}
-                container
-              >
-                <ChallengeCard key={challenge.id} challenge={challenge} />
-              </Grid>
-            ))}
-          </Grid>
-          <Grid item xs={1} />
-        </Grid>
-        <PaginationFooter
-          challengesPerPage={challengesPerPage}
-          totalPosts={toSortChallenges.length}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
-      </Box>
     </Box>
   );
 }
 
-ResponsiveDrawer.propTypes = {
-  window: PropTypes.func,
-};
-
-export default ResponsiveDrawer;
+export default FilterDrawer;
