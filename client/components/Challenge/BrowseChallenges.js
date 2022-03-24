@@ -24,10 +24,20 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FilterDrawer from "./FilterDrawer";
 
-function ResponsiveDrawer() {
+function BrowseChallenges() {
   // const path = useLocation().pathname.split("/").pop();
-//const drawerWidth = 200;
-  let challenges = useSelector((state) => state.challenges);
+  const challenges = useSelector((state) => state.challenges);
+  const [activePage, setActivePage] = useState(1);
+  const rowsPerPage = 9;
+  const count = challenges.length;
+  const totalPages = Math.ceil(count / rowsPerPage);
+  const calculatedRows = challenges.slice(
+    (activePage - 1) * rowsPerPage,
+    activePage * rowsPerPage
+  );
+
+  console.log("calc rows", calculatedRows);
+
   //let currentChallenges;
   // let sortedChallenges
   //let toSortChallenges;
@@ -96,7 +106,7 @@ function ResponsiveDrawer() {
           <Grid container>
             <Grid item xs={1} />
             <Grid item xs={10} container>
-              {challenges?.map((challenge) => (
+              {calculatedRows?.map((challenge) => (
                 <Grid
                   item
                   key={challenge.id}
@@ -113,10 +123,11 @@ function ResponsiveDrawer() {
             <Grid item xs={1} />
           </Grid>
           <PaginationFooter
-          // challengesPerPage={challengesPerPage}
-          // totalPosts={toSortChallenges.length}
-          // currentPage={currentPage}
-          // setCurrentPage={setCurrentPage}
+            activePage={activePage}
+            count={count}
+            rowsPerPage={rowsPerPage}
+            totalPages={totalPages}
+            setActivePage={setActivePage}
           />
         </Grid>
       </Grid>
@@ -124,4 +135,4 @@ function ResponsiveDrawer() {
   );
 }
 
-export default ResponsiveDrawer;
+export default BrowseChallenges;
