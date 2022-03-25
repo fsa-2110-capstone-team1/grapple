@@ -70,6 +70,26 @@ router.post("/", async (req, res, next) => {
 router.put("/acceptRequest/:id", async (req, res, next) => {
   try {
     const connection = await Connection.findByPk(req.params.id);
+    const requester = await User.findByPk(connection.requester_userId);
+    const requested = await User.findByPk(connection.requested_userId);
+    await axios.post(
+      "https://api.engagespot.co/v3/notifications",
+      {
+        notification: {
+          title: `${requested.username} has accepted your friend request!`,
+          // DEPLOY NOTE: need to replace URL
+          url: `/users/profile/${requested.username}`,
+          icon: requested.image,
+        },
+        recipients: [requester.username],
+      },
+      {
+        headers: {
+          "X-ENGAGESPOT-API-KEY": process.env.ENGAGESPOT_API_KEY,
+          "X-ENGAGESPOT-API-SECRET": process.env.ENGAGESPOT_API_SECRET,
+        },
+      }
+    );
     res.send(await connection.update({ status: "accepted" }));
   } catch (error) {
     next(error);
