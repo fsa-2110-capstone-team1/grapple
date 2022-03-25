@@ -1,9 +1,11 @@
 const router = require("express").Router();
 const {
   db,
-  models: { Connection },
+  models: { Connection, User },
 } = require("../../db");
 const { Op } = db.Sequelize;
+const axios = require("axios");
+require("dotenv").config();
 
 module.exports = router;
 
@@ -37,7 +39,28 @@ router.get("/:userId", async (req, res, next) => {
 // Create a new connection
 router.post("/", async (req, res, next) => {
   try {
-    res.status(201).send(await Connection.create(req.body));
+    const connection = await Connection.create(req.body);
+    const requester = await User.findByPk(connection.requester_userId);
+    const requested = await User.findByPk(connection.requested_userId);
+    await axios.post(
+      "https://api.engagespot.co/v3/notifications",
+      {
+        notification: {
+          title: `You have a new friend request from ${requester.username}`,
+          // DEPLOY NOTE: need to replace URL
+          url: `localhost:8080/users/profile/${requester.username}`,
+          icon: requester.image,
+        },
+        recipients: [requested.username],
+      },
+      {
+        headers: {
+          "X-ENGAGESPOT-API-KEY": process.env.ENGAGESPOT_API_KEY,
+          "X-ENGAGESPOT-API-SECRET": process.env.ENGAGESPOT_API_SECRET,
+        },
+      }
+    );
+    res.status(201).send(connection);
   } catch (error) {
     next(error);
   }
