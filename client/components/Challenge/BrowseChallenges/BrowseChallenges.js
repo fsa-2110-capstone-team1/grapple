@@ -32,7 +32,7 @@ function BrowseChallenges() {
         activePage * challengesPerPage
       )
     );
-  }, [sort, filters, filteredChallenges]);
+  }, [sort, filters, filteredChallenges, activePage]);
 
   return (
     <Box sx={{ minHeight: "100vh" }}>
