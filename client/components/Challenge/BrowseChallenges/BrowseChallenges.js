@@ -39,7 +39,7 @@ function BrowseChallenges() {
   const location = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location, activePage]);
+  }, [location, activePage, filters, sort]);
 
   return (
     <Box sx={{ minHeight: "100vh" }}>
