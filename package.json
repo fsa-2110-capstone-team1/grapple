@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "FSA 2110 Team #1 - Capstone - Grapple",
   "main": "index.js",
+  
   "scripts": {
     "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
