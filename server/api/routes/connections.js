@@ -48,7 +48,7 @@ router.post("/", async (req, res, next) => {
         notification: {
           title: `You have a new friend request from ${requester.username}`,
           // DEPLOY NOTE: need to replace URL
-          url: `localhost:8080/users/profile/${requester.username}`,
+          url: `/users/profile/${requester.username}`,
           icon: requester.image,
         },
         recipients: [requested.username],
