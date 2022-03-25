@@ -9,9 +9,9 @@ function getRandomInt(min, max) {
 const units = ["days", "miles", "books"];
 
 // 1 mental
-// 2 physical
-// 3 Sleep
-// 4 food
+// 2 physical 
+// 3 Sleep 
+// 4 food 5
 // 5 misc
 const dataChallenges = [
   {
@@ -507,19 +507,19 @@ const dataChallenges = [
     isPrivate: "false",
   },
   {
-    //  "id": 32,
-    name: "Give a gift",
+    //  "id": 20,
+    name: "20,000 steps a day for a week",
     description:
-      "Give away items others appreciate to random people or send to friends.",
-    image: "badges/picId-032.svg",
-    type: "unit",
-    category: "misc",
+      "20,000 is incredibly active. Strive for movement!",
+    image: "badges/picId-020.svg",
+    type: "num",
+    category: "physical",
     // subCategoryId: null,
     startDateTime: "04/15/2022",
     endDateTime: "05/15/2022",
     targetNumber: 30,
     targetUnit: units[getRandomInt(0, 2)],
-    difficulty: 2,
+    difficulty: 5,
     isPrivate: "false",
   },
   {
@@ -951,7 +951,7 @@ const dataChallenges = [
     endDateTime: "04/29/2022",
     targetNumber: 30,
     targetUnit: units[getRandomInt(0, 2)],
-    difficulty: 4,
+    difficulty: 5,
     isPrivate: "false",
   },
   {
@@ -1028,7 +1028,7 @@ const dataChallenges = [
     endDateTime: "04/30/2022",
     targetNumber: 30,
     targetUnit: units[getRandomInt(0, 2)],
-    difficulty: 3,
+    difficulty: 4,
     isPrivate: "false",
   },
   {
@@ -1445,7 +1445,7 @@ const dataChallenges = [
     endDateTime: "05/15/2022",
     targetNumber: 30,
     targetUnit: units[getRandomInt(0, 2)],
-    difficulty: 2,
+    difficulty: 1,
     isPrivate: "false",
   },
   {
@@ -2222,7 +2222,7 @@ const dataChallenges = [
     endDateTime: "05/10/2022",
     targetNumber: 30,
     targetUnit: units[getRandomInt(0, 2)],
-    difficulty: 3,
+    difficulty: 4,
     isPrivate: "false",
   },
   {
@@ -2360,7 +2360,7 @@ const dataChallenges = [
       "How amazing would it be to be aware that you are dreaming? It requires a lot of discipline.",
     image: "badges/picId-150.svg",
     type: "unit",
-    category: "mental",
+    category: "sleep",
     // subCategoryId: null,
     startDateTime: "03/30/2022",
     endDateTime: "04/29/2022",
