@@ -179,7 +179,7 @@ export const OngoingChalTable = ({ myChallenges }) => {
               (progress / challenge.targetNumber) *
               100
             ).toFixed(1);
-            console.log("enrolledUsers", enrolledUsers);
+            
             return (
               <TableBody>
                 <StyledTableRow
