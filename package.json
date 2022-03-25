@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "FSA 2110 Team #1 - Capstone - Grapple",
   "main": "index.js",
-  
   "scripts": {
     "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
@@ -24,6 +23,7 @@
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@engagespot/react-component": "^0.1.9",
     "@material-ui/icons": "^4.11.2",
     "@mui/icons-material": "^5.3.1",
     "@mui/lab": "^5.0.0-alpha.72",
@@ -53,6 +53,7 @@
     "@expo/webpack-config": "^0.16.18",
     "axios-mock-adapter": "^1.16.0",
     "babel-loader": "^8.2.2",
+    "dotenv-webpack": "^7.1.0",
     "file-loader": "^6.2.0",
     "nodemon": "^1.19.4",
     "react": "^17.0.2",
