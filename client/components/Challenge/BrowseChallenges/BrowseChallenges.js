@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { Grid, Box } from "@mui/material";
 import PaginationFooter from "./PaginationFooter";
 import ChallengeCard from "../ChallengeCard";
@@ -33,6 +34,12 @@ function BrowseChallenges() {
       )
     );
   }, [sort, filters, filteredChallenges, activePage]);
+
+  //scroll to top at page load or paginate
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location, activePage]);
 
   return (
     <Box sx={{ minHeight: "100vh" }}>
