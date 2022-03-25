@@ -8,6 +8,7 @@ import {
   getConnections,
   getUserChallenges,
   getPublicUsers,
+
 } from './store';
 import Homepage from './components/Home/Homepage';
 import AuthForm from './components/Auth/AuthForm';
@@ -27,6 +28,7 @@ import AdminUsers from './components/Admin/AdminUsers';
 import Footer from './components/Footer';
 import PageNotFound from './components/PageNotFound';
 import TestChallengeTracking from './components/_Archive/TEST_ChallengeTracking';
+
 
 const App = () => {
   const dispatch = useDispatch();
@@ -75,6 +77,19 @@ const App = () => {
           <Route path="/user/dashboard" element={<UserDashboard />} />
           {/* NOTE: Should /userdashboard be /home??
           When a user logs in they get directed straight to their dashboard? */}
+
+          <Route
+            path="/challenges/filter/:diff/:cat"
+            element={<BrowseChallenges />}
+          />
+          <Route
+            path="/challenges/sortby/:attr/:dir"
+            element={<BrowseChallenges />}
+          />
+          <Route
+            path="/challenges/filter/:diff/:cat/sortby/:attr/:dir"
+            element={<BrowseChallenges />}
+          />
 
           <Route path="/user/settings" element={<UserSettings />} />
           <Route path="/admin/challenges" element={<AdminChallenges />} />

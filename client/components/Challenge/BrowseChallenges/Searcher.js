@@ -1,56 +1,59 @@
-import * as React from "react";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
-import Autocomplete from "@mui/material/Autocomplete";
-import Popper from "@mui/material/Popper";
-import { makeStyles, createStyles } from "@mui/styles";
+import React, { useState, useEffect } from "react";
+import { TextField, Stack, Autocomplete, Popper } from "@mui/material";
+import { makeStyles, createStyles, ThemeProvider } from "@mui/styles";
+import theme from "../../../theme";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       "& .MuiAutocomplete-listbox": {
-  height: "180px",
-  // width: "100px",
-//  backgroundColor: "#4ab5a3",
+        height: "180px",
         fontSize: 18,
-        // color:'white'
-        // padding-left: "20px",
-        padding: '15px'
+        padding: "15px",
       },
     },
   })
 );
 
 const CustomPopper = (props) => {
-  const classes = useStyles();
-  return <Popper {...props} className={classes.root} placement="bottom" />;
+  return (
+    <ThemeProvider theme={theme}>
+      <Popper
+        {...props}
+        placement="bottom"
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, width: "400px" }}
+      />
+    </ThemeProvider>
+  );
 };
 
 export default function Searcher({ data }) {
+  const [options, setOptions] = useState([]);
+
+  useEffect(() => {
+    setOptions(data.map((option) => option.name));
+  }, [data]);
+
   return (
     <div className="search">
-      <Stack spacing={2} sx={{ width: 300, height: 100 }}>
+      <Stack spacing={2}>
         <Autocomplete
           freeSolo
-          // classes={classes}
-          // id="free-solo-2-demo"
           disableClearable
           options={data.map((option) => option.name)}
-          renderOption={(option) => (
-            <React.Fragment>
+          renderOption={(option, index) => (
+            <div key={index}>
               <span
                 style={{ cursor: "pointer" }}
                 onClick={() => {
-                  const goTo = data.find((user)=> user.name === option.key)
-                    // const user = publicUsers?.find((user) => user.id === friendId);
+                  const goTo = data.find((user) => user.name === option.key);
                   console.log(goTo);
-                  // console.log(option.key)
                   window.location.href = `/challenges/${goTo.id}`;
                 }}
               >
                 <p>{option.key}</p>
               </span>
-            </React.Fragment>
+            </div>
           )}
           PopperComponent={CustomPopper}
           renderInput={(params) => (
@@ -63,7 +66,7 @@ export default function Searcher({ data }) {
               }}
             />
           )}
-          getOptionLabel={(option)=> `${option}`}
+          getOptionLabel={(option) => `${option}`}
         />
       </Stack>
     </div>
