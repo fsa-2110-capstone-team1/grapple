@@ -90,6 +90,11 @@ const AuthForm = ({ path }) => {
                 Continue with Facebook
               </Button>
             </Grid>
+            <Grid item xs={6} sx={{ width: "60%" }}>
+              <Button variant="contained" fullWidth  href='https://www.strava.com/oauth/authorize?client_id=80097&redirect_uri=http://localhost:8080&response_type=code&scope=read_all,activity:read_all'>
+                Connect with Strava
+              </Button>
+            </Grid>
           </Grid>
 
           <Grid item sx={{ width: "100%" }} textAlign={"center"}>
