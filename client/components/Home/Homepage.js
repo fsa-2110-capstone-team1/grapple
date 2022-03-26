@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import AuthForm from '../Auth/AuthForm';
-import { Divider, Button, Typography } from '@mui/material';
+import { Divider, Button, Typography, Box } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../theme';
 import { useSelector } from 'react-redux';
@@ -103,7 +103,13 @@ export const Homepage = () => {
         </Typography>
       </HomepageLayout>
       <MainContent />
-      {!userName ? <AuthForm /> : ''}
+      {!userName ? (
+        <Box sx={{ mt: '25px', mb: '25px' }}>
+          <AuthForm />
+        </Box>
+      ) : (
+        ''
+      )}
     </ThemeProvider>
   );
 };

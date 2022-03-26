@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Box, Grid, Card, CardMedia } from "@mui/material";
-import { UserSettingsForm } from "./UserSettingsForm";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "../../theme";
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Box, Grid, Card, CardMedia } from '@mui/material';
+import { UserSettingsForm } from './UserSettingsForm';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '../../theme';
 import LinearProgress from '@mui/material/LinearProgress';
 
 export const UserSettings = () => {
@@ -20,16 +20,22 @@ export const UserSettings = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box className="profile-container">
+      <Box className="profile-container" sx={{ minHeight: '100vh' }}>
         <Grid
           container
-          justifyContent={"center"}
-          alignItems={"center"}
+          justifyContent={'center'}
+          alignItems={'center'}
           spacing={3}
         >
-          
-          <Grid item sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }} xs={6}>
-            
+          <Grid
+            item
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+            xs={6}
+          >
             <Grid item className="image-stack">
               <img
                 id="profile-header"
@@ -43,9 +49,9 @@ export const UserSettings = () => {
                   className="material-icons"
                   id="profile-image"
                   style={{
-                    marginTop: "20px",
-                    fontSize: "155px",
-                    color: "#dfdfdf",
+                    marginTop: '20px',
+                    fontSize: '155px',
+                    color: '#dfdfdf',
                   }}
                 >
                   face
@@ -54,11 +60,10 @@ export const UserSettings = () => {
               {data ? (
                 <UserSettingsForm preloadedValues={data} />
               ) : (
-                <LinearProgress sx={{ marginTop: "50px" }}/>
+                <LinearProgress sx={{ marginTop: '50px' }} />
               )}
             </Grid>
           </Grid>
-          
         </Grid>
       </Box>
     </ThemeProvider>

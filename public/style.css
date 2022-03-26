@@ -7,6 +7,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   min-height: 100vh;
+  background-color: #271f1c;
   margin: 0;
 }
 
@@ -122,7 +123,7 @@ body {
 }
 
 .nav {
-  margin-bottom: 120px;
+  margin-bottom: 90px;
 }
 
 a {
@@ -226,7 +227,7 @@ a:hover {
 .pagination {
   display: flex;
   list-style-type: none;
-  background-color: white;
+  background-color: #271f1c;
   border-radius: 5px;
   justify-content: center;
 }
@@ -344,7 +345,6 @@ a:hover {
   border: white;
 }
 
-
 .sorters > button {
   background-color: white;
   border: none;
@@ -371,16 +371,14 @@ a:hover {
   color: white;
 }
 
-
-
 .searchContainer {
   margin-top: 30px;
   margin-bottom: 10px;
   margin-left: 50px;
-border: white;
+  border: white;
 }
 
-.arrow{
+.arrow {
   background-color: white;
   border: none;
   transition-duration: 0.4s;
@@ -388,8 +386,7 @@ border: white;
   border-radius: 30px;
 }
 
-.arrow:hover{
+.arrow:hover {
   background-color: #4ab5a3;
   color: white;
-  
 }
