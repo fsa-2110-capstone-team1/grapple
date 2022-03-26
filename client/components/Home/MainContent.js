@@ -5,7 +5,8 @@ import theme from '../../theme';
 import MainContentLayout from './MainContentLayout';
 
 export const MainContent = () => {
-  const splash = '/homeImgs/grapple-main-home-bckrnd.jpg';
+  //   const splash = '/homeImgs/grapple-main-home-bckrnd.jpg';
+  const splash = '/homeImgs/grappke-black-line-back.webp';
 
   const item = {
     display: 'flex',
@@ -53,7 +54,7 @@ export const MainContent = () => {
                     }}
                     component="img"
                     // THINKING ICON
-                    src="/homeImgs/thinking.svg"
+                    src="/homeImgs/thinking-white.svg"
                   ></Box>
                   <Typography
                     variant="h6"
@@ -96,7 +97,7 @@ export const MainContent = () => {
                     }}
                     component="img"
                     //RUNNING ICON
-                    src="/homeImgs/running.svg"
+                    src="/homeImgs/running-white.svg"
                   ></Box>
                   <Typography
                     variant="h6"
@@ -137,7 +138,7 @@ export const MainContent = () => {
                     }}
                     component="img"
                     //HANDS AND HEART ICON
-                    src="/homeImgs/love.svg"
+                    src="/homeImgs/love-white.svg"
                   ></Box>
                   <Typography
                     variant="h6"

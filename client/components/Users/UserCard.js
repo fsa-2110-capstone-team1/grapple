@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import dateFormat from "dateformat";
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import dateFormat from 'dateformat';
 import {
   Grid,
   Card,
@@ -12,20 +12,20 @@ import {
   Typography,
   ThemeProvider,
   CardActionArea,
-} from "@mui/material";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import theme from "../../theme";
+} from '@mui/material';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import theme from '../../theme';
 import {
   getConnections,
   acceptConnection,
   createConnection,
   removeConnection,
-} from "../../store/connections";
-import axios from "axios";
-import CheckIcon from "@mui/icons-material/Check";
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import AlarmIcon from "@mui/icons-material/Alarm";
+} from '../../store/connections';
+import axios from 'axios';
+import CheckIcon from '@mui/icons-material/Check';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import AlarmIcon from '@mui/icons-material/Alarm';
 
 export const UserCard = ({ user }) => {
   const dispatch = useDispatch();
@@ -50,7 +50,7 @@ export const UserCard = ({ user }) => {
     if (!!connections && !!user) {
       if (user) {
         const myConns = [...connections]
-          .filter((conn) => conn.status === "accepted")
+          .filter((conn) => conn.status === 'accepted')
           .map((conn) => {
             if (conn.requester_userId === user.id) {
               return {
@@ -80,7 +80,7 @@ export const UserCard = ({ user }) => {
         id: -1,
         requester_userId: auth.id,
         requested_userId: user.id,
-        status: "pending",
+        status: 'pending',
       },
     ]);
   }
@@ -89,7 +89,7 @@ export const UserCard = ({ user }) => {
     dispatch(acceptConnection(connId));
     setConnections(
       connections.map((conn) =>
-        conn.id === connId ? { ...conn, status: "accepted" } : conn
+        conn.id === connId ? { ...conn, status: 'accepted' } : conn
       )
     );
   }
@@ -103,6 +103,7 @@ export const UserCard = ({ user }) => {
     <ThemeProvider theme={theme}>
       <Card
         sx={{
+          background: theme.palette.grey.dark,
           maxWidth: 345,
           pl: 4,
           pr: 4,
@@ -116,24 +117,43 @@ export const UserCard = ({ user }) => {
             height="200"
             image={`${user.image}`}
             alt="user photo"
-            sx={{ borderRadius: 50, width: "210px", height: "210px", marginTop: "20px" }}
+            sx={{
+              borderRadius: 50,
+              width: '210px',
+              height: '210px',
+              marginTop: '20px',
+            }}
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography
+              gutterBottom
+              variant="h5"
+              sx={{ color: theme.palette.white.main }}
+            >
               {user.username}
             </Typography>
-            <Typography variant="body2" color="text.secondary" height="auto">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              height="auto"
+              sx={{ color: theme.palette.white.main }}
+            >
               {user.firstName} {user.lastName}
             </Typography>
-            <Typography variant="body2" color="text.secondary" height="auto">
-              Member since {dateFormat(user.createdAt, "mediumDate")}
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              height="auto"
+              sx={{ color: theme.palette.white.main }}
+            >
+              Member since {dateFormat(user.createdAt, 'mediumDate')}
             </Typography>
           </CardContent>
         </CardActionArea>
 
-        <CardActions sx={{ mb: 1, display: "flex", justifyContent: "center" }}>
+        <CardActions sx={{ mb: 1, display: 'flex', justifyContent: 'center' }}>
           {user?.id === auth?.id ? (
-            ""
+            ''
           ) : friends.find((friend) => friend.friendId === auth?.id) ? (
             <Button size="small" variant="contained" disabled>
               <CheckIcon fontSize="small" />
@@ -148,7 +168,7 @@ export const UserCard = ({ user }) => {
             <Grid
               container
               spacing={1}
-              sx={{ display: "flex", justifyContent: "center" }}
+              sx={{ display: 'flex', justifyContent: 'center' }}
             >
               <Grid item>
                 <Button
@@ -190,7 +210,7 @@ export const UserCard = ({ user }) => {
               onClick={() => handleAddFriend()}
             >
               <PersonAddIcon fontSize="small" />
-              <Typography>{"    "}</Typography> Add Friend
+              <Typography>{'    '}</Typography> Add Friend
             </Button>
           )}
         </CardActions>
