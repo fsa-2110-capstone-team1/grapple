@@ -69,7 +69,7 @@ export const BrowseUsers = () => {
         {/* <div className="user-friends-pag-color"> */}
         <Box
           component="div"
-          sx={{ backgroundColor: theme.palette.braun.main, minHeight: '100vh' }}
+          // sx={{ backgroundColor: theme.palette.braun.main, minHeight: '100vh' }}
         >
           <Grid container>
             <div className="searchContainer">
@@ -120,6 +120,7 @@ export const BrowseUsers = () => {
             </Grid>
             <Grid item xs={0.5} sm={0.5} md={1} lg={1.5} />
           </Grid>
+
           <PaginationFooter
             challengesPerPage={usersPerPage}
             totalPosts={publicUsers.length}
@@ -127,6 +128,7 @@ export const BrowseUsers = () => {
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
+
           {/* </div> */}
         </Box>
       </ThemeProvider>
