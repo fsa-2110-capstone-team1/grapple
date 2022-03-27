@@ -227,23 +227,25 @@ a:hover {
 .pagination {
   display: flex;
   list-style-type: none;
-  background-color: #271f1c;
+  /* background-color: #271f1c; */
+  /* background-color: red; */
+  color: white;
   border-radius: 5px;
   justify-content: center;
 }
 
 .pagination-item > li {
-  color: #0b1426;
+  /* color: #0b1426; */
   padding: 10rem;
   text-decoration: bold;
 }
 
 .pagination > li.selected {
-  color: black;
+  /* color: black; */
   border-radius: 3px;
   padding: 0.5rem;
   font-size: 18px;
-  background-color: #248da2;
+  /* background-color: #248da2; */
   margin-left: 5px;
 }
 

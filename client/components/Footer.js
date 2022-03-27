@@ -13,12 +13,12 @@ import { ThemeProvider } from '@mui/material/styles';
 
 function Copyright() {
   return (
-    <React.Fragment>
+    <>
       {'© '}
       {/* <Link color="inherit" href="https://mui.com/"> */}
       Grapple {/* </Link>{' '} */}
       {new Date().getFullYear()}
-    </React.Fragment>
+    </>
   );
 }
 
@@ -31,7 +31,7 @@ const iconStyle = {
   backgroundColor: theme.palette.primary.main,
   mr: 1,
   '&:hover': {
-    bgcolor: 'warning.dark',
+    bgcolor: 'grey',
   },
 };
 
@@ -52,7 +52,11 @@ export const Footer = () => {
       <ThemeProvider theme={theme}>
         <Typography
           component="footer"
-          sx={{ display: 'flex', bgcolor: 'secondary.main' }}
+          sx={{
+            display: 'flex',
+            bgcolor: theme.palette.braun.main,
+            color: theme.palette.white.main,
+          }}
         >
           <Container sx={{ my: 8, display: 'flex' }}>
             <Grid container spacing={5}>
@@ -89,14 +93,28 @@ export const Footer = () => {
               </Grid>
               <Grid item xs={6} sm={4} md={2}>
                 <Typography variant="h6" marked="left" gutterBottom>
-                  Legal
+                  Navigate
                 </Typography>
                 <Box component="ul" sx={{ m: 0, listStyle: 'none', p: 0 }}>
-                  <Box component="li" sx={{ py: 0.5 }}>
-                    {/* <Link href="/premium-themes/onepirate/terms/">Terms</Link> */}
+                  <Box component="li">
+                    <Box
+                      component={Link}
+                      to="/"
+                      color="inherit"
+                      sx={{ py: 0.5 }}
+                    >
+                      Home
+                    </Box>
                   </Box>
-                  <Box component="li" sx={{ py: 0.5 }}>
-                    {/* <Link href="/premium-themes/onepirate/privacy/">Privacy</Link> */}
+                  <Box component="li">
+                    <Box
+                      component={Link}
+                      to="/challenges"
+                      color="inherit"
+                      sx={{ py: 0.5 }}
+                    >
+                      Challenges
+                    </Box>
                   </Box>
                 </Box>
               </Grid>
@@ -105,6 +123,7 @@ export const Footer = () => {
                   Language
                 </Typography>
                 <TextField
+                  inputProps={{ style: { color: theme.palette.white.main } }}
                   select
                   size="medium"
                   variant="standard"
@@ -122,52 +141,13 @@ export const Footer = () => {
               </Grid>
               <Grid item>
                 <Typography variant="caption">
-                  {'Icons made by '}
-                  {/* <Link
-                  href="https://www.freepik.com"
-                  rel="sponsored"
-                  title="Freepik"
-                > */}
-                  Freepik
-                  {/* </Link> */}
-                  {' from '}
-                  {/* <Link
-                  href="https://www.flaticon.com"
-                  rel="sponsored"
-                  title="Flaticon"
-                > */}
-                  www.flaticon.com
-                  {/* </Link> */}
-                  {' is licensed by '}
-                  {/* <Link
-                  href="https://creativecommons.org/licenses/by/3.0/"
-                  title="Creative Commons BY 3.0"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                > */}
-                  CC 3.0 BY
-                  {/* </Link> */}
+                  Made by Marina Chevis, Ekaterina Svetlakova, Benjamin
+                  Greenspan, and Louis Rabeno.
                 </Typography>
               </Grid>
             </Grid>
           </Container>
         </Typography>
-
-        {/* <div className="footer-container">
-        <ul>
-        <h4>Menu</h4>
-        <li>Features</li>
-        <li>About</li>
-        <li>Careers</li>
-        <li>Terms</li>
-        </ul>
-        <ul>
-        <h4>Follow</h4>
-        <li>Facebook</li>
-        <li>Instagram</li>
-        <li>Youtube</li>
-        </ul>
-      </div> */}
       </ThemeProvider>
     </>
   );

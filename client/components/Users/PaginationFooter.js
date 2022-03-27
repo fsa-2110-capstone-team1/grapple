@@ -28,11 +28,10 @@ const PaginationFooter = ({
     <ThemeProvider theme={theme}>
       <nav>
         <ul className="pagination">
-          <Stack
-            spacing={2}
-            // sx={{ backgroundColor: theme.palette.braun.main }}
-          >
+          <Stack spacing={2}>
             <Pagination
+              variant="text"
+              color="primary"
               count={pageNumbers.length}
               page={page}
               onChange={handleChange}
