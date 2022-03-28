@@ -8,30 +8,32 @@ import {
   removeConnection,
 } from "../../store/connections";
 import axios from "axios";
-import { Grid, Box, Typography, Divider, Button } from "@mui/material";
+import {
+  Grid,
+  Box,
+  Typography,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+} from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CheckIcon from "@mui/icons-material/Check";
 import ChallengeCard from "../Challenge/ChallengeCard";
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow , { tableRowClasses }from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import {OngoingChalTable} from "./UserDashboard/OngoingChalTable"
-
-
+import { styled } from "@mui/material/styles";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow, { tableRowClasses } from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { OngoingChalTable } from "./UserDashboard/OngoingChalTable";
+import { Diagram } from "./UserDashboard/Diagram";
+import { Badges } from "./UserDashboard/Badges";
+import { Leaderboard } from "./UserDashboard/Leaderboard";
 
 export const UserDashboard = () => {
-  const location = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location]);
-
-  
-
   const navigate = useNavigate();
   const { username } = useParams();
   const dispatch = useDispatch();
@@ -47,11 +49,15 @@ export const UserDashboard = () => {
   const [myChallenges, setMyChallenges] = useState([]);
 
   useEffect(() => {
-    const foundUser = publicUsers.find(
-      (u) => u.username === (username || auth.username)
-    );
-    setUser(foundUser);
-  }, [username, publicUsers]);
+    if (isSelf) {
+      setUser(auth);
+    } else {
+      const foundUser = publicUsers.find(
+        (u) => u.username === (username || auth.username)
+      );
+      setUser(foundUser);
+    }
+  }, [JSON.stringify(auth), publicUsers, isSelf]);
 
   useEffect(async () => {
     if (user.id) {
@@ -102,33 +108,6 @@ export const UserDashboard = () => {
     setMyChallenges(myChal);
   }, [userChallenges, challenges, user?.id]);
 
-  function handleAddFriend() {
-    dispatch(createConnection(auth.id, user.id));
-    setConnections([
-      ...connections,
-      {
-        id: -1,
-        requester_userId: auth.id,
-        requested_userId: user.id,
-        status: "pending",
-      },
-    ]);
-  }
-
-  function handleAcceptRequest(connId) {
-    dispatch(acceptConnection(connId));
-    setConnections(
-      connections.map((conn) =>
-        conn.id === connId ? { ...conn, status: "accepted" } : conn
-      )
-    );
-  }
-
-  function handleRemoveConnection(connId) {
-    dispatch(removeConnection(connId));
-    setConnections(connections.filter((conn) => conn.id !== connId));
-  }
-
   return (
     <Box sx={{ minHeight: "100vh" }}>
       <Grid container spacing={1}>
@@ -136,7 +115,6 @@ export const UserDashboard = () => {
         {/* MAIN MIDDLE SECTION */}
         <Grid item xs={10} container direction="column" spacing={4}>
           {/* TOP SECTION */}
-
           <Grid
             item
             container
@@ -147,14 +125,21 @@ export const UserDashboard = () => {
               <Box
                 component="img"
                 src={user?.image}
-                sx={{ width: "150px", height: "150px", borderRadius: 50, objectFit: "cover" }}
+                sx={{
+                  width: "150px",
+                  height: "150px",
+                  borderRadius: 50,
+                  objectFit: "cover",
+                }}
               />
             </Grid>
             <Grid item xs={7} container direction="column" spacing={1}>
               {/* username, for auth: edit profile and settings, for non auth: add/accept/decline friend */}
               <Grid item container spacing={3}>
                 <Grid item>
-                  <Typography variant="h5">Welcome {user?.username}!</Typography>
+                  <Typography variant="h5">
+                    Welcome {user?.username}!
+                  </Typography>
                 </Grid>
                 <Grid item>
                   <Button
@@ -166,7 +151,6 @@ export const UserDashboard = () => {
                     + Start new challenge
                   </Button>
                 </Grid>
-                
               </Grid>
 
               {/* First and Last names */}
@@ -175,119 +159,41 @@ export const UserDashboard = () => {
                   {user?.firstName} {user?.lastName}
                 </Typography>
               </Grid>
-
-  
-              
-            </Grid>
-          </Grid>
-          <OngoingChalTable myChallenges={myChallenges}/>
-          
-          {/* BADGES */}
-          <Divider sx={{ mt: 4 }} />
-          <Grid item container direction="column" spacing={2}>
-            <Grid item>
-              <Typography variant="h5">
-                Badges (Completed Challenges)
-              </Typography>
-            </Grid>
-            <Grid item container>
-              {myChallenges
-                .filter((ch) => ch.status === "Completed")
-                .map((challenge) => (
-                  <Grid
-                    item
-                    key={challenge.id}
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                    container
-                  >
-                    {/* <Link to={`/challenges/${challenge.id}`}> */}
-                    <Box
-                      key={challenge.id}
-                      component="img"
-                      src={`/${challenge.image}`}
-                      sx={[
-                        {
-                          borderRadius: "50px",
-                          width: "80px",
-                          border: "3px solid #c54c7b",
-                          padding: "5px",
-                        },
-                        {
-                          "&:hover": {
-                            backgroundColor: "transparent",
-                            cursor: "pointer",
-                          },
-                        },
-                      ]}
-                      onClick={() => navigate(`/challenges/${challenge.id}`)}
-                    />
-                    {/* </Link> */}
-                  </Grid>
-                ))}
             </Grid>
           </Grid>
 
-          {/* CHALLENGES */}
-          <Divider sx={{ mt: 4 }} />
-          <Grid item container direction="column" spacing={1}>
-            <Grid item>
-              <Typography variant="h5">Ongoing Challenges</Typography>
+          <Grid container spacing={3}>
+            <Grid item xs={8}>
+              <OngoingChalTable myChallenges={myChallenges} />
             </Grid>
-            <Grid item container>
-              {myChallenges
-                .filter(
-                  (ch) =>
-                    (ch.status === "In Progress" ||
-                      ch.status === "Not Started") &&
-                    new Date() <= new Date(ch.endDateTime)
-                )
-                .map((challenge) => (
-                  <Grid
-                    item
-                    key={challenge.id}
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                    container
-                  >
-                    <ChallengeCard key={challenge.id} challenge={challenge} />
-                  </Grid>
-                ))}
+            <Grid item xs={4}>
+              <Diagram myChallenges={myChallenges} />
             </Grid>
           </Grid>
-
-          <Divider sx={{ mt: 1 }} />
-
-          <Grid item container direction="column" spacing={1}>
-            <Grid item>
-              <Typography variant="h5">
-                "I'll Do Better Next Time" Challenges
-              </Typography>
+          <Grid container spacing={3}>
+            <Grid item xs={8}>
+              <Leaderboard />
             </Grid>
-            <Grid container>
-              {myChallenges
-                .filter(
-                  (ch) =>
-                    ch.status !== "Completed" &&
-                    new Date() > new Date(ch.endDateTime)
-                )
-                .map((challenge) => (
-                  <Grid
-                    item
-                    key={challenge.id}
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                    container
-                  >
-                    <ChallengeCard key={challenge.id} challenge={challenge} />
-                  </Grid>
-                ))}
+            <Grid item xs={4}>
+              <Card>
+                <CardHeader
+                  title="Badges (Completed Challenges)"
+                  sx={{
+                    color: "white",
+                    backgroundColor: "#4AB5A3",
+                    paddingTop: "8px",
+                    paddingBottom: "8px",
+                  }}
+                  titleTypographyProps={{
+                    fontSize: "0.875rem",
+
+                    fontWeight: "500",
+                  }}
+                />
+                <CardContent>
+                  <Badges myChallenges={myChallenges} />
+                </CardContent>
+              </Card>
             </Grid>
           </Grid>
         </Grid>

@@ -54,7 +54,7 @@ async function userChallengeSeed() {
   const usersIdWithChallengeId = {};
   //creating object with {userId: "amount of chellenges"} pair
   users.forEach(
-    (user) => (userAmountOfChellenges[user.id] = getRandomInt(5, 15))
+    (user) => (userAmountOfChellenges[user.id] = getRandomInt(5, 25))
   );
   //creating object with {chellengeId: "length of the chellenge"} pair
   challenges.forEach(
