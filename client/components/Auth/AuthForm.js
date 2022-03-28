@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "../../theme";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '../../theme';
 import {
   Grid,
   Box,
@@ -11,17 +11,19 @@ import {
   Button,
   Typography,
   Divider,
+
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import { authenticate } from "../../store";
 // import FacebookLoginComponent from "./FacebookLoginComponent";
 
+
 const AuthForm = ({ path }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const method = location.pathname.substring(1) || "signup"; //login or signup
+  const method = location.pathname.substring(1) || 'signup'; //login or signup
 
   const authError = useSelector((state) => state.auth.error);
 
@@ -48,75 +50,97 @@ const AuthForm = ({ path }) => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Box sx={{ mt: '15vh' }}></Box>
       <Box
         sx={{
-          width: "80vw",
-          border: "1px solid black",
-          margin: "auto",
+          width: '80vw',
+          // border: '1px solid black',
+          margin: 'auto',
           padding: 5,
         }}
       >
         <Grid
           container
           direction="column"
-          justifyContent={"center"}
-          alignItems={"center"}
+          justifyContent={'center'}
+          alignItems={'center'}
           spacing={3}
           sx={{
             width: 1,
+            color: theme.palette.white.main,
           }}
         >
           <Grid item xs={1}>
             <Typography variant="h4">
-              {method === "login" ? "Log In" : "Sign Up"}
+              {method === 'login' ? 'Log In' : 'Sign Up'}
             </Typography>
           </Grid>
 
           <Grid
             item
             xs={4}
-            direction={"column"}
+            direction={'column'}
             container
             spacing={3}
-            alignItems={"center"}
-            sx={{ width: "100%", pb: 2 }}
+            alignItems={'center'}
+            sx={{ width: '100%', pb: 2 }}
           >
-            <Grid item xs={6} textAlign={"center"} sx={{ width: "60%" }}>
+            <Grid item xs={6} textAlign={'center'} sx={{ width: '60%' }}>
               <Button variant="contained" fullWidth>
                 Continue with Google
               </Button>
             </Grid>
-            <Grid item xs={6} sx={{ width: "60%" }}>
+            <Grid item xs={6} sx={{ width: '60%' }}>
               <Button variant="contained" fullWidth>
                 Continue with Facebook
               </Button>
               {/* <FacebookLoginComponent /> */}
             </Grid>
+            <Grid item xs={6} sx={{ width: "60%" }}>
+              <Button variant="contained" fullWidth  href='https://www.strava.com/oauth/authorize?client_id=80097&redirect_uri=http://localhost:8080&response_type=code&scope=read_all,activity:read_all'>
+                Connect with Strava
+              </Button>
+            </Grid>
           </Grid>
 
-          <Grid item sx={{ width: "100%" }} textAlign={"center"}>
+          <Grid item sx={{ width: '100%' }} textAlign={'center'}>
             <Divider variant="middle"> OR </Divider>
           </Grid>
 
-          <Grid item xs={5} sx={{ width: "60%" }}>
+          <Grid item xs={5} sx={{ width: '60%' }}>
             <Box
               component="form"
               onSubmit={handleSubmit(onSubmit)}
-              sx={{ marginTop: 2 }}
+              sx={{
+                marginTop: 2,
+              }}
               id="login-form"
             >
-              <Grid container spacing={3} direction="column">
+              <Grid
+                container
+                spacing={3}
+                direction="column"
+
+                // sx={{ color: theme.palette.white.main }}
+              >
                 <Grid item>
                   <TextField
+                    inputProps={{ style: { color: theme.palette.white.main } }}
+                    InputLabelProps={{
+                      style: { color: theme.palette.white.main },
+                    }}
+                    sx={{
+                      backgroundColor: theme.palette.grey.main,
+                    }}
                     id="email"
                     label="Email"
-                    variant="outlined"
+                    variant="filled"
                     autoFocus
-                    {...register("email", {
-                      required: "Required field",
+                    {...register('email', {
+                      required: 'Required field',
                       pattern: {
                         value: /^[A-Z0-9._%+-]+@[A-Z0-9._%+-]+\.[A-Z]{2,}$/i,
-                        message: "Invalid email address",
+                        message: 'Invalid email address',
                       },
                     })}
                     error={!!errors?.email}
@@ -126,11 +150,18 @@ const AuthForm = ({ path }) => {
                 </Grid>
                 <Grid item>
                   <TextField
+                    inputProps={{ style: { color: theme.palette.white.main } }}
+                    InputLabelProps={{
+                      style: { color: theme.palette.white.main },
+                    }}
+                    sx={{
+                      backgroundColor: theme.palette.grey.main,
+                    }}
                     id="password"
                     label="Password"
                     type="password"
-                    variant="outlined"
-                    {...register("password", { required: "Required field" })}
+                    variant="filled"
+                    {...register('password', { required: 'Required field' })}
                     error={!!errors?.password}
                     helperText={
                       errors?.password ? errors.password.message : null
@@ -138,15 +169,24 @@ const AuthForm = ({ path }) => {
                     fullWidth
                   />
                 </Grid>
-                {method === "signup" ? (
+                {method === 'signup' ? (
                   <Grid item container spacing={2}>
                     <Grid item xs={6}>
                       <TextField
+                        inputProps={{
+                          style: { color: theme.palette.white.main },
+                        }}
+                        InputLabelProps={{
+                          style: { color: theme.palette.white.main },
+                        }}
+                        sx={{
+                          backgroundColor: theme.palette.grey.main,
+                        }}
                         id="firstName"
                         label="First Name"
-                        variant="outlined"
-                        {...register("firstName", {
-                          required: "Required field",
+                        variant="filled"
+                        {...register('firstName', {
+                          required: 'Required field',
                         })}
                         error={!!errors?.firstName}
                         helperText={
@@ -157,11 +197,20 @@ const AuthForm = ({ path }) => {
                     </Grid>
                     <Grid item xs={6}>
                       <TextField
+                        inputProps={{
+                          style: { color: theme.palette.white.main },
+                        }}
+                        InputLabelProps={{
+                          style: { color: theme.palette.white.main },
+                        }}
+                        sx={{
+                          backgroundColor: theme.palette.grey.main,
+                        }}
                         id="lastName"
                         label="Last Name"
-                        variant="outlined"
-                        {...register("lastName", {
-                          required: "Required field",
+                        variant="filled"
+                        {...register('lastName', {
+                          required: 'Required field',
                         })}
                         error={!!errors?.lastName}
                         helperText={
@@ -172,7 +221,7 @@ const AuthForm = ({ path }) => {
                     </Grid>
                   </Grid>
                 ) : (
-                  ""
+                  ''
                 )}
 
                 <Grid item>
@@ -185,7 +234,7 @@ const AuthForm = ({ path }) => {
                       startIcon={<SaveIcon />}
                       variant="outlined"
                     >
-                      {method === "login" ? "Log In" : "Sign Up"}
+                      {method === 'login' ? 'Log In' : 'Sign Up'}
                     </LoadingButton>
                   ) : (
                     <Button
@@ -196,7 +245,7 @@ const AuthForm = ({ path }) => {
                       disabled={isSubmitting || !isDirty}
                       form="login-form"
                     >
-                      {method === "login" ? "Log In" : "Sign Up"}
+                      {method === 'login' ? 'Log In' : 'Sign Up'}
                     </Button>
                   )}
                 </Grid>
@@ -209,19 +258,36 @@ const AuthForm = ({ path }) => {
             </Box>
           </Grid>
 
-          {method === "login" ? (
+          {method === 'login' ? (
             <Grid item xs={1}>
               <Typography variant="body2">
-                No account? No problem, sign up <Link to="/signup">here</Link>!
+                No account? No problem, sign up{' '}
+                <Typography
+                  component={Link}
+                  to="/signup"
+                  color="inherit"
+                  variant="inherit"
+                >
+                  here!
+                </Typography>
               </Typography>
             </Grid>
           ) : (
             <Typography variant="body2">
-              Have an account? Login <Link to="/login">here</Link>!
+              Have an account? Login{' '}
+              <Typography
+                component={Link}
+                to="/login"
+                color="inherit"
+                variant="inherit"
+              >
+                here!
+              </Typography>
             </Typography>
           )}
         </Grid>
       </Box>
+      <Box sx={{ mb: '5vh' }}></Box>
     </ThemeProvider>
   );
 };

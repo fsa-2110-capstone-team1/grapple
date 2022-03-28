@@ -18,6 +18,7 @@ import ColorLensIcon from "@mui/icons-material/ColorLens";
 import Divider from "@mui/material/Divider";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import Notifications from "./Notifications";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -166,109 +167,123 @@ const Navbar = () => {
             {/* <Box sx={{ flexGrow: 1 }} /> */}
 
             <Box sx={{ flexGrow: 0.25, textAlign: "end" }}>
-              <IconButton
-                onClick={handleOpenUserMenu}
-                sx={[
-                  {
-                    p: 0,
-                    width: "-webkit-fill-available",
-                    my: 2,
-                    color: "white.main",
-                    display: "block",
-                  },
-                  {
-                    "&:hover": {
-                      backgroundColor: "transparent",
-                      textDecoration: "underline",
-                    },
-                  },
-                  {
-                    "&:focus": {
-                      backgroundColor: "transparent",
-                      textDecoration: "underline",
-                    },
-                  },
-                ]}
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
               >
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-around",
-                    width: "-webkit-fill-available",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      flex: 2,
-                      my: 2,
-                      color: "white.main",
-                      display: "block",
-                    }}
+                <Notifications />
+                <Box>
+                  <IconButton
+                    onClick={handleOpenUserMenu}
+                    sx={[
+                      {
+                        p: 0,
+                        width: "-webkit-fill-available",
+                        my: 2,
+                        color: "white.main",
+                        display: "block",
+                      },
+                      {
+                        "&:hover": {
+                          backgroundColor: "transparent",
+                          textDecoration: "underline",
+                        },
+                      },
+                      {
+                        "&:focus": {
+                          backgroundColor: "transparent",
+                          textDecoration: "underline",
+                        },
+                      },
+                    ]}
                   >
-                    {user.username ? `Hi, ${user.username}` : ""}
-                  </Typography>
-                  <Avatar src={user.image} />
-                </Box>
-              </IconButton>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {!!id ? (
-                  <div>
-                    <Link to="/user/dashboard" onClick={handleCloseUserMenu}>
-                      <MenuItem>
-                        <Typography textAlign="center" color="secondary">
-                          My Dashboard
-                        </Typography>
-                      </MenuItem>
-                    </Link>
-                    <Link
-                      to={`/users/profile/${user.username}`}
-                      onClick={handleCloseUserMenu}
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-around",
+                        width: "-webkit-fill-available",
+                      }}
                     >
-                      <MenuItem>
-                        <Typography textAlign="center" color="secondary">
-                          My Profile
-                        </Typography>
-                      </MenuItem>
-                    </Link>
-                    <Link to="/user/settings" onClick={handleCloseUserMenu}>
-                      <MenuItem>
-                        <Typography textAlign="center" color="secondary">
-                          Settings
-                        </Typography>
-                      </MenuItem>
-                    </Link>
-                    <MenuItem onClick={logoutAndCloseMenu}>
-                      <Typography textAlign="center" color="secondary">
-                        Logout
+                      <Typography
+                        sx={{
+                          flex: 2,
+                          my: 2,
+                          color: "white.main",
+                          display: "block",
+                        }}
+                      >
+                        {user.username ? `Hi, ${user.username}` : ""}
                       </Typography>
-                    </MenuItem>
-                  </div>
-                ) : (
-                  <Link to="/login" onClick={handleCloseUserMenu}>
-                    <MenuItem>
-                      <Typography textAlign="center" color="secondary">
-                        Login
-                      </Typography>
-                    </MenuItem>
-                  </Link>
-                )}
-              </Menu>
+                      <Avatar src={user.image} />
+                    </Box>
+                  </IconButton>
+                  <Menu
+                    sx={{ mt: "45px" }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    {!!id ? (
+                      <div>
+                        <Link
+                          to="/user/dashboard"
+                          onClick={handleCloseUserMenu}
+                        >
+                          <MenuItem>
+                            <Typography textAlign="center" color="secondary">
+                              My Dashboard
+                            </Typography>
+                          </MenuItem>
+                        </Link>
+                        <Link
+                          to={`/users/profile/${user.username}`}
+                          onClick={handleCloseUserMenu}
+                        >
+                          <MenuItem>
+                            <Typography textAlign="center" color="secondary">
+                              My Profile
+                            </Typography>
+                          </MenuItem>
+                        </Link>
+                        <Link to="/user/settings" onClick={handleCloseUserMenu}>
+                          <MenuItem>
+                            <Typography textAlign="center" color="secondary">
+                              Settings
+                            </Typography>
+                          </MenuItem>
+                        </Link>
+                        <MenuItem onClick={logoutAndCloseMenu}>
+                          <Typography textAlign="center" color="secondary">
+                            Logout
+                          </Typography>
+                        </MenuItem>
+                      </div>
+                    ) : (
+                      <Link to="/login" onClick={handleCloseUserMenu}>
+                        <MenuItem>
+                          <Typography textAlign="center" color="secondary">
+                            Login
+                          </Typography>
+                        </MenuItem>
+                      </Link>
+                    )}
+                  </Menu>
+                </Box>
+              </Box>
             </Box>
           </Toolbar>
         </Container>

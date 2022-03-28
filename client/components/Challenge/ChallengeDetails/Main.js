@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import SportsMmaIcon from '@mui/icons-material/SportsMma';
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
@@ -35,6 +35,7 @@ export const ChallengeDetails = () => {
 
   // This is the challenge id.
   const { id } = useParams();
+  const location = useLocation();
 
   const { challenges, publicUsers, userChallenges, auth } = useSelector(
     (state) => state
@@ -43,6 +44,10 @@ export const ChallengeDetails = () => {
   const [enrolledUsers, setEnrolledUsers] = useState([]);
   const [challenge, setChallenge] = useState({});
   const [userChallenge, setUserChallenge] = useState({});
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   useEffect(() => {
     setEnrolledUsers(
@@ -92,7 +97,15 @@ export const ChallengeDetails = () => {
   return (
     <ThemeProvider theme={theme}>
       {/* main page */}
-      <Grid container direction="column" spacing={3}>
+      <Grid
+        container
+        direction="column"
+        spacing={3}
+        sx={{
+          backgroundColor: theme.palette.braun.main,
+          color: theme.palette.white.main,
+        }}
+      >
         {/* hero image */}
         <Grid item xs={3}>
           <Box
@@ -100,7 +113,7 @@ export const ChallengeDetails = () => {
             src="/homeImgs/grapple-cycle-group.jpeg"
             sx={{
               width: 1,
-              marginTop: '-28px',
+              // marginTop: '-28px',
               maxHeight: '30vh',
               objectFit: 'cover',
               objectPosition: 'center',
@@ -109,7 +122,15 @@ export const ChallengeDetails = () => {
         </Grid>
 
         {/* main section */}
-        <Grid item xs={5}>
+        <Grid
+          item
+          xs={5}
+          sx={{
+            backgroundColor: theme.palette.braun.main,
+            color: theme.palette.white.main,
+            minHeight: '100vh',
+          }}
+        >
           <Grid
             container
             direction="column"
