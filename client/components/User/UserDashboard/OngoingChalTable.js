@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import dateFormat from "dateformat";
 import { useTheme } from '@mui/material/styles';
 import { Button, Box } from "@mui/material";
@@ -21,6 +20,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -120,6 +120,8 @@ export const OngoingChalTable = ({ myChallenges }) => {
     (state) => state
   );
 
+  const navigate = useNavigate();
+
   const ongoingChallenges = myChallenges.filter(
     (ch) =>
       (ch.status === "In Progress" || ch.status === "Not Started") &&
@@ -149,9 +151,8 @@ export const OngoingChalTable = ({ myChallenges }) => {
       <Table sx={{ minWidth: 650 }} aria-label="a dense table" size="small">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Challenge</StyledTableCell>
+            <StyledTableCell> Ongoing Challenge</StyledTableCell>
             <StyledTableCell align="center">Ends on</StyledTableCell>
-            <StyledTableCell align="center">Started by</StyledTableCell>
             <StyledTableCell align="center">Participants</StyledTableCell>
             <StyledTableCell align="center">Progress</StyledTableCell>
             <StyledTableCell align="center"></StyledTableCell>
@@ -181,9 +182,8 @@ export const OngoingChalTable = ({ myChallenges }) => {
             ).toFixed(1);
             
             return (
-              <TableBody>
+              <TableBody key={challenge.name}>
                 <StyledTableRow
-                  key={challenge.name}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <StyledTableCell component="th" scope="challenge">
@@ -192,7 +192,6 @@ export const OngoingChalTable = ({ myChallenges }) => {
                   <StyledTableCell align="center">
                     {dateFormat(challenge.endDateTime, "paddedShortDate")}
                   </StyledTableCell>
-                  <StyledTableCell align="center"></StyledTableCell>
                   <StyledTableCell align="center">
                     {enrolledUsers.length === 1
                       ? "Just You"
@@ -209,7 +208,7 @@ export const OngoingChalTable = ({ myChallenges }) => {
                     />
                   </StyledTableCell>
                   <StyledTableCell align="center">
-                    <Button>Go!</Button>
+                    <Button onClick={() => navigate(`/challenges/${challenge.id}`)}>Go!</Button>
                   </StyledTableCell>
                 </StyledTableRow>
               </TableBody>

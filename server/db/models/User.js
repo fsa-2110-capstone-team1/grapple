@@ -54,6 +54,9 @@ const User = db.define("user", {
     type: BOOLEAN,
     defaultValue: false,
   },
+  facebookId: {
+    type: STRING
+  }
 });
 
 module.exports = User;

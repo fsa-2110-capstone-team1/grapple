@@ -2452,7 +2452,7 @@ async function challengeSeed() {
     })
   )
   console.log(`seeded ${challenges.length} challenges`);
-  console.log(`seeded ${moreChallenges.length} past challenges`);
+  // console.log(`seeded ${moreChallenges.length} past challenges`);
 
   return challenges;
 }
