@@ -12,6 +12,7 @@ import { Grid, Box, Typography, Divider, Button } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CheckIcon from "@mui/icons-material/Check";
 import ChallengeCard from "../Challenge/ChallengeCard";
+import theme from "../../theme";
 
 const UserProfileDetails = () => {
   //scroll to top at page load

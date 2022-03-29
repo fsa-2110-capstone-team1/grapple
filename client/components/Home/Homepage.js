@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import MainContent from "./MainContent";
 import HomepageLayout from "./HomepageLayout";
+import theme from "../../theme";
 
 export const Homepage = () => {
   const userId = useSelector((state) => state.auth.id);

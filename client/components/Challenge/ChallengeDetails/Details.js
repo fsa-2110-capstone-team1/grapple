@@ -17,6 +17,7 @@ import {
   styled,
 } from "@mui/material";
 import dateFormat from "dateformat";
+import theme from "../../../theme";
 
 export const Details = ({ challenge }) => {
   return (

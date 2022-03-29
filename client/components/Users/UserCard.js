@@ -24,6 +24,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import AlarmIcon from "@mui/icons-material/Alarm";
+import theme from "../../theme";
 
 export const UserCard = ({ user }) => {
   const dispatch = useDispatch();

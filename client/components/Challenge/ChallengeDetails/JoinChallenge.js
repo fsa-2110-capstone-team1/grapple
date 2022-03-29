@@ -17,6 +17,7 @@ import {
 import dateFormat from "dateformat";
 import { joinChallenge, leaveChallenge } from "../../../store";
 import ConfirmActionDialog from "../../../ConfirmActionDialog";
+import theme from "../../../theme";
 
 export const JoinChallenge = ({
   challenge,

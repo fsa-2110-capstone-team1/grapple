@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Box, Grid, Card, CardMedia } from "@mui/material";
 import { UserProfileForm } from "./UserProfileForm";
 import LinearProgress from "@mui/material/LinearProgress";
+import theme from "../../theme";
 
 export const EditUserProfile = () => {
   const userProfile = useSelector((state) => state.auth);

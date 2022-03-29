@@ -5,6 +5,7 @@ import { Grid, Typography, Box } from "@mui/material";
 import UserCard from "./UserCard";
 import SearchUsers from "./SearchUsers";
 import PaginationFooter from "./PaginationFooter";
+import theme from "../../theme";
 
 export const BrowseUsers = () => {
   const location = useLocation();

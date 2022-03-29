@@ -17,6 +17,7 @@ import Divider from "@mui/material/Divider";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Notifications from "./Notifications";
+import theme from "../theme";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Grid, Container, Box, Typography } from "@mui/material";
 import MainContentLayout from "./MainContentLayout";
+import theme from "../../theme";
 
 export const MainContent = () => {
   //   const splash = '/homeImgs/grapple-main-home-bckrnd.jpg';

@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -12,6 +12,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import dateFormat from "dateformat";
+import theme from "../../theme";
 
 export const UserProfile = () => {
   const userProfile = useSelector((state) => state.auth);
@@ -44,40 +45,40 @@ export const UserProfile = () => {
           )}
         </CardMedia>
         <CardContent>
-          
-            <Typography
-              className="profile-title"
-              gutterBottom
-              variant="h5"
-              component="div"
-            >
-              {userProfile.firstName} {userProfile.lastName}
-            </Typography>
-            <List className="profile-list">
-              <ListItem
-                key={userProfile.email}
-              >
-                <ListItemText primary={`Your email: ${userProfile.email}`} />
-              </ListItem>
-              <ListItem key={userProfile.username}>
-                <ListItemText
-                  primary={`Your username: ${userProfile.username}`}
-                />
-              </ListItem>
-              <ListItem key={userProfile.createdAt}>
-                <ListItemText
-                  primary={`Member since: ${dateFormat(userProfile.createdAt, "mediumDate")}`}
-                />
-              </ListItem>
-            </List>
-            <Button
-              size="medium"
-              fullWidth
-              variant="contained"
-              onClick={() => navigate(`/user/profile/edit`)}
-            >
-              Edit Profile
-            </Button>
+          <Typography
+            className="profile-title"
+            gutterBottom
+            variant="h5"
+            component="div"
+          >
+            {userProfile.firstName} {userProfile.lastName}
+          </Typography>
+          <List className="profile-list">
+            <ListItem key={userProfile.email}>
+              <ListItemText primary={`Your email: ${userProfile.email}`} />
+            </ListItem>
+            <ListItem key={userProfile.username}>
+              <ListItemText
+                primary={`Your username: ${userProfile.username}`}
+              />
+            </ListItem>
+            <ListItem key={userProfile.createdAt}>
+              <ListItemText
+                primary={`Member since: ${dateFormat(
+                  userProfile.createdAt,
+                  "mediumDate"
+                )}`}
+              />
+            </ListItem>
+          </List>
+          <Button
+            size="medium"
+            fullWidth
+            variant="contained"
+            onClick={() => navigate(`/user/profile/edit`)}
+          >
+            Edit Profile
+          </Button>
         </CardContent>
       </Card>
     </div>

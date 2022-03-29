@@ -5,6 +5,7 @@ import { Grid, Box } from "@mui/material";
 import PaginationFooter from "./PaginationFooter";
 import ChallengeCard from "../ChallengeCard";
 import FilterDrawer from "./FilterDrawer";
+import theme from "../../../theme";
 
 function BrowseChallenges() {
   const challenges = useSelector((state) => state.challenges);

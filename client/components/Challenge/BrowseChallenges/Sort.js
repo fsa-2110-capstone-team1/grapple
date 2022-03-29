@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { List, ListItem, ListItemText } from "@mui/material";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
+import theme from "../../../theme";
 
 const Sort = ({
   setActivePage,

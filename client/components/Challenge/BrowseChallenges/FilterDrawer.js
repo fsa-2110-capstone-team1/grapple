@@ -13,6 +13,7 @@ import Searcher from "./Searcher";
 import PaginationFooter from "./PaginationFooter.js";
 import Sort from "./Sort";
 import Filter from "./Filter";
+import theme from "../../../theme";
 
 function FilterDrawer({
   challenges,

@@ -13,6 +13,7 @@ import {
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import { authenticate } from "../../store";
+import theme from "../../theme";
 // import FacebookLoginComponent from "./FacebookLoginComponent";
 
 const AuthForm = ({ path }) => {

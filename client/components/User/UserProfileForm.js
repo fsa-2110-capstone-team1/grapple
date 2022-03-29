@@ -20,6 +20,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Stack from "@mui/material/Stack";
 import PropTypes from "prop-types";
 import LinearProgress from "@mui/material/LinearProgress";
+import theme from "../../theme";
 
 export const UserProfileForm = ({ preloadedValues }) => {
   const {

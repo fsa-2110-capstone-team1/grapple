@@ -26,6 +26,7 @@ import ConfirmActionDialog from "../../../ConfirmActionDialog";
 import Details from "./Details";
 import JoinChallenge from "./JoinChallenge";
 import TrackProgress from "./TrackProgress";
+import theme from "../../../theme";
 
 export const ChallengeDetails = () => {
   const navigate = useNavigate();

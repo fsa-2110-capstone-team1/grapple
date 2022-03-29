@@ -1,5 +1,6 @@
-import React from 'react';
-import { Pagination, Stack, Typography } from '@mui/material';
+import React from "react";
+import { Pagination, Stack, Typography } from "@mui/material";
+import theme from "../../../theme";
 
 const PaginationFooter = ({
   activePage,
@@ -19,10 +20,10 @@ const PaginationFooter = ({
           <Pagination
             variant="outlined"
             sx={{
-              '& .MuiPaginationItem-outlined': {
-                color: 'white',
-                '&.Mui-selected': {
-                  bgcolor: '#837873',
+              "& .MuiPaginationItem-outlined": {
+                color: "white",
+                "&.Mui-selected": {
+                  bgcolor: "#837873",
                 },
               },
             }}
