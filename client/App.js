@@ -39,7 +39,7 @@ const App = () => {
     const challenges = await dispatch(getAllChallenges());
     const userChallenges = await dispatch(getUserChallenges());
     const users = await dispatch(getPublicUsers());
-    const userConnections = await dispatch(getConnections(user.id));
+    // const userConnections = await dispatch(getConnections(user.id));
   }, []);
 
   useEffect(async () => {

@@ -1,61 +1,70 @@
-// import React, { useState } from "react";
-// import FacebookLogin from "react-facebook-login";
+import React, { useEffect, useState } from "react";
+import FacebookLogin from "react-facebook-login";
+import { authenticate } from "../../store/auth";
+import { useDispatch } from "react-redux";
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import axios from "axios";
 
+function FacebookLoginComponent() {
+  const [login, setLogin] = useState(false);
+  const [data, setData] = useState({});
 
-// function FacebookLoginComponent() {
-//   const [login, setLogin] = useState(false);
-//   const [data, setData] = useState({});
-//   const [picture, setPicture] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-//   const responseFacebook = (response) => {
-//     console.log(response);
-//     // Login failed
-//     if (response.status === "unknown") {
-//       alert("Login failed!");
-//       setLogin(false);
-//       return false;
-//     }
-//     setData(response);
-//     setPicture(response.picture.data.url);
-//     if (response.accessToken) {
-//       setLogin(true);
-//     } else {
-//       setLogin(false);
-//     }
-//   };
-//   const logout = () => {
-//     setLogin(false);
-//     setData({});
-//     setPicture("");
-//   };
+  useEffect(
+    async() => {
+      if(data.facebookId){
+        const authed = await dispatch(authenticate(data, "login/facebook"));
+        if (authed.auth.username) {
+          navigate(`/users/profile/${authed.auth.username}`);
+        }
+      }
+    },
+    [data]
+  );
+  const responseFacebook = (response) => {
+    // console.log("response", response);
+    // Login failed
+    if (response.status === "unknown") {
+      alert("Login failed!");
+      setLogin(false);
+      return false;
+    }
+    const firstName = response.name.split(" ")[0];
+    const lastName = response.name.split(" ")[1];
+    const newData = {
+      image: response.picture.data.url,
+      email: response.email,
+      facebookId: response.id,
+      firstName: firstName,
+      lastName: lastName,
+      username: response.name,
+    };
 
-//   return (
-//     <div className="container">
-//       {!login && (
-//         <FacebookLogin
-//           appId="654416952305692"
-//           autoLoad={false}
-//           fields="name,email,picture"
-//           scope="public_profile,email,user_friends"
-//           callback={responseFacebook}
-//           icon="fa-facebook"
-//         />
-//       )}
+    setData(newData);
+    if (response.accessToken) {
+      setLogin(true);
+    } else {
+      setLogin(false);
+    }
+  };
 
-//       {login && (
-//         <div className="card">
-//           <div className="card-body">
-//             <img className="rounded" src={picture} alt="Profile" />
-//             <h5 className="card-title">{data.name}</h5>
-//             <p className="card-text">Email ID: {data.email}</p>
-//             <a href="#" className="btn btn-danger btn-sm" onClick={logout}>
-//               Logout
-//             </a>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
+  // console.log("data", data);
+  return (
+    <div className="container">
+      {!login && (
+        <FacebookLogin
+          appId="654416952305692"
+          autoLoad={false}
+          fields="name,email,picture"
+          scope="public_profile,email,user_friends"
+          callback={responseFacebook}
+          icon="fa-facebook"
+        />
+      )}
+    </div>
+  );
+}
 
-// export default FacebookLoginComponent;
+export default FacebookLoginComponent;

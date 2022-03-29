@@ -13,8 +13,10 @@ import {
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import { authenticate } from "../../store";
+
 import theme from "../../theme";
-// import FacebookLoginComponent from "./FacebookLoginComponent";
+import FacebookLoginComponent from "./FacebookLoginComponent";
+
 
 const AuthForm = ({ path }) => {
   const dispatch = useDispatch();
@@ -87,11 +89,12 @@ const AuthForm = ({ path }) => {
                 Continue with Google
               </Button>
             </Grid>
-            <Grid item xs={6} sx={{ width: "60%" }}>
-              <Button variant="contained" fullWidth>
+
+            <Grid item xs={6} sx={{ width: '60%' }}>
+              {/* <Button variant="contained" fullWidth>
                 Continue with Facebook
-              </Button>
-              {/* <FacebookLoginComponent /> */}
+              </Button> */}
+              <FacebookLoginComponent />
             </Grid>
             <Grid item xs={6} sx={{ width: "60%" }}>
               <Button
