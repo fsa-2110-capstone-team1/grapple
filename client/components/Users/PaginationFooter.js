@@ -1,8 +1,6 @@
-import React from 'react';
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
-import theme from '../../theme';
-import { ThemeProvider } from '@mui/styles';
+import React from "react";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 const PaginationFooter = ({
   totalPosts,
@@ -25,28 +23,26 @@ const PaginationFooter = ({
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <nav>
-        <ul className="pagination">
-          <Stack spacing={2}>
-            <Pagination
-              variant="outlined"
-              sx={{
-                '& .MuiPaginationItem-outlined': {
-                  color: 'white',
-                  '&.Mui-selected': {
-                    bgcolor: '#837873',
-                  },
+    <nav>
+      <ul className="pagination">
+        <Stack spacing={2}>
+          <Pagination
+            variant="outlined"
+            sx={{
+              "& .MuiPaginationItem-outlined": {
+                color: "white",
+                "&.Mui-selected": {
+                  bgcolor: "#837873",
                 },
-              }}
-              count={pageNumbers.length}
-              page={page}
-              onChange={handleChange}
-            />
-          </Stack>
-        </ul>
-      </nav>
-    </ThemeProvider>
+              },
+            }}
+            count={pageNumbers.length}
+            page={page}
+            onChange={handleChange}
+          />
+        </Stack>
+      </ul>
+    </nav>
   );
 };
 

@@ -11,8 +11,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "../theme";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
 import Divider from "@mui/material/Divider";
@@ -56,239 +54,234 @@ const Navbar = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <AppBar
-        className="nav-bar"
-        position="fixed"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      >
-        <Container maxWidth="xl">
-          <Toolbar disableGutters>
-            <Typography
-              variant="h5"
-              noWrap
-              component="div"
+    <AppBar
+      className="nav-bar"
+      position="fixed"
+      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    >
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <Typography
+            variant="h5"
+            noWrap
+            component="div"
+            sx={{
+              mr: 2,
+              display: { xs: "none", md: "flex" },
+            }}
+          >
+            <Link to="/">
+              <Button>
+                <img className="nav-logo" src="/logo/navLogo-white.png" />
+              </Button>
+            </Link>
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              {!!id ? <MenuIcon /> : ""}
+            </IconButton>
+
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
               sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex" },
+                display: { xs: "block", md: "none" },
               }}
             >
-              <Link to="/">
-                <Button>
-                  <img className="nav-logo" src="/logo/navLogo-white.png" />
-                </Button>
+              <Link to={"/challenges"}>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center" color="secondary">
+                    Challenges
+                  </Typography>
+                </MenuItem>
               </Link>
-            </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                {!!id ? <MenuIcon /> : ""}
-              </IconButton>
-
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: "block", md: "none" },
-                }}
-              >
-                <Link to={"/challenges"}>
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center" color="secondary">
-                      Challenges
-                    </Typography>
-                  </MenuItem>
-                </Link>
-                <Link to={"/users"}>
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center" color="secondary">
-                      Users
-                    </Typography>
-                  </MenuItem>
-                </Link>
-              </Menu>
-            </Box>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-            >
-              <Link to="/">
-                <Button>
-                  <img className="nav-logo" src="/logo/navLogo-white.png" />
-                </Button>
+              <Link to={"/users"}>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center" color="secondary">
+                    Users
+                  </Typography>
+                </MenuItem>
               </Link>
-            </Typography>
-            <Box sx={{ flexGrow: 5, display: { xs: "none", md: "flex" } }}>
-              {!!id ? (
-                <>
-                  <Link
-                    className="navbar-browse-challenge-link"
-                    to={"/challenges"}
+            </Menu>
+          </Box>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+          >
+            <Link to="/">
+              <Button>
+                <img className="nav-logo" src="/logo/navLogo-white.png" />
+              </Button>
+            </Link>
+          </Typography>
+          <Box sx={{ flexGrow: 5, display: { xs: "none", md: "flex" } }}>
+            {!!id ? (
+              <>
+                <Link
+                  className="navbar-browse-challenge-link"
+                  to={"/challenges"}
+                >
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white.main", display: "block" }}
                   >
-                    <Button
-                      onClick={handleCloseNavMenu}
-                      sx={{ my: 2, color: "white.main", display: "block" }}
-                    >
-                      Challenges
-                    </Button>
-                  </Link>
-                  <Link className="navbar-browse-people-link" to={"/users"}>
-                    <Button
-                      onClick={handleCloseNavMenu}
-                      sx={{ my: 2, color: "white.main", display: "block" }}
-                    >
-                      Users
-                    </Button>
-                  </Link>
-                </>
-              ) : (
-                ""
-              )}
-            </Box>
-            {/* <Box sx={{ flexGrow: 1 }} /> */}
+                    Challenges
+                  </Button>
+                </Link>
+                <Link className="navbar-browse-people-link" to={"/users"}>
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white.main", display: "block" }}
+                  >
+                    Users
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              ""
+            )}
+          </Box>
+          {/* <Box sx={{ flexGrow: 1 }} /> */}
 
-            <Box sx={{ flexGrow: 0.25, textAlign: "end" }}>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Notifications />
-                <Box>
-                  <IconButton
-                    onClick={handleOpenUserMenu}
-                    sx={[
-                      {
-                        p: 0,
-                        width: "-webkit-fill-available",
+          <Box sx={{ flexGrow: 0.25, textAlign: "end" }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Notifications />
+              <Box>
+                <IconButton
+                  onClick={handleOpenUserMenu}
+                  sx={[
+                    {
+                      p: 0,
+                      width: "-webkit-fill-available",
+                      my: 2,
+                      color: "white.main",
+                      display: "block",
+                    },
+                    {
+                      "&:hover": {
+                        backgroundColor: "transparent",
+                        textDecoration: "underline",
+                      },
+                    },
+                    {
+                      "&:focus": {
+                        backgroundColor: "transparent",
+                        textDecoration: "underline",
+                      },
+                    },
+                  ]}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-around",
+                      width: "-webkit-fill-available",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        flex: 2,
                         my: 2,
                         color: "white.main",
                         display: "block",
-                      },
-                      {
-                        "&:hover": {
-                          backgroundColor: "transparent",
-                          textDecoration: "underline",
-                        },
-                      },
-                      {
-                        "&:focus": {
-                          backgroundColor: "transparent",
-                          textDecoration: "underline",
-                        },
-                      },
-                    ]}
-                  >
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-around",
-                        width: "-webkit-fill-available",
                       }}
                     >
-                      <Typography
-                        sx={{
-                          flex: 2,
-                          my: 2,
-                          color: "white.main",
-                          display: "block",
-                        }}
-                      >
-                        {user.username ? `Hi, ${user.username}` : ""}
-                      </Typography>
-                      <Avatar src={user.image} />
-                    </Box>
-                  </IconButton>
-                  <Menu
-                    sx={{ mt: "45px" }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right",
-                    }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
-                    {!!id ? (
-                      <div>
-                        <Link
-                          to="/user/dashboard"
-                          onClick={handleCloseUserMenu}
-                        >
-                          <MenuItem>
-                            <Typography textAlign="center" color="secondary">
-                              My Dashboard
-                            </Typography>
-                          </MenuItem>
-                        </Link>
-                        <Link
-                          to={`/users/profile/${user.username}`}
-                          onClick={handleCloseUserMenu}
-                        >
-                          <MenuItem>
-                            <Typography textAlign="center" color="secondary">
-                              My Profile
-                            </Typography>
-                          </MenuItem>
-                        </Link>
-                        <Link to="/user/settings" onClick={handleCloseUserMenu}>
-                          <MenuItem>
-                            <Typography textAlign="center" color="secondary">
-                              Settings
-                            </Typography>
-                          </MenuItem>
-                        </Link>
-                        <MenuItem onClick={logoutAndCloseMenu}>
-                          <Typography textAlign="center" color="secondary">
-                            Logout
-                          </Typography>
-                        </MenuItem>
-                      </div>
-                    ) : (
-                      <Link to="/login" onClick={handleCloseUserMenu}>
+                      {user.username ? `Hi, ${user.username}` : ""}
+                    </Typography>
+                    <Avatar src={user.image} />
+                  </Box>
+                </IconButton>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {!!id ? (
+                    <div>
+                      <Link to="/user/dashboard" onClick={handleCloseUserMenu}>
                         <MenuItem>
                           <Typography textAlign="center" color="secondary">
-                            Login
+                            My Dashboard
                           </Typography>
                         </MenuItem>
                       </Link>
-                    )}
-                  </Menu>
-                </Box>
+                      <Link
+                        to={`/users/profile/${user.username}`}
+                        onClick={handleCloseUserMenu}
+                      >
+                        <MenuItem>
+                          <Typography textAlign="center" color="secondary">
+                            My Profile
+                          </Typography>
+                        </MenuItem>
+                      </Link>
+                      <Link to="/user/settings" onClick={handleCloseUserMenu}>
+                        <MenuItem>
+                          <Typography textAlign="center" color="secondary">
+                            Settings
+                          </Typography>
+                        </MenuItem>
+                      </Link>
+                      <MenuItem onClick={logoutAndCloseMenu}>
+                        <Typography textAlign="center" color="secondary">
+                          Logout
+                        </Typography>
+                      </MenuItem>
+                    </div>
+                  ) : (
+                    <Link to="/login" onClick={handleCloseUserMenu}>
+                      <MenuItem>
+                        <Typography textAlign="center" color="secondary">
+                          Login
+                        </Typography>
+                      </MenuItem>
+                    </Link>
+                  )}
+                </Menu>
               </Box>
             </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </ThemeProvider>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 };
 export default Navbar;
