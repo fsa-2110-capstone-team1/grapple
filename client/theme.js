@@ -3,6 +3,10 @@ import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 export const theme = responsiveFontSizes(
   createTheme({
     palette: {
+      // mode: 'dark',
+      // standard: {
+      //   main: '#837873',
+      // },
       //Primary is green
       primary: {
         light: '#D8F1F6',
