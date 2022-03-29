@@ -16,7 +16,7 @@ import {
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
 import { authenticate } from "../../store";
-// import FacebookLoginComponent from "./FacebookLoginComponent";
+import FacebookLoginComponent from "./FacebookLoginComponent";
 
 
 const AuthForm = ({ path }) => {
@@ -91,10 +91,10 @@ const AuthForm = ({ path }) => {
               </Button>
             </Grid>
             <Grid item xs={6} sx={{ width: '60%' }}>
-              <Button variant="contained" fullWidth>
+              {/* <Button variant="contained" fullWidth>
                 Continue with Facebook
-              </Button>
-              {/* <FacebookLoginComponent /> */}
+              </Button> */}
+              <FacebookLoginComponent />
             </Grid>
             <Grid item xs={6} sx={{ width: "60%" }}>
               <Button variant="contained" fullWidth  href='https://www.strava.com/oauth/authorize?client_id=80097&redirect_uri=http://localhost:8080&response_type=code&scope=read_all,activity:read_all'>

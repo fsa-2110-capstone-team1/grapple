@@ -8,7 +8,7 @@ const SALT_ROUNDS = 5;
 const User = db.define("user", {
   username: {
     type: STRING,
-    unique: true,
+    // unique: true,
     allowNull: false,
     validate: {
       notEmpty: true,
@@ -25,7 +25,7 @@ const User = db.define("user", {
   },
   password: {
     type: STRING,
-    allowNull: false,
+    // allowNull: false,
   },
   firstName: {
     type: STRING,
@@ -55,8 +55,13 @@ const User = db.define("user", {
     defaultValue: false,
   },
   facebookId: {
-    type: STRING
-  }
+    type: STRING,
+    defaultValue: null
+  },
+  googleId: {
+    type: STRING,
+    defaultValue: null
+  },
 });
 
 module.exports = User;
@@ -78,6 +83,7 @@ User.prototype.generateToken = function () {
  */
 User.authenticate = async function ({ email, password }) {
   const user = await this.findOne({ where: { email } });
+  console.log("user api", user)
   if (!user || !(await user.correctPassword(password))) {
     const error = Error("Incorrect email/password");
     error.status = 401;

@@ -19,6 +19,8 @@ router.get("/", async (req, res, next) => {
         "isPrivate",
         "isAdmin",
         "createdAt",
+        "googleId",
+        "facebookId",
       ],
       order: [["id"]],
     });
