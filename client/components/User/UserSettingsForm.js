@@ -18,10 +18,9 @@ import Switch from "@mui/material/Switch";
 import FormLabel from "@mui/material/FormLabel";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Stack from "@mui/material/Stack";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "../../theme";
 import PropTypes from "prop-types";
 import LinearProgress from "@mui/material/LinearProgress";
+import theme from "../../theme";
 
 export const UserSettingsForm = ({ preloadedValues }) => {
   const {
@@ -51,92 +50,94 @@ export const UserSettingsForm = ({ preloadedValues }) => {
       });
     }
   };
-  const [newpassword, setNewPassword] = useState(preloadedValues.password)
-  const [confirmpassword, setConfirmPassword] = useState(preloadedValues.password)
+  const [newpassword, setNewPassword] = useState(preloadedValues.password);
+  const [confirmpassword, setConfirmPassword] = useState(
+    preloadedValues.password
+  );
 
   return (
-    <ThemeProvider theme={theme}>
-      <div className="profile-container">
-        {!!snackbar && (
-          <Snackbar
-            open
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            onClose={handleCloseSnackbar}
-            autoHideDuration={6000}
-          >
-            <Alert {...snackbar} onClose={handleCloseSnackbar} />
-          </Snackbar>
-        )}
-        <CardContent>
-          <Box
-            component="form"
-            onSubmit={handleSubmit(onSubmit)}
-            sx={{ marginTop: 2 }}
-            id="user-update-form"
-          >
-            <Grid container spacing={3} direction="column">
-              {/* FORM FIELDS */}
+    <div className="profile-container">
+      {!!snackbar && (
+        <Snackbar
+          open
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          onClose={handleCloseSnackbar}
+          autoHideDuration={6000}
+        >
+          <Alert {...snackbar} onClose={handleCloseSnackbar} />
+        </Snackbar>
+      )}
+      <CardContent>
+        <Box
+          component="form"
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ marginTop: 2 }}
+          id="user-update-form"
+        >
+          <Grid container spacing={3} direction="column">
+            {/* FORM FIELDS */}
 
-              <Grid item>
-                <TextField
-                  id="password"
-                  label="New Password"
-                  type="password"
-                  variant="outlined"
-                  {...register("password", { required: "Required field" })}
-                  error={!!errors?.password}
-                  helperText={errors?.password ? errors.password.message : null}
-                  fullWidth
-                  
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  id="confirmpassword"
-                  label="Confirm New Password"
-                  type="password"
-                  variant="outlined"
-                  // defaultValue={confirmpassword}
-                  {...register("confirmpassword", { required: "Required field",  validate: (val) => {
-                    if (watch('password') !== val) {
-                      errors.password = {}
-                      errors.password.message = 'Your passwords do no match'
-                    }
-                  },})}
-                  error={!!errors?.password}
-                  helperText={errors?.password ? errors.password.message : null}
-                  fullWidth
-                />
-              </Grid>
-
-              <Grid item>
-                <FormLabel component="legend">Type of your account</FormLabel>
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Typography>Public</Typography>
-                  <FormControlLabel
-                    id="isPrivate"
-                    control={<Switch color="primary" />}
-                    label="Private"
-                    {...register("isPrivate")}
-                  />
-                </Stack>
-              </Grid>
-              {/* BUTTON */}
-              <Grid item>
-                <Button
-                  size="medium"
-                  fullWidth
-                  variant="contained"
-                  type="submit"
-                  form="user-update-form"
-                >
-                  Update Settings
-                </Button>
-              </Grid>
+            <Grid item>
+              <TextField
+                id="password"
+                label="New Password"
+                type="password"
+                variant="outlined"
+                {...register("password", { required: "Required field" })}
+                error={!!errors?.password}
+                helperText={errors?.password ? errors.password.message : null}
+                fullWidth
+              />
             </Grid>
-          </Box>
-        </CardContent>
-      </div>
-    </ThemeProvider>
+            <Grid item>
+              <TextField
+                id="confirmpassword"
+                label="Confirm New Password"
+                type="password"
+                variant="outlined"
+                // defaultValue={confirmpassword}
+                {...register("confirmpassword", {
+                  required: "Required field",
+                  validate: (val) => {
+                    if (watch("password") !== val) {
+                      errors.password = {};
+                      errors.password.message = "Your passwords do no match";
+                    }
+                  },
+                })}
+                error={!!errors?.password}
+                helperText={errors?.password ? errors.password.message : null}
+                fullWidth
+              />
+            </Grid>
+
+            <Grid item>
+              <FormLabel component="legend">Type of your account</FormLabel>
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Typography>Public</Typography>
+                <FormControlLabel
+                  id="isPrivate"
+                  control={<Switch color="primary" />}
+                  label="Private"
+                  {...register("isPrivate")}
+                />
+              </Stack>
+            </Grid>
+            {/* BUTTON */}
+            <Grid item>
+              <Button
+                size="medium"
+                fullWidth
+                variant="contained"
+                type="submit"
+                form="user-update-form"
+              >
+                Update Settings
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </CardContent>
+    </div>
   );
 };

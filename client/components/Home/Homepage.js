@@ -1,17 +1,16 @@
-import React, { useEffect } from 'react';
-import AuthForm from '../Auth/AuthForm';
-import { Divider, Button, Typography, Box } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '../../theme';
-import { useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
-import MainContent from './MainContent';
-import HomepageLayout from './HomepageLayout';
+import React, { useEffect } from "react";
+import AuthForm from "../Auth/AuthForm";
+import { Divider, Button, Typography, Box } from "@mui/material";
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+import MainContent from "./MainContent";
+import HomepageLayout from "./HomepageLayout";
+import theme from "../../theme";
 
 export const Homepage = () => {
   const userId = useSelector((state) => state.auth.id);
 
-  const runnerImg = '/homeImgs/grapple-home-runner.jpeg';
+  const runnerImg = "/homeImgs/grapple-home-runner.jpeg";
 
   const location = useLocation();
   const userList = useSelector((state) => state.publicUsers);
@@ -24,18 +23,18 @@ export const Homepage = () => {
   }, [location]);
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <HomepageLayout
         sxBackground={{
           backgroundImage: `url(${runnerImg})`,
-          backgroundColor: '#7fc7d9', // Average color of the background image.
-          backgroundPosition: 'center',
-          marginTop: '-28px',
+          backgroundColor: "#7fc7d9", // Average color of the background image.
+          backgroundPosition: "center",
+          marginTop: "-28px",
         }}
       >
         {/* Increase the network loading priority of the background image. */}
         <img
-          style={{ display: 'none' }}
+          style={{ display: "none" }}
           src={runnerImg}
           alt="increase priority"
         />
@@ -59,7 +58,7 @@ export const Homepage = () => {
             size="large"
             component="a"
             href="/signup"
-            sx={{ minWidth: 200, mb: '10px' }}
+            sx={{ minWidth: 200, mb: "10px" }}
           >
             Register
           </Button>
@@ -70,7 +69,7 @@ export const Homepage = () => {
             size="large"
             component="a"
             href={`/users/profile/${userName}`}
-            sx={{ minWidth: 208, mb: '10px' }}
+            sx={{ minWidth: 208, mb: "10px" }}
           >
             View Profile
           </Button>
@@ -104,13 +103,13 @@ export const Homepage = () => {
       </HomepageLayout>
       <MainContent />
       {!userName ? (
-        <Box sx={{ mt: '25px', mb: '25px' }}>
+        <Box sx={{ mt: "25px", mb: "25px" }}>
           <AuthForm />
         </Box>
       ) : (
-        ''
+        ""
       )}
-    </ThemeProvider>
+    </>
   );
 };
 export default Homepage;

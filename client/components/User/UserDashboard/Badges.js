@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export const Badges = ({ myChallenges }) => {
   const navigate = useNavigate();
   return (
-    <Box >
+    <Box>
       <Grid item container direction="column" spacing={2}>
         <Grid item container>
           {myChallenges
@@ -44,8 +44,15 @@ export const Badges = ({ myChallenges }) => {
                   ]}
                   onClick={() => navigate(`/challenges/${challenge.id}`)}
                 />
-              <Typography variant="body2">{new Intl.DateTimeFormat('en-US', {month: 'long'}).format(new Date(challenge.startDateTime))} Challenge</Typography>
-              <Typography variant="subtitle1">{new Date(challenge.startDateTime).getFullYear()}</Typography>
+                <Typography variant="body2">
+                  {new Intl.DateTimeFormat("en-US", { month: "long" }).format(
+                    new Date(challenge.startDateTime)
+                  )}{" "}
+                  Challenge
+                </Typography>
+                <Typography variant="subtitle1">
+                  {new Date(challenge.startDateTime).getFullYear()}
+                </Typography>
               </Grid>
             ))}
         </Grid>

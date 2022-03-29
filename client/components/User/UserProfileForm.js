@@ -18,10 +18,9 @@ import Switch from "@mui/material/Switch";
 import FormLabel from "@mui/material/FormLabel";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Stack from "@mui/material/Stack";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "../../theme";
 import PropTypes from "prop-types";
 import LinearProgress from "@mui/material/LinearProgress";
+import theme from "../../theme";
 
 export const UserProfileForm = ({ preloadedValues }) => {
   const {
@@ -99,151 +98,149 @@ export const UserProfileForm = ({ preloadedValues }) => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <div className="profile-container">
-        {!!snackbar && (
-          <Snackbar
-            open
-            anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            onClose={handleCloseSnackbar}
-            autoHideDuration={6000}
-          >
-            <Alert {...snackbar} onClose={handleCloseSnackbar} />
-          </Snackbar>
-        )}
-        <CardContent>
-          <Box
-            component="form"
-            onSubmit={handleSubmit(onSubmit)}
-            sx={{ marginTop: 2 }}
-            id="user-update-form"
-          >
-            <Grid container spacing={3} direction="column">
-              {/* FORM FIELDS */}
-              <Grid item>
-                <Grid container spacing={3}>
-                  <Grid item xs={6}>
-                    <TextField
-                      id="firstName"
-                      label="First Name"
-                      variant="outlined"
-                      autoFocus
-                      {...register("firstName", {
-                        required: "Required field",
-                      })}
-                      error={!!errors?.firstName}
-                      helperText={
-                        errors?.firstName ? errors.firstName.message : null
-                      }
-                      fullWidth
-                      required
-                    />
-                  </Grid>
+    <div className="profile-container">
+      {!!snackbar && (
+        <Snackbar
+          open
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          onClose={handleCloseSnackbar}
+          autoHideDuration={6000}
+        >
+          <Alert {...snackbar} onClose={handleCloseSnackbar} />
+        </Snackbar>
+      )}
+      <CardContent>
+        <Box
+          component="form"
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ marginTop: 2 }}
+          id="user-update-form"
+        >
+          <Grid container spacing={3} direction="column">
+            {/* FORM FIELDS */}
+            <Grid item>
+              <Grid container spacing={3}>
+                <Grid item xs={6}>
+                  <TextField
+                    id="firstName"
+                    label="First Name"
+                    variant="outlined"
+                    autoFocus
+                    {...register("firstName", {
+                      required: "Required field",
+                    })}
+                    error={!!errors?.firstName}
+                    helperText={
+                      errors?.firstName ? errors.firstName.message : null
+                    }
+                    fullWidth
+                    required
+                  />
+                </Grid>
 
-                  <Grid item xs={6}>
-                    <TextField
-                      id="lastName"
-                      label="Last Name"
-                      variant="outlined"
-                      autoFocus
-                      {...register("lastName", {
-                        required: "Required field",
-                      })}
-                      error={!!errors?.lastName}
-                      helperText={
-                        errors?.lastName ? errors.lastName.message : null
-                      }
-                      fullWidth
-                      required
-                    />
-                  </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    id="lastName"
+                    label="Last Name"
+                    variant="outlined"
+                    autoFocus
+                    {...register("lastName", {
+                      required: "Required field",
+                    })}
+                    error={!!errors?.lastName}
+                    helperText={
+                      errors?.lastName ? errors.lastName.message : null
+                    }
+                    fullWidth
+                    required
+                  />
+                </Grid>
 
-                  <Grid item xs={6}>
-                    <TextField
-                      id="username"
-                      label="Username"
-                      variant="outlined"
-                      autoFocus
-                      {...register("username", {
-                        required: "Required field",
-                      })}
-                      error={!!errors?.username}
-                      helperText={
-                        errors?.username ? errors.username.message : null
-                      }
-                      fullWidth
-                      required
-                    />
-                  </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    id="username"
+                    label="Username"
+                    variant="outlined"
+                    autoFocus
+                    {...register("username", {
+                      required: "Required field",
+                    })}
+                    error={!!errors?.username}
+                    helperText={
+                      errors?.username ? errors.username.message : null
+                    }
+                    fullWidth
+                    required
+                  />
+                </Grid>
 
-                  <Grid item xs={6}>
-                    <TextField
-                      id="email"
-                      label="Email address"
-                      variant="outlined"
-                      autoFocus
-                      {...register("email", {
-                        required: "Required field",
-                        pattern: {
-                          value: /^[A-Z0-9._%+-]+@[A-Z0-9._%+-]+\.[A-Z]{2,}$/i,
-                          message: "Invalid email address",
-                        },
-                      })}
-                      error={!!errors?.email}
-                      helperText={errors?.email ? errors.email.message : null}
-                      fullWidth
-                      required
-                    />
-                  </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    id="email"
+                    label="Email address"
+                    variant="outlined"
+                    autoFocus
+                    {...register("email", {
+                      required: "Required field",
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9._%+-]+\.[A-Z]{2,}$/i,
+                        message: "Invalid email address",
+                      },
+                    })}
+                    error={!!errors?.email}
+                    helperText={errors?.email ? errors.email.message : null}
+                    fullWidth
+                    required
+                  />
                 </Grid>
               </Grid>
-              <Grid item>
-                <label htmlFor="image">
-                  <input
-                    style={{ display: "none" }}
-                    id="image"
-                    name="image"
-                    type="file"
-                    {...register("image")}
-                    onChange={onChange}
-                  />
-                  <Button
-                    size="medium"
-                    fullWidth
-                    variant="contained"
-                    component="span"
-                  >
-                    Upload Profile Picture
-                  </Button>
-                  <Typography
-                    variant="h8"
-                    className="file-name"
-                    sx={{ margin: "50px" }}
-                  >
-                    {fileName.length > 0 ? fileName : null}
-                    {fileName.length > 0 ? (
-                      <LinearProgressWithLabel value={progress} />
-                    ) : null}
-                  </Typography>
-                </label>
-              </Grid>
-              
-              {/* BUTTON */}
-              <Grid item>
+            </Grid>
+            <Grid item>
+              <label htmlFor="image">
+                <input
+                  style={{ display: "none" }}
+                  id="image"
+                  name="image"
+                  type="file"
+                  {...register("image")}
+                  onChange={onChange}
+                />
                 <Button
                   size="medium"
                   fullWidth
                   variant="contained"
-                  type="submit"
-                  form="user-update-form"
+                  component="span"
                 >
-                  Update Profile
+                  Upload Profile Picture
                 </Button>
-              </Grid>
+                <Typography
+                  variant="h8"
+                  className="file-name"
+                  sx={{ margin: "50px" }}
+                >
+                  {fileName.length > 0 ? fileName : null}
+                  {fileName.length > 0 ? (
+                    <LinearProgressWithLabel value={progress} />
+                  ) : null}
+                </Typography>
+              </label>
             </Grid>
-          </Box>
-        </CardContent>
-      </div>
-    </ThemeProvider>
+
+            {/* BUTTON */}
+            <Grid item>
+              <Button
+                size="medium"
+                fullWidth
+                variant="contained"
+                type="submit"
+                form="user-update-form"
+              >
+                Update Profile
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </CardContent>
+    </div>
   );
 };
