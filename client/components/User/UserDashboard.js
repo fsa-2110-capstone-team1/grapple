@@ -32,6 +32,7 @@ import { OngoingChalTable } from "./UserDashboard/OngoingChalTable";
 import { Diagram } from "./UserDashboard/Diagram";
 import { Badges } from "./UserDashboard/Badges";
 import { Leaderboard } from "./UserDashboard/Leaderboard";
+import theme from "../../theme";
 
 export const UserDashboard = () => {
   const navigate = useNavigate();

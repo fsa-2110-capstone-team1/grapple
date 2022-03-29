@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
-import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../theme";
 import {
   Grid,
@@ -64,7 +63,7 @@ const CreateChallenge = ({ method }) => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       {!!snackbar && (
         <Snackbar
           open
@@ -349,7 +348,7 @@ const CreateChallenge = ({ method }) => {
           </Grid>
         </Grid>
       </Box>
-    </ThemeProvider>
+    </>
   );
 };
 

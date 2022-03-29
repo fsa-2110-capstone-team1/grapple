@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { Grid, Box } from '@mui/material';
-import PaginationFooter from './PaginationFooter';
-import ChallengeCard from '../ChallengeCard';
-import FilterDrawer from './FilterDrawer';
-import theme from '../../../theme';
-import { ThemeProvider } from '@mui/styles';
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { Grid, Box } from "@mui/material";
+import PaginationFooter from "./PaginationFooter";
+import ChallengeCard from "../ChallengeCard";
+import FilterDrawer from "./FilterDrawer";
+import theme from "../../../theme";
 
 function BrowseChallenges() {
   const challenges = useSelector((state) => state.challenges);
@@ -19,7 +18,7 @@ function BrowseChallenges() {
   }, [challenges]);
 
   //sorting
-  const [sort, setSort] = useState({ order: 'asc', orderBy: 'id' });
+  const [sort, setSort] = useState({ order: "asc", orderBy: "id" });
 
   //pagination calculations
   const [activePage, setActivePage] = useState(1);
@@ -44,59 +43,57 @@ function BrowseChallenges() {
   }, [location, activePage, filters, sort]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Box
-        sx={{
-          minHeight: '100vh',
-          backgroundColor: theme.palette.braun.main,
-        }}
-      >
-        <Grid container>
-          {/* Filter drawer */}
-          <Grid item xs={2}>
-            <FilterDrawer
-              challenges={challenges}
-              setActivePage={setActivePage}
-              filters={filters}
-              setFilters={setFilters}
-              filteredChallenges={filteredChallenges}
-              setFilteredChallenges={setFilteredChallenges}
-              sort={sort}
-              setSort={setSort}
-            />
-          </Grid>
-          {/* grid with cards (right side) */}
-          <Grid item xs={10} sx={{ mt: '25px' }}>
-            <Grid container sx={{ minHeight: '70vh' }}>
-              <Grid item xs={1} />
-              <Grid item xs={10} container>
-                {calculatedChallenges?.map((challenge) => (
-                  <Grid
-                    item
-                    key={challenge.id}
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                    container
-                  >
-                    <ChallengeCard key={challenge.id} challenge={challenge} />
-                  </Grid>
-                ))}
-              </Grid>
-              <Grid item xs={1} />
-            </Grid>
-            <PaginationFooter
-              activePage={activePage}
-              count={count}
-              challengesPerPage={challengesPerPage}
-              totalPages={totalPages}
-              setActivePage={setActivePage}
-            />
-          </Grid>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        // backgroundColor: theme.palette.braun.main,
+      }}
+    >
+      <Grid container>
+        {/* Filter drawer */}
+        <Grid item xs={2}>
+          <FilterDrawer
+            challenges={challenges}
+            setActivePage={setActivePage}
+            filters={filters}
+            setFilters={setFilters}
+            filteredChallenges={filteredChallenges}
+            setFilteredChallenges={setFilteredChallenges}
+            sort={sort}
+            setSort={setSort}
+          />
         </Grid>
-      </Box>
-    </ThemeProvider>
+        {/* grid with cards (right side) */}
+        <Grid item xs={10} sx={{ mt: "25px" }}>
+          <Grid container sx={{ minHeight: "70vh" }}>
+            <Grid item xs={1} />
+            <Grid item xs={10} container>
+              {calculatedChallenges?.map((challenge) => (
+                <Grid
+                  item
+                  key={challenge.id}
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  lg={3}
+                  container
+                >
+                  <ChallengeCard key={challenge.id} challenge={challenge} />
+                </Grid>
+              ))}
+            </Grid>
+            <Grid item xs={1} />
+          </Grid>
+          <PaginationFooter
+            activePage={activePage}
+            count={count}
+            challengesPerPage={challengesPerPage}
+            totalPages={totalPages}
+            setActivePage={setActivePage}
+          />
+        </Grid>
+      </Grid>
+    </Box>
   );
 }
 

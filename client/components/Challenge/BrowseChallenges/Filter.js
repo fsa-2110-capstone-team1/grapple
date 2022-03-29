@@ -8,6 +8,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import theme from "../../../theme";
 
 const Filter = ({
   challenges,

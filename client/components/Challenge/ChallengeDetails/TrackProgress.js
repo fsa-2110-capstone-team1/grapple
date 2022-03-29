@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 import {
   Grid,
   Box,
@@ -9,12 +9,11 @@ import {
   Typography,
   Divider,
   TextField,
-} from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
-import theme from '../../../theme';
-import { ThemeProvider } from '@mui/material/styles';
-import dateFormat from 'dateformat';
-import { updateChallengeProgress } from '../../../store';
+} from "@mui/material";
+import CheckIcon from "@mui/icons-material/Check";
+import theme from "../../../theme";
+import dateFormat from "dateformat";
+import { updateChallengeProgress } from "../../../store";
 
 export const TrackProgress = ({ userChallenge, challenge }) => {
   const dispatch = useDispatch();
@@ -34,7 +33,7 @@ export const TrackProgress = ({ userChallenge, challenge }) => {
   } = useForm();
 
   // controlling value field to allow decimals
-  const [value, setValue] = useState('0.0');
+  const [value, setValue] = useState("0.0");
 
   const onSubmit = async (data) => {
     //no need to update if value is 0
@@ -47,33 +46,33 @@ export const TrackProgress = ({ userChallenge, challenge }) => {
       );
     }
     reset();
-    setValue('0.0');
+    setValue("0.0");
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       {!!userChallenge.id && (
         <Box
           sx={{
             m: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
           }}
         >
-          <Typography variant="h6" sx={{ textAlign: 'center' }}>
+          <Typography variant="h6" sx={{ textAlign: "center" }}>
             Track Your Progress
           </Typography>
           <br />
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
               <Typography>
-                <b>Joined On:</b>{' '}
-                {dateFormat(userChallenge.createdAt, 'mediumDate')}
+                <b>Joined On:</b>{" "}
+                {dateFormat(userChallenge.createdAt, "mediumDate")}
               </Typography>
               <Typography>
-                <b>Status:</b> {userChallenge.status}{' '}
-                {userChallenge.status === 'Completed' && '👑'}
+                <b>Status:</b> {userChallenge.status}{" "}
+                {userChallenge.status === "Completed" && "👑"}
               </Typography>
               <Typography>
                 <b>Current Progress:</b> {userChallenge.currentProgress} (
@@ -86,15 +85,15 @@ export const TrackProgress = ({ userChallenge, challenge }) => {
             </Grid>
 
             <Grid item xs={12} md={6}>
-              {challenge.status === 'In Progress' && (
+              {challenge.status === "In Progress" && (
                 <Box
                   component="form"
                   onSubmit={handleSubmit(onSubmit)}
                   sx={{
                     marginTop: 2,
-                    display: 'flex',
-                    justifyContent: 'space-evenly',
-                    alignItems: 'center',
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                    alignItems: "center",
                   }}
                   id="challenge-progress-form"
                 >
@@ -104,16 +103,16 @@ export const TrackProgress = ({ userChallenge, challenge }) => {
                     variant="filled"
                     label="Value"
                     type="number"
-                    {...register('value', {
-                      required: 'Required field',
+                    {...register("value", {
+                      required: "Required field",
                     })}
                     error={
-                      userChallenge.currentProgress + Number(watch('value')) < 0
+                      userChallenge.currentProgress + Number(watch("value")) < 0
                     }
                     helperText={
-                      userChallenge.currentProgress + Number(watch('value')) < 0
+                      userChallenge.currentProgress + Number(watch("value")) < 0
                         ? "Current progress total can't be less than 0"
-                        : 'Use negative numbers to backtrack progress'
+                        : "Use negative numbers to backtrack progress"
                     }
                     FormHelperTextProps={{
                       style: { color: theme.palette.white.main },
@@ -122,7 +121,7 @@ export const TrackProgress = ({ userChallenge, challenge }) => {
                     inputProps={{
                       style: { color: theme.palette.white.main },
                       // maxLength: 3,
-                      step: '.1',
+                      step: ".1",
                     }}
                     InputLabelProps={{
                       style: { color: theme.palette.white.main },
@@ -137,9 +136,9 @@ export const TrackProgress = ({ userChallenge, challenge }) => {
                     type="submit"
                     form="challenge-progress-form"
                     disabled={
-                      userChallenge.currentProgress + Number(watch('value')) < 0
+                      userChallenge.currentProgress + Number(watch("value")) < 0
                     }
-                    sx={{ height: '80%' }}
+                    sx={{ height: "80%" }}
                   >
                     Submit
                   </Button>
@@ -154,7 +153,7 @@ export const TrackProgress = ({ userChallenge, challenge }) => {
           </Grid>
         </Box>
       )}
-    </ThemeProvider>
+    </>
   );
 };
 export default TrackProgress;
