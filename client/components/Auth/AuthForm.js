@@ -130,9 +130,9 @@ const AuthForm = ({ path }) => {
                     InputLabelProps={{
                       style: { color: theme.palette.white.main },
                     }}
-                    sx={{
-                      backgroundColor: theme.palette.grey.main,
-                    }}
+                    // sx={{
+                    //   backgroundColor: theme.palette.grey.main,
+                    // }}
                     id="email"
                     label="Email"
                     variant="filled"
@@ -155,9 +155,9 @@ const AuthForm = ({ path }) => {
                     InputLabelProps={{
                       style: { color: theme.palette.white.main },
                     }}
-                    sx={{
-                      backgroundColor: theme.palette.grey.main,
-                    }}
+                    // sx={{
+                    //   backgroundColor: theme.palette.grey.main,
+                    // }}
                     id="password"
                     label="Password"
                     type="password"
@@ -180,9 +180,9 @@ const AuthForm = ({ path }) => {
                         InputLabelProps={{
                           style: { color: theme.palette.white.main },
                         }}
-                        sx={{
-                          backgroundColor: theme.palette.grey.main,
-                        }}
+                        // sx={{
+                        //   backgroundColor: theme.palette.grey.main,
+                        // }}
                         id="firstName"
                         label="First Name"
                         variant="filled"
@@ -204,9 +204,9 @@ const AuthForm = ({ path }) => {
                         InputLabelProps={{
                           style: { color: theme.palette.white.main },
                         }}
-                        sx={{
-                          backgroundColor: theme.palette.grey.main,
-                        }}
+                        // sx={{
+                        //   backgroundColor: theme.palette.grey.main,
+                        // }}
                         id="lastName"
                         label="Last Name"
                         variant="filled"

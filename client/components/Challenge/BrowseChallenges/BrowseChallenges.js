@@ -46,7 +46,7 @@ function BrowseChallenges() {
     <Box
       sx={{
         minHeight: "100vh",
-        backgroundColor: theme.palette.braun.main,
+        // backgroundColor: theme.palette.braun.main,
       }}
     >
       <Grid container>

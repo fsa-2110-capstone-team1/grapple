@@ -100,7 +100,7 @@ export const ChallengeDetails = () => {
       direction="column"
       spacing={3}
       sx={{
-        backgroundColor: theme.palette.braun.main,
+        // backgroundColor: theme.palette.braun.main,
         color: theme.palette.white.main,
       }}
     >
@@ -124,7 +124,7 @@ export const ChallengeDetails = () => {
         item
         xs={5}
         sx={{
-          backgroundColor: theme.palette.braun.main,
+          // backgroundColor: theme.palette.braun.main,
           color: theme.palette.white.main,
           minHeight: "100vh",
         }}

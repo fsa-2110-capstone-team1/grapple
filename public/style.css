@@ -36,8 +36,8 @@ body {
 }
 
 .nother-div {
-  background-color: black;
-  color: white;
+  /* background-color: black;
+  color: white; */
   width: 50%;
 }
 
@@ -161,7 +161,7 @@ a {
 }
 
 .search input {
-  background-color: white;
+  /* background-color: white; */
   /* border: 1px solid black; */
   border-radius: 2px;
   border-top-right-radius: 0px;
@@ -175,7 +175,7 @@ a {
 .searchIcon {
   height: 60px;
   width: 50px;
-  background-color: white;
+  /* background-color: white; */
   display: grid;
   place-items: center;
 }
@@ -192,7 +192,7 @@ input:focus {
   margin-top: 5px;
   width: 300px;
   height: 200px;
-  background-color: white;
+  /* background-color: white; */
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   overflow: hidden;
   overflow-y: auto;
@@ -207,7 +207,7 @@ input:focus {
   height: 50px;
   /* display: flex; */
   align-items: center;
-  color: black;
+  /* color: black; */
 }
 /* .dataItem{
   margin-left:10px;
@@ -218,7 +218,7 @@ a {
 }
 
 a:hover {
-  background-color: lightgray;
+  /* background-color: lightgray; */
 }
 
 #clearBtn {
@@ -229,7 +229,7 @@ a:hover {
   list-style-type: none;
   /* background-color: #271f1c; */
   /* background-color: red; */
-  color: white;
+  /* color: white; */
   border-radius: 5px;
   justify-content: center;
 }
@@ -250,8 +250,8 @@ a:hover {
 }
 
 .pagination > li.nonselected {
-  background-color: #248da2;
-  color: white;
+  /* background-color: #248da2; */
+  /* color: white; */
   border-radius: 3px;
   padding: 0.5rem;
   font-size: 18px;
@@ -328,7 +328,7 @@ a:hover {
 }
 
 .sorters > button {
-  background-color: white;
+  /* background-color: white; */
   border: none;
   transition-duration: 0.4s;
   height: 60px;
@@ -336,8 +336,8 @@ a:hover {
 }
 
 .sorters > button:hover {
-  background-color: #4ab5a3;
-  color: white;
+  /* background-color: #4ab5a3; */
+  /* color: white; */
 }
 
 .searchContainer {
@@ -348,7 +348,7 @@ a:hover {
 }
 
 .sorters > button {
-  background-color: white;
+  /* background-color: white; */
   border: none;
   transition-duration: 0.4s;
   height: 60px;
@@ -356,12 +356,12 @@ a:hover {
 }
 
 .sorters > button:hover {
-  background-color: #4ab5a3;
-  color: white;
+  /* background-color: #4ab5a3;
+  color: white; */
 }
 
 .sorting > button {
-  background-color: white;
+  /* background-color: white; */
   border: none;
   transition-duration: 0.4s;
   height: 60px;
@@ -369,19 +369,19 @@ a:hover {
 }
 
 .sorting > button:hover {
-  background-color: #4ab5a3;
-  color: white;
+  /* background-color: #4ab5a3;
+  color: white; */
 }
 
 .searchContainer {
   margin-top: 30px;
   margin-bottom: 10px;
   margin-left: 50px;
-  border: white;
+  /* border: white; */
 }
 
 .arrow {
-  background-color: white;
+  /* background-color: white; */
   border: none;
   transition-duration: 0.4s;
   height: 25px;
@@ -389,6 +389,6 @@ a:hover {
 }
 
 .arrow:hover {
-  background-color: #4ab5a3;
-  color: white;
+  /* background-color: #4ab5a3; */
+  /* color: white; */
 }

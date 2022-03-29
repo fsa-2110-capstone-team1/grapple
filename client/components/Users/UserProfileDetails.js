@@ -126,7 +126,7 @@ const UserProfileDetails = () => {
     <Box
       sx={{
         minHeight: "100vh",
-        backgroundColor: theme.palette.braun.main,
+        // backgroundColor: theme.palette.braun.main,
         color: theme.palette.white.main,
       }}
     >

@@ -18,15 +18,15 @@ const PaginationFooter = ({
       <ul className="pagination">
         <Stack spacing={2}>
           <Pagination
-            variant="outlined"
-            sx={{
-              "& .MuiPaginationItem-outlined": {
-                color: "white",
-                "&.Mui-selected": {
-                  bgcolor: "#837873",
-                },
-              },
-            }}
+            // variant="outlined"
+            // sx={{
+            //   "& .MuiPaginationItem-outlined": {
+            //     color: "white",
+            //     "&.Mui-selected": {
+            //       bgcolor: "#837873",
+            //     },
+            //   },
+            // }}
             count={totalPages}
             page={activePage}
             onChange={handleChange}

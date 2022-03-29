@@ -37,7 +37,7 @@ export const ChallengeCard = ({ challenge }) => {
     <Card
       sx={{
         maxWidth: 345,
-        backgroundColor: theme.palette.grey.dark,
+        // backgroundColor: theme.palette.grey.dark,
         // Provide some spacing between cards
         margin: 1.5,
         // Use flex layout with column direction for components in the card
