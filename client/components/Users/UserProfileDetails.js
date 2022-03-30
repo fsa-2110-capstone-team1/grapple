@@ -128,6 +128,8 @@ const UserProfileDetails = () => {
         minHeight: "100vh",
         // backgroundColor: theme.palette.braun.main,
         color: theme.palette.white.main,
+        pt: "20px",
+        pb: "20px",
       }}
     >
       <Grid container spacing={1}>
@@ -375,9 +377,7 @@ const UserProfileDetails = () => {
 
           <Grid item container direction="column" spacing={1}>
             <Grid item>
-              <Typography variant="h5">
-                "I'll Do Better Next Time" Challenges
-              </Typography>
+              <Typography variant="h5">Didn't quite make it...</Typography>
             </Grid>
             <Grid container>
               {myChallenges
