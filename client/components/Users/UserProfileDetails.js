@@ -260,7 +260,7 @@ const UserProfileDetails = () => {
               >
                 <Grid item>
                   {isSelf ? (
-                    <Link to="/users/friends">
+                    <Link to="/users/friends" style={{ color: "white" }}>
                       <Typography sx={{ color: "white" }}>
                         <b>{friends.length}</b> Friend(s)
                       </Typography>
@@ -273,7 +273,7 @@ const UserProfileDetails = () => {
                 </Grid>
                 {isSelf && !!connections.length && (
                   <Grid item>
-                    <Link to="/users/friendRequests">
+                    <Link to="/users/friendRequests" style={{ color: "white" }}>
                       <Typography sx={{ color: "white" }}>
                         <b>
                           {
