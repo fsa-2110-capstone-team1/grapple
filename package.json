@@ -44,10 +44,10 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "mui": "^0.0.1",
-    
     "pg": "^8.5.1",
     "react-chartjs-2": "^4.0.1",
     "react-facebook-login": "^4.1.1",
+    "react-google-login": "^5.2.2",
     "react-number-format": "^4.9.1",
     "react-router-dom": "^6.2.1",
     "sequelize": "^6.3.5"

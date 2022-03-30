@@ -18,17 +18,23 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Notifications from "./Notifications";
 import theme from "../theme";
+import { useGoogleLogout } from "react-google-login";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store";
 
 const Navbar = () => {
+
+  const clientId=`${process.env.CLIENT_ID_GOOGLE}`
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const id = useSelector((state) => state.auth.id) || "";
   const user = useSelector((state) => state.auth) || {};
+
+  const {signOut} = useGoogleLogout({clientId})
 
   const dispatch = useDispatch();
   let navigate = useNavigate();
@@ -49,6 +55,10 @@ const Navbar = () => {
   };
 
   const logoutAndCloseMenu = () => {
+    if(user.googleId){
+      console.log("clientId", clientId)
+      signOut()
+    }
     dispatch(logout());
     handleCloseUserMenu();
     navigate("/login");
