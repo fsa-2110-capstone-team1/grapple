@@ -3,7 +3,7 @@ const db = require("../db");
 
 const { INTEGER, BOOLEAN, DATE, STRING, TEXT, ENUM } = Sequelize;
 
-const Challenge = db.define("challenge", {
+const Strava = db.define("Strava", {
 //userId
   startDateTime: {
     type: DATE,
@@ -21,4 +21,4 @@ const Challenge = db.define("challenge", {
   }
 });
 
-module.exports = Challenge;
+module.exports = Strava;

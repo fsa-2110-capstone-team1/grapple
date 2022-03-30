@@ -48,7 +48,7 @@ export const BrowseUsers = () => {
   }, [connections, publicUsers, auth?.id, userGroup]);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [usersPerPage] = useState(8);
+  const [usersPerPage] = useState(9);
 
   const indexOfLastChallenge = currentPage * usersPerPage;
   const indexofFirstChallenge = indexOfLastChallenge - usersPerPage;
