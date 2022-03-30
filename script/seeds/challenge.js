@@ -11,7 +11,7 @@ const units = ["days", "miles", "books"];
 // 1 mental
 // 2 physical 
 // 3 Sleep 
-// 4 food 5
+// 4 food 
 // 5 misc
 const dataChallenges = [
   {
@@ -1598,7 +1598,7 @@ const dataChallenges = [
       "Walk to a nearby park or grow and tend to a couple of plants on your window sill. Any little thing counts.",
     image: "badges/picId-102.svg",
     type: "unit",
-    category: "physical",
+    category: "mental",
     // subCategoryId: null,
     startDateTime: "03/30/2022",
     endDateTime: "04/29/2022",
@@ -2011,7 +2011,7 @@ const dataChallenges = [
       "It iss so easy and painless but so very hard to do well. Dental hygiene is more important than we realize.",
     image: "badges/picId-128.svg",
     type: "unit",
-    category: "physical",
+    category: "misc",
     // subCategoryId: null,
     startDateTime: "04/15/2022",
     endDateTime: "05/15/2022",
@@ -2026,7 +2026,7 @@ const dataChallenges = [
     description: "Floss thoroughly every day. Cleaning between your teeth may help prevent cavities and gum disease.",
     image: "badges/picId-129.svg",
     type: "unit",
-    category: "physical",
+    category: "misc",
     // subCategoryId: null,
     startDateTime: "04/10/2022",
     endDateTime: "05/10/2022",
@@ -2042,7 +2042,7 @@ const dataChallenges = [
       "All have nutritional deficiencies, especially if our diets are not perfect.",
     image: "badges/picId-130.svg",
     type: "unit",
-    category: "physical",
+    category: "food",
     // subCategoryId: null,
     startDateTime: "04/11/2022",
     endDateTime: "05/11/2022",
@@ -2090,7 +2090,7 @@ const dataChallenges = [
       "When you get up in the morning, head for the shower and turn it to cold. There are many health benefits of taking cold showers.",
     image: "badges/picId-133.svg",
     type: "unit",
-    category: "physical",
+    category: "misc",
     // subCategoryId: null,
     startDateTime: "04/01/2022",
     endDateTime: "05/01/2022",
@@ -2328,7 +2328,7 @@ const dataChallenges = [
       "Abstinence is hard for some. Everyone has their own reasons for abstaining.",
     image: "badges/picId-148.svg",
     type: "unit",
-    category: "physical",
+    category: "mental",
     // subCategoryId: null,
     startDateTime: "04/11/2022",
     endDateTime: "05/11/2022",
