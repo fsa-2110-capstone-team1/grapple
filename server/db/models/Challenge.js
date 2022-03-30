@@ -42,6 +42,13 @@ const Challenge = db.define("challenge", {
   targetUnit: {
     type: STRING,
   },
+  goalType: {
+    //daily means we'll count progress based on number of days the targetNumber is reached
+    //total means we'll add up the daily progress and track against the targetNumber
+    type: ENUM("daily", "total"),
+    defaultValue: "total",
+    allowNull: false,
+  },
   difficulty: {
     type: INTEGER,
     defaultValue: 1,
@@ -58,10 +65,6 @@ const Challenge = db.define("challenge", {
     type: STRING,
     // unique: true,
   },
-  // subCategoryId: {
-  //   type: INTEGER,
-  //   unique: true,
-  // },
 });
 
 module.exports = Challenge;

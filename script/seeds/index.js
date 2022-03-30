@@ -2,6 +2,7 @@ const userSeed = require("./user");
 const challengeSeed = require("./challenge");
 const userChallengeSeed = require("./userChallenge");
 const connectionSeed = require("./connection");
+const dailyUserChallengeSeed = require("./dailyUserChallenge");
 
 const {
   db,
@@ -16,6 +17,7 @@ async function seed() {
   const [challenges] = await Promise.all([challengeSeed()]);
   const [userChallenges] = await Promise.all([userChallengeSeed()]);
   const [connection] = await Promise.all([connectionSeed()]);
+  const [dailyUserChallenges] = await Promise.all([dailyUserChallengeSeed()]);
 
   console.log(`
   
