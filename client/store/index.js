@@ -6,6 +6,7 @@ import challenges from "./challenges";
 import connections from "./connections";
 import userChallenges from "./userChallenges";
 import publicUsers from "./users";
+import dailyUserChallenges from "./dailyUserChallenges";
 
 const reducer = combineReducers({
   auth,
@@ -13,13 +14,12 @@ const reducer = combineReducers({
   connections,
   userChallenges,
   publicUsers,
+  dailyUserChallenges,
 });
 
 let middleware;
 if (process.env.NODE_ENV === "development") {
-  middleware = applyMiddleware(thunkMiddleware, 
-    loggerMiddleware
-    );
+  middleware = applyMiddleware(thunkMiddleware, loggerMiddleware);
 } else {
   middleware = applyMiddleware(thunkMiddleware);
 }
@@ -33,3 +33,4 @@ export * from "./challenges";
 export * from "./userChallenges";
 export * from "./connections";
 export * from "./users";
+export * from "./dailyUserChallenges";

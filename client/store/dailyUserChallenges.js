@@ -23,7 +23,7 @@ const _updateDailyUserChallengeProgress = (dailyUserChallenge) => ({
 
 //THUNK CREATORS
 
-export const getUserChallenges = (userChallengeId) => {
+export const getDailyUserChallenges = (userChallengeId) => {
   return async (dispatch) => {
     const { data: dailyUserChallenges } = await axios.get(
       `/api/dailyUserChallenges/userChallenge/${userChallengeId}`
