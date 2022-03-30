@@ -41,9 +41,13 @@ today = mm + "/" + dd + "/" + yyyy;
 async function userChallengeSeed() {
   // Creating one stable userChallenge
   await UserChallenge.create({
-    // currentProgress: Object.entries(user)[0][1],
     userId: 1,
     challengeId: 1,
+  });
+
+  await UserChallenge.create({
+    userId: 1,
+    challengeId: 2,
   });
 
   // Selecting all users

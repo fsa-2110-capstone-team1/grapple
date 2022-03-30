@@ -2373,6 +2373,20 @@ async function challengeSeed() {
     difficulty: 1,
     isPrivate: "false",
   });
+  await Challenge.create({
+    name: "Run 10 miles a day",
+    description: "Run run run.",
+    image: "badges/picId-096.svg",
+    type: "unit",
+    category: "physical",
+    startDateTime: "03/01/2022",
+    endDateTime: "04/30/2022",
+    targetNumber: 10,
+    targetUnit: "miles",
+    difficulty: 4,
+    isPrivate: "false",
+    goalType: "daily",
+  });
   const challenges = await Promise.all(
     dataChallenges.map((challenge) =>
       Challenge.create({

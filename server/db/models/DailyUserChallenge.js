@@ -45,9 +45,6 @@ DailyUserChallenge.beforeUpdate(async (dailyUserChallenge) => {
     //if challenge type is total, increment userChallenge.currentProgress with the new value
     if (challenge.goalType === "total") {
       const currProg = userChallenge.currentProgress;
-      console.log("CURR PROG: ", currProg);
-      console.log("DUC TOTAL: ", dailyUserChallenge.total);
-      console.log("DUC PREV TOTAL: ", dailyUserChallenge.previous().total);
       userChallenge.update({
         currentProgress:
           Number(currProg) +
@@ -57,6 +54,31 @@ DailyUserChallenge.beforeUpdate(async (dailyUserChallenge) => {
     }
 
     //if challenge type is daily, check if daily goal has been met and if yes, increment userChallenge.currentProgress
+    else if (challenge.goalType === "daily") {
+      let updatedProgress;
+      // +1 if we hadn't hit the daily target before and hit it now
+      if (
+        Number(dailyUserChallenge.total) >= Number(challenge.targetNumber) &&
+        Number(dailyUserChallenge.previous().total) <
+          Number(challenge.targetNumber)
+      ) {
+        updatedProgress = 1;
+        // -1 if we havent hit the target now and had previously hit it (backtracked score)
+      } else if (
+        Number(dailyUserChallenge.previous().total) >=
+        Number(challenge.targetNumber)
+      ) {
+        updatedProgress = -1;
+        // else do nothing
+      } else {
+        updatedProgress = 0;
+      }
+
+      const currProg = userChallenge.currentProgress;
+      userChallenge.update({
+        currentProgress: Number(currProg) + updatedProgress,
+      });
+    }
   } catch (err) {
     console.log(err);
   }
