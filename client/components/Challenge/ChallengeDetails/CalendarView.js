@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
-import { differenceInCalendarDays, parseISO } from "date-fns";
+import { differenceInCalendarDays } from "date-fns";
 
 const CalendarView = ({ dailyUserChallenges, challenge }) => {
   function isSameDay(a, b) {
@@ -56,7 +56,8 @@ const CalendarView = ({ dailyUserChallenges, challenge }) => {
       </p>
       <p className="text-center">
         <span className="bold">Daily Total:</span>{" "}
-        {dailyUserChallenges.find((duc) => isSameDay(duc.date, date))?.total}
+        {dailyUserChallenges.find((duc) => isSameDay(duc.date, date))?.total ||
+          0}
       </p>
     </>
   );

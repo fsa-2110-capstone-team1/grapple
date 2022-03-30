@@ -1,7 +1,8 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
+const { differenceInCalendarDays } = require("date-fns");
 
-const { DATE, DECIMAL, literal } = Sequelize;
+const { DATE, DECIMAL } = Sequelize;
 
 const DailyUserChallenge = db.define("dailyUserChallenge", {
   total: {
@@ -42,11 +43,20 @@ DailyUserChallenge.beforeCreate(async (dailyUserChallenge) => {
     const userChallenge = await dailyUserChallenge.getUserChallenge();
     const challenge = await userChallenge.getChallenge();
 
+    function round(num) {
+      var m = Number((Math.abs(num) * 100).toPrecision(15));
+      return (Math.round(m) / 100) * Math.sign(num);
+    }
+
     //if challenge type is total, increment userChallenge.currentProgress with the new value
     if (challenge.goalType === "total") {
       const currProg = userChallenge.currentProgress;
       userChallenge.update({
         currentProgress: Number(currProg) + Number(dailyUserChallenge.total),
+        percentCompleted: round(
+          (Number(currProg) + Number(dailyUserChallenge.total)) /
+            Number(challenge.targetNumber)
+        ),
       });
     }
 
@@ -61,8 +71,16 @@ DailyUserChallenge.beforeCreate(async (dailyUserChallenge) => {
       }
 
       const currProg = userChallenge.currentProgress;
+
       userChallenge.update({
         currentProgress: Number(currProg) + updatedProgress,
+        percentCompleted: round(
+          (Number(currProg) + updatedProgress) /
+            differenceInCalendarDays(
+              new Date(challenge.endDateTime),
+              new Date(challenge.startDateTime)
+            )
+        ),
       });
     }
   } catch (err) {
@@ -75,14 +93,26 @@ DailyUserChallenge.beforeUpdate(async (dailyUserChallenge) => {
     const userChallenge = await dailyUserChallenge.getUserChallenge();
     const challenge = await userChallenge.getChallenge();
 
+    function round(num) {
+      var m = Number((Math.abs(num) * 100).toPrecision(15));
+      return (Math.round(m) / 100) * Math.sign(num);
+    }
+
     //if challenge type is total, increment userChallenge.currentProgress with the new value
     if (challenge.goalType === "total") {
       const currProg = userChallenge.currentProgress;
+
       userChallenge.update({
         currentProgress:
           Number(currProg) +
           Number(dailyUserChallenge.total) -
           Number(dailyUserChallenge.previous().total),
+        percentCompleted: round(
+          (Number(currProg) +
+            Number(dailyUserChallenge.total) -
+            Number(dailyUserChallenge.previous().total)) /
+            Number(challenge.targetNumber)
+        ),
       });
     }
 
@@ -108,8 +138,16 @@ DailyUserChallenge.beforeUpdate(async (dailyUserChallenge) => {
       }
 
       const currProg = userChallenge.currentProgress;
+
       userChallenge.update({
         currentProgress: Number(currProg) + updatedProgress,
+        percentCompleted: round(
+          (Number(currProg) + updatedProgress) /
+            differenceInCalendarDays(
+              new Date(challenge.endDateTime),
+              new Date(challenge.startDateTime)
+            )
+        ),
       });
     }
   } catch (err) {

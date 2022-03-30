@@ -18,6 +18,13 @@ const UserChallenge = db.define("userChallenge", {
     },
     defaultValue: 0,
   },
+  percentCompleted: {
+    type: DECIMAL,
+    validate: {
+      min: 0,
+    },
+    defaultValue: 0,
+  },
   // userId
   // challengeId
 });
@@ -83,14 +90,14 @@ UserChallenge.beforeUpdate(async (userChallenge) => {
 });
 
 // update progress -- TO BE DELETED
-UserChallenge.prototype.updateProgress = function (value) {
-  try {
-    return this.update({
-      currentProgress: Number(this.currentProgress) + Number(value),
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
+// UserChallenge.prototype.updateProgress = function (value) {
+//   try {
+//     return this.update({
+//       currentProgress: Number(this.currentProgress) + Number(value),
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 module.exports = UserChallenge;
