@@ -82,7 +82,7 @@ UserChallenge.beforeUpdate(async (userChallenge) => {
   }
 });
 
-// update progress
+// update progress -- TO BE DELETED
 UserChallenge.prototype.updateProgress = function (value) {
   try {
     return this.update({

@@ -37,6 +37,39 @@ DailyUserChallenge.beforeCreate(async (dailyUserChallenge) => {
   }
 });
 
+DailyUserChallenge.beforeCreate(async (dailyUserChallenge) => {
+  try {
+    const userChallenge = await dailyUserChallenge.getUserChallenge();
+    const challenge = await userChallenge.getChallenge();
+
+    //if challenge type is total, increment userChallenge.currentProgress with the new value
+    if (challenge.goalType === "total") {
+      const currProg = userChallenge.currentProgress;
+      userChallenge.update({
+        currentProgress: Number(currProg) + Number(dailyUserChallenge.total),
+      });
+    }
+
+    //if challenge type is daily, check if daily goal has been met and if yes, increment userChallenge.currentProgress
+    else if (challenge.goalType === "daily") {
+      let updatedProgress;
+      // +1 if we hit daily target now
+      if (Number(dailyUserChallenge.total) >= Number(challenge.targetNumber)) {
+        updatedProgress = 1;
+      } else {
+        updatedProgress = 0;
+      }
+
+      const currProg = userChallenge.currentProgress;
+      userChallenge.update({
+        currentProgress: Number(currProg) + updatedProgress,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 DailyUserChallenge.beforeUpdate(async (dailyUserChallenge) => {
   try {
     const userChallenge = await dailyUserChallenge.getUserChallenge();

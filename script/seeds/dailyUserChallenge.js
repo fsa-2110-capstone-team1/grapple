@@ -20,13 +20,14 @@ async function dailyUserChallengeSeed() {
     DailyUserChallenge.create({
       userChallengeId: 2,
       date: "03/03/2022",
+      total: 12,
     }),
   ]);
 
   await duc[0].updateProgress(10);
   await duc[1].updateProgress(8);
   await duc[2].updateProgress(10);
-  await duc[3].updateProgress(12);
+  //   await duc[3].updateProgress(12);
 
   console.log(`seeded ${duc.length} dailyUserChallenges`);
 
