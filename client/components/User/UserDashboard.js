@@ -178,7 +178,7 @@ export const UserDashboard = () => {
             <Grid item xs={4}>
               <Card>
                 <CardHeader
-                  title="Badges (Completed Challenges)"
+                  title="Badges"
                   sx={{
                     color: "white",
                     backgroundColor: "#4AB5A3",
@@ -192,7 +192,7 @@ export const UserDashboard = () => {
                   }}
                 />
                 <CardContent>
-                  <Badges myChallenges={myChallenges} />
+                  <Badges challenges={myChallenges} />
                 </CardContent>
               </Card>
             </Grid>
