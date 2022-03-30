@@ -13,6 +13,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import CheckIcon from "@mui/icons-material/Check";
 import ChallengeCard from "../Challenge/ChallengeCard";
 import theme from "../../theme";
+import UserBadges from "./Badges";
 
 const UserProfileDetails = () => {
   //scroll to top at page load
@@ -303,43 +304,8 @@ const UserProfileDetails = () => {
                 Badges (Completed Challenges)
               </Typography>
             </Grid>
-            <Grid item container>
-              {myChallenges
-                .filter((ch) => ch.status === "Completed")
-                .map((challenge) => (
-                  <Grid
-                    item
-                    key={challenge.id}
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                    container
-                  >
-                    {/* <Link to={`/challenges/${challenge.id}`}> */}
-                    <Box
-                      key={challenge.id}
-                      component="img"
-                      src={`/${challenge.image}`}
-                      sx={[
-                        {
-                          borderRadius: "50px",
-                          width: "80px",
-                          border: "3px solid #c54c7b",
-                          padding: "5px",
-                        },
-                        {
-                          "&:hover": {
-                            backgroundColor: "transparent",
-                            cursor: "pointer",
-                          },
-                        },
-                      ]}
-                      onClick={() => navigate(`/challenges/${challenge.id}`)}
-                    />
-                    {/* </Link> */}
-                  </Grid>
-                ))}
+            <Grid item>
+              <UserBadges challenges={myChallenges} />
             </Grid>
           </Grid>
 
