@@ -121,7 +121,10 @@ export const UserDashboard = () => {
             item
             container
             spacing={3}
-            sx={{ display: "flex", alignItems: "center" }}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}
           >
             <Grid item xs={2}>
               <Box
@@ -135,7 +138,7 @@ export const UserDashboard = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={7} container direction="column" spacing={1}>
+            <Grid item xs={12} lg={7} container direction="column" spacing={1}>
               {/* username, for auth: edit profile and settings, for non auth: add/accept/decline friend */}
               <Grid item container spacing={3}>
                 <Grid item>
