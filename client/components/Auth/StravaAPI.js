@@ -8,17 +8,12 @@ const StravaAPI = () => {
   const getActivities = (res) => {
     //   console.log('res', res)
     const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${res.access_token}`;
-    fetch(activities_link).then((res) => 
-     data = (res.json()));
+    fetch(activities_link).then((res) => (data = res.json()));
     // data = res.json();
     // console.log('d', data)
   };
 
-
-
-  
-
-//   console.log(data);
+  //   console.log(data);
   const reauthActivities = () => {
     fetch(authLink, {
       method: "post",
@@ -39,8 +34,11 @@ const StravaAPI = () => {
 
   //   getActivities();
   reauthActivities();
-  return(
-      <a href='https://www.strava.com/oauth/authorize?client_id=80097&redirect_uri=http://localhost:8080&response_type=code&scope=read_all,activity:read_all'> Connect to Strava</a>
-  )
+  return (
+    <a href="https://www.strava.com/oauth/authorize?client_id=80097&redirect_uri=http://localhost:8080&response_type=code&scope=read_all,activity:read_all">
+      {" "}
+      Connect to Strava
+    </a>
+  );
 };
 export default StravaAPI;

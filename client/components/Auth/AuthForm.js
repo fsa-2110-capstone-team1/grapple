@@ -15,7 +15,8 @@ import SaveIcon from "@mui/icons-material/Save";
 import { authenticate } from "../../store";
 
 import theme from "../../theme";
-// import FacebookLoginComponent from "./FacebookLoginComponent";
+import FacebookLoginComponent from "./FacebookLoginComponent";
+import GoogleLoginComponent from "./GoogleLoginComponent";
 
 const AuthForm = ({ path }) => {
   const dispatch = useDispatch();
@@ -83,17 +84,12 @@ const AuthForm = ({ path }) => {
             alignItems={"center"}
             sx={{ width: "100%", pb: 2 }}
           >
-            <Grid item xs={6} textAlign={"center"} sx={{ width: "60%" }}>
-              <Button variant="contained" fullWidth>
-                Continue with Google
-              </Button>
+            <Grid item xs={6} sx={{ width: "60%" }}>
+              <GoogleLoginComponent />
             </Grid>
 
             <Grid item xs={6} sx={{ width: "60%" }}>
-              {/* <Button variant="contained" fullWidth>
-                Continue with Facebook
-              </Button> */}
-              {/* <FacebookLoginComponent /> */}
+              <FacebookLoginComponent />
             </Grid>
             <Grid item xs={6} sx={{ width: "60%" }}>
               <Button

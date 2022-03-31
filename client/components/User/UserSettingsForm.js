@@ -37,6 +37,7 @@ export const UserSettingsForm = ({ preloadedValues }) => {
 
   const onSubmit = async (data) => {
     try {
+      console.log("preloadedValues", preloadedValues)
       await dispatch(updateUser(data));
       setSnackbar({
         children: "Your settings successfully updated!",
@@ -95,7 +96,7 @@ export const UserSettingsForm = ({ preloadedValues }) => {
                 label="Confirm New Password"
                 type="password"
                 variant="outlined"
-                // defaultValue={confirmpassword}
+                defaultValue={confirmpassword}
                 {...register("confirmpassword", {
                   required: "Required field",
                   validate: (val) => {
@@ -117,8 +118,9 @@ export const UserSettingsForm = ({ preloadedValues }) => {
                 <Typography>Public</Typography>
                 <FormControlLabel
                   id="isPrivate"
-                  control={<Switch color="primary" />}
+                  control={<Switch color="primary" defaultChecked={preloadedValues.isPrivate? true: false}/>}
                   label="Private"
+                  
                   {...register("isPrivate")}
                 />
               </Stack>
