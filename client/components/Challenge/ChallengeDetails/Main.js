@@ -25,7 +25,6 @@ import dateFormat from "dateformat";
 import ConfirmActionDialog from "../../../ConfirmActionDialog";
 import Details from "./Details";
 import JoinChallenge from "./JoinChallenge";
-import TrackProgress from "./TrackProgress";
 import CalendarView from "./CalendarView";
 import theme from "../../../theme";
 import { getDailyUserChallenges } from "../../../store";
@@ -184,13 +183,10 @@ export const ChallengeDetails = () => {
             <Grid item xs={0.5} md={0.5} sx={{ mr: "60px" }} />
 
             <Grid item xs={10}>
-              <TrackProgress
-                userChallenge={userChallenge}
-                challenge={challenge}
-              />
               <CalendarView
                 dailyUserChallenges={dailyUserChallenges}
                 challenge={challenge}
+                userChallenge={userChallenge}
               />
             </Grid>
 

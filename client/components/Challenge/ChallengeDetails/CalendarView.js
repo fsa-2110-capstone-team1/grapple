@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import { differenceInCalendarDays } from "date-fns";
+import TrackProgress from "./TrackProgress";
 
-const CalendarView = ({ dailyUserChallenges, challenge }) => {
+const CalendarView = ({ dailyUserChallenges, userChallenge, challenge }) => {
   function isSameDay(a, b) {
     return differenceInCalendarDays(new Date(a), new Date(b)) === 0;
   }
@@ -59,6 +60,14 @@ const CalendarView = ({ dailyUserChallenges, challenge }) => {
         {dailyUserChallenges.find((duc) => isSameDay(duc.date, date))?.total ||
           0}
       </p>
+      <TrackProgress
+        dailyUserChallenge={
+          dailyUserChallenges.find((duc) => isSameDay(duc.date, date)) || null
+        }
+        userChallenge={userChallenge}
+        challenge={challenge}
+        date={date}
+      />
     </>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import {
   Grid,
@@ -13,9 +13,18 @@ import {
 import CheckIcon from "@mui/icons-material/Check";
 import theme from "../../../theme";
 import dateFormat from "dateformat";
-import { updateChallengeProgress } from "../../../store";
+import {
+  updateChallengeProgress,
+  createDailyUserChallenge,
+  getUserChallenge,
+} from "../../../store";
 
-export const TrackProgress = ({ userChallenge, challenge }) => {
+export const TrackProgress = ({
+  dailyUserChallenge,
+  userChallenge,
+  challenge,
+  date,
+}) => {
   const dispatch = useDispatch();
 
   const {
@@ -35,23 +44,41 @@ export const TrackProgress = ({ userChallenge, challenge }) => {
   // controlling value field to allow decimals
   const [value, setValue] = useState("0.0");
 
+  useEffect(() => {
+    if (dailyUserChallenge) {
+      setValue(dailyUserChallenge.total);
+    } else {
+      setValue("0.0");
+    }
+  }, [JSON.stringify(dailyUserChallenge)]);
+
   const onSubmit = async (data) => {
     //no need to update if value is 0
     if (Number(data.value)) {
-      dispatch(
-        updateChallengeProgress({
-          userChallengeId: userChallenge.id,
-          value: Number(data.value),
-        })
-      );
+      if (!dailyUserChallenge) {
+        await dispatch(
+          createDailyUserChallenge({
+            userChallengeId: userChallenge.id,
+            date: date,
+            total: Number(data.value),
+          })
+        );
+      } else {
+        await dispatch(
+          updateChallengeProgress({
+            dailyUserChallengeId: dailyUserChallenge.id,
+            value: Number(data.value),
+          })
+        );
+      }
+      dispatch(getUserChallenge(userChallenge.id));
     }
     reset();
-    setValue("0.0");
   };
 
   return (
     <>
-      {!!userChallenge.id && (
+      {!!userChallenge?.id && (
         <Box
           sx={{
             m: 1,
@@ -61,7 +88,7 @@ export const TrackProgress = ({ userChallenge, challenge }) => {
           }}
         >
           <Typography variant="h6" sx={{ textAlign: "center" }}>
-            Track Your Progress
+            Track Your Daily Progress
           </Typography>
           <br />
           <Grid container spacing={2}>
@@ -75,11 +102,9 @@ export const TrackProgress = ({ userChallenge, challenge }) => {
                 {userChallenge.status === "Completed" && "👑"}
               </Typography>
               <Typography>
-                <b>Current Progress:</b> {userChallenge.currentProgress} (
-                {(
-                  (userChallenge.currentProgress / challenge.targetNumber) *
-                  100
-                ).toFixed(1)}
+                <b>Total Progress:</b> {userChallenge.currentProgress}{" "}
+                {challenge.goalType === "daily" ? "days" : challenge.targetUnit}{" "}
+                ({(userChallenge.percentCompleted * 100).toFixed(1)}
                 %)
               </Typography>
             </Grid>
@@ -107,17 +132,17 @@ export const TrackProgress = ({ userChallenge, challenge }) => {
                       required: "Required field",
                     })}
                     error={
-                      userChallenge.currentProgress + Number(watch("value")) < 0
+                      dailyUserChallenge?.total + Number(watch("value")) < 0
                     }
                     helperText={
-                      userChallenge.currentProgress + Number(watch("value")) < 0
-                        ? "Current progress total can't be less than 0"
+                      dailyUserChallenge?.total + Number(watch("value")) < 0
+                        ? "Total can't be less than 0"
                         : "Use negative numbers to backtrack progress"
                     }
                     FormHelperTextProps={{
                       style: { color: theme.palette.white.main },
                     }}
-                    value={value}
+                    value={value || 0}
                     inputProps={{
                       style: { color: theme.palette.white.main },
                       // maxLength: 3,
@@ -136,15 +161,15 @@ export const TrackProgress = ({ userChallenge, challenge }) => {
                     type="submit"
                     form="challenge-progress-form"
                     disabled={
-                      userChallenge.currentProgress + Number(watch("value")) < 0
+                      dailyUserChallenge?.total + Number(watch("value")) < 0
                     }
                     sx={{ height: "80%" }}
                   >
                     Submit
                   </Button>
-                  {userChallenge.error?.response.data && (
+                  {dailyUserChallenge?.error?.response.data && (
                     <Typography>
-                      {userChallenge.error?.response.data}
+                      {dailyUserChallenge?.error?.response.data}
                     </Typography>
                   )}
                 </Box>

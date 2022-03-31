@@ -32,7 +32,7 @@ export const getDailyUserChallenges = (userChallengeId) => {
   };
 };
 
-export const createDailyUserChallenge = (userChallengeId, date, total) => {
+export const createDailyUserChallenge = ({ userChallengeId, date, total }) => {
   return async (dispatch) => {
     const { data: newDailyUserChallenge } = await axios.post(
       "/api/dailyUserChallenges",

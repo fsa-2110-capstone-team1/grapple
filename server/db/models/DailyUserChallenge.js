@@ -159,7 +159,7 @@ DailyUserChallenge.beforeUpdate(async (dailyUserChallenge) => {
 DailyUserChallenge.prototype.updateProgress = function (value) {
   try {
     return this.update({
-      total: Number(this.total) + Number(value),
+      total: Number(value),
     });
   } catch (err) {
     console.log(err);
