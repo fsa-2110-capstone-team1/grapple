@@ -20,13 +20,7 @@ const Challenge = db.define("challenge", {
   },
   image: {
     type: TEXT,
-    validate: {
-      // isUrl: true,
-    },
-  },
-  type: {
-    type: STRING,
-    allowNull: false,
+    defaultValue: "badges/picId-014.svg",
   },
   startDateTime: {
     type: DATE,
@@ -62,8 +56,9 @@ const Challenge = db.define("challenge", {
     defaultValue: false,
   },
   category: {
-    type: STRING,
-    // unique: true,
+    type: ENUM("mental", "physical", "food", "sleep", "misc"),
+    defaultValue: "misc",
+    allowNull: false,
   },
 });
 

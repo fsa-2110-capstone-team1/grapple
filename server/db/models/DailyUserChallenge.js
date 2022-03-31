@@ -101,9 +101,7 @@ DailyUserChallenge.beforeUpdate(async (dailyUserChallenge) => {
     //if challenge type is total, increment userChallenge.currentProgress with the new value
     if (challenge.goalType === "total") {
       const currProg = userChallenge.currentProgress;
-      console.log("CHAL: ", userChallenge.id);
-      console.log("NEW: ", dailyUserChallenge.total);
-      console.log("CURR PROG: ", currProg);
+
       userChallenge.update({
         currentProgress:
           Number(currProg) +
