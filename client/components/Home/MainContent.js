@@ -5,7 +5,7 @@ import theme from "../../theme";
 
 export const MainContent = () => {
   //   const splash = '/homeImgs/grapple-main-home-bckrnd.jpg';
-  const splash = "/homeImgs/grappke-black-line-back.webp";
+  const splash = "/homeImgs/14092.jpg";
 
   const item = {
     display: "flex",
@@ -55,22 +55,22 @@ export const MainContent = () => {
                   src="/homeImgs/thinking-white.svg"
                 ></Box>
                 <Typography
-                  variant="h6"
+                  variant="subtitle1"
                   sx={{
                     my: 5,
                     backgroundColor: theme.palette.secondary.main,
                     padding: { xs: "15px", md: "25px", lg: "20px" },
-                    borderRadius: "25px",
+                    borderRadius: "10px",
                   }}
                 >
                   MENTAL HEALTH
                 </Typography>
                 <Typography
-                  variant="h5"
+                  variant="h6"
                   sx={{
                     backgroundColor: theme.palette.primary.main,
                     padding: "30px",
-                    borderRadius: "25px",
+                    borderRadius: "10px",
                     height: { lg: "280px" },
                   }}
                 >
@@ -96,22 +96,22 @@ export const MainContent = () => {
                   src="/homeImgs/running-white.svg"
                 ></Box>
                 <Typography
-                  variant="h6"
+                  variant="subtitle1"
                   sx={{
                     my: 5,
                     backgroundColor: theme.palette.primary.main,
                     padding: { xs: "15px", md: "25px", lg: "20px" },
-                    borderRadius: "25px",
+                    borderRadius: "10px",
                   }}
                 >
                   PHYSICAL HEALTH
                 </Typography>
                 <Typography
-                  variant="h5"
+                  variant="h6"
                   sx={{
                     backgroundColor: theme.palette.secondary.main,
                     padding: "30px",
-                    borderRadius: "25px",
+                    borderRadius: "10px",
                     height: { lg: "280px" },
                   }}
                 >
@@ -137,23 +137,23 @@ export const MainContent = () => {
                   src="/homeImgs/love-white.svg"
                 ></Box>
                 <Typography
-                  variant="h6"
+                  variant="subtitle1"
                   sx={{
                     my: 5,
                     backgroundColor: theme.palette.secondary.main,
                     padding: { xs: "15px", md: "25px", lg: "20px" },
-                    borderRadius: "25px",
+                    borderRadius: "10px",
                     textAlign: "center",
                   }}
                 >
                   ALL AROUND HEALTH
                 </Typography>
                 <Typography
-                  variant="h5"
+                  variant="h6"
                   sx={{
                     backgroundColor: theme.palette.primary.main,
                     padding: "30px",
-                    borderRadius: "25px",
+                    borderRadius: "10px",
                     height: { lg: "280px" },
                   }}
                 >

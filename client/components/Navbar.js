@@ -37,7 +37,7 @@ const Navbar = () => {
   const {signOut} = useGoogleLogout({clientId})
 
   const dispatch = useDispatch();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -56,7 +56,6 @@ const Navbar = () => {
 
   const logoutAndCloseMenu = () => {
     if(user.googleId){
-      console.log("clientId", clientId)
       signOut()
     }
     dispatch(logout());
@@ -222,7 +221,9 @@ const Navbar = () => {
                         my: 2,
                         color: "white.main",
                         display: "block",
+                        margin: "20px"
                       }}
+                      
                     >
                       {user.username ? `Hi, ${user.username}` : ""}
                     </Typography>
