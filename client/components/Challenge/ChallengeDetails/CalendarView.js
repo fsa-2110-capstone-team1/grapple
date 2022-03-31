@@ -2,6 +2,14 @@ import React, { useState } from "react";
 import Calendar from "react-calendar";
 import { differenceInCalendarDays } from "date-fns";
 import TrackProgress from "./TrackProgress";
+import {
+  Grid,
+  Box,
+  Button,
+  Typography,
+  Divider,
+  TextField,
+} from "@mui/material";
 
 const CalendarView = ({ dailyUserChallenges, userChallenge, challenge }) => {
   function isSameDay(a, b) {
@@ -33,7 +41,14 @@ const CalendarView = ({ dailyUserChallenges, userChallenge, challenge }) => {
   }
 
   return (
-    <>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Calendar
         onChange={onChange}
         value={date}
@@ -52,14 +67,6 @@ const CalendarView = ({ dailyUserChallenges, userChallenge, challenge }) => {
           }
         }}
       />
-      <p className="text-center">
-        <span className="bold">Selected Date:</span> {date.toDateString()}
-      </p>
-      <p className="text-center">
-        <span className="bold">Daily Total:</span>{" "}
-        {dailyUserChallenges.find((duc) => isSameDay(duc.date, date))?.total ||
-          0}
-      </p>
       <TrackProgress
         dailyUserChallenge={
           dailyUserChallenges.find((duc) => isSameDay(duc.date, date)) || null
@@ -68,7 +75,7 @@ const CalendarView = ({ dailyUserChallenges, userChallenge, challenge }) => {
         challenge={challenge}
         date={date}
       />
-    </>
+    </Box>
   );
 };
 

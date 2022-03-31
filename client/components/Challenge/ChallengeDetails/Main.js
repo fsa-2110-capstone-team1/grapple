@@ -25,7 +25,7 @@ import dateFormat from "dateformat";
 import ConfirmActionDialog from "../../../ConfirmActionDialog";
 import Details from "./Details";
 import JoinChallenge from "./JoinChallenge";
-import CalendarView from "./CalendarView";
+import UserChallengeWrapper from "./UserChallengeWrapper";
 import theme from "../../../theme";
 import { getDailyUserChallenges } from "../../../store";
 
@@ -183,11 +183,15 @@ export const ChallengeDetails = () => {
             <Grid item xs={0.5} md={0.5} sx={{ mr: "60px" }} />
 
             <Grid item xs={10}>
-              <CalendarView
-                dailyUserChallenges={dailyUserChallenges}
-                challenge={challenge}
-                userChallenge={userChallenge}
-              />
+              {challenge.status !== "Not Started" ? (
+                <UserChallengeWrapper
+                  dailyUserChallenges={dailyUserChallenges}
+                  challenge={challenge}
+                  userChallenge={userChallenge}
+                />
+              ) : (
+                ""
+              )}
             </Grid>
 
             {/* Right railing */}

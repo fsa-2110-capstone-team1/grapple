@@ -87,95 +87,68 @@ export const TrackProgress = ({
             justifyContent: "center",
           }}
         >
-          <Typography variant="h6" sx={{ textAlign: "center" }}>
-            Track Your Daily Progress
-          </Typography>
-          <br />
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
-              <Typography>
-                <b>Joined On:</b>{" "}
-                {dateFormat(userChallenge.createdAt, "mediumDate")}
-              </Typography>
-              <Typography>
-                <b>Status:</b> {userChallenge.status}{" "}
-                {userChallenge.status === "Completed" && "👑"}
-              </Typography>
-              <Typography>
-                <b>Total Progress:</b> {userChallenge.currentProgress}{" "}
-                {challenge.goalType === "daily" ? "days" : challenge.targetUnit}{" "}
-                ({(userChallenge.percentCompleted * 100).toFixed(1)}
-                %)
-              </Typography>
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              {challenge.status === "In Progress" && (
-                <Box
-                  component="form"
-                  onSubmit={handleSubmit(onSubmit)}
-                  sx={{
-                    marginTop: 2,
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                  }}
-                  id="challenge-progress-form"
-                >
-                  <TextField
-                    id="value"
-                    required
-                    variant="filled"
-                    label="Value"
-                    type="number"
-                    {...register("value", {
-                      required: "Required field",
-                    })}
-                    error={
-                      dailyUserChallenge?.total + Number(watch("value")) < 0
-                    }
-                    helperText={
-                      dailyUserChallenge?.total + Number(watch("value")) < 0
-                        ? "Total can't be less than 0"
-                        : "Use negative numbers to backtrack progress"
-                    }
-                    FormHelperTextProps={{
-                      style: { color: theme.palette.white.main },
-                    }}
-                    value={value || 0}
-                    inputProps={{
-                      style: { color: theme.palette.white.main },
-                      // maxLength: 3,
-                      step: ".1",
-                    }}
-                    InputLabelProps={{
-                      style: { color: theme.palette.white.main },
-                    }}
-                    onChange={(e) =>
-                      setValue(parseFloat(e.target.value).toFixed(1))
-                    }
-                  />
-                  <Button
-                    variant="contained"
-                    size="small"
-                    type="submit"
-                    form="challenge-progress-form"
-                    disabled={
-                      dailyUserChallenge?.total + Number(watch("value")) < 0
-                    }
-                    sx={{ height: "80%" }}
-                  >
-                    Submit
-                  </Button>
-                  {dailyUserChallenge?.error?.response.data && (
-                    <Typography>
-                      {dailyUserChallenge?.error?.response.data}
-                    </Typography>
-                  )}
-                </Box>
+          {challenge.status === "In Progress" && (
+            <Box
+              component="form"
+              onSubmit={handleSubmit(onSubmit)}
+              sx={{
+                marginTop: 2,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start",
+              }}
+              id="challenge-progress-form"
+            >
+              <TextField
+                id="value"
+                required
+                variant="outlined"
+                label="Value"
+                type="number"
+                {...register("value", {
+                  required: "Required field",
+                })}
+                error={dailyUserChallenge?.total + Number(watch("value")) < 0}
+                helperText={
+                  dailyUserChallenge?.total + Number(watch("value")) < 0
+                    ? "Total can't be less than 0"
+                    : "Use negative numbers to backtrack progress"
+                }
+                FormHelperTextProps={{
+                  style: { color: theme.palette.white.main },
+                }}
+                value={value || 0}
+                inputProps={{
+                  style: { color: theme.palette.white.main },
+                  // maxLength: 3,
+                  step: ".1",
+                }}
+                InputLabelProps={{
+                  style: { color: theme.palette.white.main },
+                }}
+                onChange={(e) =>
+                  setValue(parseFloat(e.target.value).toFixed(1))
+                }
+              />
+              <Button
+                variant="contained"
+                size="medium"
+                type="submit"
+                form="challenge-progress-form"
+                disabled={
+                  dailyUserChallenge?.total + Number(watch("value")) < 0
+                }
+                sx={{ height: "80%", m: 1.5, mr: 0 }}
+              >
+                Submit
+              </Button>
+              {dailyUserChallenge?.error?.response.data && (
+                <Typography>
+                  {dailyUserChallenge?.error?.response.data}
+                </Typography>
               )}
-            </Grid>
-          </Grid>
+            </Box>
+          )}
         </Box>
       )}
     </>
