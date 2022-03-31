@@ -4,6 +4,7 @@ import { authenticate } from "../../store/auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import { refreshTokenSetup } from './utils/refreshToken'
 
 function GoogleLoginComponent() {
   // const [login, setLogin] = useState(false);
@@ -38,6 +39,8 @@ function GoogleLoginComponent() {
         : res.profileObj.email,
     };
     setData(userData);
+    //initializing the setup
+    refreshTokenSetup(res)
     // setLogin(true);
   };
 

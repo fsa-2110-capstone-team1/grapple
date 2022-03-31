@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   Grid,
   CardContent,
@@ -29,7 +30,7 @@ export const UserSettingsForm = ({ preloadedValues }) => {
     watch,
     formState: { errors },
   } = useForm({ defaultValues: preloadedValues });
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   //Success snackbar
   const [snackbar, setSnackbar] = useState(null);
@@ -37,7 +38,6 @@ export const UserSettingsForm = ({ preloadedValues }) => {
 
   const onSubmit = async (data) => {
     try {
-      console.log("preloadedValues", preloadedValues)
       await dispatch(updateUser(data));
       setSnackbar({
         children: "Your settings successfully updated!",
@@ -54,6 +54,11 @@ export const UserSettingsForm = ({ preloadedValues }) => {
   const [newpassword, setNewPassword] = useState(preloadedValues.password);
   const [confirmpassword, setConfirmPassword] = useState(
     preloadedValues.password
+  );
+  const [cheched, setChecked] = useState(preloadedValues.isPrivate);
+  const [googleLogin, setGoogleLogin] = useState(!!preloadedValues.googleId);
+  const [facebookLogin, setFacebookLogin] = useState(
+    !!preloadedValues.facebookId
   );
 
   return (
@@ -77,40 +82,61 @@ export const UserSettingsForm = ({ preloadedValues }) => {
         >
           <Grid container spacing={3} direction="column">
             {/* FORM FIELDS */}
-
-            <Grid item>
-              <TextField
-                id="password"
-                label="New Password"
-                type="password"
-                variant="outlined"
-                {...register("password", { required: "Required field" })}
-                error={!!errors?.password}
-                helperText={errors?.password ? errors.password.message : null}
-                fullWidth
-              />
-            </Grid>
-            <Grid item>
-              <TextField
-                id="confirmpassword"
-                label="Confirm New Password"
-                type="password"
-                variant="outlined"
-                defaultValue={confirmpassword}
-                {...register("confirmpassword", {
-                  required: "Required field",
-                  validate: (val) => {
-                    if (watch("password") !== val) {
-                      errors.password = {};
-                      errors.password.message = "Your passwords do no match";
+            {!googleLogin && !facebookLogin ? (
+              <>
+                <Grid item>
+                  <TextField
+                    id="password"
+                    label="New Password"
+                    type="password"
+                    variant="outlined"
+                    defaultValue={newpassword}
+                    {...register("password", { required: "Required field" })}
+                    error={!!errors?.password}
+                    helperText={
+                      errors?.password ? errors.password.message : null
                     }
-                  },
-                })}
-                error={!!errors?.password}
-                helperText={errors?.password ? errors.password.message : null}
-                fullWidth
-              />
-            </Grid>
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    id="confirmpassword"
+                    label="Confirm New Password"
+                    type="password"
+                    variant="outlined"
+                    defaultValue={confirmpassword}
+                    {...register("confirmpassword", {
+                      required: "Required field",
+                      validate: (val) => {
+                        if (watch("password") !== val) {
+                          errors.password = {};
+                          errors.password.message =
+                            "Your passwords do no match";
+                        }
+                      },
+                    })}
+                    error={!!errors?.password}
+                    helperText={
+                      errors?.password ? errors.password.message : null
+                    }
+                    fullWidth
+                  />
+                </Grid>
+              </>
+            ) : googleLogin ? (
+              <>
+              <Grid item>
+                <Typography>You logged in with Google account</Typography>
+              </Grid>
+              </>
+            ) : (
+              <>
+              <Grid item>
+                <Typography>You logged in with Facebook account</Typography>
+              </Grid>
+              </>
+            )}
 
             <Grid item>
               <FormLabel component="legend">Type of your account</FormLabel>
@@ -118,9 +144,8 @@ export const UserSettingsForm = ({ preloadedValues }) => {
                 <Typography>Public</Typography>
                 <FormControlLabel
                   id="isPrivate"
-                  control={<Switch color="primary" defaultChecked={preloadedValues.isPrivate? true: false}/>}
+                  control={<Switch color="primary" defaultChecked={cheched} />}
                   label="Private"
-                  
                   {...register("isPrivate")}
                 />
               </Stack>
@@ -135,6 +160,20 @@ export const UserSettingsForm = ({ preloadedValues }) => {
                 form="user-update-form"
               >
                 Update Settings
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                size="medium"
+                fullWidth
+                variant="contained"
+                type="submit"
+                form="user-update-form"
+                onClick={() =>
+                  navigate(`/users/profile/${preloadedValues.username}`)
+                }
+              >
+                Go back to your Profile
               </Button>
             </Grid>
           </Grid>
