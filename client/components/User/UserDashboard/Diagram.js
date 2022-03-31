@@ -21,7 +21,7 @@ export const Diagram = ({ myChallenges }) => {
     (ch) => ch.status === "Completed"
   );
 
-  const faildChallenges = myChallenges.filter(
+  const failedChallenges = myChallenges.filter(
     (ch) => ch.status !== "Completed" && new Date() > new Date(ch.endDateTime)
   );
 
@@ -34,8 +34,8 @@ export const Diagram = ({ myChallenges }) => {
   const completed = Math.floor(
     (completedChellenges.length / myChallenges.length) * 100
   );
-  const faild = Math.floor(
-    (faildChallenges.length / myChallenges.length) * 100
+  const failed = Math.floor(
+    (failedChallenges.length / myChallenges.length) * 100
   );
   const ongoing = Math.floor(
     (ongoingChallenges.length / myChallenges.length) * 100
@@ -44,14 +44,14 @@ export const Diagram = ({ myChallenges }) => {
   const data = {
     datasets: [
       {
-        data: [faild, completed, ongoing],
+        data: [failed, completed, ongoing],
         backgroundColor: ["#C54B7B", "#4AB5A3", "#FEBF30"],
         borderWidth: 8,
         borderColor: "#FFFFFF",
         hoverBorderColor: "#FFFFFF",
       },
     ],
-    labels: ["Faild", "Completed", "In Progress"],
+    labels: ["Failed", "Completed", "In Progress"],
   };
 
   const options = {
@@ -78,8 +78,8 @@ export const Diagram = ({ myChallenges }) => {
 
   const progress = [
     {
-      title: "Faild",
-      value: faild,
+      title: "Failed",
+      value: failed,
       icon: HighlightOffOutlinedIcon,
       color: "#C54B7B",
     },

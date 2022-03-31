@@ -25,8 +25,9 @@ import dateFormat from "dateformat";
 import ConfirmActionDialog from "../../../ConfirmActionDialog";
 import Details from "./Details";
 import JoinChallenge from "./JoinChallenge";
-import TrackProgress from "./TrackProgress";
+import UserChallengeWrapper from "./UserChallengeWrapper";
 import theme from "../../../theme";
+import { getDailyUserChallenges } from "../../../store";
 
 export const ChallengeDetails = () => {
   const navigate = useNavigate();
@@ -36,9 +37,8 @@ export const ChallengeDetails = () => {
   const { id } = useParams();
   const location = useLocation();
 
-  const { challenges, publicUsers, userChallenges, auth } = useSelector(
-    (state) => state
-  );
+  const { challenges, publicUsers, userChallenges, auth, dailyUserChallenges } =
+    useSelector((state) => state);
 
   const [enrolledUsers, setEnrolledUsers] = useState([]);
   const [challenge, setChallenge] = useState({});
@@ -92,6 +92,14 @@ export const ChallengeDetails = () => {
       setUserChallenge({});
     }
   }, [auth?.id, userChallenges, id]);
+
+  useEffect(async () => {
+    if (userChallenge.id) {
+      const dailyUserChallenges = await dispatch(
+        getDailyUserChallenges(userChallenge.id)
+      );
+    }
+  }, [userChallenge.id]);
 
   return (
     // {/* main page */}
@@ -175,10 +183,15 @@ export const ChallengeDetails = () => {
             <Grid item xs={0.5} md={0.5} sx={{ mr: "60px" }} />
 
             <Grid item xs={10}>
-              <TrackProgress
-                userChallenge={userChallenge}
-                challenge={challenge}
-              />
+              {challenge.status !== "Not Started" ? (
+                <UserChallengeWrapper
+                  dailyUserChallenges={dailyUserChallenges}
+                  challenge={challenge}
+                  userChallenge={userChallenge}
+                />
+              ) : (
+                ""
+              )}
             </Grid>
 
             {/* Right railing */}

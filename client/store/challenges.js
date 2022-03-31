@@ -38,7 +38,7 @@ export const addNewChallenge = (challenge) => {
       "/api/challenges",
       challenge
     );
-    dispatch(_addNewChallenge(newChallenge));
+    return dispatch(_addNewChallenge(newChallenge));
   };
 };
 

@@ -8,7 +8,6 @@ const { dataChallenges } = require("./challenge");
 const { users } = require("./user");
 const { ConstructionSharp } = require("@mui/icons-material");
 
-
 const getChallengeLength = (d1, d2) => {
   const date1 = new Date(d1);
   const date2 = new Date(d2);
@@ -21,31 +20,38 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 function padTo2Digits(num) {
-  return num.toString().padStart(2, '0');
+  return num.toString().padStart(2, "0");
 }
 function formatDate(date) {
   return [
     padTo2Digits(date.getMonth() + 1),
     padTo2Digits(date.getDate()),
     date.getFullYear(),
-  ].join('/');
+  ].join("/");
 }
 
 let today = new Date();
 
-const dd = String(today.getDate()).padStart(2, '0');
-const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+const dd = String(today.getDate()).padStart(2, "0");
+const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
 const yyyy = today.getFullYear();
 
-today = mm + '/' + dd + '/' + yyyy;
-
+today = mm + "/" + dd + "/" + yyyy;
 
 async function userChallengeSeed() {
-  // Creating userChallenge
+  // Creating one stable userChallenge
+  await UserChallenge.create({
+    userId: 1,
+    challengeId: 1,
+  });
+
+  await UserChallenge.create({
+    userId: 1,
+    challengeId: 2,
+  });
 
   // Selecting all users
   const users = await User.findAll();
-
 
   const challenges = await Challenge.findAll();
 
@@ -74,40 +80,39 @@ async function userChallengeSeed() {
       if (!storage.includes(challengeId)) {
         storage.push(challengeId);
         let obj = {};
-        let challenge = await Challenge.findByPk(challengeId)
+        let challenge = await Challenge.findByPk(challengeId);
         //checking if the challenge is still going
-        if(formatDate(challenge.endDateTime) > today){
+        if (formatDate(challenge.endDateTime) > today) {
           obj[challengeId] = getRandomInt(1, challengeLength[challengeId]);
           usersIdWithChallengeId[userId].push(obj);
           amountOfChallenges--;
         }
         //if the challenge ended
-        else{
-          let coin = getRandomInt(0, 1)
+        else {
+          let coin = getRandomInt(0, 1);
           //set progress on 100%
-          if(coin === 0){
+          if (coin === 0) {
             obj[challengeId] = challengeLength[challengeId];
             usersIdWithChallengeId[userId].push(obj);
             amountOfChallenges--;
           }
           //set progress on less then 100%
-          else{
+          else {
             obj[challengeId] = getRandomInt(1, challengeLength[challengeId]);
             usersIdWithChallengeId[userId].push(obj);
             amountOfChallenges--;
           }
         }
-        if(obj[challengeId] === challenge.targetNumber){
-          obj.status = "Completed"
-        }else{
-          obj.status = "In Progress"
+        if (obj[challengeId] === challenge.targetNumber) {
+          obj.status = "Completed";
+        } else {
+          obj.status = "In Progress";
         }
       }
     }
   }
   const userChallenges = [];
 
-  
   //seeding data userChallenges
   for (userId in usersIdWithChallengeId) {
     usersIdWithChallengeId[userId].map((user) => {
@@ -115,7 +120,7 @@ async function userChallengeSeed() {
         new Promise((resolve) => {
           resolve(
             UserChallenge.create({
-              currentProgress: Object.entries(user)[0][1],
+              // currentProgress: Object.entries(user)[0][1],
               userId: userId,
               challengeId: Object.entries(user)[0][0],
               status: Object.entries(user)[1][1],

@@ -1,14 +1,24 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const { INTEGER, BOOLEAN, ENUM, DECIMAL } = Sequelize;
+const { DECIMAL, ENUM } = Sequelize;
 
 const UserChallenge = db.define("userChallenge", {
   status: {
     type: ENUM("Not Started", "In Progress", "Completed"),
     defaultValue: "Not Started",
   },
+  // current progress is either:
+  // daily challenges: number of days where goal has been completed
+  // total challenges: sum of daily value
   currentProgress: {
+    type: DECIMAL,
+    validate: {
+      min: 0,
+    },
+    defaultValue: 0,
+  },
+  percentCompleted: {
     type: DECIMAL,
     validate: {
       min: 0,
@@ -40,9 +50,16 @@ UserChallenge.beforeCreate(async (userChallenge) => {
 UserChallenge.beforeUpdate(async (userChallenge) => {
   try {
     const challenge = await userChallenge.getChallenge();
+    let target;
+    if (challenge.goalType === "total") {
+      target = challenge.targetNumber;
+    } else {
+      target = challenge.endDateTime - challenge.startDateTime;
+    }
+
     //set to completed if progress >= target
     if (
-      userChallenge.currentProgress >= challenge.targetNumber &&
+      userChallenge.currentProgress >= target &&
       userChallenge.status !== "Completed"
     ) {
       userChallenge.update({ status: "Completed" });
@@ -55,7 +72,7 @@ UserChallenge.beforeUpdate(async (userChallenge) => {
       //set to in progress if it had previously been completed but user backtracked value
     } else if (
       userChallenge.currentProgress > 0 &&
-      userChallenge.currentProgress < challenge.targetNumber &&
+      userChallenge.currentProgress < target &&
       userChallenge.status !== "In Progress"
     ) {
       userChallenge.update({ status: "In Progress" });
@@ -72,15 +89,15 @@ UserChallenge.beforeUpdate(async (userChallenge) => {
   }
 });
 
-// update progress
-UserChallenge.prototype.updateProgress = function (value) {
-  try {
-    return this.update({
-      currentProgress: Number(this.currentProgress) + Number(value),
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
+// update progress -- TO BE DELETED
+// UserChallenge.prototype.updateProgress = function (value) {
+//   try {
+//     return this.update({
+//       currentProgress: Number(this.currentProgress) + Number(value),
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 module.exports = UserChallenge;

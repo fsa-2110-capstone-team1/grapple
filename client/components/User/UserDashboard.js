@@ -16,6 +16,7 @@ import {
   Card,
   CardContent,
   CardHeader,
+  Divider,
 } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CheckIcon from "@mui/icons-material/Check";
@@ -110,19 +111,22 @@ export const UserDashboard = () => {
   }, [userChallenges, challenges, user?.id]);
 
   return (
-    <Box sx={{ minHeight: "100vh" }}>
-      <Grid container spacing={1}>
+    <Box sx={{ minHeight: "100vh", paddingTop: "40px", paddingBottom: "40px" }}>
+      <Grid container spacing={3}>
         <Grid item xs={1} />
         {/* MAIN MIDDLE SECTION */}
-        <Grid item xs={10} container direction="column" spacing={4}>
+        <Grid item xs={10} container direction="column" spacing={3}>
           {/* TOP SECTION */}
           <Grid
             item
             container
             spacing={3}
-            sx={{ display: "flex", alignItems: "center" }}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}
           >
-            <Grid item xs={3}>
+            <Grid item xs={2}>
               <Box
                 component="img"
                 src={user?.image}
@@ -134,7 +138,7 @@ export const UserDashboard = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={7} container direction="column" spacing={1}>
+            <Grid item xs={12} lg={7} container direction="column" spacing={1}>
               {/* username, for auth: edit profile and settings, for non auth: add/accept/decline friend */}
               <Grid item container spacing={3}>
                 <Grid item>
@@ -163,38 +167,48 @@ export const UserDashboard = () => {
             </Grid>
           </Grid>
 
-          <Grid container spacing={3}>
-            <Grid item xs={8}>
-              <OngoingChalTable myChallenges={myChallenges} />
-            </Grid>
-            <Grid item xs={4}>
-              <Diagram myChallenges={myChallenges} />
-            </Grid>
+          <Grid item>
+            <Divider sx={{ marginBottom: 2 }} />
           </Grid>
-          <Grid container spacing={3}>
-            <Grid item xs={8}>
-              <Leaderboard />
-            </Grid>
-            <Grid item xs={4}>
-              <Card>
-                <CardHeader
-                  title="Badges (Completed Challenges)"
-                  sx={{
-                    color: "white",
-                    backgroundColor: "#4AB5A3",
-                    paddingTop: "8px",
-                    paddingBottom: "8px",
-                  }}
-                  titleTypographyProps={{
-                    fontSize: "0.875rem",
 
-                    fontWeight: "500",
-                  }}
-                />
-                <CardContent>
-                  <Badges myChallenges={myChallenges} />
-                </CardContent>
-              </Card>
+          {/* CHARTS MAIN CONTAINER */}
+          <Grid item container spacing={3}>
+            {/* LEFT COLUMN */}
+            <Grid item xs={8} lg={8} container direction="column" spacing={3}>
+              <Grid item>
+                <OngoingChalTable myChallenges={myChallenges} />
+              </Grid>
+              <Grid item>
+                <Leaderboard />
+              </Grid>
+            </Grid>
+
+            {/* RIGHT COLUMN */}
+            <Grid item xs={12} lg={4} container direction="column" spacing={3}>
+              <Grid item>
+                <Diagram myChallenges={myChallenges} />
+              </Grid>
+              <Grid item>
+                <Card>
+                  <CardHeader
+                    title="Badges"
+                    sx={{
+                      color: "white",
+                      backgroundColor: "#4AB5A3",
+                      paddingTop: "8px",
+                      paddingBottom: "8px",
+                    }}
+                    titleTypographyProps={{
+                      fontSize: "0.875rem",
+
+                      fontWeight: "500",
+                    }}
+                  />
+                  <CardContent>
+                    <Badges challenges={myChallenges} />
+                  </CardContent>
+                </Card>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>

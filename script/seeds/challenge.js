@@ -9,27 +9,11 @@ function getRandomInt(min, max) {
 const units = ["days", "miles", "books"];
 
 // 1 mental
-// 2 physical 
-// 3 Sleep 
-// 4 food 
+// 2 physical
+// 3 Sleep
+// 4 food
 // 5 misc
 const dataChallenges = [
-  {
-    //  "id": 1,
-    name: "10 minutes breathing exercise for a month",
-    description:
-      "Taking deep breaths will create a sense of calm in the mind and body.",
-    image: "badges/picId-001.svg",
-    type: "num",
-    category: "mental",
-    // subCategoryId: null,
-    startDateTime: "04/01/2022",
-    endDateTime: "05/01/2022",
-    targetNumber: 30,
-    targetUnit: units[getRandomInt(0, 2)],
-    difficulty: 1,
-    isPrivate: "false",
-  },
   {
     //  "id": 2,
     name: "5 minutes of meditation for a month",
@@ -509,8 +493,7 @@ const dataChallenges = [
   {
     //  "id": 20,
     name: "20,000 steps a day for a week",
-    description:
-      "20,000 is incredibly active. Strive for movement!",
+    description: "20,000 is incredibly active. Strive for movement!",
     image: "badges/picId-020.svg",
     type: "num",
     category: "physical",
@@ -1373,7 +1356,8 @@ const dataChallenges = [
   {
     //  "id": 88,
     name: "Floss",
-    description: "Floss everyday for a month. Cleaning between your teeth may help prevent cavities and gum disease.",
+    description:
+      "Floss everyday for a month. Cleaning between your teeth may help prevent cavities and gum disease.",
     image: "badges/picId-088.svg",
     type: "num",
     category: "misc",
@@ -2023,7 +2007,8 @@ const dataChallenges = [
   {
     //  "id": 129,
     name: "Floss every day",
-    description: "Floss thoroughly every day. Cleaning between your teeth may help prevent cavities and gum disease.",
+    description:
+      "Floss thoroughly every day. Cleaning between your teeth may help prevent cavities and gum disease.",
     image: "badges/picId-129.svg",
     type: "unit",
     category: "misc",
@@ -2371,9 +2356,37 @@ const dataChallenges = [
   },
 ];
 
-
 // Creating Challenges
 async function challengeSeed() {
+  //creating one stable challenge for testing that always maintains ID 1
+  await Challenge.create({
+    name: "10 minutes breathing exercise for a month",
+    description:
+      "Taking deep breaths will create a sense of calm in the mind and body.",
+    image: "badges/picId-001.svg",
+    type: "num",
+    category: "mental",
+    startDateTime: "03/01/2022",
+    endDateTime: "05/01/2022",
+    targetNumber: 300,
+    targetUnit: "minutes",
+    difficulty: 1,
+    isPrivate: "false",
+  });
+  await Challenge.create({
+    name: "Run 10 miles a day",
+    description: "Run run run.",
+    image: "badges/picId-096.svg",
+    type: "unit",
+    category: "physical",
+    startDateTime: "03/01/2022",
+    endDateTime: "04/30/2022",
+    targetNumber: 10,
+    targetUnit: "miles",
+    difficulty: 4,
+    isPrivate: "false",
+    goalType: "daily",
+  });
   const challenges = await Promise.all(
     dataChallenges.map((challenge) =>
       Challenge.create({
@@ -2393,35 +2406,31 @@ async function challengeSeed() {
     )
   );
 
-
-
-
-  function randomDate(date1, date2){
+  function randomDate(date1, date2) {
     function randomValueBetween(min, max) {
       return Math.random() * (max - min) + min;
     }
-    var date1 = date1 || '01-01-1970'
-    var date2 = date2 || new Date().toLocaleDateString()
-    date1 = new Date(date1).getTime()
-    date2 = new Date(date2).getTime()
-    if( date1>date2){
-        return new Date(randomValueBetween(date2,date1)).toLocaleDateString()   
-    } else{
-        return new Date(randomValueBetween(date1, date2)).toLocaleDateString()  
-
+    var date1 = date1 || "01-01-1970";
+    var date2 = date2 || new Date().toLocaleDateString();
+    date1 = new Date(date1).getTime();
+    date2 = new Date(date2).getTime();
+    if (date1 > date2) {
+      return new Date(randomValueBetween(date2, date1)).toLocaleDateString();
+    } else {
+      return new Date(randomValueBetween(date1, date2)).toLocaleDateString();
     }
   }
 
   function padTo2Digits(num) {
-    return num.toString().padStart(2, '0');
+    return num.toString().padStart(2, "0");
   }
-  
+
   function formatDate(date) {
     return [
       padTo2Digits(date.getMonth() + 1),
       padTo2Digits(date.getDate()),
       date.getFullYear(),
-    ].join('/');
+    ].join("/");
   }
 
   function addDays(date, days) {
@@ -2431,11 +2440,11 @@ async function challengeSeed() {
   }
 
   const moreChallenges = await Promise.all(
-    dataChallenges.map((challenge) =>{
-    const startDateTime = randomDate('01/01/2022', '04/01/2022')
-    const targetUnit = challenge.targetNumber
-    const endDateTime = addDays(startDateTime, targetUnit)
-     return Challenge.create({
+    dataChallenges.map((challenge) => {
+      const startDateTime = randomDate("01/01/2022", "04/01/2022");
+      const targetUnit = challenge.targetNumber;
+      const endDateTime = addDays(startDateTime, targetUnit);
+      return Challenge.create({
         name: challenge.name,
         description: challenge.description,
         image: challenge.image,
@@ -2448,10 +2457,10 @@ async function challengeSeed() {
         targetUnit: challenge.targetUnit,
         difficulty: challenge.difficulty,
         isPrivate: challenge.isPrivate,
-      })
+      });
     })
-  )
-  console.log(`seeded ${challenges.length} challenges`);
+  );
+  console.log(`seeded ${challenges.length + 1} challenges`);
   // console.log(`seeded ${moreChallenges.length} past challenges`);
 
   return challenges;

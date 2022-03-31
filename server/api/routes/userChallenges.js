@@ -7,7 +7,7 @@ module.exports = router;
 // Get all User challenges
 router.get("/", async (req, res, next) => {
   try {
-    const userChallenge = await UserChallenge.findAll({});
+    const userChallenge = await UserChallenge.findAll({ order: ["id"] });
     res.json(userChallenge);
   } catch (err) {
     next(err);
@@ -17,7 +17,10 @@ router.get("/", async (req, res, next) => {
 // Get a single User challenge
 router.get("/:id", async (req, res, next) => {
   try {
-    const userChallenge = await UserChallenge.findAll({});
+    const userChallenge = await UserChallenge.findOne({
+      where: { id: req.params.id },
+      include: ["dailyUserChallenges", "challenge"],
+    });
     res.json(userChallenge);
   } catch (err) {
     next(err);
