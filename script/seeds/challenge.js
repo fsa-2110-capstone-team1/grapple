@@ -297,7 +297,7 @@ const dataChallenges = [
     name: "No added sugar for a week",
     description: "Replace your normal sugar treat with a healthy alternative.",
     image: "badges/picId-022.svg",
-    goalType: "7",
+    goalType: "total",
     category: "food",
     startDateTime: "04/11/2022",
     endDateTime: "04/18/2022",
@@ -1882,12 +1882,12 @@ const dataChallenges = [
     description:
       "One of the most harmful ways to disrupt your sleep is to stare at a screen right before bedtime.",
     image: "badges/picId-141.svg",
-    goalType: "days",
+    goalType: "total",
     category: "sleep",
     startDateTime: "04/10/2022",
     endDateTime: "05/10/2022",
     targetNumber: 30,
-    targetUnit: "total",
+    targetUnit: "days",
     difficulty: 4,
     isPrivate: "false",
   },
@@ -1995,11 +1995,11 @@ const dataChallenges = [
 async function challengeSeed() {
   //creating one stable challenge for testing that always maintains ID 1
   await Challenge.create({
-    name: "300 minutes breathing exercise for a month",
+    name: "300 minutes breathing exercise",
     description:
       "Taking deep breaths will create a sense of calm in the mind and body.",
     image: "badges/picId-001.svg",
-    goalType: "num",
+    goalType: "total",
     category: "mental",
     startDateTime: "03/01/2022",
     endDateTime: "05/01/2022",
@@ -2013,7 +2013,7 @@ async function challengeSeed() {
     description:
       "Run run run. Exercising is good for heart health - go outside and get your legs moving!",
     image: "badges/picId-096.svg",
-    goalType: "unit",
+    goalType: "daily",
     category: "physical",
     startDateTime: "03/01/2022",
     endDateTime: "04/30/2022",

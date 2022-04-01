@@ -56,7 +56,7 @@ export const ChallengeDetails = () => {
           publicUsers.find((publicUser) => publicUser.id === chall.userId)
         )
     );
-  }, [id, publicUsers, challenges]);
+  }, [id, publicUsers, challenges, userChallenges]);
 
   useEffect(() => {
     const chal = challenges.find((ch) => ch.id === id * 1);
