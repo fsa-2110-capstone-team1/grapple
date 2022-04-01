@@ -102,104 +102,108 @@ export const ChallengeDetails = () => {
   }, [userChallenge.id]);
 
   return (
-    // {/* main page */}
-    <Grid
-      container
-      direction="column"
-      spacing={3}
-      sx={{
-        // backgroundColor: theme.palette.braun.main,
-        color: theme.palette.white.main,
-      }}
-    >
-      {/* hero image */}
-      <Grid item xs={3}>
-        <Box
-          component="img"
-          src="/homeImgs/grapple-cycle-group.jpeg"
-          sx={{
-            width: 1,
-            // marginTop: '-28px',
-            maxHeight: "30vh",
-            objectFit: "cover",
-            objectPosition: "center",
-          }}
-        />
-      </Grid>
-
-      {/* main section */}
+    <Box sx={{ minHeight: "100vh", mb: "20px" }}>
+      {/* main page */}
       <Grid
-        item
-        xs={5}
+        container
+        direction="column"
+        spacing={3}
         sx={{
           // backgroundColor: theme.palette.braun.main,
           color: theme.palette.white.main,
-          minHeight: "100vh",
         }}
       >
+        {/* hero image */}
+        <Grid item xs={3}>
+          <Box
+            component="img"
+            src="/homeImgs/grapple-cycle-group.jpeg"
+            sx={{
+              width: 1,
+              // marginTop: '-28px',
+              maxHeight: "30vh",
+              objectFit: "cover",
+              objectPosition: "center",
+            }}
+          />
+        </Grid>
+
+        {/* main section */}
         <Grid
-          container
-          direction="column"
-          spacing={2}
-          sx={{ alignItems: "center" }}
+          item
+          xs={5}
+          sx={{
+            // backgroundColor: theme.palette.braun.main,
+            color: theme.palette.white.main,
+            minHeight: "100vh",
+          }}
         >
-          {/* title */}
-          <Grid item sx={{ textAlign: "center" }}>
-            <Typography variant="h3">{challenge.name}</Typography>
-            <Divider />
-          </Grid>
-
-          {/* main description section */}
-          <Grid item container spacing={2} sx={{ alignItems: "center" }}>
-            {/* Left railing */}
-            <Grid item xs={0.5} md={0.5} sx={{ mr: "60px" }} />
-
-            {/* Left details section */}
-            <Grid item xs={10} md={5}>
-              <Details challenge={challenge} />
+          <Grid
+            container
+            direction="column"
+            spacing={2}
+            sx={{ alignItems: "center" }}
+          >
+            {/* title */}
+            <Grid item sx={{ textAlign: "center" }}>
+              <Typography variant="h3">{challenge.name}</Typography>
+              <Divider />
             </Grid>
 
-            {/* Right join challenge section */}
-            <Grid item xs={10} md={5}>
-              <JoinChallenge
-                challenge={challenge}
-                userChallenge={userChallenge}
-                enrolledUsers={enrolledUsers}
-                userId={auth?.id}
-              />
-            </Grid>
+            {/* main description section */}
+            <Grid item container spacing={2} sx={{ alignItems: "center" }}>
+              {/* Left railing */}
+              <Grid item xs={0.5} md={0.5} sx={{ mr: "60px" }} />
 
-            {/* Right railing */}
-            <Grid item xs={0.5} md={0.5} />
-          </Grid>
+              {/* Left details section */}
+              <Grid item xs={10} md={5}>
+                <Details challenge={challenge} />
+              </Grid>
 
-          <Grid item sx={{ width: "80vw" }}>
-            <Divider />
-          </Grid>
-
-          {/* Track challenge progress section */}
-          <Grid item xs={4} container sx={{ alignItems: "center" }}>
-            {/* Left railing */}
-            <Grid item xs={0.5} md={0.5} sx={{ mr: "60px" }} />
-
-            <Grid item xs={10}>
-              {challenge.status !== "Not Started" && userChallenge.id ? (
-                <UserChallengeWrapper
-                  dailyUserChallenges={dailyUserChallenges}
+              {/* Right join challenge section */}
+              <Grid item xs={10} md={5}>
+                <JoinChallenge
                   challenge={challenge}
                   userChallenge={userChallenge}
+                  enrolledUsers={enrolledUsers}
+                  userId={auth?.id}
                 />
-              ) : (
-                ""
-              )}
+              </Grid>
+
+              {/* Right railing */}
+              <Grid item xs={0.5} md={0.5} />
             </Grid>
 
-            {/* Right railing */}
-            <Grid item xs={0.5} md={0.5} />
+            {challenge.status !== "Not Started" && userChallenge.id ? (
+              <>
+                <Grid item sx={{ width: "80vw" }}>
+                  <Divider />
+                </Grid>
+
+                {/* Track challenge progress section */}
+                <Grid item xs={4} container sx={{ alignItems: "center" }}>
+                  {/* Left railing */}
+                  <Grid item xs={0.5} md={0.5} sx={{ mr: "60px" }} />
+
+                  <Grid item xs={10}>
+                    <UserChallengeWrapper
+                      dailyUserChallenges={dailyUserChallenges}
+                      challenge={challenge}
+                      userChallenge={userChallenge}
+                    />
+                  </Grid>
+
+                  {/* Right railing */}
+                  <Grid item xs={0.5} md={0.5} />
+                </Grid>
+              </>
+            ) : (
+              ""
+            )}
           </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    </Box>
   );
 };
 export default ChallengeDetails;
