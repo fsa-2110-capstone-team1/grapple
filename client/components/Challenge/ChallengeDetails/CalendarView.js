@@ -47,16 +47,22 @@ const CalendarView = ({ dailyUserChallenges, userChallenge, challenge }) => {
         maxDetail="month"
         minDetail="month"
         tileClassName={({ date, view }) => {
-          if (datesCompleted.find((dDate) => isSameDay(dDate, date))) {
-            return "react-calendar__highlight-completed";
-          } else if (datesWithData.find((dDate) => isSameDay(dDate, date))) {
-            return "react-calendar__highlight";
-          } else if (
-            date < new Date() &&
-            date >= new Date(challenge.startDateTime) &&
-            date < new Date(challenge.endDateTime)
-          ) {
-            return "react-calendar__highlight";
+          if (challenge.goalType === "daily") {
+            if (datesCompleted.find((dDate) => isSameDay(dDate, date))) {
+              return "react-calendar__highlight-completed";
+            } else if (datesWithData.find((dDate) => isSameDay(dDate, date))) {
+              return "react-calendar__highlight";
+            } else if (
+              date < new Date() &&
+              date >= new Date(challenge.startDateTime) &&
+              date < new Date(challenge.endDateTime)
+            ) {
+              return "react-calendar__highlight";
+            }
+          } else {
+            if (datesWithData.find((dDate) => isSameDay(dDate, date))) {
+              return "react-calendar__highlight-completed";
+            }
           }
         }}
       />
