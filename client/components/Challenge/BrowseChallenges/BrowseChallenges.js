@@ -86,8 +86,6 @@ function BrowseChallenges() {
           </Grid>
           <PaginationFooter
             activePage={activePage}
-            count={count}
-            challengesPerPage={challengesPerPage}
             totalPages={totalPages}
             setActivePage={setActivePage}
           />
