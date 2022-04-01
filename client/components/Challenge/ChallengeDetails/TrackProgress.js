@@ -106,11 +106,9 @@ export const TrackProgress = ({
                 {...register("value", {
                   required: "Required field",
                 })}
-                error={dailyUserChallenge?.total + Number(watch("value")) < 0}
+                error={Number(watch("value")) < 0}
                 helperText={
-                  dailyUserChallenge?.total + Number(watch("value")) < 0
-                    ? "Total can't be less than 0"
-                    : ""
+                  Number(watch("value")) < 0 ? "Total can't be less than 0" : ""
                 }
                 FormHelperTextProps={{
                   style: { color: theme.palette.white.main },
@@ -132,9 +130,7 @@ export const TrackProgress = ({
                 size="medium"
                 type="submit"
                 form="challenge-progress-form"
-                disabled={
-                  dailyUserChallenge?.total + Number(watch("value")) < 0
-                }
+                disabled={Number(watch("value")) < 0}
                 sx={{ height: "80%", m: 1.5, mr: 0 }}
               >
                 Submit
