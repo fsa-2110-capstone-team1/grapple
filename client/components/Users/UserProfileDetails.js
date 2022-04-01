@@ -157,7 +157,7 @@ const UserProfileDetails = () => {
                 }}
               />
             </Grid>
-            <Grid item xs={7} container direction="column" spacing={1}>
+            <Grid item xs={12} sm={7} container direction="column" spacing={1}>
               {/* username, for auth: edit profile and settings, for non auth: add/accept/decline friend */}
               <Grid item container spacing={3}>
                 <Grid item>
