@@ -101,7 +101,6 @@ export const UserCard = ({ user }) => {
   return (
     <Card
       sx={{
-        background: theme.palette.grey.dark,
         maxWidth: 345,
         pl: 4,
         pr: 4,
