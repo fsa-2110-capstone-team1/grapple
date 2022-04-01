@@ -63,72 +63,112 @@ export const BrowseUsers = () => {
   }, [location, currentPage]);
 
   return (
-    <>
-      {/* <div className="user-friends-pag-color"> */}
-      <Box
-        component="div"
-        // sx={{ backgroundColor: theme.palette.braun.main, minHeight: '100vh' }}
-      >
-        <Grid container>
-          <div className="searchContainer">
-            <SearchUsers data={publicUsers} />
-          </div>
-          <Grid item xs={0.5} sm={0.5} md={1} lg={1.5} />
-          <Grid item xs={11} sm={11} md={10} lg={9} container spacing={2}>
-            {!currentUsers?.length ? (
-              <Grid item>
-                {userGroup === "friends" ? (
-                  <Typography sx={{ color: theme.palette.white.main }}>
-                    You don't have any friends yet...
-                    {<Link to="/users">Browse users</Link>} to add them as
-                    friends!
-                  </Typography>
-                ) : userGroup === "friendRequests" ? (
-                  <Typography sx={{ color: theme.palette.white.main }}>
-                    You don't have any pending friend requests...{" "}
-                    {<Link to="/users">Browse users</Link>} to add them as
-                    friends!
-                  </Typography>
-                ) : (
-                  <Typography>
-                    {" "}
-                    No users found. {<Link to="/users">Browse all users</Link>}.
-                  </Typography>
-                )}
-              </Grid>
-            ) : (
-              currentUsers
-                ?.filter((user) => user.id !== auth.id)
-                .map((user) => (
-                  <Grid
-                    item
-                    key={user.id}
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={4}
-                    xl={3}
-                    container
-                  >
-                    <UserCard key={user.username} user={user} />
-                  </Grid>
-                ))
-            )}
-          </Grid>
-          <Grid item xs={0.5} sm={0.5} md={1} lg={1.5} />
+    <Box sx={{ minHeight: "100vh", p: 4 }}>
+      {/* Main page, vertical split for search and browse grid */}
+      <Grid container direction="column">
+        {/* Search */}
+        <Grid item>
+          <SearchUsers data={publicUsers} />
         </Grid>
 
-        <PaginationFooter
-          challengesPerPage={usersPerPage}
-          totalPosts={publicUsers.length}
-          paginate={paginate}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+        {/* Bottom  */}
+        <Grid item container>
+          {/* Left Railing */}
+          <Grid item xs={1} />
 
-        {/* </div> */}
-      </Box>
-    </>
+          {/* Browse Grid, vertical split between grid and pagination footer */}
+          <Grid item xs={10} container direction="column" spacing={1}>
+            {/* Cards or message about nothing found */}
+            <Grid item container spacing={2} sx={{ minHeight: "60vh" }}>
+              {!currentUsers?.length ? (
+                <Grid item>
+                  {userGroup === "friends" ? (
+                    <Typography sx={{ color: theme.palette.white.main }}>
+                      You don't have any friends yet...
+                      {
+                        <Link
+                          to="/users"
+                          style={{
+                            color: "white",
+                            textDecoration: "underline",
+                          }}
+                        >
+                          Browse users
+                        </Link>
+                      }{" "}
+                      to add them as friends!
+                    </Typography>
+                  ) : userGroup === "friendRequests" ? (
+                    <Typography sx={{ color: theme.palette.white.main }}>
+                      You don't have any pending friend requests...{" "}
+                      {
+                        <Link
+                          to="/users"
+                          style={{
+                            color: "white",
+                            textDecoration: "underline",
+                          }}
+                        >
+                          Browse users
+                        </Link>
+                      }{" "}
+                      to add them as friends!
+                    </Typography>
+                  ) : (
+                    <Typography>
+                      {" "}
+                      No users found.{" "}
+                      {
+                        <Link
+                          to="/users"
+                          style={{
+                            color: "white",
+                            textDecoration: "underline",
+                          }}
+                        >
+                          Browse all users
+                        </Link>
+                      }
+                      .
+                    </Typography>
+                  )}
+                </Grid>
+              ) : (
+                currentUsers
+                  ?.filter((user) => user.id !== auth.id)
+                  .map((user) => (
+                    <Grid
+                      item
+                      key={user.id}
+                      xs={12}
+                      sm={6}
+                      md={4}
+                      lg={3}
+                      container
+                    >
+                      <UserCard key={user.username} user={user} />
+                    </Grid>
+                  ))
+              )}
+            </Grid>
+
+            {/* Pagination */}
+            <Grid item>
+              <PaginationFooter
+                challengesPerPage={usersPerPage}
+                totalPosts={publicUsers.length}
+                paginate={paginate}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
+            </Grid>
+          </Grid>
+
+          {/* Right Railing */}
+          <Grid item xs={1} />
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 export default BrowseUsers;
