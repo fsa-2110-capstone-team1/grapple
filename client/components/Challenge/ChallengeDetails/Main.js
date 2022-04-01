@@ -183,7 +183,7 @@ export const ChallengeDetails = () => {
             <Grid item xs={0.5} md={0.5} sx={{ mr: "60px" }} />
 
             <Grid item xs={10}>
-              {challenge.status !== "Not Started" ? (
+              {challenge.status !== "Not Started" && userChallenge.id ? (
                 <UserChallengeWrapper
                   dailyUserChallenges={dailyUserChallenges}
                   challenge={challenge}
