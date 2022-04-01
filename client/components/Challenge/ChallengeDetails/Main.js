@@ -174,7 +174,7 @@ export const ChallengeDetails = () => {
               <Grid item xs={0.5} md={0.5} />
             </Grid>
 
-            {challenge.status !== "Not Started" && userChallenge.id ? (
+            {challenge.status === "In Progress" && userChallenge.id ? (
               <>
                 <Grid item sx={{ width: "80vw" }}>
                   <Divider />

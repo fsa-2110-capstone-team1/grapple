@@ -22,7 +22,7 @@ function BrowseChallenges() {
 
   //pagination calculations
   const [activePage, setActivePage] = useState(1);
-  const challengesPerPage = 9;
+  const challengesPerPage = 12;
   const count = filteredChallenges.length;
   const totalPages = Math.ceil(count / challengesPerPage);
 

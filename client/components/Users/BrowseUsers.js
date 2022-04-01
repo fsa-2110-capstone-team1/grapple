@@ -49,7 +49,7 @@ export const BrowseUsers = () => {
 
   //pagination calculations
   const [activePage, setActivePage] = useState(1);
-  const usersPerPage = 9;
+  const usersPerPage = 12;
   const count = users.length;
   const totalPages = Math.ceil(count / usersPerPage);
 

@@ -129,7 +129,8 @@ DailyUserChallenge.beforeUpdate(async (dailyUserChallenge) => {
         // -1 if we havent hit the target now and had previously hit it (backtracked score)
       } else if (
         Number(dailyUserChallenge.previous().total) >=
-        Number(challenge.targetNumber)
+          Number(challenge.targetNumber) &&
+        Number(dailyUserChallenge.total) < Number(challenge.targetNumber)
       ) {
         updatedProgress = -1;
         // else do nothing

@@ -53,26 +53,24 @@ export const TrackProgress = ({
   }, [JSON.stringify(dailyUserChallenge)]);
 
   const onSubmit = async (data) => {
-    //no need to update if value is 0
-    if (Number(data.value)) {
-      if (!dailyUserChallenge) {
-        await dispatch(
-          createDailyUserChallenge({
-            userChallengeId: userChallenge.id,
-            date: date,
-            total: Number(data.value),
-          })
-        );
-      } else {
-        await dispatch(
-          updateChallengeProgress({
-            dailyUserChallengeId: dailyUserChallenge.id,
-            value: Number(data.value),
-          })
-        );
-      }
-      dispatch(getUserChallenge(userChallenge.id));
+    if (!dailyUserChallenge) {
+      await dispatch(
+        createDailyUserChallenge({
+          userChallengeId: userChallenge.id,
+          date: date,
+          total: Number(data.value),
+        })
+      );
+    } else {
+      await dispatch(
+        updateChallengeProgress({
+          dailyUserChallengeId: dailyUserChallenge.id,
+          value: Number(data.value),
+        })
+      );
     }
+    // re-fetch the user challenge to get an updated total
+    dispatch(getUserChallenge(userChallenge.id));
     reset();
   };
 
@@ -103,16 +101,14 @@ export const TrackProgress = ({
                 id="value"
                 required
                 variant="outlined"
-                label="Value"
+                label="Daily Progress"
                 type="number"
                 {...register("value", {
                   required: "Required field",
                 })}
-                error={dailyUserChallenge?.total + Number(watch("value")) < 0}
+                error={Number(watch("value")) < 0}
                 helperText={
-                  dailyUserChallenge?.total + Number(watch("value")) < 0
-                    ? "Total can't be less than 0"
-                    : "Use negative numbers to backtrack progress"
+                  Number(watch("value")) < 0 ? "Total can't be less than 0" : ""
                 }
                 FormHelperTextProps={{
                   style: { color: theme.palette.white.main },
@@ -120,7 +116,6 @@ export const TrackProgress = ({
                 value={value || 0}
                 inputProps={{
                   style: { color: theme.palette.white.main },
-                  // maxLength: 3,
                   step: ".1",
                 }}
                 InputLabelProps={{
@@ -135,9 +130,7 @@ export const TrackProgress = ({
                 size="medium"
                 type="submit"
                 form="challenge-progress-form"
-                disabled={
-                  dailyUserChallenge?.total + Number(watch("value")) < 0
-                }
+                disabled={Number(watch("value")) < 0}
                 sx={{ height: "80%", m: 1.5, mr: 0 }}
               >
                 Submit
