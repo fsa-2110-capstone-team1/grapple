@@ -4,7 +4,7 @@ import { useLocation, useParams, Link } from "react-router-dom";
 import { Grid, Typography, Box } from "@mui/material";
 import UserCard from "./UserCard";
 import SearchUsers from "./SearchUsers";
-import PaginationFooter from "./PaginationFooter";
+import PaginationFooter from "../Challenge/BrowseChallenges/PaginationFooter";
 import theme from "../../theme";
 
 export const BrowseUsers = () => {
@@ -47,20 +47,23 @@ export const BrowseUsers = () => {
     }
   }, [connections, publicUsers, auth?.id, userGroup]);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [usersPerPage] = useState(9);
+  //pagination calculations
+  const [activePage, setActivePage] = useState(1);
+  const usersPerPage = 9;
+  const count = users.length;
+  const totalPages = Math.ceil(count / usersPerPage);
 
-  const indexOfLastChallenge = currentPage * usersPerPage;
-  const indexofFirstChallenge = indexOfLastChallenge - usersPerPage;
-
-  const currentUsers = users.slice(indexofFirstChallenge, indexOfLastChallenge);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const [calculatedUsers, setCalculatedUsers] = useState([]);
+  useEffect(() => {
+    setCalculatedUsers(
+      users.slice((activePage - 1) * usersPerPage, activePage * usersPerPage)
+    );
+  }, [users, activePage]);
 
   //scroll to top at page load or paginate
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [location, currentPage]);
+  }, [location, activePage]);
 
   return (
     <Box sx={{ minHeight: "100vh", p: 4 }}>
@@ -80,7 +83,7 @@ export const BrowseUsers = () => {
           <Grid item xs={10} container direction="column" spacing={1}>
             {/* Cards or message about nothing found */}
             <Grid item container spacing={2} sx={{ minHeight: "60vh" }}>
-              {!currentUsers?.length ? (
+              {!calculatedUsers?.length ? (
                 <Grid item>
                   {userGroup === "friends" ? (
                     <Typography sx={{ color: theme.palette.white.main }}>
@@ -134,7 +137,7 @@ export const BrowseUsers = () => {
                   )}
                 </Grid>
               ) : (
-                currentUsers
+                calculatedUsers
                   ?.filter((user) => user.id !== auth.id)
                   .map((user) => (
                     <Grid
@@ -155,11 +158,9 @@ export const BrowseUsers = () => {
             {/* Pagination */}
             <Grid item>
               <PaginationFooter
-                challengesPerPage={usersPerPage}
-                totalPosts={publicUsers.length}
-                paginate={paginate}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
+                activePage={activePage}
+                totalPages={totalPages}
+                setActivePage={setActivePage}
               />
             </Grid>
           </Grid>
