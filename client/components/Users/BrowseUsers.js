@@ -53,6 +53,7 @@ export const BrowseUsers = () => {
   const count = users.length;
   const totalPages = Math.ceil(count / usersPerPage);
 
+
   const [calculatedUsers, setCalculatedUsers] = useState([]);
   useEffect(() => {
     setCalculatedUsers(
@@ -66,6 +67,7 @@ export const BrowseUsers = () => {
   }, [location, activePage]);
 
   return (
+
     <Box sx={{ minHeight: "100vh", p: 4 }}>
       {/* Main page, vertical split for search and browse grid */}
       <Grid container direction="column">

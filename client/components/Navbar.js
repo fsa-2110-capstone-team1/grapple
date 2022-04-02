@@ -18,15 +18,16 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Notifications from "./Notifications";
 import theme from "../theme";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useGoogleLogout } from "react-google-login";
-
+import ListItemIcon from "@mui/material/ListItemIcon";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store";
 
 const Navbar = () => {
 
-  const clientId=`${process.env.CLIENT_ID_GOOGLE}`
+  const clientId = `${process.env.CLIENT_ID_GOOGLE}`;
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -34,7 +35,7 @@ const Navbar = () => {
   const id = useSelector((state) => state.auth.id) || "";
   const user = useSelector((state) => state.auth) || {};
 
-  const {signOut} = useGoogleLogout({clientId})
+  const { signOut } = useGoogleLogout({ clientId });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,8 +56,8 @@ const Navbar = () => {
   };
 
   const logoutAndCloseMenu = () => {
-    if(user.googleId){
-      signOut()
+    if (user.googleId) {
+      signOut();
     }
     dispatch(logout());
     handleCloseUserMenu();
@@ -221,9 +222,8 @@ const Navbar = () => {
                         my: 2,
                         color: "white.main",
                         display: "block",
-                        margin: "20px"
+                        margin: "20px",
                       }}
-                      
                     >
                       {user.username ? `Hi, ${user.username}` : ""}
                     </Typography>
@@ -287,6 +287,26 @@ const Navbar = () => {
                       </MenuItem>
                     </Link>
                   )}
+                  {user.isAdmin ? (
+                    <MenuItem
+                      onClick={() => {
+                        navigate("/admin-hub");
+                      }}
+                    >
+                      <ListItemIcon>
+                        <AdminPanelSettingsIcon fontSize="medium" />
+                      </ListItemIcon>
+                      <Typography
+                        sx={{
+                          fontFamily: "raleway",
+                          marginLeft: 0.5,
+                          color: "black",
+                        }}
+                      >
+                        Admin Hub
+                      </Typography>
+                    </MenuItem>
+                  ) : null}
                 </Menu>
               </Box>
             </Box>
