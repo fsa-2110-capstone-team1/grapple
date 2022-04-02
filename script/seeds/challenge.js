@@ -6,8 +6,6 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-const units = ["days", "miles", "books"];
-
 // 1 mental
 // 2 physical
 // 3 Sleep
