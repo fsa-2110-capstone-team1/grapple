@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { differenceInCalendarDays } = require("date-fns");
 const {
   models: { DailyUserChallenge, UserChallenge },
 } = require("../../server/db");
@@ -76,7 +77,7 @@ async function dailyUserChallengeSeed() {
   const ducs = await Promise.all(
     nonFutureUserChallenges.map(async (uc, idx) => {
       //add daily seed to 2/3s of challenges to have a few empty examples
-      if (idx % 3 === 1) {
+      if (idx % 2 === 1) {
         let date = randomDate(
           uc.challenge.startDateTime,
           uc.challenge.endDateTime
@@ -86,9 +87,18 @@ async function dailyUserChallengeSeed() {
             userChallengeId: uc.id,
             date: addDays(date, i),
             total:
-              uc.challenge.goalType === "daily"
-                ? getRandomInt(1, uc.challenge.targetNumber)
-                : 1,
+              uc.challenge.goalType === "total"
+                ? uc.challenge.targetUnit === "days"
+                  ? 1
+                  : getRandomInt(
+                      1,
+                      uc.challenge.targetNumber /
+                        differenceInCalendarDays(
+                          new Date(uc.challenge.endDateTime),
+                          new Date(uc.challenge.startDateTime)
+                        )
+                    )
+                : getRandomInt(1, uc.challenge.targetNumber),
           });
         }
       }
