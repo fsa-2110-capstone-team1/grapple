@@ -11,7 +11,7 @@ const StravaAPI = () => {
       fetch(activities_link)
       .then((res) => res.json())
       .then(data => setData(data))
-      console.log(data)
+      // console.log(data)
     }
   };
 
