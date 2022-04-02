@@ -50,10 +50,10 @@ export const BrowseUsers = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(9);
 
-  const indexOfLastChallenge = currentPage * usersPerPage;
-  const indexofFirstChallenge = indexOfLastChallenge - usersPerPage;
+  const indexOfLastUser = currentPage * usersPerPage + 2;
+  const indexofFirstUser = indexOfLastUser - usersPerPage;
 
-  const currentUsers = users.slice(indexofFirstChallenge, indexOfLastChallenge);
+  const currentUsers = users.slice(indexofFirstUser, indexOfLastUser);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -73,6 +73,7 @@ export const BrowseUsers = () => {
           <div className="searchContainer">
             <SearchUsers data={publicUsers} />
           </div>
+          <Grid container>
           <Grid item xs={0.5} sm={0.5} md={1} lg={1.5} />
           <Grid item xs={11} sm={11} md={10} lg={9} container spacing={2}>
             {!currentUsers?.length ? (
@@ -116,6 +117,7 @@ export const BrowseUsers = () => {
             )}
           </Grid>
           <Grid item xs={0.5} sm={0.5} md={1} lg={1.5} />
+          </Grid>
         </Grid>
 
         <PaginationFooter
