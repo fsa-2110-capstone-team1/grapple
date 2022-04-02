@@ -24,6 +24,7 @@ import UserSettings from './components/User/UserSettings';
 import UserDashboard from './components/User/UserDashboard';
 import AdminChallenges from './components/Admin/AdminChallenges';
 import AdminUsers from './components/Admin/AdminUsers';
+import AdminHub from './components/Admin/AdminHub'
 import Footer from './components/Footer';
 import PageNotFound from './components/PageNotFound';
 import TestChallengeTracking from './components/_Archive/TEST_ChallengeTracking';
@@ -71,7 +72,7 @@ const App = () => {
         />
         <Route path="/challenges" element={<BrowseChallenges />} />
         <Route path="/challenges/:id" element={<ChallengeDetails />} />
-        <Route path="/challenges/:id/edit" element={<EditChallenge />} />
+        <Route path="/challenges/:id/edit" element={<CreateChallenge />} />
         <Route path="/user/profile/edit" element={<EditUserProfile />} />
         <Route path="/user/dashboard" element={<UserDashboard />} />
         {/* NOTE: Should /userdashboard be /home??
@@ -91,6 +92,7 @@ const App = () => {
         />
 
         <Route path="/user/settings" element={<UserSettings />} />
+        <Route path="/admin-hub" element={<AdminHub />} />
         <Route path="/admin/challenges" element={<AdminChallenges />} />
         <Route path="/admin/users" element={<AdminUsers />} />
 

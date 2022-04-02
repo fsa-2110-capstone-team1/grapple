@@ -20,13 +20,7 @@ const Challenge = db.define("challenge", {
   },
   image: {
     type: TEXT,
-    validate: {
-      // isUrl: true,
-    },
-  },
-  type: {
-    type: STRING,
-    allowNull: false,
+    defaultValue: "badges/picId-014.svg",
   },
   startDateTime: {
     type: DATE,
@@ -42,6 +36,13 @@ const Challenge = db.define("challenge", {
   targetUnit: {
     type: STRING,
   },
+  goalType: {
+    //daily means we'll count progress based on number of days the targetNumber is reached
+    //total means we'll add up the daily progress and track against the targetNumber
+    type: ENUM("daily", "total"),
+    defaultValue: "total",
+    allowNull: false,
+  },
   difficulty: {
     type: INTEGER,
     defaultValue: 1,
@@ -55,13 +56,10 @@ const Challenge = db.define("challenge", {
     defaultValue: false,
   },
   category: {
-    type: STRING,
-    // unique: true,
+    type: ENUM("mental", "physical", "food", "sleep", "misc"),
+    defaultValue: "misc",
+    allowNull: false,
   },
-  // subCategoryId: {
-  //   type: INTEGER,
-  //   unique: true,
-  // },
 });
 
 module.exports = Challenge;

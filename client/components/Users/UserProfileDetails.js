@@ -13,6 +13,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import CheckIcon from "@mui/icons-material/Check";
 import ChallengeCard from "../Challenge/ChallengeCard";
 import theme from "../../theme";
+import UserBadges from "../User/UserDashboard/Badges";
 
 const UserProfileDetails = () => {
   //scroll to top at page load
@@ -128,6 +129,8 @@ const UserProfileDetails = () => {
         minHeight: "100vh",
         // backgroundColor: theme.palette.braun.main,
         color: theme.palette.white.main,
+        pt: "20px",
+        pb: "20px",
       }}
     >
       <Grid container spacing={1}>
@@ -260,7 +263,7 @@ const UserProfileDetails = () => {
               >
                 <Grid item>
                   {isSelf ? (
-                    <Link to="/users/friends">
+                    <Link to="/users/friends" style={{ color: "white" }}>
                       <Typography sx={{ color: "white" }}>
                         <b>{friends.length}</b> Friend(s)
                       </Typography>
@@ -273,7 +276,7 @@ const UserProfileDetails = () => {
                 </Grid>
                 {isSelf && !!connections.length && (
                   <Grid item>
-                    <Link to="/users/friendRequests">
+                    <Link to="/users/friendRequests" style={{ color: "white" }}>
                       <Typography sx={{ color: "white" }}>
                         <b>
                           {
@@ -301,43 +304,8 @@ const UserProfileDetails = () => {
                 Badges (Completed Challenges)
               </Typography>
             </Grid>
-            <Grid item container>
-              {myChallenges
-                .filter((ch) => ch.status === "Completed")
-                .map((challenge) => (
-                  <Grid
-                    item
-                    key={challenge.id}
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                    container
-                  >
-                    {/* <Link to={`/challenges/${challenge.id}`}> */}
-                    <Box
-                      key={challenge.id}
-                      component="img"
-                      src={`/${challenge.image}`}
-                      sx={[
-                        {
-                          borderRadius: "50px",
-                          width: "80px",
-                          border: "3px solid #c54c7b",
-                          padding: "5px",
-                        },
-                        {
-                          "&:hover": {
-                            backgroundColor: "transparent",
-                            cursor: "pointer",
-                          },
-                        },
-                      ]}
-                      onClick={() => navigate(`/challenges/${challenge.id}`)}
-                    />
-                    {/* </Link> */}
-                  </Grid>
-                ))}
+            <Grid item>
+              <UserBadges challenges={myChallenges} />
             </Grid>
           </Grid>
 
@@ -375,9 +343,7 @@ const UserProfileDetails = () => {
 
           <Grid item container direction="column" spacing={1}>
             <Grid item>
-              <Typography variant="h5">
-                "I'll Do Better Next Time" Challenges
-              </Typography>
+              <Typography variant="h5">Didn't quite make it...</Typography>
             </Grid>
             <Grid container>
               {myChallenges

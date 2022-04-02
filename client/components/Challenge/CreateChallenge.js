@@ -27,6 +27,23 @@ const CreateChallenge = ({ method }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  let history = useLocation();
+  let challengeId = history.pathname.slice(12, -5) * 1;
+
+  const fullChallenges = useSelector((state) => state.challenges);
+  let theChallenge = fullChallenges;
+
+  if (fullChallenges.length > 0) {
+    fullChallenges.find((challenge) => challenge.id === challengeId);
+    theChallenge = fullChallenges.find(
+      (challenge) => challenge.id === challengeId
+    );
+  }
+
+  if (!theChallenge && method !== "create") {
+    return <h1>Sorry we are unable to edit this challenge</h1>;
+  }
+
   const {
     register,
     handleSubmit,
@@ -49,11 +66,13 @@ const CreateChallenge = ({ method }) => {
 
   const onSubmit = async (data) => {
     try {
-      await dispatch(addNewChallenge(data));
-      setSnackbar({
-        children: "Challenge successfully added!",
-        severity: "success",
-      });
+      const { challenge } = await dispatch(
+        addNewChallenge({
+          ...data,
+          category: data.category === "0" ? "misc" : data.category,
+        })
+      );
+      navigate(`/challenges/${challenge.id}`);
     } catch (err) {
       setSnackbar({
         children: "Challenge could not be added!",
@@ -62,6 +81,14 @@ const CreateChallenge = ({ method }) => {
     }
   };
 
+  if (!theChallenge && method !== "create") {
+    return <h1>Sorry we are unable to edit this challenge</h1>;
+  }
+
+
+  if(theChallenge){
+  console.log(theChallenge.name);
+  }
   return (
     <>
       {!!snackbar && (
@@ -112,6 +139,7 @@ const CreateChallenge = ({ method }) => {
                     id="name"
                     label="Name"
                     variant="outlined"
+                    defaultValue={theChallenge.length ? "" : theChallenge.name}
                     autoFocus
                     {...register("name", {
                       required: "Required field",
@@ -121,6 +149,29 @@ const CreateChallenge = ({ method }) => {
                     fullWidth
                     required
                   />
+                </Grid>
+
+                <Grid item>
+                  <TextField
+                    id="category"
+                    select
+                    label="Category"
+                    defaultValue="0"
+                    required
+                    {...register("category", { required: true })}
+                    error={!!errors?.category}
+                    fullWidth
+                    sx={{ width: "100%" }}
+                  >
+                    <MenuItem value={"0"} disabled hidden>
+                      Choose a category
+                    </MenuItem>
+                    <MenuItem value={"mental"}>Mental</MenuItem>
+                    <MenuItem value={"physical"}>Physical</MenuItem>
+                    <MenuItem value={"food"}>Food</MenuItem>
+                    <MenuItem value={"sleep"}>Sleep</MenuItem>
+                    <MenuItem value={"misc"}>Misc</MenuItem>
+                  </TextField>
                 </Grid>
 
                 <Grid item>
@@ -151,24 +202,6 @@ const CreateChallenge = ({ method }) => {
                     }
                     fullWidth
                   />
-                </Grid>
-
-                <Grid item>
-                  <TextField
-                    id="type"
-                    select
-                    label="Type"
-                    defaultValue="targetNumber"
-                    helperText={
-                      "Choose between a target number (e.g.: run 50 miles in 30 days) or checklist (e.g.: watch this list of movies)"
-                    }
-                    required
-                    {...register("type", { required: true })}
-                    error={!!errors?.type}
-                  >
-                    <MenuItem value={"targetNumber"}>Target Number</MenuItem>
-                    <MenuItem value={"checklist"}>Checklist</MenuItem>
-                  </TextField>
                 </Grid>
 
                 <Grid item container spacing={2}>
@@ -230,8 +263,26 @@ const CreateChallenge = ({ method }) => {
                 </Grid>
 
                 <Grid item>
+                  <TextField
+                    id="goalType"
+                    select
+                    label="Goal Type"
+                    defaultValue="total"
+                    helperText={
+                      "Choose between a 'total' challenge (e.g. run 100 miles in a month) or a 'daily' challenge (e.g. meditate everyday for a month)"
+                    }
+                    required
+                    {...register("goalType", { required: true })}
+                    error={!!errors?.goalType}
+                  >
+                    <MenuItem value={"total"}>Total</MenuItem>
+                    <MenuItem value={"daily"}>Daily</MenuItem>
+                  </TextField>
+                </Grid>
+
+                <Grid item>
                   <Typography id="target-goal" gutterBottom>
-                    Target Goal
+                    Goal
                   </Typography>
                   <Grid item container spacing={2}>
                     <Grid item xs={3}>
@@ -245,7 +296,7 @@ const CreateChallenge = ({ method }) => {
                         helperText={
                           errors?.targetNumber
                             ? errors.targetNumber.message
-                            : null
+                            : "For 'total' type, this sould be the overall total goal. For 'daily' type, this should be the goal per day."
                         }
                         fullWidth
                         required

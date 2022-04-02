@@ -3,8 +3,8 @@ import axios from "axios";
 // ACTION TYPES
 
 const GET_USERCHALLENGES = "GET_USERCHALLENGES";
+const GET_USERCHALLENGE = "GET_USERCHALLENGE";
 const JOIN_CHALLENGE = "JOIN_CHALLENGE";
-const UPDATE_CHALLENGE_PROGRESS = "UPDATE_CHALLENGE_PROGRESS";
 const LEAVE_CHALLENGE = "LEAVE_CHALLENGE";
 
 // ACTION CREATORS
@@ -17,8 +17,8 @@ const _joinChallenge = (userChallenge) => ({
   type: JOIN_CHALLENGE,
   userChallenge,
 });
-const _updateChallengeProgress = (userChallenge) => ({
-  type: UPDATE_CHALLENGE_PROGRESS,
+const _getUserChallenge = (userChallenge) => ({
+  type: GET_USERCHALLENGE,
   userChallenge,
 });
 const _leaveChallenge = (userChallengeId) => ({
@@ -35,6 +35,15 @@ export const getUserChallenges = () => {
   };
 };
 
+export const getUserChallenge = (userChallengeId) => {
+  return async (dispatch) => {
+    const { data: userChallenge } = await axios.get(
+      `/api/userChallenges/${userChallengeId}`
+    );
+    dispatch(_getUserChallenge(userChallenge));
+  };
+};
+
 export const joinChallenge = (userId, challengeId) => {
   return async (dispatch) => {
     const { data: newUserChallenge } = await axios.post("/api/userChallenges", {
@@ -44,20 +53,6 @@ export const joinChallenge = (userId, challengeId) => {
     dispatch(_joinChallenge(newUserChallenge));
   };
 };
-
-export const updateChallengeProgress =
-  ({ userChallengeId, value }) =>
-  async (dispatch) => {
-    try {
-      const { data: updatedUserChallenge } = await axios.put(
-        `/api/userChallenges/${userChallengeId}/updateProgress`,
-        { value }
-      );
-      return dispatch(_updateChallengeProgress(updatedUserChallenge));
-    } catch (error) {
-      return dispatch(_updateChallengeProgress({ id: userChallengeId, error }));
-    }
-  };
 
 export const leaveChallenge = ({ userChallengeId }) => {
   return async (dispatch) => {
@@ -70,18 +65,14 @@ export default (state = [], action) => {
   switch (action.type) {
     case GET_USERCHALLENGES:
       return action.userChallenges;
-    case JOIN_CHALLENGE:
-      return [...state, action.userChallenge];
-    case UPDATE_CHALLENGE_PROGRESS:
+    case GET_USERCHALLENGE:
       return state.map((userChallenge) =>
         userChallenge.id === action.userChallenge.id
-          ? {
-              ...userChallenge,
-              ...action.userChallenge,
-              error: action.userChallenge.error,
-            }
+          ? action.userChallenge
           : userChallenge
       );
+    case JOIN_CHALLENGE:
+      return [...state, action.userChallenge];
     case LEAVE_CHALLENGE:
       return state.filter(
         (userChallenge) => userChallenge.id !== action.userChallengeId

@@ -18,7 +18,6 @@ import theme from "../../theme";
 import FacebookLoginComponent from "./FacebookLoginComponent";
 import GoogleLoginComponent from "./GoogleLoginComponent";
 
-
 const AuthForm = ({ path }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -89,7 +88,7 @@ const AuthForm = ({ path }) => {
               <GoogleLoginComponent />
             </Grid>
 
-            <Grid item xs={6} sx={{ width: '60%' }}>
+            <Grid item xs={6} sx={{ width: "60%" }}>
               <FacebookLoginComponent />
             </Grid>
             <Grid item xs={6} sx={{ width: "60%" }}>

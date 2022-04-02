@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   Grid,
   CardContent,
@@ -28,7 +29,7 @@ export const UserProfileForm = ({ preloadedValues }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({ defaultValues: preloadedValues });
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   //Success snackbar
   const [snackbar, setSnackbar] = useState(null);
@@ -236,6 +237,18 @@ export const UserProfileForm = ({ preloadedValues }) => {
                 form="user-update-form"
               >
                 Update Profile
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                size="medium"
+                fullWidth
+                variant="contained"
+                type="submit"
+                form="user-update-form"
+                onClick={() => navigate(`/users/profile/${preloadedValues.username}`)}
+              >
+                Go back to your Profile
               </Button>
             </Grid>
           </Grid>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import dateFormat from "dateformat";
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
 import { Button, Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -11,15 +11,15 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow, { tableRowClasses } from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import TableFooter from '@mui/material/TableFooter'
-import TablePagination from '@mui/material/TablePagination';
-import PropTypes from 'prop-types';
+import TableFooter from "@mui/material/TableFooter";
+import TablePagination from "@mui/material/TablePagination";
+import PropTypes from "prop-types";
 import ProgressBar from "./ProgressBar";
-import IconButton from '@mui/material/IconButton';
-import FirstPageIcon from '@mui/icons-material/FirstPage';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import LastPageIcon from '@mui/icons-material/LastPage';
+import IconButton from "@mui/material/IconButton";
+import FirstPageIcon from "@mui/icons-material/FirstPage";
+import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import LastPageIcon from "@mui/icons-material/LastPage";
 import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -81,28 +81,36 @@ function TablePaginationActions(props) {
         disabled={page === 0}
         aria-label="first page"
       >
-        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+        {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
         disabled={page === 0}
         aria-label="previous page"
       >
-        {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+        {theme.direction === "rtl" ? (
+          <KeyboardArrowRight />
+        ) : (
+          <KeyboardArrowLeft />
+        )}
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="next page"
       >
-        {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+        {theme.direction === "rtl" ? (
+          <KeyboardArrowLeft />
+        ) : (
+          <KeyboardArrowRight />
+        )}
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="last page"
       >
-        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+        {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
     </Box>
   );
@@ -133,7 +141,9 @@ export const OngoingChalTable = ({ myChallenges }) => {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - ongoingChallenges.length) : 0;
+    page > 0
+      ? Math.max(0, (1 + page) * rowsPerPage - ongoingChallenges.length)
+      : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -143,8 +153,6 @@ export const OngoingChalTable = ({ myChallenges }) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  
 
   return (
     <TableContainer component={Paper}>
@@ -160,73 +168,75 @@ export const OngoingChalTable = ({ myChallenges }) => {
         </TableHead>
 
         {(rowsPerPage > 0
-            ? ongoingChallenges.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : ongoingChallenges)
-            .map((challenge, idx) => {
-            const ongoingUserChallenge = userChallenges.filter(
-              (userChallenge) =>
-                userChallenge.challengeId === challenge.id &&
-                userChallenge.userId === auth.id
+          ? ongoingChallenges.slice(
+              page * rowsPerPage,
+              page * rowsPerPage + rowsPerPage
+            )
+          : ongoingChallenges
+        ).map((challenge, idx) => {
+          const ongoingUserChallenge = userChallenges.filter(
+            (userChallenge) =>
+              userChallenge.challengeId === challenge.id &&
+              userChallenge.userId === auth.id
+          );
+          const enrolledUsers = userChallenges
+            .filter(
+              (userChallenge) => userChallenge.challengeId === challenge.id
+            )
+            ?.map((chall) =>
+              publicUsers.find((publicUser) => publicUser.id === chall.userId)
             );
-            const enrolledUsers = userChallenges
-              .filter(
-                (userChallenge) => userChallenge.challengeId === challenge.id
-              )
-              ?.map((chall) =>
-                publicUsers.find((publicUser) => publicUser.id === chall.userId)
-              );
-            const progress = ongoingUserChallenge[0]?.currentProgress * 1;
-            const progressInPercentage = (
-              (progress / challenge.targetNumber) *
-              100
-            ).toFixed(1);
-            
-            return (
-              <TableBody key={challenge.name}>
-                <StyledTableRow
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <StyledTableCell component="th" scope="challenge">
-                    {challenge.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {dateFormat(challenge.endDateTime, "paddedShortDate")}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    {enrolledUsers.length === 1
-                      ? "Just You"
-                      : enrolledUsers.length - 1 === 1
-                      ? "1 friend"
-                      : `${enrolledUsers.length - 1} friends`}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    <ProgressBar
-                      props={{
-                        bgColor: bgData[idx % 4],
-                        completed: progressInPercentage * 1,
-                      }}
-                    />
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    <Button onClick={() => navigate(`/challenges/${challenge.id}`)}>Go!</Button>
-                  </StyledTableCell>
-                </StyledTableRow>
-              </TableBody>
-              
-            );
-          })
-        }
+          const progress = ongoingUserChallenge[0]?.percentCompleted * 1;
+          const progressInPercentage = (progress * 100).toFixed(1);
+
+          return (
+            <TableBody key={challenge.name}>
+              <StyledTableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <StyledTableCell component="th" scope="challenge">
+                  {challenge.name}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {dateFormat(challenge.endDateTime, "paddedShortDate")}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {enrolledUsers.length === 1
+                    ? "Just You"
+                    : enrolledUsers.length - 1 === 1
+                    ? "1 friend"
+                    : `${enrolledUsers.length - 1} friends`}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <ProgressBar
+                    props={{
+                      bgColor: bgData[idx % 4],
+                      completed: progressInPercentage * 1,
+                    }}
+                  />
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <Button
+                    onClick={() => navigate(`/challenges/${challenge.id}`)}
+                  >
+                    Go!
+                  </Button>
+                </StyledTableCell>
+              </StyledTableRow>
+            </TableBody>
+          );
+        })}
         <TableFooter>
           <TableRow>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+              rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
               colSpan={3}
               count={ongoingChallenges.length}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{
                 inputProps: {
-                  'aria-label': 'rows per page',
+                  "aria-label": "rows per page",
                 },
                 native: true,
               }}
