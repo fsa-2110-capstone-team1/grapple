@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
@@ -26,6 +26,12 @@ export const JoinChallenge = ({
   userId,
 }) => {
   const dispatch = useDispatch();
+
+  const state = useSelector((state) => state);
+  const isAdmin = state.auth.isAdmin;
+
+  // console.log(isAdmin)
+  const location = useLocation().pathname;
 
   return (
     <Grid container direction="column" sx={{ alignItems: "center" }}>
@@ -77,6 +83,15 @@ export const JoinChallenge = ({
               Join Challenge
             </Button>
           )}
+          <Button>
+            {isAdmin ? (
+              <Typography component={Link} to={`${location}/edit`}>
+                <li className="user-link-li">Edit Challenge</li>
+              </Typography>
+            ) : (
+              ""
+            )}
+          </Button>
         </Box>
       </Grid>
       {/* <Button size="large">Invite A friend</Button> */}
