@@ -49,13 +49,15 @@ export const ChallengeDetails = () => {
   }, [location]);
 
   useEffect(() => {
-    setEnrolledUsers(
-      userChallenges
-        .filter((userChallenge) => userChallenge.challengeId === id * 1)
-        ?.map((chall) =>
-          publicUsers.find((publicUser) => publicUser.id === chall.userId)
-        )
-    );
+    if (publicUsers?.length > 0) {
+      setEnrolledUsers(
+        userChallenges
+          .filter((userChallenge) => userChallenge.challengeId === id * 1)
+          ?.map((chall) =>
+            publicUsers.find((publicUser) => publicUser.id === chall.userId)
+          )
+      );
+    }
   }, [id, publicUsers, challenges, userChallenges]);
 
   useEffect(() => {

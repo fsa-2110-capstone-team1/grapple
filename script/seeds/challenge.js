@@ -2075,13 +2075,12 @@ async function challengeSeed() {
   const moreChallenges = await Promise.all(
     dataChallenges.map((challenge) => {
       const startDateTime = randomDate("01/01/2022", "04/01/2022");
-      const targetUnit = challenge.targetNumber;
-      const endDateTime = addDays(startDateTime, targetUnit);
+      const endDateTime = addDays(startDateTime, challenge.targetNumber);
       return Challenge.create({
         name: `${challenge.name} - Take II`,
         description: challenge.description,
         image: challenge.image,
-        goalType: challenge.type,
+        goalType: challenge.goalType,
         category: challenge.category,
         startDateTime: startDateTime,
         endDateTime: endDateTime,

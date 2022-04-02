@@ -1,9 +1,10 @@
 const axios = require("axios");
 const {
-  models: { DailyUserChallenge },
+  models: { DailyUserChallenge, UserChallenge },
 } = require("../../server/db");
 
 async function dailyUserChallengeSeed() {
+  // A few stable ones for easy QA
   const duc = await Promise.all([
     DailyUserChallenge.create({
       userChallengeId: 1,
@@ -27,9 +28,74 @@ async function dailyUserChallengeSeed() {
   await duc[0].updateProgress(10);
   await duc[2].updateProgress(10);
   await duc[1].updateProgress(8);
-  //   await duc[3].updateProgress(12);
 
-  console.log(`seeded ${duc.length} dailyUserChallenges`);
+  const userChallenges = await UserChallenge.findAll({
+    include: ["challenge"],
+  });
+  const nonFutureUserChallenges = userChallenges.filter(
+    (uc) => uc.challenge.status !== "Not Started"
+  );
+
+  function randomDate(date1, date2) {
+    function randomValueBetween(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+    var date1 = date1 || "01-01-1970";
+    var date2 = date2 || new Date().toLocaleDateString();
+    date1 = new Date(date1).getTime();
+    date2 = new Date(date2).getTime();
+    if (date1 > date2) {
+      return new Date(randomValueBetween(date2, date1)).toLocaleDateString();
+    } else {
+      return new Date(randomValueBetween(date1, date2)).toLocaleDateString();
+    }
+  }
+
+  function padTo2Digits(num) {
+    return num.toString().padStart(2, "0");
+  }
+
+  function formatDate(date) {
+    return [
+      padTo2Digits(date.getMonth() + 1),
+      padTo2Digits(date.getDate()),
+      date.getFullYear(),
+    ].join("/");
+  }
+
+  function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return formatDate(result, "mediumDate");
+  }
+
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  const ducs = await Promise.all(
+    nonFutureUserChallenges.map(async (uc, idx) => {
+      //add daily seed to 2/3s of challenges to have a few empty examples
+      if (idx % 3 === 1) {
+        let date = randomDate(
+          uc.challenge.startDateTime,
+          uc.challenge.endDateTime
+        );
+        for (let i = 0; i < 4; i++) {
+          await DailyUserChallenge.create({
+            userChallengeId: uc.id,
+            date: addDays(date, i),
+            total:
+              uc.challenge.goalType === "daily"
+                ? getRandomInt(1, uc.challenge.targetNumber)
+                : 1,
+          });
+        }
+      }
+    })
+  );
+
+  console.log(`seeded ${duc.length + ducs.length} dailyUserChallenges`);
 
   return duc;
 }
