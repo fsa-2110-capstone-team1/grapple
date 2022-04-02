@@ -9,6 +9,7 @@ import {
   Typography,
   Divider,
   TextField,
+  Checkbox,
 } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import theme from "../../../theme";
@@ -50,7 +51,7 @@ export const TrackProgress = ({
     } else {
       setValue("0.0");
     }
-  }, [JSON.stringify(dailyUserChallenge)]);
+  }, [JSON.stringify(dailyUserChallenge), date]);
 
   const onSubmit = async (data) => {
     if (!dailyUserChallenge) {
@@ -97,34 +98,49 @@ export const TrackProgress = ({
               }}
               id="challenge-progress-form"
             >
-              <TextField
-                id="value"
-                required
-                variant="outlined"
-                label="Daily Progress"
-                type="number"
-                {...register("value", {
-                  required: "Required field",
-                })}
-                error={Number(watch("value")) < 0}
-                helperText={
-                  Number(watch("value")) < 0 ? "Total can't be less than 0" : ""
-                }
-                FormHelperTextProps={{
-                  style: { color: theme.palette.white.main },
-                }}
-                value={value || 0}
-                inputProps={{
-                  style: { color: theme.palette.white.main },
-                  step: ".1",
-                }}
-                InputLabelProps={{
-                  style: { color: theme.palette.white.main },
-                }}
-                onChange={(e) =>
-                  setValue(parseFloat(e.target.value).toFixed(1))
-                }
-              />
+              {challenge.goalType === "total" &&
+              challenge.targetUnit === "days" ? (
+                <Checkbox
+                  id="value"
+                  {...register("value")}
+                  checked={value === "1" || value === 1 ? true : false}
+                  onChange={(e) =>
+                    setValue(e.target.checked === true ? "1" : "0")
+                  }
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              ) : (
+                <TextField
+                  id="value"
+                  required
+                  variant="outlined"
+                  label="Daily Progress"
+                  type="number"
+                  {...register("value", {
+                    required: "Required field",
+                  })}
+                  error={Number(watch("value")) < 0}
+                  helperText={
+                    Number(watch("value")) < 0
+                      ? "Total can't be less than 0"
+                      : ""
+                  }
+                  FormHelperTextProps={{
+                    style: { color: theme.palette.white.main },
+                  }}
+                  value={value || 0}
+                  inputProps={{
+                    style: { color: theme.palette.white.main },
+                    step: ".1",
+                  }}
+                  InputLabelProps={{
+                    style: { color: theme.palette.white.main },
+                  }}
+                  onChange={(e) =>
+                    setValue(parseFloat(e.target.value).toFixed(1))
+                  }
+                />
+              )}
               <Button
                 variant="contained"
                 size="medium"

@@ -30,14 +30,6 @@ export const Details = ({ challenge }) => {
       </Grid>
       <Grid item>
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <FlagIcon sx={{ pr: "10px" }} />
-          <Typography variant="p">
-            Goal: {challenge.targetNumber} {challenge.targetUnit}
-          </Typography>
-        </Box>
-      </Grid>
-      <Grid item>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
           <SportsMmaIcon sx={{ pr: "10px" }} />
           <Typography variant="p">
             Difficulty Rating: {challenge.difficulty}
@@ -50,6 +42,16 @@ export const Details = ({ challenge }) => {
           <Typography variant="p">
             Dates: {dateFormat(challenge.startDateTime, "mediumDate")} -{" "}
             {dateFormat(challenge.endDateTime, "mediumDate")}
+          </Typography>
+        </Box>
+      </Grid>
+      <Grid item>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <FlagIcon sx={{ pr: "10px" }} />
+          <Typography variant="p">
+            {challenge.goalType === "daily" ? "Daily" : "Total"} Goal:{" "}
+            {challenge.targetNumber} {challenge.targetUnit}{" "}
+            {challenge.goalType === "daily" ? "/ day" : ""}
           </Typography>
         </Box>
       </Grid>

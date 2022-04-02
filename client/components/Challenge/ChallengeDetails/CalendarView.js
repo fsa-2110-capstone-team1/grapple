@@ -15,7 +15,9 @@ const CalendarView = ({ dailyUserChallenges, userChallenge, challenge }) => {
   function isSameDay(a, b) {
     return differenceInCalendarDays(new Date(a), new Date(b)) === 0;
   }
-  const datesWithData = dailyUserChallenges.map((duc) => new Date(duc.date));
+  const datesWithData = dailyUserChallenges
+    .filter((duc) => duc.total > 0)
+    .map((duc) => new Date(duc.date));
   const datesCompleted = dailyUserChallenges
     .filter(
       (duc) =>
@@ -41,7 +43,6 @@ const CalendarView = ({ dailyUserChallenges, userChallenge, challenge }) => {
       <Calendar
         onChange={onChange}
         value={date}
-        // tileContent={tileContent}
         minDate={new Date(challenge.startDateTime)}
         maxDate={new Date(challenge.endDateTime)}
         maxDetail="month"
