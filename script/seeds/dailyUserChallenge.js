@@ -77,7 +77,7 @@ async function dailyUserChallengeSeed() {
   const ducs = await Promise.all(
     nonFutureUserChallenges.map(async (uc, idx) => {
       //add daily seed to 2/3s of challenges to have a few empty examples
-      if (idx % 2 === 1) {
+      if (idx % 1 === 0) {
         let date = randomDate(
           uc.challenge.startDateTime,
           uc.challenge.endDateTime

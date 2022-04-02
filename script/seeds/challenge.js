@@ -2072,25 +2072,25 @@ async function challengeSeed() {
     return formatDate(result, "mediumDate");
   }
 
-  const moreChallenges = await Promise.all(
-    dataChallenges.map((challenge) => {
-      const startDateTime = randomDate("01/01/2022", "04/01/2022");
-      const endDateTime = addDays(startDateTime, challenge.targetNumber);
-      return Challenge.create({
-        name: `${challenge.name} - Take II`,
-        description: challenge.description,
-        image: challenge.image,
-        goalType: challenge.goalType,
-        category: challenge.category,
-        startDateTime: startDateTime,
-        endDateTime: endDateTime,
-        targetNumber: challenge.targetNumber,
-        targetUnit: challenge.targetUnit,
-        difficulty: challenge.difficulty,
-        isPrivate: challenge.isPrivate,
-      });
-    })
-  );
+  // const moreChallenges = await Promise.all(
+  //   dataChallenges.map((challenge) => {
+  //     const startDateTime = randomDate("01/01/2022", "04/01/2022");
+  //     const endDateTime = addDays(startDateTime, challenge.targetNumber);
+  //     return Challenge.create({
+  //       name: `${challenge.name} - Take II`,
+  //       description: challenge.description,
+  //       image: challenge.image,
+  //       goalType: challenge.goalType,
+  //       category: challenge.category,
+  //       startDateTime: startDateTime,
+  //       endDateTime: endDateTime,
+  //       targetNumber: challenge.targetNumber,
+  //       targetUnit: challenge.targetUnit,
+  //       difficulty: challenge.difficulty,
+  //       isPrivate: challenge.isPrivate,
+  //     });
+  //   })
+  // );
   console.log(`seeded ${challenges.length + 2} challenges`);
   // console.log(`seeded ${moreChallenges.length} past challenges`);
 
