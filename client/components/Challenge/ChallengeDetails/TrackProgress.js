@@ -51,7 +51,7 @@ export const TrackProgress = ({
     } else {
       setValue("0.0");
     }
-  }, [JSON.stringify(dailyUserChallenge)]);
+  }, [JSON.stringify(dailyUserChallenge), date]);
 
   const onSubmit = async (data) => {
     if (!dailyUserChallenge) {
@@ -59,14 +59,14 @@ export const TrackProgress = ({
         createDailyUserChallenge({
           userChallengeId: userChallenge.id,
           date: date,
-          total: data.value === true ? 1 : Number(data.value),
+          total: Number(data.value),
         })
       );
     } else {
       await dispatch(
         updateChallengeProgress({
           dailyUserChallengeId: dailyUserChallenge.id,
-          value: data.value === true ? 1 : Number(data.value),
+          value: Number(data.value),
         })
       );
     }
@@ -102,10 +102,12 @@ export const TrackProgress = ({
               challenge.targetUnit === "days" ? (
                 <Checkbox
                   id="value"
-                  required
-                  {...register("value", {
-                    required: "Required field",
-                  })}
+                  {...register("value")}
+                  checked={value === "1" || value === 1 ? true : false}
+                  onChange={(e) =>
+                    setValue(e.target.checked === true ? "1" : "0")
+                  }
+                  inputProps={{ "aria-label": "controlled" }}
                 />
               ) : (
                 <TextField
