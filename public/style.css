@@ -531,6 +531,11 @@ a:hover {
 }
 
 .react-calendar__highlight {
+  color: #febf30;
+  font-weight: bold;
+}
+
+.react-calendar__highlight-completed {
   color: #4ab5a3;
   font-weight: bold;
 }

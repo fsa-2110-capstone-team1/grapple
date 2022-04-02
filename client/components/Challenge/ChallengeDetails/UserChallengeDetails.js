@@ -9,6 +9,7 @@ import {
   Typography,
   Divider,
   TextField,
+  Stack,
 } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import theme from "../../../theme";
@@ -18,6 +19,7 @@ import {
   createDailyUserChallenge,
   getUserChallenge,
 } from "../../../store";
+import ProgressBar from "../../User/UserDashboard/ProgressBar";
 
 export const UserChallengeDetails = ({ userChallenge, challenge }) => {
   return (
@@ -28,27 +30,31 @@ export const UserChallengeDetails = ({ userChallenge, challenge }) => {
             m: 1,
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
+            // justifyContent: "center",
           }}
         >
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
-              <Typography>
-                <b>Joined On:</b>{" "}
-                {dateFormat(userChallenge.createdAt, "mediumDate")}
-              </Typography>
-              <Typography>
-                <b>Status:</b> {userChallenge.status}{" "}
-                {userChallenge.status === "Completed" && "👑"}
-              </Typography>
-              <Typography>
-                <b>Total Progress:</b> {userChallenge.currentProgress}{" "}
-                {challenge.goalType === "daily" ? "days" : challenge.targetUnit}{" "}
-                ({(userChallenge.percentCompleted * 100).toFixed(1)}
-                %)
-              </Typography>
-            </Grid>
-          </Grid>
+          <Stack spacing={1}>
+            <Typography>
+              <b>Joined On:</b>{" "}
+              {dateFormat(userChallenge.createdAt, "mediumDate")}
+            </Typography>
+            <Typography>
+              <b>Status:</b> {userChallenge.status}{" "}
+              {userChallenge.status === "Completed" && "👑"}
+            </Typography>
+            <Typography>
+              <b>Total Progress:</b> {userChallenge.currentProgress}{" "}
+              {challenge.goalType === "daily" ? "days" : challenge.targetUnit} (
+              {(userChallenge.percentCompleted * 100).toFixed(1)}
+              %)
+            </Typography>
+            <ProgressBar
+              props={{
+                bgColor: { bgcolor: "#4AB5A3" },
+                completed: (userChallenge.percentCompleted * 100).toFixed(1),
+              }}
+            />
+          </Stack>
         </Box>
       )}
     </>

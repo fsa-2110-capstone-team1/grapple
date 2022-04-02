@@ -27,6 +27,23 @@ const CreateChallenge = ({ method }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  let history = useLocation();
+  let challengeId = history.pathname.slice(12, -5) * 1;
+
+  const fullChallenges = useSelector((state) => state.challenges);
+  let theChallenge = fullChallenges;
+
+  if (fullChallenges.length > 0) {
+    fullChallenges.find((challenge) => challenge.id === challengeId);
+    theChallenge = fullChallenges.find(
+      (challenge) => challenge.id === challengeId
+    );
+  }
+
+  if (!theChallenge && method !== "create") {
+    return <h1>Sorry we are unable to edit this challenge</h1>;
+  }
+
   const {
     register,
     handleSubmit,
@@ -64,6 +81,14 @@ const CreateChallenge = ({ method }) => {
     }
   };
 
+  if (!theChallenge && method !== "create") {
+    return <h1>Sorry we are unable to edit this challenge</h1>;
+  }
+
+
+  if(theChallenge){
+  console.log(theChallenge.name);
+  }
   return (
     <>
       {!!snackbar && (
@@ -114,6 +139,7 @@ const CreateChallenge = ({ method }) => {
                     id="name"
                     label="Name"
                     variant="outlined"
+                    defaultValue={theChallenge.length ? "" : theChallenge.name}
                     autoFocus
                     {...register("name", {
                       required: "Required field",

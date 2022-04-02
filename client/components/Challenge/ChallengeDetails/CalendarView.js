@@ -15,24 +15,13 @@ const CalendarView = ({ dailyUserChallenges, userChallenge, challenge }) => {
   function isSameDay(a, b) {
     return differenceInCalendarDays(new Date(a), new Date(b)) === 0;
   }
-  const datesToAddContentTo = dailyUserChallenges.map(
-    (duc) => new Date(duc.date)
-  );
-
-  //   function tileContent({ date, view }) {
-  //     // Add class to tiles in month view only
-  //     // Check if a date React-Calendar wants to check is on the list of dates to add class to
-  //     if (
-  //       datesToAddContentTo.find((dDate) => {
-  //         return isSameDay(dDate, date);
-  //       })
-  //     ) {
-  //       const dailyTotal = dailyUserChallenges.find((duc) =>
-  //         isSameDay(duc.date, date)
-  //       ).total;
-  //       return ` (${dailyTotal})`;
-  //     }
-  //   }
+  const datesWithData = dailyUserChallenges.map((duc) => new Date(duc.date));
+  const datesCompleted = dailyUserChallenges
+    .filter(
+      (duc) =>
+        challenge.goalType === "daily" && duc.total >= challenge.targetNumber
+    )
+    .map((duc) => new Date(duc.date));
 
   const [date, setDate] = useState(new Date());
 
@@ -53,17 +42,27 @@ const CalendarView = ({ dailyUserChallenges, userChallenge, challenge }) => {
         onChange={onChange}
         value={date}
         // tileContent={tileContent}
-        minDate={new Date(challenge.startDateTime)} // will not allow date later than today
-        maxDate={new Date(challenge.endDateTime)} // will not allow date before 1st July 2015
+        minDate={new Date(challenge.startDateTime)}
+        maxDate={new Date(challenge.endDateTime)}
         maxDetail="month"
         minDetail="month"
         tileClassName={({ date, view }) => {
-          if (
-            datesToAddContentTo.find((dDate) => {
-              return isSameDay(dDate, date);
-            })
-          ) {
-            return "react-calendar__highlight";
+          if (challenge.goalType === "daily") {
+            if (datesCompleted.find((dDate) => isSameDay(dDate, date))) {
+              return "react-calendar__highlight-completed";
+            } else if (datesWithData.find((dDate) => isSameDay(dDate, date))) {
+              return "react-calendar__highlight";
+            } else if (
+              date < new Date() &&
+              date >= new Date(challenge.startDateTime) &&
+              date < new Date(challenge.endDateTime)
+            ) {
+              return "react-calendar__highlight";
+            }
+          } else {
+            if (datesWithData.find((dDate) => isSameDay(dDate, date))) {
+              return "react-calendar__highlight-completed";
+            }
           }
         }}
       />

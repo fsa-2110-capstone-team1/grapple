@@ -1,19 +1,22 @@
-import React from "react";
-
-// ?client_id=80097&client_secret=1b9da115503d5dc57f97be8b89b6c47058c3a9fb&refresh_token=20fafbc21489c0cf90dfea629e76c2e84b9b6e10&grant_type=refresh_token
+import React, { useState, useEffect } from "react";
 
 const StravaAPI = () => {
   const authLink = "https://www.strava.com/oauth/token";
-  let data;
+  const [data, setData] = useState(null);
+
+  useEffect(() =>{
   const getActivities = (res) => {
-    //   console.log('res', res)
-    const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${res.access_token}`;
-    fetch(activities_link).then((res) => (data = res.json()));
-    // data = res.json();
-    // console.log('d', data)
+    if (res) {
+      const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${res.access_token}`;
+      fetch(activities_link)
+      .then((res) => res.json())
+      .then(data => setData(data))
+      // console.log(data)
+    }
   };
 
-  //   console.log(data);
+  getActivities();
+
   const reauthActivities = () => {
     fetch(authLink, {
       method: "post",
@@ -22,9 +25,9 @@ const StravaAPI = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        client_id: "80097",
-        client_secret: "1b9da115503d5dc57f97be8b89b6c47058c3a9fb",
-        refresh_token: "20fafbc21489c0cf90dfea629e76c2e84b9b6e10",
+        client_id: process.env.STRAVA_CLIENT_ID,
+        client_secret: process.env.STRAVA_CLIENT_SECRET,
+        refresh_token: "ce819de32caf4a06ec9dcad5f279424407f93ec7",
         grant_type: "refresh_token",
       }),
     })
@@ -32,13 +35,9 @@ const StravaAPI = () => {
       .then((res) => getActivities(res));
   };
 
-  //   getActivities();
   reauthActivities();
-  return (
-    <a href="https://www.strava.com/oauth/authorize?client_id=80097&redirect_uri=http://localhost:8080&response_type=code&scope=read_all,activity:read_all">
-      {" "}
-      Connect to Strava
-    </a>
-  );
+}, [])
+
+  return <h4>test</h4>;
 };
 export default StravaAPI;

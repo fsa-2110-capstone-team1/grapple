@@ -72,7 +72,7 @@ const App = () => {
         />
         <Route path="/challenges" element={<BrowseChallenges />} />
         <Route path="/challenges/:id" element={<ChallengeDetails />} />
-        <Route path="/challenges/:id/edit" element={<EditChallenge />} />
+        <Route path="/challenges/:id/edit" element={<CreateChallenge />} />
         <Route path="/user/profile/edit" element={<EditUserProfile />} />
         <Route path="/user/dashboard" element={<UserDashboard />} />
         {/* NOTE: Should /userdashboard be /home??
