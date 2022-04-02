@@ -36,7 +36,7 @@ function FacebookLoginComponent() {
       facebookId: response.id,
       firstName: firstName,
       lastName: lastName,
-      username: response.name,
+      username: response.email,
     };
 
     setData(userData);

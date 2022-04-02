@@ -33,9 +33,7 @@ function GoogleLoginComponent() {
       lastName: res.profileObj.familyName
         ? res.profileObj.familyName
         : res.profileObj.email,
-      username: res.profileObj.name
-        ? res.profileObj.name
-        : res.profileObj.email,
+      username: res.profileObj.email,
     };
     setData(userData);
     // setLogin(true);
