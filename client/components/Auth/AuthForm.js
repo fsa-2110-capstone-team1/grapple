@@ -145,6 +145,7 @@ const AuthForm = ({ path }) => {
                     error={!!errors?.email}
                     helperText={errors?.email ? errors.email.message : null}
                     fullWidth
+                    required
                   />
                 </Grid>
                 <Grid item>
@@ -153,9 +154,6 @@ const AuthForm = ({ path }) => {
                     InputLabelProps={{
                       style: { color: theme.palette.white.main },
                     }}
-                    // sx={{
-                    //   backgroundColor: theme.palette.grey.main,
-                    // }}
                     id="password"
                     label="Password"
                     type="password"
@@ -166,11 +164,12 @@ const AuthForm = ({ path }) => {
                       errors?.password ? errors.password.message : null
                     }
                     fullWidth
+                    required
                   />
                 </Grid>
                 {method === "signup" ? (
-                  <Grid item container spacing={2}>
-                    <Grid item xs={6}>
+                  <>
+                    <Grid item>
                       <TextField
                         inputProps={{
                           style: { color: theme.palette.white.main },
@@ -178,47 +177,67 @@ const AuthForm = ({ path }) => {
                         InputLabelProps={{
                           style: { color: theme.palette.white.main },
                         }}
-                        // sx={{
-                        //   backgroundColor: theme.palette.grey.main,
-                        // }}
-                        id="firstName"
-                        label="First Name"
+                        id="username"
+                        label="Username"
                         variant="filled"
-                        {...register("firstName", {
+                        {...register("username", {
                           required: "Required field",
                         })}
-                        error={!!errors?.firstName}
+                        error={!!errors?.username}
                         helperText={
-                          errors?.firstName ? errors.firstName.message : null
+                          errors?.username ? errors.username.message : null
                         }
                         fullWidth
+                        required
                       />
                     </Grid>
-                    <Grid item xs={6}>
-                      <TextField
-                        inputProps={{
-                          style: { color: theme.palette.white.main },
-                        }}
-                        InputLabelProps={{
-                          style: { color: theme.palette.white.main },
-                        }}
-                        // sx={{
-                        //   backgroundColor: theme.palette.grey.main,
-                        // }}
-                        id="lastName"
-                        label="Last Name"
-                        variant="filled"
-                        {...register("lastName", {
-                          required: "Required field",
-                        })}
-                        error={!!errors?.lastName}
-                        helperText={
-                          errors?.lastName ? errors.lastName.message : null
-                        }
-                        fullWidth
-                      />
+                    <Grid item container spacing={2}>
+                      <Grid item xs={6}>
+                        <TextField
+                          inputProps={{
+                            style: { color: theme.palette.white.main },
+                          }}
+                          InputLabelProps={{
+                            style: { color: theme.palette.white.main },
+                          }}
+                          id="firstName"
+                          label="First Name"
+                          variant="filled"
+                          {...register("firstName", {
+                            required: "Required field",
+                          })}
+                          error={!!errors?.firstName}
+                          helperText={
+                            errors?.firstName ? errors.firstName.message : null
+                          }
+                          fullWidth
+                          required
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField
+                          inputProps={{
+                            style: { color: theme.palette.white.main },
+                          }}
+                          InputLabelProps={{
+                            style: { color: theme.palette.white.main },
+                          }}
+                          id="lastName"
+                          label="Last Name"
+                          variant="filled"
+                          {...register("lastName", {
+                            required: "Required field",
+                          })}
+                          error={!!errors?.lastName}
+                          helperText={
+                            errors?.lastName ? errors.lastName.message : null
+                          }
+                          fullWidth
+                          required
+                        />
+                      </Grid>
                     </Grid>
-                  </Grid>
+                  </>
                 ) : (
                   ""
                 )}
