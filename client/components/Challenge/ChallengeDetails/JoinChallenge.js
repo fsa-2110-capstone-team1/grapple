@@ -26,7 +26,6 @@ export const JoinChallenge = ({
   userId,
 }) => {
   const dispatch = useDispatch();
-  console.log(enrolledUsers);
 
   return (
     <Grid container direction="column" sx={{ alignItems: "center" }}>

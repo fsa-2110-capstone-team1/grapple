@@ -9,6 +9,7 @@ import {
   Typography,
   Divider,
   TextField,
+  Checkbox,
 } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import theme from "../../../theme";
@@ -58,14 +59,14 @@ export const TrackProgress = ({
         createDailyUserChallenge({
           userChallengeId: userChallenge.id,
           date: date,
-          total: Number(data.value),
+          total: data.value === true ? 1 : Number(data.value),
         })
       );
     } else {
       await dispatch(
         updateChallengeProgress({
           dailyUserChallengeId: dailyUserChallenge.id,
-          value: Number(data.value),
+          value: data.value === true ? 1 : Number(data.value),
         })
       );
     }
@@ -97,34 +98,47 @@ export const TrackProgress = ({
               }}
               id="challenge-progress-form"
             >
-              <TextField
-                id="value"
-                required
-                variant="outlined"
-                label="Daily Progress"
-                type="number"
-                {...register("value", {
-                  required: "Required field",
-                })}
-                error={Number(watch("value")) < 0}
-                helperText={
-                  Number(watch("value")) < 0 ? "Total can't be less than 0" : ""
-                }
-                FormHelperTextProps={{
-                  style: { color: theme.palette.white.main },
-                }}
-                value={value || 0}
-                inputProps={{
-                  style: { color: theme.palette.white.main },
-                  step: ".1",
-                }}
-                InputLabelProps={{
-                  style: { color: theme.palette.white.main },
-                }}
-                onChange={(e) =>
-                  setValue(parseFloat(e.target.value).toFixed(1))
-                }
-              />
+              {challenge.goalType === "total" &&
+              challenge.targetUnit === "days" ? (
+                <Checkbox
+                  id="value"
+                  required
+                  {...register("value", {
+                    required: "Required field",
+                  })}
+                />
+              ) : (
+                <TextField
+                  id="value"
+                  required
+                  variant="outlined"
+                  label="Daily Progress"
+                  type="number"
+                  {...register("value", {
+                    required: "Required field",
+                  })}
+                  error={Number(watch("value")) < 0}
+                  helperText={
+                    Number(watch("value")) < 0
+                      ? "Total can't be less than 0"
+                      : ""
+                  }
+                  FormHelperTextProps={{
+                    style: { color: theme.palette.white.main },
+                  }}
+                  value={value || 0}
+                  inputProps={{
+                    style: { color: theme.palette.white.main },
+                    step: ".1",
+                  }}
+                  InputLabelProps={{
+                    style: { color: theme.palette.white.main },
+                  }}
+                  onChange={(e) =>
+                    setValue(parseFloat(e.target.value).toFixed(1))
+                  }
+                />
+              )}
               <Button
                 variant="contained"
                 size="medium"
