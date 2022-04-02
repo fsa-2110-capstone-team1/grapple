@@ -8,11 +8,11 @@ const SALT_ROUNDS = 5;
 const User = db.define("user", {
   username: {
     type: STRING,
-    // unique: true,
-    // allowNull: false,
-    // validate: {
-    //   notEmpty: true,
-    // },
+    unique: true,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
   },
   email: {
     type: STRING,
