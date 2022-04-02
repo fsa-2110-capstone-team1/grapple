@@ -14,7 +14,7 @@ function BrowseChallenges() {
   const [filters, setFilters] = useState({});
   const [filteredChallenges, setFilteredChallenges] = useState([]);
   useEffect(() => {
-    setFilteredChallenges(challenges);
+    setFilteredChallenges(challenges.filter((c) => c.status !== "Ended"));
   }, [challenges]);
 
   //sorting

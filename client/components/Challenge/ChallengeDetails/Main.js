@@ -49,14 +49,16 @@ export const ChallengeDetails = () => {
   }, [location]);
 
   useEffect(() => {
-    setEnrolledUsers(
-      userChallenges
-        .filter((userChallenge) => userChallenge.challengeId === id * 1)
-        ?.map((chall) =>
-          publicUsers.find((publicUser) => publicUser.id === chall.userId)
-        )
-    );
-  }, [id, publicUsers, challenges]);
+    if (publicUsers?.length > 0) {
+      setEnrolledUsers(
+        userChallenges
+          .filter((userChallenge) => userChallenge.challengeId === id * 1)
+          ?.map((chall) =>
+            publicUsers.find((publicUser) => publicUser.id === chall.userId)
+          )
+      );
+    }
+  }, [id, publicUsers, challenges, userChallenges]);
 
   useEffect(() => {
     const chal = challenges.find((ch) => ch.id === id * 1);
@@ -102,7 +104,13 @@ export const ChallengeDetails = () => {
   }, [userChallenge.id]);
 
   return (
-    <Box sx={{ minHeight: "100vh", mb: "20px" }}>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        maxWidth: "100vw",
+        mb: "20px",
+      }}
+    >
       {/* main page */}
       <Grid
         container
@@ -114,13 +122,19 @@ export const ChallengeDetails = () => {
         }}
       >
         {/* hero image */}
-        <Grid item xs={3}>
+        <Grid
+          item
+          xs={3}
+          sx={{
+            overflow: "hidden",
+          }}
+        >
           <Box
             component="img"
             src="/homeImgs/grapple-cycle-group.jpeg"
             sx={{
               width: 1,
-              // marginTop: '-28px',
+              minWidth: 1,
               maxHeight: "30vh",
               objectFit: "cover",
               objectPosition: "center",
@@ -129,16 +143,13 @@ export const ChallengeDetails = () => {
         </Grid>
 
         {/* main section */}
-        <Grid
-          item
-          xs={5}
-          sx={{
-            // backgroundColor: theme.palette.braun.main,
-            color: theme.palette.white.main,
-            minHeight: "100vh",
-          }}
-        >
+        <Grid item xs={5} container>
+          {/* Left railing */}
+          <Grid item xs={1} />
+          {/* Middle section */}
           <Grid
+            item
+            xs={10}
             container
             direction="column"
             spacing={2}
@@ -153,15 +164,20 @@ export const ChallengeDetails = () => {
             {/* main description section */}
             <Grid item container spacing={2} sx={{ alignItems: "center" }}>
               {/* Left railing */}
-              <Grid item xs={0.5} md={0.5} sx={{ mr: "60px" }} />
+              <Grid
+                item
+                xs={0}
+                md={0.5}
+                // sx={{ mr: "60px" }}
+              />
 
               {/* Left details section */}
-              <Grid item xs={10} md={5}>
+              <Grid item xs={12} md={5.5}>
                 <Details challenge={challenge} />
               </Grid>
 
               {/* Right join challenge section */}
-              <Grid item xs={10} md={5}>
+              <Grid item xs={12} md={5.5}>
                 <JoinChallenge
                   challenge={challenge}
                   userChallenge={userChallenge}
@@ -171,7 +187,7 @@ export const ChallengeDetails = () => {
               </Grid>
 
               {/* Right railing */}
-              <Grid item xs={0.5} md={0.5} />
+              <Grid item xs={0} md={0.5} />
             </Grid>
 
             {challenge.status === "In Progress" && userChallenge.id ? (
@@ -201,6 +217,8 @@ export const ChallengeDetails = () => {
               ""
             )}
           </Grid>
+          {/* Right railing */}
+          <Grid item xs={1} />
         </Grid>
       </Grid>
     </Box>
