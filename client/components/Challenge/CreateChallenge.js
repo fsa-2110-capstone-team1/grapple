@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 import theme from "../../theme";
@@ -27,16 +27,15 @@ const CreateChallenge = ({ method }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  let history = useLocation();
-  let challengeId = history.pathname.slice(12, -5) * 1;
+  const { id: challengeId } = useParams();
 
   const fullChallenges = useSelector((state) => state.challenges);
   let theChallenge = fullChallenges;
 
   if (fullChallenges.length > 0) {
-    fullChallenges.find((challenge) => challenge.id === challengeId);
+    fullChallenges.find((challenge) => challenge.id === challengeId * 1);
     theChallenge = fullChallenges.find(
-      (challenge) => challenge.id === challengeId
+      (challenge) => challenge.id === challengeId * 1
     );
   }
 
@@ -81,14 +80,6 @@ const CreateChallenge = ({ method }) => {
     }
   };
 
-  if (!theChallenge && method !== "create") {
-    return <h1>Sorry we are unable to edit this challenge</h1>;
-  }
-
-
-  if(theChallenge){
-  console.log(theChallenge.name);
-  }
   return (
     <>
       {!!snackbar && (
@@ -139,13 +130,13 @@ const CreateChallenge = ({ method }) => {
                     id="name"
                     label="Name"
                     variant="outlined"
-                    defaultValue={theChallenge.length ? "" : theChallenge.name}
                     autoFocus
                     {...register("name", {
                       required: "Required field",
                     })}
                     error={!!errors?.name}
                     helperText={errors?.name ? errors.name.message : null}
+                    defaultValue={theChallenge ? theChallenge.name : ""}
                     fullWidth
                     required
                   />
@@ -157,6 +148,9 @@ const CreateChallenge = ({ method }) => {
                     select
                     label="Category"
                     defaultValue="0"
+                    // defaultValue={
+                    //   theChallenge ? theChallenge.category : "mental"
+                    // }
                     required
                     {...register("category", { required: true })}
                     error={!!errors?.category}
@@ -179,6 +173,7 @@ const CreateChallenge = ({ method }) => {
                     id="description"
                     label="Description"
                     variant="outlined"
+                    defaultValue={theChallenge ? theChallenge.description : ""}
                     multiline
                     {...register("description", { required: "Required field" })}
                     error={!!errors?.description}
@@ -196,6 +191,7 @@ const CreateChallenge = ({ method }) => {
                     label="Image URL"
                     variant="outlined"
                     {...register("imageUrl")}
+                    defaultValue={theChallenge ? theChallenge.image : "0"}
                     error={!!errors?.imageUrl}
                     helperText={
                       errors?.imageUrl ? errors.imageUrl.message : null
@@ -290,7 +286,11 @@ const CreateChallenge = ({ method }) => {
                         id="targetNumber"
                         label="Number"
                         type="number"
+                        InputProps={{ inputProps: { min: 0 } }}
                         variant="outlined"
+                        defaultValue={
+                          theChallenge ? theChallenge.targetNumber : "0"
+                        }
                         {...register("targetNumber", { required: true })}
                         error={!!errors?.targetNumber}
                         helperText={
@@ -307,6 +307,9 @@ const CreateChallenge = ({ method }) => {
                         id="targetUnit"
                         label="Unit"
                         variant="outlined"
+                        defaultValue={
+                          theChallenge ? theChallenge.targetUnit : "0"
+                        }
                         {...register("targetUnit", { required: true })}
                         error={!!errors?.targetUnit}
                         helperText={
@@ -327,8 +330,9 @@ const CreateChallenge = ({ method }) => {
                   </Typography>
                   <Slider
                     aria-label="Difficulty"
-                    defaultValue={3}
+                    // defaultValue={3}
                     // getAriaValueText={valuetext}
+                    defaultValue={theChallenge ? theChallenge.difficulty : 3}
                     valueLabelDisplay="auto"
                     step={1}
                     marks={[
