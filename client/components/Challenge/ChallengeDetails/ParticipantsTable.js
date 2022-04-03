@@ -133,7 +133,6 @@ export const ParticipantsTable = ({
 
   const userProgress = {};
   const usersLeaderboard = enrolledUsers.map((user) => {
-    console.log(user.id)
     const userChallenge = userChallenges.filter(
       (userChallenge) => (userChallenge.userId === user.id && userChallenge.challengeId === id*1)
     );
@@ -141,7 +140,6 @@ export const ParticipantsTable = ({
     return userProgress;
   });
 
-  console.log(userProgress)
   let userIdWithProgress = [];
   Object.keys(userProgress).forEach((key) => {
     let obj = { userId: 0, progress: 0 };
