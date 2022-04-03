@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import SportsMmaIcon from "@mui/icons-material/SportsMma";
 import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
@@ -21,13 +21,14 @@ import {
   TextField,
   styled,
 } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "../../../theme";
 import dateFormat from "dateformat";
 import ConfirmActionDialog from "../../../ConfirmActionDialog";
 import Details from "./Details";
 import JoinChallenge from "./JoinChallenge";
-import UserChallengeWrapper from "./UserChallengeWrapper";
-import theme from "../../../theme";
-import { getDailyUserChallenges } from "../../../store";
+import TrackProgress from "./TrackProgress";
+import ParticipantsTable from "../ChallengeDetails/ParticipantsTable";
 
 export const ChallengeDetails = () => {
   const navigate = useNavigate();
@@ -35,30 +36,24 @@ export const ChallengeDetails = () => {
 
   // This is the challenge id.
   const { id } = useParams();
-  const location = useLocation();
 
-  const { challenges, publicUsers, userChallenges, auth, dailyUserChallenges } =
-    useSelector((state) => state);
+  const { challenges, publicUsers, userChallenges, auth } = useSelector(
+    (state) => state
+  );
 
   const [enrolledUsers, setEnrolledUsers] = useState([]);
   const [challenge, setChallenge] = useState({});
   const [userChallenge, setUserChallenge] = useState({});
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location]);
-
-  useEffect(() => {
-    if (publicUsers?.length > 0) {
-      setEnrolledUsers(
-        userChallenges
-          .filter((userChallenge) => userChallenge.challengeId === id * 1)
-          ?.map((chall) =>
-            publicUsers.find((publicUser) => publicUser.id === chall.userId)
-          )
-      );
-    }
-  }, [id, publicUsers, challenges, userChallenges]);
+    setEnrolledUsers(
+      userChallenges
+        .filter((userChallenge) => userChallenge.challengeId === id * 1)
+        ?.map((chall) =>
+          publicUsers.find((publicUser) => publicUser.id === chall.userId)
+        )
+    );
+  }, [id, publicUsers, challenges]);
 
   useEffect(() => {
     const chal = challenges.find((ch) => ch.id === id * 1);
@@ -95,46 +90,18 @@ export const ChallengeDetails = () => {
     }
   }, [auth?.id, userChallenges, id]);
 
-  useEffect(async () => {
-    if (userChallenge.id) {
-      const dailyUserChallenges = await dispatch(
-        getDailyUserChallenges(userChallenge.id)
-      );
-    }
-  }, [userChallenge.id]);
-
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        maxWidth: "100vw",
-        mb: "20px",
-      }}
-    >
+    <ThemeProvider theme={theme}>
       {/* main page */}
-      <Grid
-        container
-        direction="column"
-        spacing={3}
-        sx={{
-          // backgroundColor: theme.palette.braun.main,
-          color: theme.palette.white.main,
-        }}
-      >
+      <Grid container direction="column" spacing={3}>
         {/* hero image */}
-        <Grid
-          item
-          xs={3}
-          sx={{
-            overflow: "hidden",
-          }}
-        >
+        <Grid item xs={3}>
           <Box
             component="img"
             src="/homeImgs/grapple-cycle-group.jpeg"
             sx={{
               width: 1,
-              minWidth: 1,
+              marginTop: "-28px",
               maxHeight: "30vh",
               objectFit: "cover",
               objectPosition: "center",
@@ -143,13 +110,8 @@ export const ChallengeDetails = () => {
         </Grid>
 
         {/* main section */}
-        <Grid item xs={5} container>
-          {/* Left railing */}
-          <Grid item xs={1} />
-          {/* Middle section */}
+        <Grid item xs={5}>
           <Grid
-            item
-            xs={10}
             container
             direction="column"
             spacing={2}
@@ -164,20 +126,15 @@ export const ChallengeDetails = () => {
             {/* main description section */}
             <Grid item container spacing={2} sx={{ alignItems: "center" }}>
               {/* Left railing */}
-              <Grid
-                item
-                xs={0}
-                md={0.5}
-                // sx={{ mr: "60px" }}
-              />
+              <Grid item xs={0.5} md={0.5} sx={{ mr: "60px" }} />
 
               {/* Left details section */}
-              <Grid item xs={12} md={5.5}>
+              <Grid item xs={10} md={5}>
                 <Details challenge={challenge} />
               </Grid>
 
               {/* Right join challenge section */}
-              <Grid item xs={12} md={5.5}>
+              <Grid item xs={10} md={5}>
                 <JoinChallenge
                   challenge={challenge}
                   userChallenge={userChallenge}
@@ -187,41 +144,43 @@ export const ChallengeDetails = () => {
               </Grid>
 
               {/* Right railing */}
-              <Grid item xs={0} md={0.5} />
+              <Grid item xs={0.5} md={0.5} />
             </Grid>
 
-            {challenge.status === "In Progress" && userChallenge.id ? (
-              <>
-                <Grid item sx={{ width: "80vw" }}>
-                  <Divider />
-                </Grid>
+            <Grid item sx={{ width: "80vw" }}>
+              <Divider />
+            </Grid>
 
-                {/* Track challenge progress section */}
-                <Grid item xs={4} container sx={{ alignItems: "center" }}>
-                  {/* Left railing */}
-                  <Grid item xs={0.5} md={0.5} sx={{ mr: "60px" }} />
+            {/* Track challenge progress section */}
+            <Grid item xs={4} container sx={{ alignItems: "center" }}>
+              {/* Left railing */}
+              <Grid item xs={0.5} md={0.5} sx={{ mr: "60px" }} />
 
-                  <Grid item xs={10}>
-                    <UserChallengeWrapper
-                      dailyUserChallenges={dailyUserChallenges}
-                      challenge={challenge}
-                      userChallenge={userChallenge}
-                    />
-                  </Grid>
+              <Grid item xs={10}>
+                <TrackProgress
+                  userChallenge={userChallenge}
+                  challenge={challenge}
+                />
+              </Grid>
 
-                  {/* Right railing */}
-                  <Grid item xs={0.5} md={0.5} />
-                </Grid>
-              </>
-            ) : (
-              ""
-            )}
+              {/* Right railing */}
+              <Grid item xs={0.5} md={0.5} />
+            </Grid>
+            <Grid item xs={4} container sx={{ alignItems: "center", marginBottom: "20px" }}>
+              {/* Left railing */}
+              <Grid item xs={0.5} md={0.5} sx={{ mr: "60px" }} />
+
+              <Grid item xs={10}>
+                <ParticipantsTable enrolledUsers={enrolledUsers} />
+              </Grid>
+
+              {/* Right railing */}
+              <Grid item xs={0.5} md={0.5} />
+            </Grid>
           </Grid>
-          {/* Right railing */}
-          <Grid item xs={1} />
         </Grid>
       </Grid>
-    </Box>
+    </ThemeProvider>
   );
 };
 export default ChallengeDetails;

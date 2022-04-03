@@ -27,11 +27,13 @@ export const JoinChallenge = ({
 }) => {
   const dispatch = useDispatch();
 
+
   const state = useSelector((state) => state);
   const isAdmin = state.auth.isAdmin;
 
   // console.log(isAdmin)
   const location = useLocation().pathname;
+
 
   return (
     <Grid container direction="column" sx={{ alignItems: "center" }}>
