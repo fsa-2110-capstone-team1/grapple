@@ -21,7 +21,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { LoadingButton } from "@mui/lab";
 import SaveIcon from "@mui/icons-material/Save";
-import { addNewChallenge } from "../../store";
+import { addNewChallenge, updateChallenge } from "../../store";
 
 const CreateChallenge = ({ method }) => {
   const dispatch = useDispatch();
@@ -30,14 +30,15 @@ const CreateChallenge = ({ method }) => {
   const { id: challengeId } = useParams();
 
   const fullChallenges = useSelector((state) => state.challenges);
-  let theChallenge = fullChallenges;
 
+  let theChallenge = fullChallenges;
   if (fullChallenges.length > 0) {
     fullChallenges.find((challenge) => challenge.id === challengeId * 1);
     theChallenge = fullChallenges.find(
       (challenge) => challenge.id === challengeId * 1
     );
   }
+  // console.log(theChallenge)
 
   if (!theChallenge && method !== "create") {
     return <h1>Sorry we are unable to edit this challenge</h1>;
@@ -66,10 +67,19 @@ const CreateChallenge = ({ method }) => {
   const onSubmit = async (data) => {
     try {
       const { challenge } = await dispatch(
-        addNewChallenge({
-          ...data,
-          category: data.category === "0" ? "misc" : data.category,
-        })
+        method === "create"
+          ? 
+          addNewChallenge({
+              ...data,
+              category: data.category === "0" ? "misc" : data.category,
+            })
+
+          : 
+          updateChallenge({
+              ...data,
+              category: data.category === "0" ? "misc" : data.category,
+            })
+            
       );
       navigate(`/challenges/${challenge.id}`);
     } catch (err) {

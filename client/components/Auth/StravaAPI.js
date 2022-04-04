@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 
 const StravaAPI = () => {
   const authLink = "https://www.strava.com/oauth/token";
-  const [data, setData] = useState(null);
+  // const [data, setData] = useState(null);
 
-  useEffect(() =>{
+  // useEffect(() =>{
   const getActivities = (res) => {
     if (res) {
       const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${res.access_token}`;
       fetch(activities_link)
-      .then((res) => res.json())
-      .then(data => setData(data))
+      .then((res) => console.log(res.json()))
+      // .then(data => setData(data))
       // console.log(data)
     }
   };
@@ -32,11 +32,12 @@ const StravaAPI = () => {
       }),
     })
       .then((res) => res.json())
-      .then((res) => getActivities(res));
+      .then(res => getActivities(res));
   };
 
   reauthActivities();
-}, [])
+// }
+// , [])
 
   return <h4>test</h4>;
 };
