@@ -25,39 +25,46 @@ import { updateChallenge } from "../../store";
 
 const EditChallenge = () => {
   const challenges = useSelector((state) => state.challenges);
+
   const { id: challengeId } = useParams();
-  
-  const challenge = challenges.find(
-    (challenge) => challenge.id === challengeId * 1
-  );
 
   const dispatch = useDispatch();
-  const [challengeEdit, setChallenge] = useState(null);
+
+  const [challenge, setChallenge] = useState({});
 
   useEffect(() => {
-    if (challenge) {
-      setChallenge(challenge);
-    }
-  }, [challenge]);
+    // console.log("inside", challenges);
+    setChallenge(
+      challenges.find((challenge) => challenge.id === challengeId * 1)
+    );
+    // reset({name:challenge?.name});
+  }, [challenges, challengeId]);
+
+
+  useEffect(() => {
+      if(!!challenge){
+  reset({...challenge})
+  }}, [challenge]);
+      
+  
 
   console.log(challenge);
   const navigate = useNavigate();
 
-  const fullChallenges = useSelector((state) => state.challenges);
+//   const fullChallenges = useSelector((state) => state.challenges);
   //   console.log(fullChallenges);
 
-  let theChallenge = fullChallenges;
-  if (fullChallenges.length > 0) {
-    fullChallenges.find((challenge) => challenge.id === challengeId * 1);
-    theChallenge = fullChallenges.find(
-      (challenge) => challenge.id === challengeId * 1
-    );
-  }
+//   let theChallenge = fullChallenges;
+//   if (fullChallenges.length > 0) {
+//     fullChallenges.find((challenge) => challenge.id === challengeId * 1);
+//     theChallenge = fullChallenges.find(
+//       (challenge) => challenge.id === challengeId * 1
+//     );
+//   }
 
-  if (!theChallenge) {
-    return <h1>Sorry we are unable to edit this challenge</h1>;
-  }
-
+//   if (!challenge) {
+//     return <h1>Sorry we are unable to edit this challenge</h1>;
+//   }
 
   const {
     register,
@@ -80,17 +87,16 @@ const EditChallenge = () => {
   const handleCloseSnackbar = () => setSnackbar(null);
 
   const onSubmit = async (data) => {
-
     try {
       const { challenge } = await dispatch(
         updateChallenge({
-          ...data, id: challengeId,
+          ...data,
+          id: challengeId,
           category: data.category,
         })
       );
       navigate(`/challenges/${challenge.id}`);
-    } 
-    catch (err) {
+    } catch (err) {
       setSnackbar({
         children: "Challenge could not be edited!",
         severity: "error",
@@ -98,7 +104,6 @@ const EditChallenge = () => {
       navigate(`/challenges/${challenge.id}`);
     }
   };
-
 
   return (
     <>
@@ -155,7 +160,7 @@ const EditChallenge = () => {
                     })}
                     error={!!errors?.name}
                     helperText={errors?.name ? errors.name.message : null}
-                    defaultValue={theChallenge.name}
+                    defaultValue={'image'}
                     fullWidth
                     required
                   />
@@ -165,8 +170,8 @@ const EditChallenge = () => {
                   <TextField
                     id="category"
                     select
-                    label="Category"
-                    defaultValue="0"
+                    label="category"
+                    value="0"
                     // multiline
                     // defaultValue={theChallenge.category}
                     required
@@ -191,7 +196,7 @@ const EditChallenge = () => {
                     id="description"
                     label="Description"
                     variant="outlined"
-                    defaultValue={theChallenge.description}
+                    defaultValue={'image'}
                     // multiline
                     {...register("description", { required: "Required field" })}
                     error={!!errors?.description}
@@ -209,11 +214,11 @@ const EditChallenge = () => {
                     label="Image URL"
                     variant="outlined"
                     // multiline
-                    {...register("imageUrl")}
-                    defaultValue={theChallenge.image}
+                    {...register("image")}
+                    defaultValue={'image'}
                     error={!!errors?.imageUrl}
                     helperText={
-                      errors?.imageUrl ? errors.imageUrl.message : null
+                      errors?.image ? errors.image.message : null
                     }
                     fullWidth
                   />
@@ -309,7 +314,7 @@ const EditChallenge = () => {
                         type="number"
                         InputProps={{ inputProps: { min: 0 } }}
                         variant="outlined"
-                        defaultValue={theChallenge.targetNumber}
+                        defaultValue={'0'}
                         {...register("targetNumber", { required: true })}
                         error={!!errors?.targetNumber}
                         helperText={
@@ -327,7 +332,7 @@ const EditChallenge = () => {
                         label="Unit"
                         variant="outlined"
                         // multiline
-                        defaultValue={theChallenge.targetUnit}
+                        defaultValue={'image'}
                         {...register("targetUnit", { required: true })}
                         error={!!errors?.targetUnit}
                         helperText={
@@ -348,9 +353,9 @@ const EditChallenge = () => {
                   </Typography>
                   <Slider
                     aria-label="Difficulty"
-                    defaultValue={3}
+                    // defaultValue={'image'}
                     // getAriaValueText={valuetext}
-                    // defaultValue={theChallenge.difficulty}
+                    defaultValue={'3'}
                     valueLabelDisplay="auto"
                     step={1}
                     marks={[
