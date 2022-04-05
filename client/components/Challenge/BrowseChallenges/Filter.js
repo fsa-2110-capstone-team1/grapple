@@ -26,29 +26,40 @@ const Filter = ({
   function filterChallenges(challenges, filters) {
     if (!Object.keys(filters).length) return challenges;
 
-    return challenges.filter((challenge) => {
-      return Object.keys(filters).every((attribute) => {
-        const value = challenge[attribute];
-        const searchValue = filters[attribute];
+    return challenges
+      .map((c) => ({
+        ...c,
+        status:
+          new Date() < new Date(c.startDateTime)
+            ? "Not Started"
+            : new Date() >= new Date(c.startDateTime) &&
+              new Date() < new Date(c.endDateTime)
+            ? "In Progress"
+            : "Ended",
+      }))
+      .filter((challenge) => {
+        return Object.keys(filters).every((attribute) => {
+          const value = challenge[attribute];
+          const searchValue = filters[attribute];
 
-        if (typeof value === "string") {
-          return value.toLowerCase().includes(searchValue.toLowerCase());
-        }
+          if (typeof value === "string") {
+            return value.toLowerCase().includes(searchValue.toLowerCase());
+          }
 
-        if (typeof value === "boolean") {
-          return (
-            (searchValue === "true" && value) ||
-            (searchValue === "false" && !value)
-          );
-        }
+          if (typeof value === "boolean") {
+            return (
+              (searchValue === "true" && value) ||
+              (searchValue === "false" && !value)
+            );
+          }
 
-        if (typeof value === "number") {
-          return value == searchValue;
-        }
+          if (typeof value === "number") {
+            return value == searchValue;
+          }
 
-        return false;
+          return false;
+        });
       });
-    });
   }
 
   const handleFilter = (value, attribute) => {
@@ -106,6 +117,23 @@ const Filter = ({
             <MenuItem value={"sleep"}>Sleep</MenuItem>
             <MenuItem value={"food"}>Food</MenuItem>
             <MenuItem value={"misc"}>Misc</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+      <Box sx={{ mt: 3 }}>
+        <FormControl fullWidth>
+          <InputLabel id="status">Status</InputLabel>
+          <Select
+            labelId="status"
+            id="status-select"
+            value={filters["status"] || 0}
+            label="status"
+            onChange={(e) => handleFilter(e.target.value, "status")}
+          >
+            <MenuItem value={0}>All</MenuItem>
+            <MenuItem value={"Not Started"}>Not Started</MenuItem>
+            <MenuItem value={"In Progress"}>In Progress</MenuItem>
+            <MenuItem value={"Ended"}>Ended</MenuItem>
           </Select>
         </FormControl>
       </Box>
