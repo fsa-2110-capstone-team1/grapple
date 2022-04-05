@@ -33,8 +33,14 @@ async function dailyUserChallengeSeed() {
   const userChallenges = await UserChallenge.findAll({
     include: ["challenge"],
   });
+
+  //only add daily challenge to in progress or past challenges
+  // skip user challenge 1 & 2 because of fixed seeding above
   const nonFutureUserChallenges = userChallenges.filter(
-    (uc) => uc.challenge.status !== "Not Started"
+    (uc) =>
+      new Date(uc.challenge.startDateTime) <= new Date() &&
+      uc.id !== 1 &&
+      uc.id !== 2
   );
 
   function randomDate(date1, date2) {
@@ -76,13 +82,20 @@ async function dailyUserChallengeSeed() {
 
   const ducs = await Promise.all(
     nonFutureUserChallenges.map(async (uc, idx) => {
-      //add daily seed to 2/3s of challenges to have a few empty examples
-      if (idx % 1 === 0) {
-        let date = randomDate(
-          uc.challenge.startDateTime,
-          uc.challenge.endDateTime
-        );
-        for (let i = 0; i < 4; i++) {
+      const endDate = new Date(
+        Math.min(new Date(uc.challenge.endDateTime), new Date())
+      );
+
+      const challengeLength = differenceInCalendarDays(
+        endDate,
+        new Date(uc.challenge.startDateTime)
+      );
+
+      //add daily seed to 1/2s of challenges to have a few empty examples
+      if (idx % 2 === 0) {
+        let date = uc.challenge.startDateTime;
+
+        for (let i = 0; i < getRandomInt(7, challengeLength); i++) {
           await DailyUserChallenge.create({
             userChallengeId: uc.id,
             date: addDays(date, i),
@@ -90,15 +103,26 @@ async function dailyUserChallengeSeed() {
               uc.challenge.goalType === "total"
                 ? uc.challenge.targetUnit === "days"
                   ? 1
-                  : getRandomInt(
-                      1,
-                      uc.challenge.targetNumber /
-                        differenceInCalendarDays(
-                          new Date(uc.challenge.endDateTime),
-                          new Date(uc.challenge.startDateTime)
-                        )
-                    )
+                  : getRandomInt(1, uc.challenge.targetNumber / challengeLength)
                 : getRandomInt(1, uc.challenge.targetNumber),
+          });
+        }
+      }
+
+      //add daily seed to another ~1/3s of challenges to be completed
+      else if (idx % 3 === 0) {
+        let date = uc.challenge.startDateTime;
+
+        for (let i = 0; i < challengeLength; i++) {
+          await DailyUserChallenge.create({
+            userChallengeId: uc.id,
+            date: addDays(date, i),
+            total:
+              uc.challenge.goalType === "total"
+                ? uc.challenge.targetUnit === "days"
+                  ? 1
+                  : uc.challenge.targetNumber / challengeLength
+                : uc.challenge.targetNumber,
           });
         }
       }

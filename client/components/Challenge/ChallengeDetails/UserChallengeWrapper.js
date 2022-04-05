@@ -11,14 +11,18 @@ import theme from "../../../theme";
 import UserChallengeDetails from "./UserChallengeDetails";
 import TrackProgress from "./TrackProgress";
 import CalendarView from "./CalendarView";
+import ParticipantsTable from "./ParticipantsTable";
 
 export const UserChallengeWrapper = ({
   dailyUserChallenges,
   userChallenge,
   challenge,
+  enrolledUsers,
 }) => {
   return (
-    <Box>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <Typography variant="h6" sx={{ textAlign: "center" }}>
         Track Your Daily Progress
       </Typography>
@@ -38,6 +42,8 @@ export const UserChallengeWrapper = ({
           />
         </Grid>
       </Grid>
+      <Divider sx={{ width: "80vw", mt: 3, mb: 3 }} />
+      <ParticipantsTable enrolledUsers={enrolledUsers} />
     </Box>
   );
 };

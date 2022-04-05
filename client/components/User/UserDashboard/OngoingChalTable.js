@@ -130,11 +130,13 @@ export const OngoingChalTable = ({ myChallenges }) => {
 
   const navigate = useNavigate();
 
-  const ongoingChallenges = myChallenges.filter(
-    (ch) =>
-      (ch.status === "In Progress" || ch.status === "Not Started") &&
-      new Date() <= new Date(ch.endDateTime)
-  );
+  const ongoingChallenges = myChallenges
+    .filter(
+      (ch) =>
+        (ch.status === "In Progress" || ch.status === "Not Started") &&
+        new Date() <= new Date(ch.endDateTime)
+    )
+    .sort((a, b) => new Date(a.endDateTime) - new Date(b.endDateTime));
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);

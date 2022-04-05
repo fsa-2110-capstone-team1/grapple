@@ -8,7 +8,23 @@ import FilterDrawer from "./FilterDrawer";
 import theme from "../../../theme";
 
 function BrowseChallenges() {
-  const challenges = useSelector((state) => state.challenges);
+  const stateChallenges = useSelector((state) => state.challenges);
+
+  const [challenges, setChallenges] = useState([]);
+  useEffect(() => {
+    setChallenges(
+      stateChallenges.map((c) => ({
+        ...c,
+        status:
+          new Date() < new Date(c.startDateTime)
+            ? "Not Started"
+            : new Date() >= new Date(c.startDateTime) &&
+              new Date() < new Date(c.endDateTime)
+            ? "In Progress"
+            : "Ended",
+      }))
+    );
+  }, [stateChallenges]);
 
   //filtering
   const [filters, setFilters] = useState({});
@@ -16,7 +32,6 @@ function BrowseChallenges() {
   useEffect(() => {
     setFilteredChallenges(challenges.filter((c) => c.status !== "Ended"));
   }, [challenges]);
-
 
   //sorting
   const [sort, setSort] = useState({ order: "asc", orderBy: "id" });

@@ -109,6 +109,23 @@ const Filter = ({
           </Select>
         </FormControl>
       </Box>
+      <Box sx={{ mt: 3 }}>
+        <FormControl fullWidth>
+          <InputLabel id="status">Status</InputLabel>
+          <Select
+            labelId="status"
+            id="status-select"
+            value={filters["status"] || 0}
+            label="status"
+            onChange={(e) => handleFilter(e.target.value, "status")}
+          >
+            <MenuItem value={0}>All</MenuItem>
+            <MenuItem value={"Not Started"}>Not Started</MenuItem>
+            <MenuItem value={"In Progress"}>In Progress</MenuItem>
+            <MenuItem value={"Ended"}>Ended</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
     </Box>
   );
 };

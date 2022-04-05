@@ -207,6 +207,7 @@ export const ChallengeDetails = () => {
                       dailyUserChallenges={dailyUserChallenges}
                       challenge={challenge}
                       userChallenge={userChallenge}
+                      enrolledUsers={enrolledUsers}
                     />
                   </Grid>
 
@@ -221,22 +222,6 @@ export const ChallengeDetails = () => {
           <Grid item xs={1} />
         </Grid>
         <Grid item xs={0.5} md={0.5} />
-        <Grid
-          item
-          xs={4}
-          container
-          sx={{ alignItems: "center", marginBottom: "20px" }}
-        >
-          {/* Left railing */}
-          <Grid item xs={0.5} md={0.5} sx={{ mr: "60px" }} />
-
-          <Grid item xs={10}>
-            <ParticipantsTable enrolledUsers={enrolledUsers} />
-          </Grid>
-
-          {/* Right railing */}
-          <Grid item xs={0.5} md={0.5} />
-        </Grid>
       </Grid>
     </Box>
   );
