@@ -28,12 +28,34 @@ async function userChallengeSeed() {
   await Promise.all(
     users.map(async (user) => {
       let thisUsersChallengeIds = [];
-      let challengeIds = challenges
+      let notStartedChallengeIds = challenges
+        .filter((chal) => new Date(chal.startDateTime) > new Date())
         .map((chal) => chal.id)
         .sort((a, b) => a - b);
-      for (let i = 0; i < 5; i++) {
+      let startedChallengeIds = challenges
+        .filter((chal) => new Date(chal.startDateTime) <= new Date())
+        .map((chal) => chal.id)
+        .sort((a, b) => a - b);
+
+      // seed a few user challenges for future challenges
+      for (let i = 0; i < 2; i++) {
         let challengeId =
-          challengeIds[getRandomInt(0, challengeIds.length - 1)];
+          notStartedChallengeIds[
+            getRandomInt(0, notStartedChallengeIds.length - 1)
+          ];
+        if (!thisUsersChallengeIds.find((ucid) => ucid === challengeId)) {
+          const uc = await UserChallenge.create({
+            userId: user.id,
+            challengeId,
+          });
+          thisUsersChallengeIds.push(uc.challengeId);
+        }
+      }
+
+      // seed a few user challenges for ongoing challenges
+      for (let i = 0; i < 8; i++) {
+        let challengeId =
+          startedChallengeIds[getRandomInt(0, startedChallengeIds.length - 1)];
         if (!thisUsersChallengeIds.find((ucid) => ucid === challengeId)) {
           const uc = await UserChallenge.create({
             userId: user.id,
