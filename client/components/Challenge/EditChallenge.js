@@ -33,38 +33,18 @@ const EditChallenge = () => {
   const [challenge, setChallenge] = useState({});
 
   useEffect(() => {
-    // console.log("inside", challenges);
     setChallenge(
       challenges.find((challenge) => challenge.id === challengeId * 1)
     );
-    // reset({name:challenge?.name});
   }, [challenges, challengeId]);
 
-
   useEffect(() => {
-      if(!!challenge){
-  reset({...challenge})
-  }}, [challenge]);
-      
-  
+    if (!!challenge) {
+      reset({ ...challenge });
+    }
+  }, [challenge]);
 
-  console.log(challenge);
   const navigate = useNavigate();
-
-//   const fullChallenges = useSelector((state) => state.challenges);
-  //   console.log(fullChallenges);
-
-//   let theChallenge = fullChallenges;
-//   if (fullChallenges.length > 0) {
-//     fullChallenges.find((challenge) => challenge.id === challengeId * 1);
-//     theChallenge = fullChallenges.find(
-//       (challenge) => challenge.id === challengeId * 1
-//     );
-//   }
-
-//   if (!challenge) {
-//     return <h1>Sorry we are unable to edit this challenge</h1>;
-//   }
 
   const {
     register,
@@ -160,7 +140,7 @@ const EditChallenge = () => {
                     })}
                     error={!!errors?.name}
                     helperText={errors?.name ? errors.name.message : null}
-                    defaultValue={'image'}
+                    defaultValue={"image"}
                     fullWidth
                     required
                   />
@@ -196,7 +176,7 @@ const EditChallenge = () => {
                     id="description"
                     label="Description"
                     variant="outlined"
-                    defaultValue={'image'}
+                    defaultValue={"image"}
                     // multiline
                     {...register("description", { required: "Required field" })}
                     error={!!errors?.description}
@@ -215,11 +195,9 @@ const EditChallenge = () => {
                     variant="outlined"
                     // multiline
                     {...register("image")}
-                    defaultValue={'image'}
+                    defaultValue={"image"}
                     error={!!errors?.imageUrl}
-                    helperText={
-                      errors?.image ? errors.image.message : null
-                    }
+                    helperText={errors?.image ? errors.image.message : null}
                     fullWidth
                   />
                 </Grid>
@@ -314,7 +292,7 @@ const EditChallenge = () => {
                         type="number"
                         InputProps={{ inputProps: { min: 0 } }}
                         variant="outlined"
-                        defaultValue={'0'}
+                        defaultValue={"0"}
                         {...register("targetNumber", { required: true })}
                         error={!!errors?.targetNumber}
                         helperText={
@@ -332,7 +310,7 @@ const EditChallenge = () => {
                         label="Unit"
                         variant="outlined"
                         // multiline
-                        defaultValue={'image'}
+                        defaultValue={"image"}
                         {...register("targetUnit", { required: true })}
                         error={!!errors?.targetUnit}
                         helperText={
@@ -355,7 +333,7 @@ const EditChallenge = () => {
                     aria-label="Difficulty"
                     // defaultValue={'image'}
                     // getAriaValueText={valuetext}
-                    defaultValue={'3'}
+                    defaultValue={"3"}
                     valueLabelDisplay="auto"
                     step={1}
                     marks={[

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, Navigate } from "react-router-dom";
 import { Grid, Box } from "@mui/material";
 import PaginationFooter from "./PaginationFooter";
 import ChallengeCard from "../ChallengeCard";
@@ -9,6 +9,7 @@ import theme from "../../../theme";
 
 function BrowseChallenges() {
   const stateChallenges = useSelector((state) => state.challenges);
+
 
   const [challenges, setChallenges] = useState([]);
   useEffect(() => {
@@ -57,6 +58,16 @@ function BrowseChallenges() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location, activePage, filters, sort]);
+
+
+//url magic 
+
+// let url = useLocation().pathname;
+// if(url.split('/')[2] === 'sort' && url.split('/')[5] === 'sort'){
+//   // console.log('true')
+//   <Navigate to="/pee" />
+// }
+
 
   return (
     <Box

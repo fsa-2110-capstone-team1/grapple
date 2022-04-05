@@ -8,6 +8,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { useNavigate, useLocation } from "react-router-dom";
 import theme from "../../../theme";
 
 const Filter = ({
@@ -23,6 +24,7 @@ const Filter = ({
     setFilteredChallenges(filterChallenges(challenges, filters));
   }, [filters]);
 
+  let navigate = useNavigate();
   function filterChallenges(challenges, filters) {
     if (!Object.keys(filters).length) return challenges;
 
@@ -53,7 +55,7 @@ const Filter = ({
 
   const handleFilter = (value, attribute) => {
     setActivePage(1);
-
+    navigate(`filter/${value}/${attribute}`);
     if (value) {
       setFilters((prevFilters) => ({
         ...prevFilters,

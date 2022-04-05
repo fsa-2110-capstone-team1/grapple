@@ -79,17 +79,38 @@ const App = () => {
           When a user logs in they get directed straight to their dashboard? */}
 
         <Route
-          path="/challenges/filter/:diff/:cat"
+          path="/challenges/sort/:diff/:cat"
           element={<BrowseChallenges />}
         />
+     <Route
+          path="/challenges/filter/:num/:cat"
+          element={<BrowseChallenges />}
+        />
+
+
+
+  <Route
+          path="/challenges/sort/:x/:y/:z/:a/:b"
+          element={<BrowseChallenges />}
+        />
+
         <Route
           path="/challenges/sortby/:attr/:dir"
           element={<BrowseChallenges />}
         />
         <Route
-          path="/challenges/filter/:diff/:cat/sortby/:attr/:dir"
+          path="/challenges/filter/:diff/:cat/filter/:num/:cat"
           element={<BrowseChallenges />}
         />
+          <Route
+          path="/challenges/filter/:diff/:cat/filter/:num/:cat/filter/:num/:cat"
+          element={<BrowseChallenges />}
+        />
+             <Route
+          path="/challenges/filter/:num/:cat/filter/physical/category"
+          element={<BrowseChallenges />}
+        />
+    
 
         <Route path="/user/settings" element={<UserSettings />} />
         <Route path="/admin-hub" element={<AdminHub />} />

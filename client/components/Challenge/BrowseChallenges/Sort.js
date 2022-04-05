@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { List, ListItem, ListItemText } from "@mui/material";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
+import { useNavigate, useLocation } from "react-router-dom";
 import theme from "../../../theme";
 
 const Sort = ({
@@ -14,6 +15,11 @@ const Sort = ({
   useEffect(() => {
     setFilteredChallenges(sortChallenges(filteredChallenges, sort));
   }, [sort]);
+
+// const [url, setUrl] = useState('');
+let url = useLocation().pathname;
+
+  let navigate = useNavigate();
 
   const sortChallenges = (filteredChallenges, sort) => {
     return filteredChallenges.sort((a, b) => {
@@ -51,11 +57,14 @@ const Sort = ({
   };
 
   const handleSort = (order, attribute) => {
+  
     setActivePage(1);
     setSort(() => ({
       order,
       orderBy: attribute,
     }));
+    navigate(`sort/${order}/${attribute}`);
+
   };
 
   return (
