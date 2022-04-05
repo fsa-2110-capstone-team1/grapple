@@ -1,24 +1,23 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const { INTEGER, BOOLEAN, DATE, STRING, TEXT, ENUM } = Sequelize;
+const { INTEGER, DATE, ENUM, DECIMAL } = Sequelize;
 
-const Strava = db.define("Strava", {
-//userId
-  startDateTime: {
+const StravaWorkout = db.define("stravaWorkout", {
+  //userId
+  startDate: {
     type: DATE,
     allowNull: false,
   },
-  endDateTime: {
-    type: DATE,
-    allowNull: false,
+  elapsedTime: {
+    type: INTEGER,
   },
-  workoutType: {
-    type: ENUM("Yoga", "Walk", "Stretch", "General", "Bike" )
+  type: {
+    type: ENUM("Yoga", "Walk", "Stretch", "General", "Bike", "Run"),
   },
   distance: {
-    type: INTEGER
-  }
+    type: DECIMAL,
+  },
 });
 
-module.exports = Strava;
+module.exports = StravaWorkout;

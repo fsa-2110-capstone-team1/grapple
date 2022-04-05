@@ -29,6 +29,7 @@ async function dailyUserChallengeSeed() {
   await duc[0].updateProgress(10);
   await duc[2].updateProgress(10);
   await duc[1].updateProgress(8);
+  await duc[0].update({ stravaWorkoutId: 1 });
 
   const userChallenges = await UserChallenge.findAll({
     include: ["challenge"],

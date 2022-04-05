@@ -3,11 +3,9 @@ const challengeSeed = require("./challenge");
 const userChallengeSeed = require("./userChallenge");
 const connectionSeed = require("./connection");
 const dailyUserChallengeSeed = require("./dailyUserChallenge");
+const stravaSeed = require("./strava");
 
-const {
-  db,
-  models: { User },
-} = require("../../server/db");
+const { db } = require("../../server/db");
 
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
@@ -17,6 +15,7 @@ async function seed() {
   const [challenges] = await Promise.all([challengeSeed()]);
   const [userChallenges] = await Promise.all([userChallengeSeed()]);
   const [connection] = await Promise.all([connectionSeed()]);
+  const [stravaWorkouts] = await Promise.all([stravaSeed()]);
   const [dailyUserChallenges] = await Promise.all([dailyUserChallengeSeed()]);
 
   console.log(`
