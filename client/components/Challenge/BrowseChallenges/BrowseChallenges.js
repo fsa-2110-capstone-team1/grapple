@@ -17,6 +17,7 @@ function BrowseChallenges() {
     setFilteredChallenges(challenges.filter((c) => c.status !== "Ended"));
   }, [challenges]);
 
+
   //sorting
   const [sort, setSort] = useState({ order: "asc", orderBy: "id" });
 
