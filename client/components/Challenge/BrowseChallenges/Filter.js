@@ -26,40 +26,29 @@ const Filter = ({
   function filterChallenges(challenges, filters) {
     if (!Object.keys(filters).length) return challenges;
 
-    return challenges
-      .map((c) => ({
-        ...c,
-        status:
-          new Date() < new Date(c.startDateTime)
-            ? "Not Started"
-            : new Date() >= new Date(c.startDateTime) &&
-              new Date() < new Date(c.endDateTime)
-            ? "In Progress"
-            : "Ended",
-      }))
-      .filter((challenge) => {
-        return Object.keys(filters).every((attribute) => {
-          const value = challenge[attribute];
-          const searchValue = filters[attribute];
+    return challenges.filter((challenge) => {
+      return Object.keys(filters).every((attribute) => {
+        const value = challenge[attribute];
+        const searchValue = filters[attribute];
 
-          if (typeof value === "string") {
-            return value.toLowerCase().includes(searchValue.toLowerCase());
-          }
+        if (typeof value === "string") {
+          return value.toLowerCase().includes(searchValue.toLowerCase());
+        }
 
-          if (typeof value === "boolean") {
-            return (
-              (searchValue === "true" && value) ||
-              (searchValue === "false" && !value)
-            );
-          }
+        if (typeof value === "boolean") {
+          return (
+            (searchValue === "true" && value) ||
+            (searchValue === "false" && !value)
+          );
+        }
 
-          if (typeof value === "number") {
-            return value == searchValue;
-          }
+        if (typeof value === "number") {
+          return value == searchValue;
+        }
 
-          return false;
-        });
+        return false;
       });
+    });
   }
 
   const handleFilter = (value, attribute) => {
