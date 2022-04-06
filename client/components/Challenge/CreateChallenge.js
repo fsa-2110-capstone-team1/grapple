@@ -21,28 +21,12 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { LoadingButton } from "@mui/lab";
 import SaveIcon from "@mui/icons-material/Save";
-import { addNewChallenge, updateChallenge } from "../../store";
+import { addNewChallenge } from "../../store";
 
-const CreateChallenge = ({ method }) => {
+const CreateChallenge = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { id: challengeId } = useParams();
-
-  const fullChallenges = useSelector((state) => state.challenges);
-
-  let theChallenge = fullChallenges;
-  if (fullChallenges.length > 0) {
-    fullChallenges.find((challenge) => challenge.id === challengeId * 1);
-    theChallenge = fullChallenges.find(
-      (challenge) => challenge.id === challengeId * 1
-    );
-  }
-  // console.log(theChallenge)
-
-  if (!theChallenge && method !== "create") {
-    return <h1>Sorry we are unable to edit this challenge</h1>;
-  }
 
   const {
     register,
@@ -67,19 +51,10 @@ const CreateChallenge = ({ method }) => {
   const onSubmit = async (data) => {
     try {
       const { challenge } = await dispatch(
-        method === "create"
-          ? 
-          addNewChallenge({
-              ...data,
-              category: data.category === "0" ? "misc" : data.category,
-            })
-
-          : 
-          updateChallenge({
-              ...data,
-              category: data.category === "0" ? "misc" : data.category,
-            })
-            
+        addNewChallenge({
+          ...data,
+          category: data.category === "0" ? "misc" : data.category,
+        })
       );
       navigate(`/challenges/${challenge.id}`);
     } catch (err) {
@@ -89,6 +64,7 @@ const CreateChallenge = ({ method }) => {
       });
     }
   };
+ 
 
   return (
     <>
@@ -120,9 +96,7 @@ const CreateChallenge = ({ method }) => {
           }}
         >
           <Grid item xs={1}>
-            <Typography variant="h4">
-              {method === "create" ? "Create New Challenge" : "Edit Challenge"}
-            </Typography>
+            <Typography variant="h4">{"Create New Challenge"}</Typography>
           </Grid>
 
           {/* FORM */}
@@ -146,7 +120,7 @@ const CreateChallenge = ({ method }) => {
                     })}
                     error={!!errors?.name}
                     helperText={errors?.name ? errors.name.message : null}
-                    defaultValue={theChallenge ? theChallenge.name : ""}
+                    defaultValue={""}
                     fullWidth
                     required
                   />
@@ -158,9 +132,6 @@ const CreateChallenge = ({ method }) => {
                     select
                     label="Category"
                     defaultValue="0"
-                    // defaultValue={
-                    //   theChallenge ? theChallenge.category : "mental"
-                    // }
                     required
                     {...register("category", { required: true })}
                     error={!!errors?.category}
@@ -183,7 +154,7 @@ const CreateChallenge = ({ method }) => {
                     id="description"
                     label="Description"
                     variant="outlined"
-                    defaultValue={theChallenge ? theChallenge.description : ""}
+                    defaultValue={""}
                     multiline
                     {...register("description", { required: "Required field" })}
                     error={!!errors?.description}
@@ -201,7 +172,7 @@ const CreateChallenge = ({ method }) => {
                     label="Image URL"
                     variant="outlined"
                     {...register("imageUrl")}
-                    defaultValue={theChallenge ? theChallenge.image : "0"}
+                    defaultValue={''}
                     error={!!errors?.imageUrl}
                     helperText={
                       errors?.imageUrl ? errors.imageUrl.message : null
@@ -298,9 +269,7 @@ const CreateChallenge = ({ method }) => {
                         type="number"
                         InputProps={{ inputProps: { min: 0 } }}
                         variant="outlined"
-                        defaultValue={
-                          theChallenge ? theChallenge.targetNumber : "0"
-                        }
+                        defaultValue={"0"}
                         {...register("targetNumber", { required: true })}
                         error={!!errors?.targetNumber}
                         helperText={
@@ -317,9 +286,7 @@ const CreateChallenge = ({ method }) => {
                         id="targetUnit"
                         label="Unit"
                         variant="outlined"
-                        defaultValue={
-                          theChallenge ? theChallenge.targetUnit : "0"
-                        }
+                        defaultValue={""}
                         {...register("targetUnit", { required: true })}
                         error={!!errors?.targetUnit}
                         helperText={
@@ -342,7 +309,7 @@ const CreateChallenge = ({ method }) => {
                     aria-label="Difficulty"
                     // defaultValue={3}
                     // getAriaValueText={valuetext}
-                    defaultValue={theChallenge ? theChallenge.difficulty : 3}
+                    defaultValue={3}
                     valueLabelDisplay="auto"
                     step={1}
                     marks={[
@@ -393,7 +360,7 @@ const CreateChallenge = ({ method }) => {
                       startIcon={<SaveIcon />}
                       variant="outlined"
                     >
-                      {method === "create" ? "Create" : "Update"}
+                      {"Create"}
                     </LoadingButton>
                   ) : (
                     <Button
@@ -404,7 +371,7 @@ const CreateChallenge = ({ method }) => {
                       disabled={isSubmitting || !isDirty}
                       form="challenge-form"
                     >
-                      {method === "create" ? "Create" : "Update"}
+                      {"Create"}
                     </Button>
                   )}
                 </Grid>

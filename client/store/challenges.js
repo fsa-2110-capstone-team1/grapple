@@ -34,6 +34,7 @@ export const getAllChallenges = () => {
 
 export const addNewChallenge = (challenge) => {
   return async (dispatch) => {
+    console.log(challenge)
     const { data: newChallenge } = await axios.post(
       "/api/challenges",
       challenge
@@ -44,6 +45,7 @@ export const addNewChallenge = (challenge) => {
 
 export const updateChallenge = (challenge) => {
   return async (dispatch) => {
+    console.log(challenge)
     const { data: updatedChallenge } = await axios.put(
       `/api/challenges/${challenge.id}`,
       challenge

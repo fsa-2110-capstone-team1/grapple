@@ -8,6 +8,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
+import { useNavigate, useLocation } from "react-router-dom";
 import theme from "../../../theme";
 
 const Filter = ({
@@ -23,6 +24,7 @@ const Filter = ({
     setFilteredChallenges(filterChallenges(challenges, filters));
   }, [filters]);
 
+  let navigate = useNavigate();
   function filterChallenges(challenges, filters) {
     if (!Object.keys(filters).length) return challenges;
 
@@ -53,7 +55,7 @@ const Filter = ({
 
   const handleFilter = (value, attribute) => {
     setActivePage(1);
-
+    navigate(`filter/${value}/${attribute}`);
     if (value) {
       setFilters((prevFilters) => ({
         ...prevFilters,
@@ -106,6 +108,23 @@ const Filter = ({
             <MenuItem value={"sleep"}>Sleep</MenuItem>
             <MenuItem value={"food"}>Food</MenuItem>
             <MenuItem value={"misc"}>Misc</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+      <Box sx={{ mt: 3 }}>
+        <FormControl fullWidth>
+          <InputLabel id="status">Status</InputLabel>
+          <Select
+            labelId="status"
+            id="status-select"
+            value={filters["status"] || 0}
+            label="status"
+            onChange={(e) => handleFilter(e.target.value, "status")}
+          >
+            <MenuItem value={0}>All</MenuItem>
+            <MenuItem value={"Not Started"}>Not Started</MenuItem>
+            <MenuItem value={"In Progress"}>In Progress</MenuItem>
+            <MenuItem value={"Ended"}>Ended</MenuItem>
           </Select>
         </FormControl>
       </Box>

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import {
   me,
   getAllChallenges,
@@ -71,34 +70,49 @@ const App = () => {
         <Route path="/signup" element={<AuthForm path={"/"} />} />
         <Route path="/users" element={<BrowseUsers />} />
         <Route path="/users/:userGroup" element={<BrowseUsers />} />
-        <Route
-          path="/users/profile/:username"
-          element={<UserProfileDetails />}
-        />
-        <Route
-          path="/challenges/create"
-          element={<CreateChallenge method={"create"} />}
-        />
+        <Route path="/users/profile/:username" element={<UserProfileDetails />} />
+        <Route path="/challenges/create" element={<CreateChallenge />} />
         <Route path="/challenges" element={<BrowseChallenges />} />
         <Route path="/challenges/:id" element={<ChallengeDetails />} />
-        <Route path="/challenges/:id/edit" element={<CreateChallenge />} />
+        <Route path="/challenges/:id/edit" element={<EditChallenge />} />
         <Route path="/user/profile/edit" element={<EditUserProfile />} />
         <Route path="/user/dashboard" element={<UserDashboard />} />
         {/* NOTE: Should /userdashboard be /home??
           When a user logs in they get directed straight to their dashboard? */}
 
         <Route
-          path="/challenges/filter/:diff/:cat"
+          path="/challenges/sort/:diff/:cat"
           element={<BrowseChallenges />}
         />
+     <Route
+          path="/challenges/filter/:num/:cat"
+          element={<BrowseChallenges />}
+        />
+
+
+
+  <Route
+          path="/challenges/sort/:x/:y/:z/:a/:b"
+          element={<BrowseChallenges />}
+        />
+
         <Route
           path="/challenges/sortby/:attr/:dir"
           element={<BrowseChallenges />}
         />
         <Route
-          path="/challenges/filter/:diff/:cat/sortby/:attr/:dir"
+          path="/challenges/filter/:diff/:cat/filter/:num/:cat"
           element={<BrowseChallenges />}
         />
+          <Route
+          path="/challenges/filter/:diff/:cat/filter/:num/:cat/filter/:num/:cat"
+          element={<BrowseChallenges />}
+        />
+             <Route
+          path="/challenges/filter/:num/:cat/filter/physical/category"
+          element={<BrowseChallenges />}
+        />
+    
 
         <Route path="/user/settings" element={<UserSettings />} />
         <Route path="/admin-hub" element={<AdminHub />} />

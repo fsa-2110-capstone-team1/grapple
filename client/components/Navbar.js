@@ -15,7 +15,6 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ColorLensIcon from "@mui/icons-material/ColorLens";
 import Divider from "@mui/material/Divider";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import Notifications from "./Notifications";
 import theme from "../theme";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
@@ -24,9 +23,11 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import SettingsIcon from "@mui/icons-material/Settings";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const Navbar = () => {
-
   const clientId = `${process.env.CLIENT_ID_GOOGLE}`;
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -81,11 +82,13 @@ const Navbar = () => {
               display: { xs: "none", md: "flex" },
             }}
           >
-            <Link to="/">
-              <Button>
-                <img className="nav-logo" src="/logo/navLogo-white.png" />
-              </Button>
-            </Link>
+            <Button
+              onClick={() => {
+                navigate(`/`);
+              }}
+            >
+              <img className="nav-logo" src="/logo/navLogo-white.png" />
+            </Button>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -117,20 +120,26 @@ const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              <Link to={"/challenges"}>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" color="secondary">
-                    Challenges
-                  </Typography>
-                </MenuItem>
-              </Link>
-              <Link to={"/users"}>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" color="secondary">
-                    Users
-                  </Typography>
-                </MenuItem>
-              </Link>
+              <MenuItem
+                onClick={() => {
+                  navigate(`/challenges`);
+                  handleCloseNavMenu();
+                }}
+              >
+                <Typography textAlign="center" color="white">
+                  Challenges
+                </Typography>
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  navigate(`/users`);
+                  handleCloseNavMenu();
+                }}
+              >
+                <Typography textAlign="center" color="white">
+                  Users
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <Typography
@@ -139,11 +148,13 @@ const Navbar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            <Link to="/">
-              <Button>
-                <img className="nav-logo" src="/logo/navLogo-white.png" />
-              </Button>
-            </Link>
+            <Button
+              onClick={() => {
+                navigate(`/`);
+              }}
+            >
+              <img className="nav-logo" src="/logo/navLogo-white.png" />
+            </Button>
           </Typography>
           <Box sx={{ flexGrow: 5, display: { xs: "none", md: "flex" } }}>
             {!!id ? (
@@ -172,7 +183,6 @@ const Navbar = () => {
               ""
             )}
           </Box>
-          {/* <Box sx={{ flexGrow: 1 }} /> */}
 
           <Box sx={{ flexGrow: 0.25, textAlign: "end" }}>
             <Box
@@ -231,7 +241,7 @@ const Navbar = () => {
                   </Box>
                 </IconButton>
                 <Menu
-                  sx={{ mt: "45px" }}
+                  sx={{ mt: "45px", color: "white.main" }}
                   id="menu-appbar"
                   anchorEl={anchorElUser}
                   anchorOrigin={{
@@ -248,65 +258,101 @@ const Navbar = () => {
                 >
                   {!!id ? (
                     <div>
-                      <Link to="/user/dashboard" onClick={handleCloseUserMenu}>
-                        <MenuItem>
-                          <Typography textAlign="center" color="secondary">
-                            My Dashboard
-                          </Typography>
-                        </MenuItem>
-                      </Link>
-                      <Link
-                        to={`/users/profile/${user.username}`}
-                        onClick={handleCloseUserMenu}
+                      <MenuItem
+                        onClick={() => {
+                          navigate(`/user/dashboard`);
+                          handleCloseUserMenu();
+                        }}
+                        sx={{ color: "white.main" }}
                       >
-                        <MenuItem>
-                          <Typography textAlign="center" color="secondary">
-                            My Profile
+                        <ListItemIcon>
+                          <BarChartIcon fontSize="medium" />
+                        </ListItemIcon>
+                        <Typography textAlign="center" color="white.main">
+                          My Dashboard
+                        </Typography>
+                      </MenuItem>
+
+                      <MenuItem
+                        onClick={() => {
+                          navigate(`/users/profile/${user.username}`);
+                          handleCloseUserMenu();
+                        }}
+                        sx={{ color: "white.main" }}
+                      >
+                        <ListItemIcon>
+                          <AccountCircleIcon fontSize="medium" />
+                        </ListItemIcon>
+                        <Typography textAlign="center" color="white.main">
+                          My Profile
+                        </Typography>
+                      </MenuItem>
+
+                      <MenuItem
+                        onClick={() => {
+                          navigate("/user/settings");
+                          handleCloseUserMenu();
+                        }}
+                        sx={{ color: "white.main" }}
+                      >
+                        <ListItemIcon>
+                          <SettingsIcon fontSize="medium" />
+                        </ListItemIcon>
+                        <Typography textAlign="center" color="white.main">
+                          Settings
+                        </Typography>
+                      </MenuItem>
+
+                      {user.isAdmin ? (
+                        <MenuItem
+                          onClick={() => {
+                            navigate("/admin-hub");
+                            handleCloseUserMenu();
+                          }}
+                          sx={{ color: "white.main" }}
+                        >
+                          <ListItemIcon>
+                            <AdminPanelSettingsIcon fontSize="medium" />
+                          </ListItemIcon>
+                          <Typography
+                            sx={{
+                              fontFamily: "raleway",
+                              marginLeft: 0.5,
+                            }}
+                          >
+                            Admin Hub
                           </Typography>
                         </MenuItem>
-                      </Link>
-                      <Link to="/user/settings" onClick={handleCloseUserMenu}>
-                        <MenuItem>
-                          <Typography textAlign="center" color="secondary">
-                            Settings
-                          </Typography>
-                        </MenuItem>
-                      </Link>
-                      <MenuItem onClick={logoutAndCloseMenu}>
-                        <Typography textAlign="center" color="secondary">
+                      ) : null}
+
+                      <MenuItem
+                        onClick={logoutAndCloseMenu}
+                        sx={{ color: "white.main" }}
+                      >
+                        <ListItemIcon>
+                          <LogoutIcon fontSize="medium" />
+                        </ListItemIcon>
+                        <Typography textAlign="center" color="white.main">
                           Logout
                         </Typography>
                       </MenuItem>
                     </div>
                   ) : (
-                    <Link to="/login" onClick={handleCloseUserMenu}>
-                      <MenuItem>
-                        <Typography textAlign="center" color="secondary">
-                          Login
-                        </Typography>
-                      </MenuItem>
-                    </Link>
-                  )}
-                  {user.isAdmin ? (
                     <MenuItem
                       onClick={() => {
-                        navigate("/admin-hub");
+                        navigate("/login");
+                        handleCloseUserMenu();
                       }}
+                      sx={{ color: "white.main" }}
                     >
                       <ListItemIcon>
-                        <AdminPanelSettingsIcon fontSize="medium" />
+                        <AccountCircleIcon fontSize="medium" />
                       </ListItemIcon>
-                      <Typography
-                        sx={{
-                          fontFamily: "raleway",
-                          marginLeft: 0.5,
-                          color: "black",
-                        }}
-                      >
-                        Admin Hub
+                      <Typography textAlign="center" color="white.main">
+                        Login
                       </Typography>
                     </MenuItem>
-                  ) : null}
+                  )}
                 </Menu>
               </Box>
             </Box>

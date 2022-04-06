@@ -24,7 +24,14 @@ export const UserSettingsForm = ({ preloadedValues }) => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm({ defaultValues: preloadedValues });
+  } = useForm({
+    reValidateMode: 'onChange',
+    defaultValues: {
+      ...preloadedValues,
+      password: '',
+    },
+  });
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   //Success snackbar
@@ -56,24 +63,28 @@ export const UserSettingsForm = ({ preloadedValues }) => {
 
   
   const onSubmit = async (data) => {
+    if (data.password !== data.confirmpassword) {
+      setSnackbar({
+        children: 'Passwords must match. Settings could not be updated!',
+        severity: 'error',
+      });
+      return;
+    }
     try {
       await dispatch(updateUser(data));
       setSnackbar({
-        children: "Your settings successfully updated!",
-        severity: "success",
+        children: 'Your settings successfully updated!',
+        severity: 'success',
       });
     } catch (err) {
       console.log(err);
       setSnackbar({
-        children: "Settings could not be updated!",
-        severity: "error",
+        children: 'Settings could not be updated!',
+        severity: 'error',
       });
     }
   };
-  const [newpassword, setNewPassword] = useState(preloadedValues.password);
-  const [confirmpassword, setConfirmPassword] = useState(
-    preloadedValues.password
-  );
+
   const [cheched, setChecked] = useState(preloadedValues.isPrivate);
   const [googleLogin, setGoogleLogin] = useState(!!preloadedValues.googleId);
   const [facebookLogin, setFacebookLogin] = useState(
@@ -87,7 +98,7 @@ export const UserSettingsForm = ({ preloadedValues }) => {
       {!!snackbar && (
         <Snackbar
           open
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           onClose={handleCloseSnackbar}
           autoHideDuration={6000}
         >
@@ -109,10 +120,12 @@ export const UserSettingsForm = ({ preloadedValues }) => {
                   <TextField
                     id="password"
                     label="New Password"
+                    required
                     type="password"
                     variant="outlined"
-                    defaultValue={newpassword}
-                    {...register("password", { required: "Required field" })}
+                    {...register('password', {
+                      required: 'Required field',
+                    })}
                     error={!!errors?.password}
                     helperText={
                       errors?.password ? errors.password.message : null
@@ -124,22 +137,25 @@ export const UserSettingsForm = ({ preloadedValues }) => {
                   <TextField
                     id="confirmpassword"
                     label="Confirm New Password"
+                    required
                     type="password"
                     variant="outlined"
-                    defaultValue={confirmpassword}
-                    {...register("confirmpassword", {
-                      required: "Required field",
+                    // error={watch('password') !== watch('confirmpassword')}
+                    {...register('confirmpassword', {
+                      required: 'Required field',
                       validate: (val) => {
-                        if (watch("password") !== val) {
-                          errors.password = {};
-                          errors.password.message =
-                            "Your passwords do no match";
+                        if (watch('password') !== watch('confirmpassword')) {
+                          errors.confirmpassword = {};
+                          errors.confirmpassword.message =
+                            'Your passwords do no match';
                         }
                       },
                     })}
                     error={!!errors?.password}
                     helperText={
-                      errors?.password ? errors.password.message : null
+                      errors?.confirmpassword
+                        ? errors.confirmpassword.message
+                        : null
                     }
                     fullWidth
                   />
@@ -167,7 +183,7 @@ export const UserSettingsForm = ({ preloadedValues }) => {
                   id="isPrivate"
                   control={<Switch color="primary" defaultChecked={cheched} />}
                   label="Private"
-                  {...register("isPrivate")}
+                  {...register('isPrivate')}
                 />
               </Stack>
             </Grid>

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import dateFormat from "dateformat";
 import {
+  Box,
   Grid,
   Card,
   CardActions,
@@ -37,7 +39,8 @@ export const ChallengeCard = ({ challenge }) => {
     <Card
       sx={{
         maxWidth: 345,
-        // backgroundColor: theme.palette.grey.dark,
+        width: "-webkit-fill-available",
+        height: "-webkit-fill-available",
         // Provide some spacing between cards
         margin: 1.5,
         // Use flex layout with column direction for components in the card
@@ -58,17 +61,50 @@ export const ChallengeCard = ({ challenge }) => {
           sx={{ objectFit: "contain", marginTop: "20px" }}
         />
         <CardContent>
-          <Typography
-            gutterBottom
-            variant="h5"
-            component="div"
-            sx={{ color: theme.palette.white.main }}
+          <Box
+            sx={{
+              height: 63.97,
+              mb: "1em",
+            }}
           >
-            {challenge.name}
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              sx={{
+                color: theme.palette.white.main,
+                display: "-webkit-box",
+                overflow: "hidden",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 2,
+              }}
+            >
+              {challenge.name}
+            </Typography>
+          </Box>
+          <Typography
+            variant="body1"
+            sx={{
+              minWidth: "206px",
+              color: theme.palette.white.main,
+              mb: "1em",
+            }}
+            color="text.secondary"
+            height="auto"
+          >
+            <b>Status:</b> {challenge.status}
           </Typography>
+          {/* <br /> */}
           <Typography
             variant="body2"
-            sx={{ minWidth: "206px", color: theme.palette.white.main }}
+            sx={{
+              minWidth: "206px",
+              color: theme.palette.white.main,
+              display: "-webkit-box",
+              overflow: "hidden",
+              WebkitBoxOrient: "vertical",
+              WebkitLineClamp: 3,
+            }}
             color="text.secondary"
             height="auto"
           >
