@@ -14,10 +14,12 @@ import {
 import CheckIcon from "@mui/icons-material/Check";
 import theme from "../../../theme";
 import dateFormat from "dateformat";
+import { format } from "date-fns";
 import {
   updateChallengeProgress,
   createDailyUserChallenge,
   getUserChallenge,
+  getDailyUserChallengeStravaActivies,
 } from "../../../store";
 
 export const TrackProgress = ({
@@ -27,6 +29,10 @@ export const TrackProgress = ({
   date,
 }) => {
   const dispatch = useDispatch();
+
+  const dailyUserChallengeStravaActivities = useSelector(
+    (state) => state.stravaActivities.dailyUserChallenge
+  );
 
   const {
     register,
@@ -45,9 +51,12 @@ export const TrackProgress = ({
   // controlling value field to allow decimals
   const [value, setValue] = useState("0.0");
 
-  useEffect(() => {
+  useEffect(async () => {
     if (dailyUserChallenge) {
       setValue(dailyUserChallenge.total);
+      await dispatch(
+        getDailyUserChallengeStravaActivies(dailyUserChallenge.id)
+      );
     } else {
       setValue("0.0");
     }
@@ -87,74 +96,91 @@ export const TrackProgress = ({
           }}
         >
           {challenge.status === "In Progress" && (
-            <Box
-              component="form"
-              onSubmit={handleSubmit(onSubmit)}
-              sx={{
-                marginTop: 2,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "flex-start",
-              }}
-              id="challenge-progress-form"
-            >
-              {challenge.goalType === "total" &&
-              challenge.targetUnit === "days" ? (
-                <Checkbox
-                  id="value"
-                  {...register("value")}
-                  checked={value === "1" || value === 1 ? true : false}
-                  onChange={(e) =>
-                    setValue(e.target.checked === true ? "1" : "0")
-                  }
-                  inputProps={{ "aria-label": "controlled" }}
-                />
-              ) : (
-                <TextField
-                  id="value"
-                  required
-                  variant="outlined"
-                  label="Daily Progress"
-                  type="number"
-                  {...register("value", {
-                    required: "Required field",
-                  })}
-                  error={Number(watch("value")) < 0}
-                  helperText={
-                    Number(watch("value")) < 0
-                      ? "Total can't be less than 0"
-                      : ""
-                  }
-                  FormHelperTextProps={{
-                    style: { color: theme.palette.white.main },
-                  }}
-                  value={value || 0}
-                  inputProps={{
-                    style: { color: theme.palette.white.main },
-                    step: ".1",
-                  }}
-                  InputLabelProps={{
-                    style: { color: theme.palette.white.main },
-                  }}
-                  onChange={(e) =>
-                    setValue(parseFloat(e.target.value).toFixed(1))
-                  }
-                />
-              )}
-              <Button
-                variant="contained"
-                size="medium"
-                type="submit"
-                form="challenge-progress-form"
-                disabled={Number(watch("value")) < 0}
-                sx={{ height: "80%", m: 1.5, mr: 0 }}
+            <Box>
+              <Box
+                component="form"
+                onSubmit={handleSubmit(onSubmit)}
+                sx={{
+                  marginTop: 2,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "flex-start",
+                }}
+                id="challenge-progress-form"
               >
-                Submit
-              </Button>
-              {dailyUserChallenge?.error?.response.data && (
-                <Typography>
-                  {dailyUserChallenge?.error?.response.data}
-                </Typography>
+                {challenge.goalType === "total" &&
+                challenge.targetUnit === "days" ? (
+                  <Checkbox
+                    id="value"
+                    {...register("value")}
+                    checked={value === "1" || value === 1 ? true : false}
+                    onChange={(e) =>
+                      setValue(e.target.checked === true ? "1" : "0")
+                    }
+                    inputProps={{ "aria-label": "controlled" }}
+                  />
+                ) : (
+                  <TextField
+                    id="value"
+                    required
+                    variant="outlined"
+                    label="Daily Progress"
+                    type="number"
+                    {...register("value", {
+                      required: "Required field",
+                    })}
+                    error={Number(watch("value")) < 0}
+                    helperText={
+                      Number(watch("value")) < 0
+                        ? "Total can't be less than 0"
+                        : ""
+                    }
+                    FormHelperTextProps={{
+                      style: { color: theme.palette.white.main },
+                    }}
+                    value={value || 0}
+                    inputProps={{
+                      style: { color: theme.palette.white.main },
+                      step: ".1",
+                    }}
+                    InputLabelProps={{
+                      style: { color: theme.palette.white.main },
+                    }}
+                    onChange={(e) =>
+                      setValue(parseFloat(e.target.value).toFixed(1))
+                    }
+                  />
+                )}
+                <Button
+                  variant="contained"
+                  size="medium"
+                  type="submit"
+                  form="challenge-progress-form"
+                  disabled={Number(watch("value")) < 0}
+                  sx={{ height: "80%", m: 1.5, mr: 0 }}
+                >
+                  Submit
+                </Button>
+                {dailyUserChallenge?.error?.response.data && (
+                  <Typography>
+                    {dailyUserChallenge?.error?.response.data}
+                  </Typography>
+                )}
+              </Box>
+              {!!dailyUserChallengeStravaActivities.length ? (
+                <Box sx={{ mt: 1 }}>
+                  <Typography>Strava Activities:</Typography>
+                  <ul>
+                    {dailyUserChallengeStravaActivities.map((act) => (
+                      <li key={act.id}>
+                        {act.type}: {act.loggedValue} {act.loggedUnit} (Start
+                        Time: {format(new Date(act.startDate), "hh:mm:ss aa")})
+                      </li>
+                    ))}
+                  </ul>
+                </Box>
+              ) : (
+                ""
               )}
             </Box>
           )}
