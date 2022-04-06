@@ -1,34 +1,34 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {
   me,
   getAllChallenges,
   getConnections,
   getUserChallenges,
   getPublicUsers,
-} from './store';
-import Homepage from './components/Home/Homepage';
-import AuthForm from './components/Auth/AuthForm';
-import Navbar from './components/Navbar';
-import BrowseUsers from './components/Users/BrowseUsers';
-import UserProfileDetails from './components/Users/UserProfileDetails';
-import CreateChallenge from './components/Challenge/CreateChallenge';
-import BrowseChallenges from './components/Challenge/BrowseChallenges/BrowseChallenges';
-import ChallengeDetails from './components/Challenge/ChallengeDetails/Main';
-import EditChallenge from './components/Challenge/EditChallenge';
-import UserProfile from './components/User/UserProfile';
-import EditUserProfile from './components/User/EditUserProfile';
-import UserSettings from './components/User/UserSettings';
-import UserDashboard from './components/User/UserDashboard';
-import AdminChallenges from './components/Admin/AdminChallenges';
-import AdminUsers from './components/Admin/AdminUsers';
-import AdminHub from './components/Admin/AdminHub'
-import Footer from './components/Footer';
-import PageNotFound from './components/PageNotFound';
-import TestChallengeTracking from './components/_Archive/TEST_ChallengeTracking';
-import StravaAPI from './components/Auth/StravaAPI';
+} from "./store";
+import Homepage from "./components/Home/Homepage";
+import AuthForm from "./components/Auth/AuthForm";
+import Navbar from "./components/Navbar";
+import BrowseUsers from "./components/Users/BrowseUsers";
+import UserProfileDetails from "./components/Users/UserProfileDetails";
+import CreateChallenge from "./components/Challenge/CreateChallenge";
+import BrowseChallenges from "./components/Challenge/BrowseChallenges/BrowseChallenges";
+import ChallengeDetails from "./components/Challenge/ChallengeDetails/Main";
+import EditChallenge from "./components/Challenge/EditChallenge";
+import UserProfile from "./components/User/UserProfile";
+import EditUserProfile from "./components/User/EditUserProfile";
+import UserSettings from "./components/User/UserSettings";
+import UserDashboard from "./components/User/UserDashboard";
+import AdminChallenges from "./components/Admin/AdminChallenges";
+import AdminUsers from "./components/Admin/AdminUsers";
+import AdminHub from "./components/Admin/AdminHub";
+import Footer from "./components/Footer";
+import PageNotFound from "./components/PageNotFound";
+import TestChallengeTracking from "./components/_Archive/TEST_ChallengeTracking";
+import { StravaRedirect } from "./components/Auth/StravaRedirect";
+import { getAllStravaActivies } from "./store/stravaActivities";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -47,6 +47,14 @@ const App = () => {
     if (user.id) {
       const userConnections = await dispatch(getConnections(user.id));
     }
+    if (user.stravaId) {
+      const stravaActivities = await dispatch(
+        getAllStravaActivies({
+          id: user.id,
+          stravaRefreshToken: user.stravaRefreshToken,
+        })
+      );
+    }
   }, [user?.id]);
 
   return (
@@ -58,18 +66,12 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/login" element={<AuthForm path={'/'} />} />
-        <Route path="/signup" element={<AuthForm path={'/'} />} />
+        <Route path="/login" element={<AuthForm path={"/"} />} />
+        <Route path="/signup" element={<AuthForm path={"/"} />} />
         <Route path="/users" element={<BrowseUsers />} />
         <Route path="/users/:userGroup" element={<BrowseUsers />} />
-        <Route
-          path="/users/profile/:username"
-          element={<UserProfileDetails />}
-        />
-        <Route
-          path="/challenges/create"
-          element={<CreateChallenge />}
-        />
+        <Route path="/users/profile/:username" element={<UserProfileDetails />} />
+        <Route path="/challenges/create" element={<CreateChallenge />} />
         <Route path="/challenges" element={<BrowseChallenges />} />
         <Route path="/challenges/:id" element={<ChallengeDetails />} />
         <Route path="/challenges/:id/edit" element={<EditChallenge />} />
@@ -120,18 +122,17 @@ const App = () => {
         {/* <Route
             path="my-account"
             element={
-                <RequireAuth>
+              <RequireAuth>
                 <MyAccount />
-              </RequireAuth>
-            }
-          /> */}
+                </RequireAuth>
+              }
+            /> */}
 
         <Route
           path="/test/challenges/:challengeId"
           element={<TestChallengeTracking />}
         />
-
-        <Route path="/strava" element={<StravaAPI />} />
+        <Route path="/stravaredirect/*" element={<StravaRedirect />} />
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>

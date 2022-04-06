@@ -14,9 +14,13 @@ const Strava = db.define("Strava", {
     allowNull: false,
   },
   workoutType: {
-    type: ENUM("Yoga", "Walk", "Stretch", "General", "Bike" )
+    // type: ENUM("Yoga", "Walk", "Stretch", "General", "Bike", "Run" )
+    type: STRING,
   },
   distance: {
+    type: INTEGER
+  },
+  elapsedTime: {
     type: INTEGER
   }
 });
