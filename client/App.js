@@ -70,7 +70,10 @@ const App = () => {
         <Route path="/signup" element={<AuthForm path={"/"} />} />
         <Route path="/users" element={<BrowseUsers />} />
         <Route path="/users/:userGroup" element={<BrowseUsers />} />
-        <Route path="/users/profile/:username" element={<UserProfileDetails />} />
+        <Route
+          path="/users/profile/:username"
+          element={<UserProfileDetails />}
+        />
         <Route path="/challenges/create" element={<CreateChallenge />} />
         <Route path="/challenges" element={<BrowseChallenges />} />
         <Route path="/challenges/:id" element={<ChallengeDetails />} />
@@ -84,14 +87,12 @@ const App = () => {
           path="/challenges/sort/:diff/:cat"
           element={<BrowseChallenges />}
         />
-     <Route
+        <Route
           path="/challenges/filter/:num/:cat"
           element={<BrowseChallenges />}
         />
 
-
-
-  <Route
+        <Route
           path="/challenges/sort/:x/:y/:z/:a/:b"
           element={<BrowseChallenges />}
         />
@@ -104,15 +105,14 @@ const App = () => {
           path="/challenges/filter/:diff/:cat/filter/:num/:cat"
           element={<BrowseChallenges />}
         />
-          <Route
+        <Route
           path="/challenges/filter/:diff/:cat/filter/:num/:cat/filter/:num/:cat"
           element={<BrowseChallenges />}
         />
-             <Route
+        <Route
           path="/challenges/filter/:num/:cat/filter/physical/category"
           element={<BrowseChallenges />}
         />
-    
 
         <Route path="/user/settings" element={<UserSettings />} />
         <Route path="/admin-hub" element={<AdminHub />} />

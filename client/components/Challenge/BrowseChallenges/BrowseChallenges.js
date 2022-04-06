@@ -10,7 +10,6 @@ import theme from "../../../theme";
 function BrowseChallenges() {
   const stateChallenges = useSelector((state) => state.challenges);
 
-
   const [challenges, setChallenges] = useState([]);
   useEffect(() => {
     setChallenges(
@@ -59,15 +58,13 @@ function BrowseChallenges() {
     window.scrollTo(0, 0);
   }, [location, activePage, filters, sort]);
 
+  //url magic
 
-//url magic 
-
-// let url = useLocation().pathname;
-// if(url.split('/')[2] === 'sort' && url.split('/')[5] === 'sort'){
-//   // console.log('true')
-//   <Navigate to="/pee" />
-// }
-
+  // let url = useLocation().pathname;
+  // if(url.split('/')[2] === 'sort' && url.split('/')[5] === 'sort'){
+  //   // console.log('true')
+  //   <Navigate to="/pee" />
+  // }
 
   return (
     <Box

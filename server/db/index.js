@@ -2,7 +2,7 @@
 
 const db = require("./db");
 
-const Strava = require("./models/Strava");
+const StravaWorkout = require("./models/Strava");
 const Challenge = require("./models/Challenge");
 const Connection = require("./models/Connection");
 const User = require("./models/User");
@@ -10,9 +10,6 @@ const UserChallenge = require("./models/UserChallenge");
 const DailyUserChallenge = require("./models/DailyUserChallenge");
 
 //model associations go here
-
-Strava.belongsTo(User);
-User.hasOne(Strava);
 UserChallenge.belongsTo(User);
 User.hasMany(UserChallenge);
 UserChallenge.belongsTo(Challenge);
@@ -27,11 +24,13 @@ User.hasOne(Connection, {
 });
 DailyUserChallenge.belongsTo(UserChallenge);
 UserChallenge.hasMany(DailyUserChallenge);
+StravaWorkout.belongsTo(DailyUserChallenge);
+DailyUserChallenge.hasMany(StravaWorkout);
 
 module.exports = {
   db,
   models: {
-    Strava,
+    StravaWorkout,
     Challenge,
     Connection,
     User,

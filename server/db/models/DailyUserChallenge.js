@@ -18,6 +18,7 @@ const DailyUserChallenge = db.define("dailyUserChallenge", {
     allowNull: false,
   },
   // userChallengeId
+  // stravaWorkout [optional]
 });
 
 // not allowed in the front-end but preventing errors when seeding
