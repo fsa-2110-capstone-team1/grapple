@@ -21,6 +21,7 @@ router.get("/:id", async (req, res, next) => {
   try {
     const dailyUserChallenge = await DailyUserChallenge.findOne({
       where: { id: req.params.id },
+      include: ["stravaWorkouts"],
     });
     res.json(dailyUserChallenge);
   } catch (err) {

@@ -15,8 +15,8 @@ async function seed() {
   const [challenges] = await Promise.all([challengeSeed()]);
   const [userChallenges] = await Promise.all([userChallengeSeed()]);
   const [connection] = await Promise.all([connectionSeed()]);
-  const [stravaWorkouts] = await Promise.all([stravaSeed()]);
   const [dailyUserChallenges] = await Promise.all([dailyUserChallengeSeed()]);
+  const [stravaWorkouts] = await Promise.all([stravaSeed()]);
 
   console.log(`
   

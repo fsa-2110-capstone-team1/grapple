@@ -1,4 +1,3 @@
-const axios = require("axios");
 const {
   models: { StravaWorkout },
 } = require("../../server/db");
@@ -6,18 +5,20 @@ const {
 async function stravaSeed() {
   const stravaWorkouts = await Promise.all([
     StravaWorkout.create({
+      stravaExternalId: "fakeExternalId1",
       startDate: new Date(),
-      elapsedTime: 1800,
-      type: "Run",
+      elapsedTime: 1800, //30mins
+      type: "Yoga",
       distance: 1609.34,
-      userId: 1,
+      dailyUserChallengeId: 1,
     }),
     StravaWorkout.create({
+      stravaExternalId: "fakeExternalId2",
       startDate: new Date(),
-      elapsedTime: 1800,
+      elapsedTime: 1800, //30mins
       type: "Run",
-      distance: 3200,
-      userId: 1,
+      distance: 17702.8,
+      dailyUserChallengeId: 4,
     }),
   ]);
 

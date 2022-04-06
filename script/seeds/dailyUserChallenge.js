@@ -6,30 +6,28 @@ const {
 
 async function dailyUserChallengeSeed() {
   // A few stable ones for easy QA
-  const duc = await Promise.all([
-    DailyUserChallenge.create({
-      userChallengeId: 1,
-      date: "03/02/2022",
-    }),
-    DailyUserChallenge.create({
-      userChallengeId: 1,
-      date: "03/03/2022",
-    }),
-    DailyUserChallenge.create({
-      userChallengeId: 2,
-      date: "03/02/2022",
-    }),
-    DailyUserChallenge.create({
-      userChallengeId: 2,
-      date: "03/03/2022",
-      total: 12,
-    }),
-  ]);
 
-  await duc[0].updateProgress(10);
-  await duc[2].updateProgress(10);
-  await duc[1].updateProgress(8);
-  await duc[0].update({ stravaWorkoutId: 1 });
+  const duc0 = await DailyUserChallenge.create({
+    userChallengeId: 1,
+    date: "03/02/2022",
+  });
+  const duc1 = await DailyUserChallenge.create({
+    userChallengeId: 1,
+    date: "03/03/2022",
+  });
+  const duc2 = await DailyUserChallenge.create({
+    userChallengeId: 2,
+    date: "03/02/2022",
+  });
+  const duc3 = await DailyUserChallenge.create({
+    userChallengeId: 2,
+    date: "03/03/2022",
+    // total: 12,
+  });
+
+  await duc0.updateProgress(10);
+  await duc2.updateProgress(10);
+  await duc1.updateProgress(8);
 
   const userChallenges = await UserChallenge.findAll({
     include: ["challenge"],
@@ -130,9 +128,9 @@ async function dailyUserChallengeSeed() {
     })
   );
 
-  console.log(`seeded ${duc.length + ducs.length} dailyUserChallenges`);
+  console.log(`seeded ${4 + ducs.length} dailyUserChallenges`);
 
-  return duc;
+  return ducs;
 }
 
 module.exports = dailyUserChallengeSeed;
