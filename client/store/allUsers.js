@@ -1,7 +1,6 @@
 import axios from "axios";
 import { me } from '../store';
 
-
 // ACTION TYPES
 const GET_ALL_USERS = "GET_ALL_USERS"
 

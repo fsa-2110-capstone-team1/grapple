@@ -48,6 +48,7 @@ StravaWorkout.afterCreate(async (stravaWorkout) => {
   } else if (challenge.targetUnit === "meters") {
     value = stravaWorkout.distance;
     await dailyUserChallenge.update({ total: currentProgress + value });
+
   }
 });
 

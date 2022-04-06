@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {
   me,
   getAllChallenges,
@@ -28,7 +27,8 @@ import AdminHub from "./components/Admin/AdminHub";
 import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
 import TestChallengeTracking from "./components/_Archive/TEST_ChallengeTracking";
-import StravaAPI from "./components/Auth/StravaAPI";
+import { StravaRedirect } from "./components/Auth/StravaRedirect";
+import { getAllStravaActivies } from "./store/stravaActivities";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -46,6 +46,14 @@ const App = () => {
   useEffect(async () => {
     if (user.id) {
       const userConnections = await dispatch(getConnections(user.id));
+    }
+    if (user.stravaId) {
+      const stravaActivities = await dispatch(
+        getAllStravaActivies({
+          id: user.id,
+          stravaRefreshToken: user.stravaRefreshToken,
+        })
+      );
     }
   }, [user?.id]);
 
@@ -114,18 +122,17 @@ const App = () => {
         {/* <Route
             path="my-account"
             element={
-                <RequireAuth>
+              <RequireAuth>
                 <MyAccount />
-              </RequireAuth>
-            }
-          /> */}
+                </RequireAuth>
+              }
+            /> */}
 
         <Route
           path="/test/challenges/:challengeId"
           element={<TestChallengeTracking />}
         />
-
-        <Route path="/strava" element={<StravaAPI />} />
+        <Route path="/stravaredirect/*" element={<StravaRedirect />} />
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>
