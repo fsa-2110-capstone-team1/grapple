@@ -10,6 +10,7 @@ import theme from "../../../theme";
 function BrowseChallenges() {
   const stateChallenges = useSelector((state) => state.challenges);
 
+
   const [challenges, setChallenges] = useState([]);
   useEffect(() => {
     setChallenges(
@@ -58,13 +59,23 @@ function BrowseChallenges() {
     window.scrollTo(0, 0);
   }, [location, activePage, filters, sort]);
 
-  //url magic
 
-  // let url = useLocation().pathname;
-  // if(url.split('/')[2] === 'sort' && url.split('/')[5] === 'sort'){
-  //   // console.log('true')
-  //   <Navigate to="/pee" />
-  // }
+
+//url magic 
+
+let url = useLocation().pathname;
+
+//cant figure out whats different
+
+// console.log(filters.difficulty || filters.category || filters.status)
+// if (filters.difficulty){
+  // console.log('diff')
+  // console.log(!filters)
+// }
+// if(url.split('/')[2] === 'sort' && url.split('/')[5] === 'sort'){
+//   // console.log('true')
+// }
+
 
   return (
     <Box
