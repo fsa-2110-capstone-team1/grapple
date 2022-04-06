@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -13,15 +13,10 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { updateUser } from "../../store";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { app } from "../../../server/base";
 import Switch from "@mui/material/Switch";
 import FormLabel from "@mui/material/FormLabel";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Stack from "@mui/material/Stack";
-import PropTypes from "prop-types";
-import LinearProgress from "@mui/material/LinearProgress";
-import theme from "../../theme";
 
 export const UserSettingsForm = ({ preloadedValues }) => {
   const {
@@ -36,6 +31,30 @@ export const UserSettingsForm = ({ preloadedValues }) => {
   const [snackbar, setSnackbar] = useState(null);
   const handleCloseSnackbar = () => setSnackbar(null);
 
+  // const getActivities = async (res) => {
+  //   if (res) {
+  //     const response = await axios.get(
+  //       `https://www.strava.com/api/v3/athlete/activities?access_token=${res.access_token}`
+  //     );
+  //     console.log("response", response);
+  //   }
+  // };
+  // const reauthActivities = async () => {
+  //   const res = (
+  //     await axios.post(
+  //       `https://www.strava.com/oauth/token?client_id=${process.env.STRAVA_CLIENT_ID}&client_secret=${process.env.STRAVA_CLIENT_SECRET}&refresh_token=${process.env.STRAVA_REFRESH_TOKEN}&grant_type=refresh_token`
+  //     )
+  //   ).data;
+  //   console.log("res in refresh", res);
+  //   getActivities(res);
+  // };
+
+
+  const handleLogin = () => {
+    window.location = `https://www.strava.com/oauth/authorize?client_id=${process.env.STRAVA_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:8080/stravaredirect/exchange_token&approval_prompt=force&scope=activity:read_all`;
+  };
+
+  
   const onSubmit = async (data) => {
     try {
       await dispatch(updateUser(data));
@@ -60,7 +79,9 @@ export const UserSettingsForm = ({ preloadedValues }) => {
   const [facebookLogin, setFacebookLogin] = useState(
     !!preloadedValues.facebookId
   );
-
+  const [stravaLogin, setStravaLogin] = useState(
+    !!preloadedValues.stravaId
+  );
   return (
     <div className="profile-container">
       {!!snackbar && (
@@ -126,15 +147,15 @@ export const UserSettingsForm = ({ preloadedValues }) => {
               </>
             ) : googleLogin ? (
               <>
-              <Grid item>
-                <Typography>You logged in with Google account</Typography>
-              </Grid>
+                <Grid item>
+                  <Typography>You logged in with Google account</Typography>
+                </Grid>
               </>
             ) : (
               <>
-              <Grid item>
-                <Typography>You logged in with Facebook account</Typography>
-              </Grid>
+                <Grid item>
+                  <Typography>You logged in with Facebook account</Typography>
+                </Grid>
               </>
             )}
 
@@ -161,6 +182,26 @@ export const UserSettingsForm = ({ preloadedValues }) => {
               >
                 Update Settings
               </Button>
+            </Grid>
+            <Grid item>
+              {!!stravaLogin?(
+              <>
+                <Grid item>
+                  <Typography>You account connected to Strava</Typography>
+                </Grid>
+              </>
+            ):(
+              <>
+              <Button
+                variant="contained"
+                fullWidth
+                onClick={() => handleLogin()}
+                // href={`https://www.strava.com/oauth/token?client_id=${process.env.STRAVA_CLIENT_ID}&client_secret=${process.env.STRAVA_CLIENT_SECRET}&code=${process.env.STRAVA_AUTHORIZATIONCODE}&grant_type=authorization_code`}
+              >
+                Connect Strava to your account
+              </Button>
+              </>
+            )}
             </Grid>
             <Grid item>
               <Button

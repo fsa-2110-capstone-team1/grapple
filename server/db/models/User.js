@@ -1,5 +1,5 @@
 const db = require("../db");
-const { STRING, BOOLEAN, TEXT } = db.Sequelize.DataTypes;
+const { STRING, BOOLEAN, TEXT, INTEGER } = db.Sequelize.DataTypes;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
@@ -62,6 +62,18 @@ const User = db.define("user", {
     type: STRING,
     defaultValue: null
   },
+  stravaId:{
+    type: INTEGER,
+    defaultValue: null
+  },
+  stravaAccessToken: {
+    type: STRING,
+    defaultValue: null
+  },
+  stravaRefreshToken: {
+    type: STRING,
+    defaultValue: null
+  }
 });
 
 module.exports = User;

@@ -12,7 +12,6 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import dateFormat from "dateformat";
-import theme from "../../theme";
 
 export const UserProfile = () => {
   const userProfile = useSelector((state) => state.auth);

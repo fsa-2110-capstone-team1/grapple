@@ -8,6 +8,7 @@ import userChallenges from "./userChallenges";
 import publicUsers from "./users";
 import allUsers from "./allUsers";
 import dailyUserChallenges from "./dailyUserChallenges";
+import stravaActivities from "./stravaActivities";
 
 const reducer = combineReducers({
   auth,
@@ -16,7 +17,8 @@ const reducer = combineReducers({
   userChallenges,
   publicUsers,
   dailyUserChallenges,
-  allUsers
+  allUsers,
+  stravaActivities,
 });
 
 let middleware;
@@ -38,3 +40,4 @@ export * from "./userChallenges";
 export * from "./connections";
 export * from "./users";
 export * from "./dailyUserChallenges";
+export * from "./stravaActivities";

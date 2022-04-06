@@ -14,14 +14,8 @@ import {
 import { useForm } from "react-hook-form";
 import { updateUser } from "../../store";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { app } from "../../../server/base";
-import Switch from "@mui/material/Switch";
-import FormLabel from "@mui/material/FormLabel";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Stack from "@mui/material/Stack";
 import PropTypes from "prop-types";
 import LinearProgress from "@mui/material/LinearProgress";
-import theme from "../../theme";
 
 export const UserProfileForm = ({ preloadedValues }) => {
   const {
@@ -60,17 +54,14 @@ export const UserProfileForm = ({ preloadedValues }) => {
   }, [fileName]);
 
   const onChange = async (e) => {
-    console.log("e", e);
     const file = e.target.files[0];
     const storage = getStorage();
     const fileRef = ref(storage, file.name);
     setFileName(file.name);
     await uploadBytes(fileRef, file).then((snapshot) => {
-      // console.log("Uploaded a blob or file!");
     });
     await getDownloadURL(ref(storage, file.name)).then((url) => {
       setImageUrl(url);
-      // console.log("Got the url!");
       setProgress(100);
     });
   };
