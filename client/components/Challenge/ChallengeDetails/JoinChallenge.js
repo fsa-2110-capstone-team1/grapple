@@ -6,7 +6,7 @@ import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
 import {
   Divider,
-  Grid,
+  Stack,
   Button,
   Box,
   Paper,
@@ -27,126 +27,112 @@ export const JoinChallenge = ({
 }) => {
   const dispatch = useDispatch();
 
-
   const state = useSelector((state) => state);
   const isAdmin = state.auth.isAdmin;
 
   // console.log(isAdmin)
   const location = useLocation().pathname;
 
-
   return (
-    <Grid container direction="column" sx={{ alignItems: "center" }}>
-      <Grid item>
-        <Box sx={{ m: 1, display: "flex", justifyContent: "center" }}>
-          {!!userChallenge.id ? (
-            <ConfirmActionDialog
-              {...{
-                buttonVariant: "contained",
-                buttonSize: "large",
-                buttonDisabled: challenge.status === "Ended",
-                buttonText:
-                  challenge.status === "Ended"
-                    ? "Challenge Ended"
-                    : "Leave Challenge",
-                dialogTitle: "Are you sure you want to leave this challenge?",
-                dialogText:
-                  "This action is permanent. Once you leave the challenge, you will need to re-join and start over.",
-                disagreeText: "Cancel",
-                agreeText: "Leave Challenge",
-                dispatchAction: leaveChallenge,
-                dispatchParams: {
-                  userChallengeId: userChallenge.id,
-                },
-                buttonSx: {
-                  paddingLeft: "40px",
-                  paddingRight: "40px",
-                  paddingTop: "20px",
-                  paddingBottom: "20px",
-                  backgroundColor: theme.palette.secondary.main,
-                  color: theme.palette.braun.main,
-                },
-              }}
-            />
-          ) : (
-            <Button
-              variant="contained"
-              size="large"
-              sx={{
+    <Stack
+      spacing={3}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      {/* <Stack
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+        spacing={1}
+      >
+        <Typography>Challenge Badge</Typography> */}
+      <Box
+        key={challenge.id}
+        component="img"
+        src={`/${challenge.image}`}
+        sx={[
+          {
+            borderRadius: "50px",
+            width: "80px",
+            border: "3px solid #c54c7b",
+            padding: "5px",
+            textAlign: "center",
+          },
+        ]}
+      />
+      {/* </Stack> */}
+
+      <Box sx={{ m: 1, display: "flex", justifyContent: "center" }}>
+        {challenge.status === "Ended" ? (
+          <Button
+            variant="contained"
+            size="large"
+            sx={{
+              paddingLeft: "40px",
+              paddingRight: "40px",
+              paddingTop: "20px",
+              paddingBottom: "20px",
+              backgroundColor: theme.palette.secondary.main,
+              color: theme.palette.braun.main,
+            }}
+            disabled
+          >
+            Challenge Ended
+          </Button>
+        ) : !!userChallenge.id ? (
+          <ConfirmActionDialog
+            {...{
+              buttonVariant: "contained",
+              buttonSize: "large",
+              buttonDisabled: challenge.status === "Ended",
+              buttonText:
+                challenge.status === "Ended"
+                  ? "Challenge Ended"
+                  : "Leave Challenge",
+              dialogTitle: "Are you sure you want to leave this challenge?",
+              dialogText:
+                "This action is permanent. Once you leave the challenge, you will need to re-join and start over.",
+              disagreeText: "Cancel",
+              agreeText: "Leave Challenge",
+              dispatchAction: leaveChallenge,
+              dispatchParams: {
+                userChallengeId: userChallenge.id,
+              },
+              buttonSx: {
                 paddingLeft: "40px",
                 paddingRight: "40px",
                 paddingTop: "20px",
                 paddingBottom: "20px",
                 backgroundColor: theme.palette.secondary.main,
                 color: theme.palette.braun.main,
-              }}
-              onClick={() => dispatch(joinChallenge(userId, challenge.id))}
-            >
-              Join Challenge
-            </Button>
-          )}
-          <Button>
-            {isAdmin ? (
-              <Typography component={Link} to={`${location}/edit`}>
-                <li className="user-link-li">Edit Challenge</li>
-              </Typography>
-            ) : (
-              ""
-            )}
-          </Button>
-        </Box>
-      </Grid>
-      {/* <Button size="large">Invite A friend</Button> */}
-      <Grid item>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            textAlign: "left",
-            marginTop: "20px",
-            marginBottom: "20px",
-          }}
-        >
-          {enrolledUsers.length === 0 ? (
-            <SentimentVeryDissatisfiedIcon className="sad-face-icon" />
-          ) : (
-            <ElectricBoltIcon className="electric-bolt" />
-          )}
-          <Typography variant="p">
-            {enrolledUsers.length === 0
-              ? "No one currently enrolled in this challenge."
-              : enrolledUsers.length === 1
-              ? `${enrolledUsers.length} person enrolled in this challenge!`
-              : `${enrolledUsers.length} people enrolled in this challenge!`}
-          </Typography>
-        </Box>
-      </Grid>
-      <Grid item>
-        {enrolledUsers.length >= 1 ? (
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <DirectionsRunIcon className="runner-icon" />
-            <p className="participant-div">Participants</p>
-          </Box>
+              },
+            }}
+          />
         ) : (
-          ""
+          <Button
+            variant="contained"
+            size="large"
+            sx={{
+              paddingLeft: "40px",
+              paddingRight: "40px",
+              paddingTop: "20px",
+              paddingBottom: "20px",
+              backgroundColor: theme.palette.secondary.main,
+              color: theme.palette.braun.main,
+            }}
+            onClick={() => dispatch(joinChallenge(userId, challenge.id))}
+          >
+            Join Challenge
+          </Button>
         )}
-        <Box>
-          {enrolledUsers.length >= 1
-            ? enrolledUsers?.map((user) => (
-                <Typography
-                  key={user.id}
-                  component={Link}
-                  to={`/users/profile/${user.username}`}
-                  sx={{ color: theme.palette.primary.main }}
-                  variant="inherit"
-                >
-                  <li className="user-link-li">{user.username}</li>
-                </Typography>
-              ))
-            : ""}
-        </Box>
-      </Grid>
-    </Grid>
+      </Box>
+      {/* <Button size="large">Invite A friend</Button> */}
+    </Stack>
   );
 };
 export default JoinChallenge;

@@ -173,12 +173,25 @@ export const ChallengeDetails = () => {
               />
 
               {/* Left details section */}
-              <Grid item xs={12} md={5.5}>
-                <Details challenge={challenge} />
+              <Grid item xs={12} md={5.5} sx={{ mt: 2, mb: 2 }}>
+                <Details challenge={challenge} enrolledUsers={enrolledUsers} />
               </Grid>
 
               {/* Right join challenge section */}
-              <Grid item xs={12} md={5.5}>
+              <Grid
+                item
+                xs={12}
+                md={5.5}
+                sx={{
+                  height: 1,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-end",
+                  justifyContent: "flex-start",
+                  mt: 2,
+                  mb: 2,
+                }}
+              >
                 <JoinChallenge
                   challenge={challenge}
                   userChallenge={userChallenge}
