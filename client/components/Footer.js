@@ -94,7 +94,6 @@ export const Footer = () => {
               <Grid item xs={6} sm={4} md={2}>
                 <Typography variant="h6" marked="left" gutterBottom>
                   <FormattedMessage id="navigate" />
-                  Navigate
                 </Typography>
                 <Box component="ul" sx={{ m: 0, listStyle: "none", p: 0 }}>
                   <Box component="li">
@@ -120,51 +119,33 @@ export const Footer = () => {
                 </Box>
               </Grid>
               <Grid item xs={6} sm={8} md={4}>
-                <Typography variant="h6" marked="left" gutterBottom>
-                  Language
-                </Typography>
-                <TextField
-                  inputProps={{ style: { color: theme.palette.white.main } }}
-                  select
-                  size="medium"
-                  variant="standard"
-                  SelectProps={{
-                    native: true,
-                  }}
-                  sx={{ mt: 1, width: 150 }}
-                  onChange={(value) => console.log(value)}
-                >
-                  <option value={'english'}
-                  //  onClick={() => setLocale(LOCALES.ENGLISH)}
-                   >
-                    English
-                  </option>
-
-                  <option onClick={() => setLocale(LOCALES.RUSSIAN)}>
-                    Russian
-                  </option>
-
-                  <option onClick={() => setLocale(LOCALES.PORTUGUESE)}>
-                    Portuguese
-                  </option>
-                  
-                </TextField>
+                <FormControl fullWidth>
+                  <InputLabel id="language">Language</InputLabel>
+                  <Select
+                    labelId="status"
+                    id="status-select"
+                    defaultValue={LOCALES.ENGLISH}
+                    label="status"
+                    onChange={(e) => setLocale(e.target.value)}
+                  >
+                    <MenuItem value={LOCALES.ENGLISH}>English</MenuItem>
+                    <MenuItem value={LOCALES.RUSSIAN}>Russia</MenuItem>
+                    <MenuItem value={LOCALES.PORTUGUESE}>Portuguese</MenuItem>
+                  </Select>
+                </FormControl>
               </Grid>
-              {/* <button onClick={() => setLocale(LOCALES.ENGLISH)}>
-                    ENGLISH
-                  </button>
 
-                  <button onClick={() => setLocale(LOCALES.RUSSIAN)}>
-                    RUSSIAN
-                  </button>
-
-                  <button onClick={() => setLocale(LOCALES.PORTUGUESE)}>
-                    PORTUGUESE
-                  </button> */}
               <Grid item>
                 <Typography variant="caption">
-                  Made by Marina Chevis, Ekaterina Svetlakova, Benjamin
-                  Greenspan, and Louis Rabeno.
+                {translate("made", {
+                    path: (
+                      <Typography variant="caption">
+                        {" "}
+                        Marina Chevis, Ekaterina Svetlakova, Benjamin Greenspan,
+                        Louis Rabeno{" "}
+                      </Typography>
+                    ),
+                  })}
                 </Typography>
               </Grid>
             </Grid>

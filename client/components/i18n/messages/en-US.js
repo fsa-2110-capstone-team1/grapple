@@ -4,10 +4,11 @@ import {LOCALES} from '../locales'
 
 export default {
     [LOCALES.ENGLISH]: {
-        'navigate' : 'Navigate'
+        'navigate' : 'Navigate',
+        "made" : "Made by Marina Chevis, Ekaterina Svetlakova, Benjamin Greenspan, and Louis Rabeno",
+        'welcome' : 'Welcome to Grapple'
     }
 }
-
 
 
 // //header
