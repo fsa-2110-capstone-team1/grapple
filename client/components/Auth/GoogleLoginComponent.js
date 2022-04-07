@@ -4,7 +4,7 @@ import { authenticate } from "../../store/auth";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
-import { refreshTokenSetup } from './utils/refreshToken'
+import { refreshTokenSetup } from "./utils/refreshToken";
 
 function GoogleLoginComponent() {
   // const [login, setLogin] = useState(false);
@@ -34,11 +34,11 @@ function GoogleLoginComponent() {
       lastName: res.profileObj.familyName
         ? res.profileObj.familyName
         : res.profileObj.email,
-      username: res.profileObj.email,
+      username: res.profileObj.email.split("@")[0],
     };
     setData(userData);
     //initializing the setup
-    refreshTokenSetup(res)
+    refreshTokenSetup(res);
     // setLogin(true);
   };
 

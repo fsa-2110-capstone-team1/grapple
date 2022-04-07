@@ -48,7 +48,7 @@ const App = () => {
     if (user.id) {
       const userConnections = await dispatch(getConnections(user.id));
     }
-if (user.stravaId) {
+    if (user.stravaId) {
       const stravaActivities = await dispatch(
         getAllStravaActivies({
           id: user.id,
@@ -71,6 +71,10 @@ if (user.stravaId) {
         <Route path="/signup" element={<AuthForm path={"/"} />} />
         <Route path="/users" element={<BrowseUsers />} />
         <Route path="/users/:userGroup" element={<BrowseUsers />} />
+        <Route
+          path="/users/profile/marinachevis@gmail.com"
+          element={<UserProfileDetails />}
+        />
         <Route
           path="/users/profile/:username"
           element={<UserProfileDetails />}
@@ -107,8 +111,6 @@ if (user.stravaId) {
           element={<TestChallengeTracking />}
         />
 
-        <Route path="/strava" element={<StravaAPI />} />
-
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
@@ -118,4 +120,3 @@ if (user.stravaId) {
 };
 
 export default App;
-
