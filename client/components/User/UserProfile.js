@@ -42,7 +42,7 @@ export const UserProfile = () => {
                 color: "#dfdfdf",
               }}
             >
-              face
+            
             </i>
           )}
         </CardMedia>

@@ -55,7 +55,7 @@ export const UserSettings = () => {
                   color: "#dfdfdf",
                 }}
               >
-                face
+                
               </i>
             )}
             {data ? (
