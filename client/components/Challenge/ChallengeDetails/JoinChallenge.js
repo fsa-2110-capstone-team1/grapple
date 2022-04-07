@@ -51,20 +51,21 @@ export const JoinChallenge = ({
         spacing={1}
       >
         <Typography>Challenge Badge</Typography> */}
-      <Box
+      {/* <Box
         key={challenge.id}
         component="img"
         src={`/${challenge.image}`}
         sx={[
           {
-            borderRadius: "50px",
-            width: "80px",
+            borderRadius: "20px",
+            width: "215px",
             border: "3px solid #c54c7b",
             padding: "5px",
             textAlign: "center",
+            backgroundColor: "#434343"
           },
         ]}
-      />
+      /> */}
       {/* </Stack> */}
 
       <Box sx={{ m: 1, display: "flex", justifyContent: "center" }}>

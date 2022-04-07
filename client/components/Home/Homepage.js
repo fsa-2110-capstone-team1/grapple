@@ -10,7 +10,7 @@ import theme from "../../theme";
 export const Homepage = () => {
   const userId = useSelector((state) => state.auth.id);
 
-  const runnerImg = "/homeImgs/grapple-home-runner.jpeg";
+  const runnerImg = "/homeImgs/grapple-bg-home.jpg";
 
   const location = useLocation();
   const userList = useSelector((state) => state.publicUsers);

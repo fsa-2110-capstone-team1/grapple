@@ -44,6 +44,7 @@ export const ChallengeDetails = () => {
   const [enrolledUsers, setEnrolledUsers] = useState([]);
   const [challenge, setChallenge] = useState({});
   const [userChallenge, setUserChallenge] = useState({});
+  const [challengeImg, setChallengeImg] = useState("");
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -77,6 +78,8 @@ export const ChallengeDetails = () => {
         ...chal,
         status: challengeStatus,
       });
+      console.log("chal", chal);
+      setChallengeImg(`/homeImgs/${chal.category}-challenge-bg.jpeg`);
     }
   }, [id, challenges]);
 
@@ -128,18 +131,44 @@ export const ChallengeDetails = () => {
           xs={3}
           sx={{
             overflow: "hidden",
+            height: 100,
+            width: "100%",
+            position: "relative",
+            paddingBottom: "80px",
           }}
         >
           <Box
             component="img"
-            src="/homeImgs/grapple-cycle-group.jpeg"
+            src={challengeImg}
             sx={{
               width: 1,
               minWidth: 1,
               maxHeight: "30vh",
               objectFit: "cover",
               objectPosition: "center",
+              opacity: 0.8,
+              zIndex: 1,
             }}
+          />
+          <Box
+            key={challenge.id}
+            component="img"
+            src={`/${challenge.image}`}
+            sx={[
+              {
+                borderRadius: "20px",
+                width: "215px",
+                border: "7px solid #4AB5A3",
+                padding: "15px",
+                textAlign: "center",
+                backgroundColor: "#f2edeb",
+                position: "absolute",
+                position: "absolute",
+                top: 165,
+                left: "40%",
+                zIndex: 2,
+              },
+            ]}
           />
         </Grid>
 

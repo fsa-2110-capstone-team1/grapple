@@ -50,14 +50,14 @@ export function HomepageLayout(props) {
             top: 0,
             bottom: 0,
             backgroundColor: 'common.black',
-            opacity: 0.5,
+            opacity: 0.2,
             zIndex: -1,
           }}
         />
         <Background sx={sxBackground} />
         <Box
           component="img"
-          src="/logo/Grapple-logos_transparent.png"
+          src="/logo/navLogo-white.png"
           height="125px"
           width="125px"
           alt="grapple logo"
