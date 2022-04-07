@@ -14,6 +14,7 @@ import {
 import { useForm } from "react-hook-form";
 import { updateUser } from "../../store";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { app } from "../../../server/base";
 import PropTypes from "prop-types";
 import LinearProgress from "@mui/material/LinearProgress";
 

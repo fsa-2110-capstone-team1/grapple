@@ -110,7 +110,7 @@ const App = () => {
           path="/test/challenges/:challengeId"
           element={<TestChallengeTracking />}
         />
-
+        <Route path="/stravaredirect/*" element={<StravaRedirect />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
