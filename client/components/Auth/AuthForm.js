@@ -91,7 +91,7 @@ const AuthForm = ({ path }) => {
             <Grid item xs={6} sx={{ width: "60%" }}>
               <FacebookLoginComponent />
             </Grid>
-            <Grid item xs={6} sx={{ width: "60%" }}>
+            {/* <Grid item xs={6} sx={{ width: "60%" }}>
               <Button
                 variant="contained"
                 fullWidth
@@ -99,7 +99,7 @@ const AuthForm = ({ path }) => {
               >
                 Connect with Strava
               </Button>
-            </Grid>
+            </Grid> */}
           </Grid>
 
           <Grid item sx={{ width: "100%" }} textAlign={"center"}>
