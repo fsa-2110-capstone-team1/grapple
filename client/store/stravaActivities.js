@@ -25,7 +25,7 @@ export const getAllStravaActivies = (data) => {
       await dispatch(
         updateUser({
           stravaAccessToken: res.data.access_token,
-          stravaRefreshToken: res.data.refresh_token,
+          stravaRefreshToken: res.data.refresh_token, //"d47f4357938a852813dc6886387da43f143b9482",
           id: data.id,
         })
       );
@@ -45,6 +45,7 @@ export default (state = [], action) => {
   switch (action.type) {
     case GET_ALL_STRAVA_ACTIVITIES:
       return action.activities;
+
     default:
       return state;
   }

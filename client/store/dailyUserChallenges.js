@@ -5,6 +5,10 @@ import axios from "axios";
 const GET_DAILYUSERCHALLENGES = "GET_DAILYUSERCHALLENGES";
 const CREATE_DAILYUSERCHALLENGE = "CREATE_DAILYUSERCHALLENGE";
 const UPDATE_DAILYUSERCHALLENGE_PROGRESS = "UPDATE_DAILYUSERCHALLENGE_PROGRESS";
+const GET_DAILYUSERCHALLENGE_STRAVA_ACTIVITIES =
+  "GET_DAILYUSERCHALLENGE_STRAVA_ACTIVITIES";
+const ADD_DAILYUSERCHALLENGE_STRAVA_ACTIVITY =
+  "ADD_DAILYUSERCHALLENGE_STRAVA_ACTIVITY";
 
 // ACTION CREATORS
 
@@ -19,6 +23,17 @@ const _createDailyUserChallenge = (dailyUserChallenge) => ({
 const _updateDailyUserChallengeProgress = (dailyUserChallenge) => ({
   type: UPDATE_DAILYUSERCHALLENGE_PROGRESS,
   dailyUserChallenge,
+});
+
+// STRAVA ACTIONS
+const _getDailyUserChallengeStravaActivies = (activities) => ({
+  type: GET_DAILYUSERCHALLENGE_STRAVA_ACTIVITIES,
+  activities,
+});
+
+const _addDailyUserChallengeStravaActivies = (activity) => ({
+  type: ADD_DAILYUSERCHALLENGE_STRAVA_ACTIVITY,
+  activity,
 });
 
 //THUNK CREATORS
@@ -43,6 +58,7 @@ export const createDailyUserChallenge = ({ userChallengeId, date, total }) => {
       }
     );
     dispatch(_createDailyUserChallenge(newDailyUserChallenge));
+    return newDailyUserChallenge;
   };
 };
 
@@ -64,22 +80,57 @@ export const updateChallengeProgress =
     }
   };
 
-export default (state = [], action) => {
+// STRAVA THUNKS
+export const getDailyUserChallengeStravaActivies = (dailyUserChallengeId) => {
+  return async (dispatch) => {
+    const { data: stravaWorkouts } = await axios.get(
+      `/api/stravaWorkouts/dailyUserChallenge/${dailyUserChallengeId}`
+    );
+    dispatch(_getDailyUserChallengeStravaActivies(stravaWorkouts));
+  };
+};
+
+export const addDailyUserChallengeStravaActivies = ({
+  activity,
+  userChallengeId,
+}) => {
+  return async (dispatch) => {
+    const { data: stravaWorkout } = await axios.post(
+      `/api/stravaWorkouts`,
+      activity
+    );
+    await dispatch(_addDailyUserChallengeStravaActivies(stravaWorkout));
+    dispatch(getDailyUserChallenges(userChallengeId));
+  };
+};
+
+export default (state = { all: [], strava: [] }, action) => {
   switch (action.type) {
     case GET_DAILYUSERCHALLENGES:
-      return action.dailyUserChallenges;
+      return { ...state, all: action.dailyUserChallenges };
     case CREATE_DAILYUSERCHALLENGE:
-      return [...state, action.dailyUserChallenge];
+      return { ...state, all: [...state.all, action.dailyUserChallenge] };
     case UPDATE_DAILYUSERCHALLENGE_PROGRESS:
-      return state.map((dailyUserChallenge) =>
-        dailyUserChallenge.id === action.dailyUserChallenge.id
-          ? {
-              ...dailyUserChallenge,
-              ...action.dailyUserChallenge,
-              error: action.dailyUserChallenge.error,
-            }
-          : dailyUserChallenge
-      );
+      return {
+        ...state,
+        all: state.all.map((dailyUserChallenge) =>
+          dailyUserChallenge.id === action.dailyUserChallenge.id
+            ? {
+                ...dailyUserChallenge,
+                ...action.dailyUserChallenge,
+                error: action.dailyUserChallenge.error,
+              }
+            : dailyUserChallenge
+        ),
+      };
+    // STRAVA
+    case GET_DAILYUSERCHALLENGE_STRAVA_ACTIVITIES:
+      return { ...state, strava: action.activities };
+    case ADD_DAILYUSERCHALLENGE_STRAVA_ACTIVITY:
+      return {
+        ...state,
+        strava: [...state.strava, action.activity],
+      };
     default:
       return state;
   }

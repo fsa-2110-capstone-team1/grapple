@@ -15,10 +15,10 @@ const CalendarView = ({ dailyUserChallenges, userChallenge, challenge }) => {
   function isSameDay(a, b) {
     return differenceInCalendarDays(new Date(a), new Date(b)) === 0;
   }
-  const datesWithData = dailyUserChallenges
+  const datesWithData = dailyUserChallenges.all
     .filter((duc) => duc.total > 0)
     .map((duc) => new Date(duc.date));
-  const datesCompleted = dailyUserChallenges
+  const datesCompleted = dailyUserChallenges.all
     .filter(
       (duc) =>
         challenge.goalType === "daily" && duc.total >= challenge.targetNumber
@@ -38,6 +38,7 @@ const CalendarView = ({ dailyUserChallenges, userChallenge, challenge }) => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        width: 1,
       }}
     >
       <Calendar
@@ -69,11 +70,13 @@ const CalendarView = ({ dailyUserChallenges, userChallenge, challenge }) => {
       />
       <TrackProgress
         dailyUserChallenge={
-          dailyUserChallenges.find((duc) => isSameDay(duc.date, date)) || null
+          dailyUserChallenges.all.find((duc) => isSameDay(duc.date, date)) ||
+          null
         }
         userChallenge={userChallenge}
         challenge={challenge}
         date={date}
+        style={{ width: "100%" }}
       />
     </Box>
   );
