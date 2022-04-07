@@ -25,80 +25,71 @@ export const UserSettingsForm = ({ preloadedValues }) => {
     watch,
     formState: { errors },
   } = useForm({
-    reValidateMode: 'onChange',
+    reValidateMode: "onChange",
     defaultValues: {
       ...preloadedValues,
-      password: '',
+      password: "",
     },
   });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  //Success snackbar
-  const [snackbar, setSnackbar] = useState(null);
-  const handleCloseSnackbar = () => setSnackbar(null);
-
-  // const getActivities = async (res) => {
-  //   if (res) {
-  //     const response = await axios.get(
-  //       `https://www.strava.com/api/v3/athlete/activities?access_token=${res.access_token}`
-  //     );
-  //     console.log("response", response);
-  //   }
-  // };
-  // const reauthActivities = async () => {
-  //   const res = (
-  //     await axios.post(
-  //       `https://www.strava.com/oauth/token?client_id=${process.env.STRAVA_CLIENT_ID}&client_secret=${process.env.STRAVA_CLIENT_SECRET}&refresh_token=${process.env.STRAVA_REFRESH_TOKEN}&grant_type=refresh_token`
-  //     )
-  //   ).data;
-  //   console.log("res in refresh", res);
-  //   getActivities(res);
-  // };
-
-
-  const handleLogin = () => {
-    window.location = `https://www.strava.com/oauth/authorize?client_id=${process.env.STRAVA_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:8080/stravaredirect/exchange_token&approval_prompt=force&scope=activity:read_all`;
-  };
-
-  
-  const onSubmit = async (data) => {
-    if (data.password !== data.confirmpassword) {
-      setSnackbar({
-        children: 'Passwords must match. Settings could not be updated!',
-        severity: 'error',
-      });
-      return;
-    }
-    try {
-      await dispatch(updateUser(data));
-      setSnackbar({
-        children: 'Your settings successfully updated!',
-        severity: 'success',
-      });
-    } catch (err) {
-      console.log(err);
-      setSnackbar({
-        children: 'Settings could not be updated!',
-        severity: 'error',
-      });
-    }
-  };
 
   const [cheched, setChecked] = useState(preloadedValues.isPrivate);
   const [googleLogin, setGoogleLogin] = useState(!!preloadedValues.googleId);
   const [facebookLogin, setFacebookLogin] = useState(
     !!preloadedValues.facebookId
   );
-  const [stravaLogin, setStravaLogin] = useState(
-    !!preloadedValues.stravaId
-  );
+  const [stravaLogin, setStravaLogin] = useState(!!preloadedValues.stravaId);
+
+  //Success snackbar
+  const [snackbar, setSnackbar] = useState(null);
+  const handleCloseSnackbar = () => setSnackbar(null);
+
+  const handleLogin = () => {
+    window.location = `https://www.strava.com/oauth/authorize?client_id=${process.env.STRAVA_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:8080/stravaredirect/exchange_token&approval_prompt=force&scope=activity:read_all`;
+  };
+
+  const handleLogout = () => {
+    const userData = {
+      stravaId: null,
+      stravaAccessToken: null,
+      stravaRefreshToken: null,
+      id: preloadedValues.id,
+    };
+    setStravaLogin(null);
+    dispatch(updateUser(userData));
+  };
+
+  const onSubmit = async (data) => {
+    if (data.password !== data.confirmpassword) {
+      setSnackbar({
+        children: "Passwords must match. Settings could not be updated!",
+        severity: "error",
+      });
+      return;
+    }
+    try {
+      await dispatch(updateUser(data));
+      setSnackbar({
+        children: "Your settings successfully updated!",
+        severity: "success",
+      });
+    } catch (err) {
+      console.log(err);
+      setSnackbar({
+        children: "Settings could not be updated!",
+        severity: "error",
+      });
+    }
+  };
+
   return (
     <div className="profile-container">
       {!!snackbar && (
         <Snackbar
           open
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
           onClose={handleCloseSnackbar}
           autoHideDuration={6000}
         >
@@ -123,8 +114,8 @@ export const UserSettingsForm = ({ preloadedValues }) => {
                     required
                     type="password"
                     variant="outlined"
-                    {...register('password', {
-                      required: 'Required field',
+                    {...register("password", {
+                      required: "Required field",
                     })}
                     error={!!errors?.password}
                     helperText={
@@ -141,13 +132,13 @@ export const UserSettingsForm = ({ preloadedValues }) => {
                     type="password"
                     variant="outlined"
                     // error={watch('password') !== watch('confirmpassword')}
-                    {...register('confirmpassword', {
-                      required: 'Required field',
+                    {...register("confirmpassword", {
+                      required: "Required field",
                       validate: (val) => {
-                        if (watch('password') !== watch('confirmpassword')) {
+                        if (watch("password") !== watch("confirmpassword")) {
                           errors.confirmpassword = {};
                           errors.confirmpassword.message =
-                            'Your passwords do no match';
+                            "Your passwords do no match";
                         }
                       },
                     })}
@@ -183,7 +174,7 @@ export const UserSettingsForm = ({ preloadedValues }) => {
                   id="isPrivate"
                   control={<Switch color="primary" defaultChecked={cheched} />}
                   label="Private"
-                  {...register('isPrivate')}
+                  {...register("isPrivate")}
                 />
               </Stack>
             </Grid>
@@ -199,25 +190,34 @@ export const UserSettingsForm = ({ preloadedValues }) => {
                 Update Settings
               </Button>
             </Grid>
-            <Grid item>
-              {!!stravaLogin?(
-              <>
+            <Grid item container>
+              {!!stravaLogin ? (
+                <>
+                  <Grid item xs={8}>
+                    <Typography>You account connected to Strava</Typography>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Button
+                      variant="contained"
+                      fullWidth
+                      onClick={() => handleLogout()}
+                    >
+                      Disconnect Strava
+                    </Button>
+                  </Grid>
+                </>
+              ) : (
                 <Grid item>
-                  <Typography>You account connected to Strava</Typography>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    onClick={() => handleLogin()}
+                    // href={`https://www.strava.com/oauth/token?client_id=${process.env.STRAVA_CLIENT_ID}&client_secret=${process.env.STRAVA_CLIENT_SECRET}&code=${process.env.STRAVA_AUTHORIZATIONCODE}&grant_type=authorization_code`}
+                  >
+                    Connect Strava to your account
+                  </Button>
                 </Grid>
-              </>
-            ):(
-              <>
-              <Button
-                variant="contained"
-                fullWidth
-                onClick={() => handleLogin()}
-                // href={`https://www.strava.com/oauth/token?client_id=${process.env.STRAVA_CLIENT_ID}&client_secret=${process.env.STRAVA_CLIENT_SECRET}&code=${process.env.STRAVA_AUTHORIZATIONCODE}&grant_type=authorization_code`}
-              >
-                Connect Strava to your account
-              </Button>
-              </>
-            )}
+              )}
             </Grid>
             <Grid item>
               <Button
