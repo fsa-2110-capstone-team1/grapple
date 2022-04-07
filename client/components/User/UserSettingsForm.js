@@ -194,7 +194,7 @@ export const UserSettingsForm = ({ preloadedValues }) => {
               {!!stravaLogin ? (
                 <>
                   <Grid item xs={8}>
-                    <Typography>You account connected to Strava</Typography>
+                    <Typography>Your account connected to Strava</Typography>
                   </Grid>
                   <Grid item xs={4}>
                     <Button
