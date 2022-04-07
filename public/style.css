@@ -305,7 +305,7 @@ a:hover {
   object-fit: cover;
   top: 50px;
   left: calc(50% - 78px);
-  border: 5px solid silver;
+  border: 5px solid #4AB5A3;
   border-radius: 50%;
   bottom: 0;
   box-shadow: inherit;
