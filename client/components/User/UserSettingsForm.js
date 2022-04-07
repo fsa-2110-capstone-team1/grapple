@@ -207,7 +207,7 @@ export const UserSettingsForm = ({ preloadedValues }) => {
                   </Grid>
                 </>
               ) : (
-                <Grid item>
+                <Grid item xs={12}>
                   <Button
                     variant="contained"
                     fullWidth

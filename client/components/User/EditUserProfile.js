@@ -37,8 +37,11 @@ export const EditUserProfile = () => {
           <Grid item className="image-stack">
             <img
               id="profile-header"
-              src="/homeImgs/grapple-home-runner.jpeg"
+              src="/homeImgs/grapple-user-profile.jpeg"
               alt="background-image"
+              style={{
+                opacity: "0.8",
+              }}
             />
             {userProfile.image ? (
               <img id="profile-image" src={userProfile.image} />

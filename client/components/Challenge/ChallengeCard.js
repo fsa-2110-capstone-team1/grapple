@@ -58,7 +58,7 @@ export const ChallengeCard = ({ challenge }) => {
           height="200"
           image={`/${challenge.image}`}
           alt="challenge cover photo"
-          sx={{ objectFit: "contain", marginTop: "20px" }}
+          sx={{ objectFit: "contain", marginTop: "20px", width: "85%", backgroundColor: "#626262", borderRadius: "10px", marginLeft: "calc(15%/2)", padding: "10px"}}
         />
         <CardContent>
           <Box

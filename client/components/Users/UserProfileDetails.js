@@ -165,6 +165,7 @@ const UserProfileDetails = () => {
                   height: "150px",
                   borderRadius: 50,
                   objectFit: "cover",
+                  border: "5px solid #4AB5A3"
                 }}
               />
             </Grid>

@@ -5,7 +5,7 @@ import theme from "../../theme";
 
 export const MainContent = () => {
   //   const splash = '/homeImgs/grapple-main-home-bckrnd.jpg';
-  const splash = "/homeImgs/14092.jpg";
+  const splash = "/homeImgs/grapple-bg-home-low.jpg";
 
   const item = {
     display: "flex",
