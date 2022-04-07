@@ -3,18 +3,11 @@ import { updateUser } from "../store";
 
 // ACTION TYPES
 const GET_ALL_STRAVA_ACTIVITIES = "GET_ALL_STRAVA_ACTIVITIES";
-const GET_DAILYUSERCHALLENGE_STRAVA_ACTIVITIES =
-  "GET_DAILYUSERCHALLENGE_STRAVA_ACTIVITIES";
 
 // ACTION CREATORS
 
 const _getAllStravaActivies = (activities) => ({
   type: GET_ALL_STRAVA_ACTIVITIES,
-  activities,
-});
-
-const _getDailyUserChallengeStravaActivies = (activities) => ({
-  type: GET_DAILYUSERCHALLENGE_STRAVA_ACTIVITIES,
   activities,
 });
 
@@ -32,7 +25,7 @@ export const getAllStravaActivies = (data) => {
       await dispatch(
         updateUser({
           stravaAccessToken: res.data.access_token,
-          stravaRefreshToken: res.data.refresh_token,
+          stravaRefreshToken: res.data.refresh_token, //"d47f4357938a852813dc6886387da43f143b9482",
           id: data.id,
         })
       );
@@ -48,21 +41,11 @@ export const getAllStravaActivies = (data) => {
   };
 };
 
-export const getDailyUserChallengeStravaActivies = (dailyUserChallengeId) => {
-  return async (dispatch) => {
-    const { data: stravaWorkouts } = await axios.get(
-      `/api/stravaWorkouts/dailyUserChallenge/${dailyUserChallengeId}`
-    );
-    dispatch(_getDailyUserChallengeStravaActivies(stravaWorkouts));
-  };
-};
-
-export default (state = { all: [], dailyUserChallenge: [] }, action) => {
+export default (state = [], action) => {
   switch (action.type) {
     case GET_ALL_STRAVA_ACTIVITIES:
-      return { ...state, all: action.activities };
-    case GET_DAILYUSERCHALLENGE_STRAVA_ACTIVITIES:
-      return { ...state, dailyUserChallenge: action.activities };
+      return action.activities;
+
     default:
       return state;
   }

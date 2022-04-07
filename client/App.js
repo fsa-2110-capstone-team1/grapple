@@ -47,14 +47,16 @@ const App = () => {
     if (user.id) {
       const userConnections = await dispatch(getConnections(user.id));
     }
-    if (user.stravaId) {
+    // if (user.stravaId) {
+    if (user.id) {
       const stravaActivities = await dispatch(
         getAllStravaActivies({
           id: user.id,
-          stravaRefreshToken: user.stravaRefreshToken,
+          stravaRefreshToken: "5d0a14c4e408ef5ea25667d9f2c1d04f6982788c", //user.stravaRefreshToken,
         })
       );
     }
+    // }
   }, [user?.id]);
 
   return (
