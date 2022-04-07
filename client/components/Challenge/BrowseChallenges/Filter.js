@@ -8,7 +8,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import theme from "../../../theme";
 
 const Filter = ({
@@ -25,6 +25,22 @@ const Filter = ({
   }, [filters]);
 
   let navigate = useNavigate();
+
+  let location = useLocation().pathname
+let paras = useParams();
+// console.log(location)
+// console.log(paras)
+
+// console.log(filters)
+// console.log(location.length)
+
+if (paras.attr === '0'){
+  navigate(`/challenges/`);
+}
+
+
+
+
   function filterChallenges(challenges, filters) {
     if (!Object.keys(filters).length) return challenges;
 
@@ -53,9 +69,10 @@ const Filter = ({
     });
   }
 
+
   const handleFilter = (value, attribute) => {
     setActivePage(1);
-    navigate(`filter/${value}/${attribute}`);
+    navigate(`/challenges/${attribute}=${value}`);
     if (value) {
       setFilters((prevFilters) => ({
         ...prevFilters,
@@ -70,6 +87,11 @@ const Filter = ({
       });
     }
   };
+
+
+  // if (location.length !== 12 ){
+  //   console.log(setFilters)
+  // }
 
   return (
     <Box>

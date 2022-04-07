@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+
 import {
   me,
   getAllChallenges,
@@ -47,16 +48,14 @@ const App = () => {
     if (user.id) {
       const userConnections = await dispatch(getConnections(user.id));
     }
-    // if (user.stravaId) {
-    if (user.id) {
+if (user.stravaId) {
       const stravaActivities = await dispatch(
         getAllStravaActivies({
           id: user.id,
-          stravaRefreshToken: "5d0a14c4e408ef5ea25667d9f2c1d04f6982788c", //user.stravaRefreshToken,
+          stravaRefreshToken: user.stravaRefreshToken,
         })
       );
     }
-    // }
   }, [user?.id]);
 
   return (
@@ -85,36 +84,9 @@ const App = () => {
         {/* NOTE: Should /userdashboard be /home??
           When a user logs in they get directed straight to their dashboard? */}
 
-        <Route
-          path="/challenges/sort/:diff/:cat"
-          element={<BrowseChallenges />}
-        />
-        <Route
-          path="/challenges/filter/:num/:cat"
-          element={<BrowseChallenges />}
-        />
+        <Route path="/challenges/:cat=:attr" element={<BrowseChallenges />} />
 
-        <Route
-          path="/challenges/sort/:x/:y/:z/:a/:b"
-          element={<BrowseChallenges />}
-        />
-
-        <Route
-          path="/challenges/sortby/:attr/:dir"
-          element={<BrowseChallenges />}
-        />
-        <Route
-          path="/challenges/filter/:diff/:cat/filter/:num/:cat"
-          element={<BrowseChallenges />}
-        />
-        <Route
-          path="/challenges/filter/:diff/:cat/filter/:num/:cat/filter/:num/:cat"
-          element={<BrowseChallenges />}
-        />
-        <Route
-          path="/challenges/filter/:num/:cat/filter/physical/category"
-          element={<BrowseChallenges />}
-        />
+        <Route path="/challenges/:name&:asc" element={<BrowseChallenges />} />
 
         <Route path="/user/settings" element={<UserSettings />} />
         <Route path="/admin-hub" element={<AdminHub />} />
@@ -124,17 +96,18 @@ const App = () => {
         {/* <Route
             path="my-account"
             element={
-              <RequireAuth>
+                <RequireAuth>
                 <MyAccount />
-                </RequireAuth>
-              }
-            /> */}
+              </RequireAuth>
+            }
+          /> */}
 
         <Route
           path="/test/challenges/:challengeId"
           element={<TestChallengeTracking />}
         />
-        <Route path="/stravaredirect/*" element={<StravaRedirect />} />
+
+        <Route path="/strava" element={<StravaAPI />} />
 
         <Route path="*" element={<PageNotFound />} />
       </Routes>
@@ -145,3 +118,4 @@ const App = () => {
 };
 
 export default App;
+
