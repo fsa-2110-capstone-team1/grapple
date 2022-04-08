@@ -16,7 +16,7 @@ import dateFormat from "dateformat";
 export const UserProfile = () => {
   const userProfile = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  console.log(userProfile);
+  // console.log(userProfile);
 
   return (
     <div className="profile-container">

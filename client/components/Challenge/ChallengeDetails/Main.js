@@ -29,6 +29,7 @@ import UserChallengeWrapper from "./UserChallengeWrapper";
 import theme from "../../../theme";
 import { getDailyUserChallenges } from "../../../store";
 import ParticipantsTable from "../ChallengeDetails/ParticipantsTable";
+import { ShareToSM } from "./ShareToSM";
 
 export const ChallengeDetails = () => {
   const navigate = useNavigate();
@@ -78,7 +79,6 @@ export const ChallengeDetails = () => {
         ...chal,
         status: challengeStatus,
       });
-      console.log("chal", chal);
       setChallengeImg(`/homeImgs/${chal.category}-challenge-bg.jpeg`);
     }
   }, [id, challenges]);
@@ -190,6 +190,10 @@ export const ChallengeDetails = () => {
               <Typography variant="h3">{challenge.name}</Typography>
               <Divider />
             </Grid>
+            <Grid item sx={{ textAlign: "center" }}>
+            
+            </Grid>
+
 
             {/* main description section */}
             <Grid item container spacing={2} sx={{ alignItems: "center" }}>
@@ -227,8 +231,10 @@ export const ChallengeDetails = () => {
                   enrolledUsers={enrolledUsers}
                   userId={auth?.id}
                 />
+              
+                <ShareToSM challenge={challenge}/>
+                
               </Grid>
-
               {/* Right railing */}
               <Grid item xs={0} md={0.5} />
             </Grid>
@@ -255,6 +261,7 @@ export const ChallengeDetails = () => {
 
                   {/* Right railing */}
                 </Grid>
+                
               </>
             ) : (
               ""
