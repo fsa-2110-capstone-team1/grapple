@@ -80,18 +80,23 @@ const App = () => {
             path="/users/profile/:username"
             element={<UserProfileDetails />}
           />
-          <Route path="/challenges/create" element={<CreateChallenge />} />
-          <Route path="/challenges/:id" element={<ChallengeDetails />} />
-          <Route path="/challenges/:id/edit" element={<EditChallenge />} />
           <Route path="/challenges" element={<BrowseChallenges />} />
+          <Route
+            // path="/challenges?filters=:filterParams?sort=:sortParams"
+            path="/challenges/:filterAndSortParams"
+            element={<BrowseChallenges />}
+          />
+          <Route path="/challenges/create" element={<CreateChallenge />} />
+          <Route
+            path="/challenges/details/:id"
+            element={<ChallengeDetails />}
+          />
+          {/* <Route path="/challenges/:id/edit" element={<EditChallenge />} /> */}
           <Route path="/user/profile/edit" element={<EditUserProfile />} />
           <Route path="/user/dashboard" element={<UserDashboard />} />
 
           {/* Ben's routes that don't function */}
-          <Route
-            path="/challenges/filtered/:filterParams"
-            element={<BrowseChallenges />}
-          />
+
           {/* <Route path="/challenges/:cat=:attr" element={<BrowseChallenges />} />
           <Route path="/challenges/:name&:asc" element={<BrowseChallenges />} /> */}
 

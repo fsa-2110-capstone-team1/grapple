@@ -34,25 +34,41 @@ function BrowseChallenges() {
   //filtering
   const [filters, setFilters] = useState({});
   const [filteredChallenges, setFilteredChallenges] = useState([]);
-  useEffect(() => {
-    setFilteredChallenges(challenges.filter((c) => c.status !== "Ended"));
-  }, [challenges]);
 
   // URL params
-  const { filterParams } = useParams();
-  console.log("FILTER URL PARAMS: ", filterParams);
+  let { filterAndSortParams } = useParams();
+  let [filterParams, sortParams] = filterAndSortParams
+    ?.split("?")
+    ?.map((el) => el.split("=")[1]) || [undefined, undefined];
+  // console.log("FILTER URL PARAMS: ", filterParams);
+  // console.log("SORT URL PARAMS: ", sortParams);
 
   useEffect(() => {
     if (filterParams) {
       const filterParamsParsed = filterParams.split("&").reduce((acc, f) => {
-        const [attr, value] = f.split("=");
+        const [attr, value] = f.split(":");
         acc[attr] = Number(value) ? Number(value) : value;
         return acc;
       }, {});
       setFilters(filterParamsParsed);
-      console.log("PARSED: ", filterParamsParsed);
+    } else {
+      setFilteredChallenges(challenges.filter((c) => c.status !== "Ended"));
+      setFilters({});
     }
   }, [filterParams]);
+
+  console.log("FILTER: ", filters);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const filterString = Object.entries(filters)
+      .map((kv) => `${kv[0]}:${kv[1]}`)
+      .join("&");
+    if (filterString.length > 0) {
+      navigate(`/challenges/filters=${filterString}`);
+    }
+  }, [JSON.stringify(filters)]);
 
   //sorting
   const [sort, setSort] = useState({ order: "asc", orderBy: "id" });
@@ -71,13 +87,20 @@ function BrowseChallenges() {
         activePage * challengesPerPage
       )
     );
-  }, [sort, filters, filteredChallenges, activePage]);
+  }, [
+    JSON.stringify(sort),
+    JSON.stringify(filters),
+    filteredChallenges,
+    activePage,
+  ]);
 
   //scroll to top at page load or paginate
   const location = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location, activePage, filters, sort]);
+
+  console.log("CALC CHALLENGES: ", filteredChallenges);
 
   return (
     <Box

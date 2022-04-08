@@ -16,9 +16,9 @@ const Sort = ({
     setFilteredChallenges(sortChallenges(filteredChallenges, sort));
   }, [sort]);
 
-  let url = useLocation()
+  let url = useLocation();
   let navigate = useNavigate();
-// console.log(sort)
+  // console.log(sort)
 
   const sortChallenges = (filteredChallenges, sort) => {
     return filteredChallenges.sort((a, b) => {
@@ -61,26 +61,8 @@ const Sort = ({
       order,
       orderBy: attribute,
     }));
-    navigate(`/challenges/${attribute}&${order}`);
+    // navigate(`/challenges/${attribute}&${order}`);
   };
-
-  if(({sort}.sort.orderBy) === 'id'){
-  let order = (url.pathname.slice(12).split('&')[1])
-  let attribute = (url.pathname.slice(12).split('&')[1])
-  // handleSort(order, attribute);
-    // setSort(() => ({
-    //   order,
-    //   orderBy: attribute,
-    // }));
-    // console.log('1.1',{sort}.sort.order)
-    // console.log('2.2', )
-    // console.log('1.2', {sort}.sort.orderBy)
-    // console.log('2.1', url.pathname.slice(12).split('&')[0])
-
-    // handleSort((url.pathname.slice(12).split('&')[1]), (url.pathname.slice(12).split('&')[0]))
-  //   handleSort(('id'), ('asc'))
-  }
-  
 
   return (
     <List>

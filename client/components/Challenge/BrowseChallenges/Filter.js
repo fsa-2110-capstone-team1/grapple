@@ -21,11 +21,9 @@ const Filter = ({
 }) => {
   //update filtered challenges every time a new filter is added
   useEffect(() => {
+    console.log("TIME TO FILTER FOR: ", JSON.stringify(filters));
     setFilteredChallenges(filterChallenges(challenges, filters));
-  }, [filters]);
-
-  const navigate = useNavigate();
-  const params = useParams();
+  }, [JSON.stringify(filters), challenges]);
 
   function filterChallenges(challenges, filters) {
     if (!Object.keys(filters).length) return challenges;
@@ -55,6 +53,8 @@ const Filter = ({
     });
   }
 
+  console.log("FILTER FILTER: ", JSON.stringify(filters));
+
   const handleFilter = (value, attribute) => {
     setActivePage(1);
     if (value) {
@@ -71,17 +71,6 @@ const Filter = ({
       });
     }
   };
-
-  useEffect(() => {
-    const filterParams = Object.entries(filters)
-      .map((kv) => `${kv[0]}=${kv[1]}`)
-      .join("&");
-    if (filterParams.length > 0) {
-      navigate(`/challenges/filtered/${filterParams}`);
-    }
-  }, [JSON.stringify(filters)]);
-
-  console.log("FILTER: ", filters);
 
   return (
     <Box>
