@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, createContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
@@ -30,6 +30,10 @@ import PageNotFound from "./components/PageNotFound";
 import TestChallengeTracking from "./components/_Archive/TEST_ChallengeTracking";
 import { StravaRedirect } from "./components/Auth/StravaRedirect";
 import { getAllStravaActivies } from "./store/stravaActivities";
+import { LOCALES } from "./components/i18n";
+
+
+export const LanguageContext = createContext()
 
 const App = () => {
   const dispatch = useDispatch();
@@ -58,12 +62,17 @@ const App = () => {
     }
   }, [user?.id]);
 
+
+  const [locale, setLocale] = useState(LOCALES.ENGLISH);
+// console.log(locale)
   return (
     // <div>
     <BrowserRouter>
+          <LanguageContext.Provider value={{ locale, setLocale }}>
       <div className="nav">
         <Navbar />
       </div>
+
 
       <Routes>
         <Route path="/" element={<Homepage />} />
@@ -114,6 +123,7 @@ const App = () => {
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />
+      </LanguageContext.Provider>
     </BrowserRouter>
     // </div>
   );

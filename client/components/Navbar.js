@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -26,6 +26,9 @@ import { logout } from "../store";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
+import {LanguageContext} from '../App';
+import { FormattedMessage } from "react-intl";
+import { LOCALES, I18nProvider } from "./i18n";
 
 const Navbar = () => {
   const clientId = `${process.env.CLIENT_ID_GOOGLE}`;
@@ -65,7 +68,10 @@ const Navbar = () => {
     navigate("/login");
   };
 
+  const language = useContext(LanguageContext)
+
   return (
+    <I18nProvider locale={language.locale}>
     <AppBar
       className="nav-bar"
       position="fixed"
@@ -127,7 +133,7 @@ const Navbar = () => {
                 }}
               >
                 <Typography textAlign="center" color="white">
-                  Challenges
+                <FormattedMessage id="challenges" />
                 </Typography>
               </MenuItem>
               <MenuItem
@@ -137,7 +143,7 @@ const Navbar = () => {
                 }}
               >
                 <Typography textAlign="center" color="white">
-                  Users
+                <FormattedMessage id="users" />
                 </Typography>
               </MenuItem>
             </Menu>
@@ -167,7 +173,7 @@ const Navbar = () => {
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: "white.main", display: "block" }}
                   >
-                    Challenges
+                      <FormattedMessage id="challenges" />
                   </Button>
                 </Link>
                 <Link className="navbar-browse-people-link" to={"/users"}>
@@ -175,7 +181,7 @@ const Navbar = () => {
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: "white.main", display: "block" }}
                   >
-                    Users
+                         <FormattedMessage id="users" />
                   </Button>
                 </Link>
               </>
@@ -360,6 +366,7 @@ const Navbar = () => {
         </Toolbar>
       </Container>
     </AppBar>
+    </I18nProvider>
   );
 };
 export default Navbar;

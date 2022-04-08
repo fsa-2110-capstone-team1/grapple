@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import {
   Box,
@@ -19,9 +19,11 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import translate from "./i18n/translate";
+import {LanguageContext} from '../App';
 
 import { LOCALES, I18nProvider } from "./i18n";
 import { FormattedMessage } from "react-intl";
+
 
 function Copyright() {
   return (
@@ -47,21 +49,15 @@ const iconStyle = {
   },
 };
 
-const LANGUAGES = [
-  {
-    code: "en-US",
-    name: "English",
-  },
-  {
-    code: "fr-FR",
-    name: "Français",
-  },
-];
 
 export const Footer = () => {
-  const [locale, setLocale] = useState(LOCALES.ENGLISH);
+  const language = useContext(LanguageContext)
+
+
+  // const [locale, setLocale] = useState(LOCALES.ENGLISH);
+  // console.log(locale)
   return (
-    <I18nProvider locale={locale}>
+    <I18nProvider locale={language.locale}>
       <Box>
         <Divider sx={{ m: 0, p: 0 }} />
         <Typography
@@ -103,7 +99,8 @@ export const Footer = () => {
                       color="inherit"
                       sx={{ py: 0.5 }}
                     >
-                      Home
+
+                       <FormattedMessage id="home" />
                     </Box>
                   </Box>
                   <Box component="li">
@@ -113,7 +110,7 @@ export const Footer = () => {
                       color="inherit"
                       sx={{ py: 0.5 }}
                     >
-                      Challenges
+                    <FormattedMessage id="challenges2" />
                     </Box>
                   </Box>
                 </Box>
@@ -126,10 +123,10 @@ export const Footer = () => {
                     id="status-select"
                     defaultValue={LOCALES.ENGLISH}
                     label="status"
-                    onChange={(e) => setLocale(e.target.value)}
+                    onChange={(e) => language.setLocale(e.target.value)}
                   >
                     <MenuItem value={LOCALES.ENGLISH}>English</MenuItem>
-                    <MenuItem value={LOCALES.RUSSIAN}>Russia</MenuItem>
+                    <MenuItem value={LOCALES.RUSSIAN}>Russian</MenuItem>
                     <MenuItem value={LOCALES.PORTUGUESE}>Portuguese</MenuItem>
                   </Select>
                 </FormControl>

@@ -1,7 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Grid, Container, Box, Typography } from "@mui/material";
 import MainContentLayout from "./MainContentLayout";
 import theme from "../../theme";
+import {LanguageContext} from '../../App';
+import { FormattedMessage } from "react-intl";
+import { LOCALES, I18nProvider } from "../i18n";
 
 export const MainContent = () => {
   //   const splash = '/homeImgs/grapple-main-home-bckrnd.jpg';
@@ -13,8 +16,9 @@ export const MainContent = () => {
     alignItems: "center",
     px: 5,
   };
-
+  const language = useContext(LanguageContext)
   return (
+    <I18nProvider locale={language.locale}>
     <MainContentLayout
       sxBackground={{
         backgroundImage: `url(${splash})`,
@@ -63,7 +67,7 @@ export const MainContent = () => {
                     borderRadius: "10px",
                   }}
                 >
-                  MENTAL HEALTH
+                 <FormattedMessage id="mentalhealth" />
                 </Typography>
                 <Typography
                   variant="h6"
@@ -74,11 +78,9 @@ export const MainContent = () => {
                     height: { lg: "280px" },
                   }}
                 >
-                  {"Mental health is key to overall happiness and well being."}
-
-                  {
-                    " Reading, Mediation, and Sleep will benefit you in the long run."
-                  }
+                        <FormattedMessage id="mentalhealthDesc" />
+                 
+             
                 </Typography>
               </Box>
             </Grid>
@@ -104,7 +106,7 @@ export const MainContent = () => {
                     borderRadius: "10px",
                   }}
                 >
-                  PHYSICAL HEALTH
+                <FormattedMessage id="physicalHealth" />
                 </Typography>
                 <Typography
                   variant="h6"
@@ -115,11 +117,7 @@ export const MainContent = () => {
                     height: { lg: "280px" },
                   }}
                 >
-                  {"Physical health is important to keep your body strong."}
-
-                  {
-                    " Running, biking, and lifting will keep you in tip top shape."
-                  }
+                     <FormattedMessage id="physicalHealthDesc" />
                 </Typography>
               </Box>
             </Grid>
@@ -146,7 +144,7 @@ export const MainContent = () => {
                     textAlign: "center",
                   }}
                 >
-                  ALL AROUND HEALTH
+                 <FormattedMessage id="allHealth" />
                 </Typography>
                 <Typography
                   variant="h6"
@@ -157,10 +155,7 @@ export const MainContent = () => {
                     height: { lg: "280px" },
                   }}
                 >
-                  {"Doing whats best for your well being is important. "}
-                  {
-                    " Share goals with your friends and family to keep yourself motivated."
-                  }
+                 <FormattedMessage id="allHealthDesc" />
                 </Typography>
               </Box>
             </Grid>
@@ -168,6 +163,7 @@ export const MainContent = () => {
         </Container>
       </Box>
     </MainContentLayout>
+    </I18nProvider>
   );
 };
 export default MainContent;

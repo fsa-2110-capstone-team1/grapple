@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import AuthForm from "../Auth/AuthForm";
 import { Divider, Button, Typography, Box } from "@mui/material";
 import { useSelector } from "react-redux";
@@ -6,6 +6,9 @@ import { Link, useLocation } from "react-router-dom";
 import MainContent from "./MainContent";
 import HomepageLayout from "./HomepageLayout";
 import theme from "../../theme";
+import {LanguageContext} from '../../App';
+import { FormattedMessage } from "react-intl";
+import { LOCALES, I18nProvider } from "../i18n";
 
 export const Homepage = () => {
   const userId = useSelector((state) => state.auth.id);
@@ -22,7 +25,9 @@ export const Homepage = () => {
     window.scrollTo(0, 0);
   }, [location]);
 
+  const language = useContext(LanguageContext)
   return (
+    <I18nProvider locale={language.locale}>
     <>
       <HomepageLayout
         sxBackground={{
@@ -39,7 +44,7 @@ export const Homepage = () => {
           alt="increase priority"
         />
         <Typography color="inherit" align="center" variant="h2" marked="center">
-          <strong>Welcome to Grapple</strong>
+          <strong><FormattedMessage id="welcome" /></strong>
         </Typography>
         <Divider color="inherit" />
         <Typography
@@ -48,8 +53,7 @@ export const Homepage = () => {
           variant="h6"
           sx={{ mb: 4, mt: { xs: 4, sm: 10 } }}
         >
-          The only place where you get serious about your physical and mental
-          health.
+         <FormattedMessage id="serious" />
         </Typography>
         {!userId ? (
           <Button
@@ -71,7 +75,7 @@ export const Homepage = () => {
             href={`/users/profile/${userName}`}
             sx={{ minWidth: 208, mb: "10px" }}
           >
-            View Profile
+        <FormattedMessage id="viewProfile" />
           </Button>
         )}
         {!userId ? (
@@ -94,11 +98,11 @@ export const Homepage = () => {
             href="/challenges"
             sx={{ minWidth: 200 }}
           >
-            Browse Challenges
+              <FormattedMessage id="browseChallenges" />
           </Button>
         )}
         <Typography variant="body2" color="inherit" sx={{ mt: 2 }}>
-          Challenge your friends, challenge yourself.
+        <FormattedMessage id="challengeYourFriends" />
         </Typography>
       </HomepageLayout>
       <MainContent />
@@ -110,6 +114,7 @@ export const Homepage = () => {
         ""
       )}
     </>
+    </I18nProvider>
   );
 };
 export default Homepage;
