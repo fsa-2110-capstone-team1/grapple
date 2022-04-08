@@ -23,7 +23,7 @@ function GoogleLoginComponent() {
   }, [data.googleId]);
 
   const onSuccess = (res) => {
-    console.log("[Login Success currentUser:", res.profileObj);
+    // console.log("[Login Success currentUser:", res.profileObj);
     const userData = {
       image: res.profileObj.imageUrl,
       email: res.profileObj.email,

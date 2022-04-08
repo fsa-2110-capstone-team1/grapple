@@ -38,14 +38,10 @@ import theme from "../../theme";
 export const UserDashboard = () => {
   const navigate = useNavigate();
   const { username } = useParams();
-  const dispatch = useDispatch();
   const { publicUsers, userChallenges, challenges, auth } = useSelector(
     (state) => state
   );
 
-  const [connections, setConnections] = useState([]);
-
-  const [friends, setFriends] = useState([]);
   const [user, setUser] = useState({});
   const [isSelf, setIsSelf] = useState(false);
   const [myChallenges, setMyChallenges] = useState([]);
@@ -60,41 +56,6 @@ export const UserDashboard = () => {
       setUser(foundUser);
     }
   }, [JSON.stringify(auth), publicUsers, isSelf]);
-
-  useEffect(async () => {
-    if (user.id) {
-      const { data: connections } = await axios.get(
-        `/api/connections/${user.id}`
-      );
-      setConnections(connections);
-    }
-  }, [user?.id]);
-
-  useEffect(() => {
-    if (!!connections && !!user) {
-      if (user) {
-        const myConns = [...connections]
-          .filter((conn) => conn.status === "accepted")
-          .map((conn) => {
-            if (conn.requester_userId === user.id) {
-              return {
-                friendId: conn.requested_userId,
-                status: conn.status,
-                id: conn.id,
-              };
-            } else if (conn.requested_userId === user.id) {
-              return {
-                friendId: conn.requester_userId,
-                status: conn.status,
-                id: conn.id,
-              };
-            }
-          })
-          .filter((friend) => friend);
-        setFriends(myConns);
-      }
-    }
-  }, [connections]);
 
   useEffect(() => {
     if (!!user?.id && !!auth?.id && user?.id === auth?.id) setIsSelf(true);
