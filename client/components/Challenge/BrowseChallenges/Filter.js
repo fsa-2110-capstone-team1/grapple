@@ -24,22 +24,14 @@ const Filter = ({
     setFilteredChallenges(filterChallenges(challenges, filters));
   }, [filters]);
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
-  let location = useLocation().pathname
-let paras = useParams();
-// console.log(location)
-// console.log(paras)
+  const location = useLocation().pathname;
+  const params = useParams();
 
-// console.log(filters)
-// console.log(location.length)
-
-if (paras.attr === '0'){
-  navigate(`/challenges/`);
-}
-
-
-
+  if (params.attr === "0") {
+    navigate(`/challenges`);
+  }
 
   function filterChallenges(challenges, filters) {
     if (!Object.keys(filters).length) return challenges;
@@ -69,7 +61,6 @@ if (paras.attr === '0'){
     });
   }
 
-
   const handleFilter = (value, attribute) => {
     setActivePage(1);
     navigate(`/challenges/${attribute}=${value}`);
@@ -87,11 +78,6 @@ if (paras.attr === '0'){
       });
     }
   };
-
-
-  // if (location.length !== 12 ){
-  //   console.log(setFilters)
-  // }
 
   return (
     <Box>

@@ -23,9 +23,7 @@ const reducer = combineReducers({
 
 let middleware;
 if (process.env.NODE_ENV === "development") {
-  middleware = applyMiddleware(thunkMiddleware, 
-    // loggerMiddleware
-    );
+  middleware = applyMiddleware(thunkMiddleware, loggerMiddleware);
 } else {
   middleware = applyMiddleware(thunkMiddleware);
 }
