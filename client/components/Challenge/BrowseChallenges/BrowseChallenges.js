@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate, Navigate } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  Navigate,
+  useParams,
+} from "react-router-dom";
 import { Grid, Box } from "@mui/material";
 import PaginationFooter from "./PaginationFooter";
 import ChallengeCard from "../ChallengeCard";
@@ -32,6 +37,22 @@ function BrowseChallenges() {
   useEffect(() => {
     setFilteredChallenges(challenges.filter((c) => c.status !== "Ended"));
   }, [challenges]);
+
+  // URL params
+  const { filterParams } = useParams();
+  console.log("FILTER URL PARAMS: ", filterParams);
+
+  useEffect(() => {
+    if (filterParams) {
+      const filterParamsParsed = filterParams.split("&").reduce((acc, f) => {
+        const [attr, value] = f.split("=");
+        acc[attr] = Number(value) ? Number(value) : value;
+        return acc;
+      }, {});
+      setFilters(filterParamsParsed);
+      console.log("PARSED: ", filterParamsParsed);
+    }
+  }, [filterParams]);
 
   //sorting
   const [sort, setSort] = useState({ order: "asc", orderBy: "id" });
