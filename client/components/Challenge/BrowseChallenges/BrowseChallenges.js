@@ -10,7 +10,6 @@ import theme from "../../../theme";
 function BrowseChallenges() {
   const stateChallenges = useSelector((state) => state.challenges);
 
-
   const [challenges, setChallenges] = useState([]);
   useEffect(() => {
     setChallenges(
@@ -59,29 +58,10 @@ function BrowseChallenges() {
     window.scrollTo(0, 0);
   }, [location, activePage, filters, sort]);
 
-
-
-//url magic 
-
-let url = useLocation().pathname;
-
-//cant figure out whats different
-
-// console.log(filters.difficulty || filters.category || filters.status)
-// if (filters.difficulty){
-  // console.log('diff')
-  // console.log(!filters)
-// }
-// if(url.split('/')[2] === 'sort' && url.split('/')[5] === 'sort'){
-//   // console.log('true')
-// }
-
-
   return (
     <Box
       sx={{
         minHeight: "100vh",
-        // backgroundColor: theme.palette.braun.main,
       }}
     >
       <Grid container>
@@ -100,25 +80,27 @@ let url = useLocation().pathname;
         </Grid>
         {/* grid with cards (right side) */}
         <Grid item xs={10} sx={{ mt: "25px" }}>
-          <Grid container sx={{ minHeight: "70vh" }}>
-            <Grid item xs={1} />
-            <Grid item xs={10} container>
-              {calculatedChallenges?.map((challenge) => (
-                <Grid
-                  item
-                  key={challenge.id}
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  lg={3}
-                  container
-                >
-                  <ChallengeCard key={challenge.id} challenge={challenge} />
-                </Grid>
-              ))}
+          <Box sx={{ minHeight: "70vh" }}>
+            <Grid container>
+              <Grid item xs={1} />
+              <Grid item xs={10} container>
+                {calculatedChallenges?.map((challenge) => (
+                  <Grid
+                    item
+                    key={challenge.id}
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    lg={3}
+                    container
+                  >
+                    <ChallengeCard key={challenge.id} challenge={challenge} />
+                  </Grid>
+                ))}
+              </Grid>
+              <Grid item xs={1} />
             </Grid>
-            <Grid item xs={1} />
-          </Grid>
+          </Box>
           <PaginationFooter
             activePage={activePage}
             totalPages={totalPages}
