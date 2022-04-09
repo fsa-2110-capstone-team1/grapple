@@ -18,16 +18,19 @@ export const Diagram = ({ myChallenges }) => {
   const theme = useTheme();
 
   const completedChellenges = myChallenges.filter(
-    (ch) => ch.status === "Completed"
+    (ch) => ch.userChallengeStatus === "Completed"
   );
 
   const failedChallenges = myChallenges.filter(
-    (ch) => ch.status !== "Completed" && new Date() > new Date(ch.endDateTime)
+    (ch) =>
+      ch.userChallengeStatus !== "Completed" &&
+      new Date() > new Date(ch.endDateTime)
   );
 
   const ongoingChallenges = myChallenges.filter(
     (ch) =>
-      (ch.status === "In Progress" || ch.status === "Not Started") &&
+      (ch.userChallengeStatus === "In Progress" ||
+        ch.userChallengeStatus === "Not Started") &&
       new Date() <= new Date(ch.endDateTime)
   );
 

@@ -7,7 +7,7 @@ export const Badges = ({ challenges }) => {
   return (
     <Grid container spacing={2}>
       {challenges
-        .filter((ch) => ch.status === "Completed")
+        .filter((ch) => ch.userChallengeStatus === "Completed")
         .map((challenge) => (
           <Grid
             item
