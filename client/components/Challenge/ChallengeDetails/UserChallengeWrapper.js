@@ -43,7 +43,10 @@ export const UserChallengeWrapper = ({
         </Grid>
       </Grid>
       <Divider sx={{ width: "80vw", mt: 3, mb: 3 }} />
-      <ParticipantsTable enrolledUsers={enrolledUsers} />
+      <ParticipantsTable
+        enrolledUsers={enrolledUsers}
+        userChallenge={userChallenge}
+      />
     </Box>
   );
 };

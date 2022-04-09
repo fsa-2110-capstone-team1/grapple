@@ -123,25 +123,39 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-export const ParticipantsTable = ({ enrolledUsers, userChallenge }) => {
+export const ParticipantsTable = ({ enrolledUsers }) => {
   const { id } = useParams();
-  const { publicUsers } = useSelector((state) => state);
+  const { userChallenges, challenges, publicUsers } = useSelector(
+    (state) => state
+  );
   const navigate = useNavigate();
 
-  const userProgress = {};
-  const usersLeaderboard = enrolledUsers.map((user) => {
-    userProgress[user.id] = userChallenge?.percentCompleted;
-    return userProgress;
-  });
+  const [userIdWithProgress, setUserIdWithProgress] = useState([]);
+  useEffect(() => {
+    const userProgress = {};
+    if (!!enrolledUsers.length && !!userChallenges.length) {
+      const usersLeaderboard = enrolledUsers.map((user) => {
+        const userChallenge = userChallenges.filter(
+          (userChallenge) =>
+            userChallenge.userId === user.id &&
+            userChallenge.challengeId === id * 1
+        );
+        userProgress[user.id] = userChallenge[0]?.percentCompleted;
+        return userProgress;
+      });
 
-  let userIdWithProgress = [];
-  Object.keys(userProgress).forEach((key) => {
-    let obj = { userId: 0, progress: 0 };
-    obj.userId = key;
-    obj.progress = userProgress[key];
-    userIdWithProgress.push(obj);
-  });
+      Object.keys(userProgress).forEach((key) => {
+        let obj = { userId: 0, progress: 0 };
+        obj.userId = key;
+        obj.progress = userProgress[key];
+        userIdWithProgress.push(obj);
+      });
+    }
+  }, [userChallenges, enrolledUsers]);
 
+  userIdWithProgress.sort(
+    (a, b) => parseFloat(b.progress) - parseFloat(a.progress)
+  );
   userIdWithProgress.sort(
     (a, b) => parseFloat(b.progress) - parseFloat(a.progress)
   );
