@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
+import LinearProgress from "@mui/material/LinearProgress";
 import { me } from "../../store";
 
 const RequireAuth = ({ children }) => {
@@ -17,7 +18,7 @@ const RequireAuth = ({ children }) => {
   }, [JSON.stringify(user)]);
 
   return auth.auth === "not fetched" ? (
-    "Loading access credentials..."
+    <LinearProgress sx={{ marginTop: "50px" }} />
   ) : user.id ? (
     children
   ) : (

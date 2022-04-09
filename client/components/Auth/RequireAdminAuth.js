@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import { me } from "../../store";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const RequireAdminAuth = ({ children }) => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const RequireAdminAuth = ({ children }) => {
   }, [JSON.stringify(user)]);
 
   return auth.auth === "not fetched" ? (
-    "Loading access credentials..."
+    <LinearProgress sx={{ marginTop: "50px" }} />
   ) : user.isAdmin ? (
     children
   ) : (
