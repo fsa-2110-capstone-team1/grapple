@@ -55,9 +55,6 @@ function BrowseChallenges() {
   const [sort, setSort] = useState({});
   const [filteredChallenges, setFilteredChallenges] = useState([]);
 
-  console.log("FILTER URL PARAMS: ", filterParams);
-  console.log("SORT URL PARAMS: ", sortParams);
-
   useEffect(() => {
     if (!!filterAndSortParams?.length) {
       if (!!filterParams?.length) {

@@ -22,7 +22,6 @@ import {
   styled,
 } from "@mui/material";
 import dateFormat from "dateformat";
-import ConfirmActionDialog from "../../../ConfirmActionDialog";
 import Details from "./Details";
 import JoinChallenge from "./JoinChallenge";
 import UserChallengeWrapper from "./UserChallengeWrapper";
@@ -190,10 +189,7 @@ export const ChallengeDetails = () => {
               <Typography variant="h3">{challenge.name}</Typography>
               <Divider />
             </Grid>
-            <Grid item sx={{ textAlign: "center" }}>
-            
-            </Grid>
-
+            <Grid item sx={{ textAlign: "center" }}></Grid>
 
             {/* main description section */}
             <Grid item container spacing={2} sx={{ alignItems: "center" }}>
@@ -231,9 +227,8 @@ export const ChallengeDetails = () => {
                   enrolledUsers={enrolledUsers}
                   userId={auth?.id}
                 />
-              
-                <ShareToSM challenge={challenge}/>
-                
+
+                <ShareToSM challenge={challenge} />
               </Grid>
               {/* Right railing */}
               <Grid item xs={0} md={0.5} />
@@ -261,7 +256,6 @@ export const ChallengeDetails = () => {
 
                   {/* Right railing */}
                 </Grid>
-                
               </>
             ) : (
               ""

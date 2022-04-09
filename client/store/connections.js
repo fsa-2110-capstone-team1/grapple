@@ -6,6 +6,7 @@ const GET_CONNECTIONS = "GET_CONNECTIONS";
 const CREATE_CONNECTION = "CREATE_CONNECTION";
 const ACCEPT_CONNECTION = "ACCEPT_CONNECTION";
 const REMOVE_CONNECTION = "REMOVE_CONNECTION";
+const INVITE_FRIEND_TO_CHALLENGE = "INVITE_FRIEND_TO_CHALLENGE";
 
 // ACTION CREATORS
 
@@ -24,6 +25,9 @@ const _acceptConnection = (connection) => ({
 const _removeConnection = (connectionId) => ({
   type: REMOVE_CONNECTION,
   connectionId,
+});
+const _InviteToChallenge = () => ({
+  type: INVITE_FRIEND_TO_CHALLENGE,
 });
 
 //THUNK CREATORS
@@ -62,6 +66,18 @@ export const removeConnection = (connectionId) => {
   return async (dispatch) => {
     await axios.delete(`/api/connections/${connectionId}`);
     dispatch(_removeConnection(connectionId));
+  };
+};
+
+//sends notification to friend
+export const inviteToChallenge = ({ userId, friendId, challengeId }) => {
+  return async (dispatch) => {
+    await axios.post(`/api/connections/inviteFriend`, {
+      userId,
+      friendId,
+      challengeId,
+    });
+    dispatch(_InviteToChallenge());
   };
 };
 

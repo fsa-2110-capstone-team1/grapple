@@ -12,11 +12,7 @@ const useStyles = makeStyles((theme) =>
     root: {
       "& .MuiAutocomplete-listbox": {
         height: "180px",
-        // width: "100px",
-        //  backgroundColor: "#4ab5a3",
         fontSize: 18,
-        // color:'white'
-        // padding-left: "20px",
         padding: "15px",
       },
     },
@@ -38,8 +34,8 @@ export default function SearchUsers({ data }) {
           id="free-solo-2-demo"
           disableClearable
           options={data.map((option) => option.username)}
-          renderOption={(option) => (
-            <React.Fragment>
+          renderOption={(option, index) => (
+            <React.Fragment key={index}>
               <span
                 style={{ cursor: "pointer" }}
                 onClick={() => {
