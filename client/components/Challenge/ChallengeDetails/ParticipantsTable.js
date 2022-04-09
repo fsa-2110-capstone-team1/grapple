@@ -123,7 +123,7 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-export const ParticipantsTable = ({ enrolledUsers }) => {
+export const ParticipantsTable = ({ enrolledUsers, userChallenge }) => {
   const { id } = useParams();
   const { userChallenges, challenges, publicUsers } = useSelector(
     (state) => state
@@ -133,7 +133,13 @@ export const ParticipantsTable = ({ enrolledUsers }) => {
   const [userIdWithProgress, setUserIdWithProgress] = useState([]);
   useEffect(() => {
     const userProgress = {};
-    if (!!enrolledUsers.length && !!userChallenges.length) {
+    if (
+      !!enrolledUsers.length &&
+      !!userChallenges.length &&
+      !!userChallenge?.id
+    ) {
+      const tempUserIdWithProgress = [];
+
       const usersLeaderboard = enrolledUsers.map((user) => {
         const userChallenge = userChallenges.filter(
           (userChallenge) =>
@@ -148,10 +154,12 @@ export const ParticipantsTable = ({ enrolledUsers }) => {
         let obj = { userId: 0, progress: 0 };
         obj.userId = key;
         obj.progress = userProgress[key];
-        userIdWithProgress.push(obj);
+        tempUserIdWithProgress.push(obj);
       });
+
+      setUserIdWithProgress(tempUserIdWithProgress);
     }
-  }, [userChallenges, enrolledUsers]);
+  }, [userChallenges, enrolledUsers, JSON.stringify(userChallenge)]);
 
   userIdWithProgress.sort(
     (a, b) => parseFloat(b.progress) - parseFloat(a.progress)
