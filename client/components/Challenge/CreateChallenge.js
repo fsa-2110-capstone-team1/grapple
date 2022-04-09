@@ -27,7 +27,6 @@ const CreateChallenge = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const {
     register,
     handleSubmit,
@@ -56,7 +55,7 @@ const CreateChallenge = () => {
           category: data.category === "0" ? "misc" : data.category,
         })
       );
-      navigate(`/challenges/${challenge.id}`);
+      navigate(`/challenges/details/${challenge.id}`);
     } catch (err) {
       setSnackbar({
         children: "Challenge could not be added!",
@@ -64,7 +63,6 @@ const CreateChallenge = () => {
       });
     }
   };
- 
 
   return (
     <>
@@ -172,7 +170,7 @@ const CreateChallenge = () => {
                     label="Image URL"
                     variant="outlined"
                     {...register("imageUrl")}
-                    defaultValue={''}
+                    defaultValue={""}
                     error={!!errors?.imageUrl}
                     helperText={
                       errors?.imageUrl ? errors.imageUrl.message : null

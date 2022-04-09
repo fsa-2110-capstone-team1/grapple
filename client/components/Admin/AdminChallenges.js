@@ -1,24 +1,25 @@
-import React, { useState, useEffect }  from 'react';
-import { useSelector, useDispatch  } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { Box } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { DataGrid } from "@mui/x-data-grid";
-import { updateChallenge } from "../../store"
+import { updateChallenge } from "../../store";
 import theme from "../../theme";
 import moment from "moment";
 
 export const AdminChallenges = () => {
-
   const challenges = useSelector((state) => state.challenges);
-  const categories = [...new Set(challenges.map((challenge) => challenge.category))];
+  const categories = [
+    ...new Set(challenges.map((challenge) => challenge.category)),
+  ];
 
   const [rows, setRows] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     setRows(challenges);
   }, [challenges]);
@@ -68,7 +69,14 @@ export const AdminChallenges = () => {
       flex: 0.25,
       editable: false,
       renderCell: (params) => {
-        return <Link style={{color: "white"}}to={`/challenges/${params.value}`}>{params.value}</Link>;
+        return (
+          <Link
+            style={{ color: "white" }}
+            to={`/challenges/details/${params.value}`}
+          >
+            {params.value}
+          </Link>
+        );
       },
     },
     {

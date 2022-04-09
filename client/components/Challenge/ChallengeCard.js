@@ -52,13 +52,23 @@ export const ChallengeCard = ({ challenge }) => {
         justifyContent: "space-between",
       }}
     >
-      <CardActionArea onClick={() => navigate(`/challenges/${challenge.id}`)}>
+      <CardActionArea
+        onClick={() => navigate(`/challenges/details/${challenge.id}`)}
+      >
         <CardMedia
           component="img"
           height="200"
           image={`/${challenge.image}`}
           alt="challenge cover photo"
-          sx={{ objectFit: "contain", marginTop: "20px", width: "85%", backgroundColor: "#626262", borderRadius: "10px", marginLeft: "calc(15%/2)", padding: "10px"}}
+          sx={{
+            objectFit: "contain",
+            marginTop: "20px",
+            width: "85%",
+            backgroundColor: "#626262",
+            borderRadius: "10px",
+            marginLeft: "calc(15%/2)",
+            padding: "10px",
+          }}
         />
         <CardContent>
           <Box
