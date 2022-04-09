@@ -1655,7 +1655,7 @@ const dataChallenges = [
     isPrivate: "false",
   },
   {
-    name: "Write a 10 love notes to your partner or child",
+    name: "Write love notes to your partner or child",
     description: "Small love notes brighten up your partner or child!",
     image: "badges/picId-125.svg",
     goalType: "total",

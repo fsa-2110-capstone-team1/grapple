@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const {
   db,
-  models: { Connection, User },
+  models: { Connection, User, Challenge },
 } = require("../../db");
 const { Op } = db.Sequelize;
 const axios = require("axios");
@@ -106,6 +106,35 @@ router.delete("/:id", async (req, res, next) => {
       await connection.destroy();
       res.sendStatus(204);
     }
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Invite a friend to a challenge (sends notification), payload: {userId, friendId, challengeId}
+router.post("/inviteFriend", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.body.userId);
+    const friend = await User.findByPk(req.body.friendId);
+    const challenge = await Challenge.findByPk(req.body.challengeId);
+    await axios.post(
+      "https://api.engagespot.co/v3/notifications",
+      {
+        notification: {
+          title: `${user.username} invited you to join "${challenge.name}"`,
+          // DEPLOY NOTE: need to replace URL
+          url: `/challenges/details/${challenge.id}`,
+          icon: `/${challenge.image}`,
+        },
+        recipients: [friend.username],
+      },
+      {
+        headers: {
+          "X-ENGAGESPOT-API-KEY": process.env.ENGAGESPOT_API_KEY,
+          "X-ENGAGESPOT-API-SECRET": process.env.ENGAGESPOT_API_SECRET,
+        },
+      }
+    );
   } catch (error) {
     next(error);
   }
