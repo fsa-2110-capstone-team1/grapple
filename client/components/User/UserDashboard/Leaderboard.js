@@ -129,7 +129,7 @@ export const Leaderboard = () => {
   const navigate = useNavigate();
 
   const completedChellenges = userChallenges.filter(
-    (ch) => ch.userChallengeStatus === "Completed"
+    (ch) => ch.status === "Completed"
   );
   const userPoints = {};
   const usersLeaderboard = completedChellenges.map((ch) => {
