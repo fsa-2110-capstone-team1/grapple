@@ -15,11 +15,8 @@ const Sort = ({
   filters,
 }) => {
   useEffect(() => {
-    console.log("SORTING:", sort);
     setFilteredChallenges(sortChallenges(filteredChallenges, sort));
   }, [JSON.stringify(sort), JSON.stringify(filters), challenges]);
-
-  console.log("SORTED CHAL: ", filteredChallenges);
 
   const sortChallenges = (filteredChallenges, sort) => {
     return filteredChallenges.sort((a, b) => {

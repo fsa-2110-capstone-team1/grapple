@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  useLocation,
-  useNavigate,
-  Navigate,
-  useParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Grid, Box } from "@mui/material";
 import PaginationFooter from "./PaginationFooter";
 import ChallengeCard from "../ChallengeCard";
@@ -32,7 +27,6 @@ function BrowseChallenges() {
 
   // URL params
   const { filterAndSortParams } = useParams();
-  // console.log("SORT FILTER URL PARAMS: ", filterAndSortParams);
   const [filterParams, setFilterParams] = useState("");
   const [sortParams, setSortParams] = useState("");
   useEffect(() => {
@@ -50,16 +44,19 @@ function BrowseChallenges() {
           setSortParams(paramsSplit[1]);
         }
       }
+    } else {
+      setFilterParams("");
+      setSortParams("");
     }
   }, [filterAndSortParams]);
-
-  // console.log("FILTER URL PARAMS: ", filterParams);
-  // console.log("SORT URL PARAMS: ", sortParams);
 
   //filtering
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState({});
   const [filteredChallenges, setFilteredChallenges] = useState([]);
+
+  console.log("FILTER URL PARAMS: ", filterParams);
+  console.log("SORT URL PARAMS: ", sortParams);
 
   useEffect(() => {
     if (!!filterAndSortParams?.length) {
@@ -90,15 +87,8 @@ function BrowseChallenges() {
         }, {});
         setSort(sortParamsParsed);
       }
-    } else {
-      setFilteredChallenges(challenges.filter((c) => c.status !== "Ended"));
-      setFilters({});
-      setSort({});
     }
   }, [filterParams, sortParams]);
-
-  console.log("FILTER: ", filters);
-  // console.log("SORT: ", sort);
 
   useEffect(() => {
     const filterString = Object.entries(filters)
@@ -124,8 +114,6 @@ function BrowseChallenges() {
 
   const [calculatedChallenges, setCalculatedChallenges] = useState([]);
   useEffect(() => {
-    console.log("FILTERED CHAL: ", filteredChallenges);
-
     setCalculatedChallenges(
       filteredChallenges.slice(
         (activePage - 1) * challengesPerPage,
@@ -146,6 +134,14 @@ function BrowseChallenges() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location, activePage, filters, sort]);
+
+  useEffect(() => {
+    if (location.pathname === "/challenges") {
+      setFilteredChallenges(challenges.filter((c) => c.status !== "Ended"));
+      setFilters({});
+      setSort({});
+    }
+  }, [location]);
 
   return (
     <Box

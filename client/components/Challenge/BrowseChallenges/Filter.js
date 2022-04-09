@@ -21,7 +21,6 @@ const Filter = ({
 }) => {
   //update filtered challenges every time a new filter is added
   useEffect(() => {
-    console.log("FILTERING");
     setFilteredChallenges(filterChallenges(challenges, filters));
   }, [JSON.stringify(filters), challenges]);
 

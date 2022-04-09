@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
-  Grid,
+  Stack,
   Box,
   Button,
   Typography,
@@ -27,22 +28,28 @@ function FilterDrawer({
   sortedChallenges,
   setSortedChallenges,
 }) {
+  const navigate = useNavigate();
+  const handleReset = () => {
+    setFilteredChallenges(challenges.filter((c) => c.status !== "Ended"));
+    setFilters({});
+    setSort({});
+    navigate("/challenges");
+  };
+
   return (
-    <Box>
-      <Box sx={{ display: "flex" }}>
-        {/* Toolbar to bump drawer down by the nav bar height */}
+    <Box sx={{ height: "100vh", width: "100%" }}>
+      <Box sx={{ display: "flex", height: "70vh", width: "100%" }}>
         <Toolbar />
-        <Grid container direction="column" spacing={2} sx={{ mt: 2 }}>
-          <Grid item>
+        {/* Toolbar to bump drawer down by the nav bar height */}
+        <Stack spacing={2} sx={{ mt: 2, width: "100%" }}>
+          <Box>
             <Typography variant="h6" sx={{ mb: 1 }}>
               Search
             </Typography>
             <Searcher data={challenges} />
-          </Grid>
-          <Grid item>
-            <Divider />
-          </Grid>
-          <Grid item>
+          </Box>
+          <Divider />
+          <Box>
             <Typography variant="h6">Sort By</Typography>
             <Sort
               setActivePage={setActivePage}
@@ -53,11 +60,10 @@ function FilterDrawer({
               challenges={challenges}
               filters={filters}
             />
-          </Grid>
-          <Grid item>
-            <Divider />
-          </Grid>
-          <Grid item>
+          </Box>
+
+          <Divider />
+          <Box>
             <Typography variant="h6">Filter By</Typography>
             <Filter
               challenges={challenges}
@@ -67,8 +73,13 @@ function FilterDrawer({
               setFilteredChallenges={setFilteredChallenges}
               setActivePage={setActivePage}
             />
-          </Grid>
-        </Grid>
+          </Box>
+
+          <Divider sx={{ paddingTop: 1, paddingBottom: 1 }} />
+          <Button variant={"contained"} onClick={() => handleReset()}>
+            Reset
+          </Button>
+        </Stack>
       </Box>
     </Box>
   );
