@@ -30,6 +30,8 @@ import Footer from "./components/Footer";
 import PageNotFound from "./components/PageNotFound";
 import { StravaRedirect } from "./components/Auth/StravaRedirect";
 import { LOCALES } from "./components/i18n";
+import RequireAuth from "./components/Auth/RequireAuth";
+import RequireAdminAuth from "./components/Auth/RequireAdminAuth";
 
 export const LanguageContext = createContext();
 
@@ -43,7 +45,6 @@ const App = () => {
     const challenges = await dispatch(getAllChallenges());
     const userChallenges = await dispatch(getUserChallenges());
     const users = await dispatch(getPublicUsers());
-    // const userConnections = await dispatch(getConnections(user.id));
   }, []);
 
   useEffect(async () => {
@@ -74,46 +75,112 @@ const App = () => {
           <Route path="/" element={<Homepage />} />
           <Route path="/login" element={<AuthForm path={"/"} />} />
           <Route path="/signup" element={<AuthForm path={"/"} />} />
-          <Route path="/users" element={<BrowseUsers />} />
-          <Route path="/users/:userGroup" element={<BrowseUsers />} />
           <Route
-            path="/users/profile/:username"
-            element={<UserProfileDetails />}
-          />
-          <Route path="/challenges" element={<BrowseChallenges />} />
-          <Route
-            // path="/challenges?filters=:filterParams?sort=:sortParams"
-            path="/challenges/:filterAndSortParams"
-            element={<BrowseChallenges />}
-          />
-          <Route path="/challenges/create" element={<CreateChallenge />} />
-          <Route
-            path="/challenges/details/:id"
-            element={<ChallengeDetails />}
-          />
-          {/* <Route path="/challenges/:id/edit" element={<EditChallenge />} /> */}
-          <Route path="/user/profile/edit" element={<EditUserProfile />} />
-          <Route path="/user/dashboard" element={<UserDashboard />} />
-
-          {/* Ben's routes that don't function */}
-
-          {/* <Route path="/challenges/:cat=:attr" element={<BrowseChallenges />} />
-          <Route path="/challenges/:name&:asc" element={<BrowseChallenges />} /> */}
-
-          <Route path="/user/settings" element={<UserSettings />} />
-          <Route path="/admin-hub" element={<AdminHub />} />
-          <Route path="/admin/challenges" element={<AdminChallenges />} />
-          <Route path="/admin/users" element={<AdminUsers />} />
-
-          {/* <Route
-            path="my-account"
+            path="/users"
             element={
-                <RequireAuth>
-                <MyAccount />
+              <RequireAuth>
+                <BrowseUsers />
               </RequireAuth>
             }
-          /> */}
+          />
+          <Route
+            path="/users/:userGroup"
+            element={
+              <RequireAuth>
+                <BrowseUsers />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/users/profile/:username"
+            element={
+              <RequireAuth>
+                <UserProfileDetails />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/challenges"
+            element={
+              <RequireAuth>
+                <BrowseChallenges />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/challenges/:filterAndSortParams"
+            element={
+              <RequireAuth>
+                <BrowseChallenges />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/challenges/create"
+            element={
+              <RequireAuth>
+                <CreateChallenge />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/challenges/details/:id"
+            element={
+              <RequireAuth>
+                <ChallengeDetails />
+              </RequireAuth>
+            }
+          />
+          {/* <Route path="/challenges/:id/edit" element={<EditChallenge />} /> */}
+          <Route
+            path="/user/profile/edit"
+            element={
+              <RequireAuth>
+                <EditUserProfile />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/user/dashboard"
+            element={
+              <RequireAuth>
+                <UserDashboard />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/user/settings"
+            element={
+              <RequireAuth>
+                <UserSettings />
+              </RequireAuth>
+            }
+          />
 
+          <Route
+            path="/admin-hub"
+            element={
+              <RequireAdminAuth>
+                <AdminHub />
+              </RequireAdminAuth>
+            }
+          />
+          <Route
+            path="/admin/challenges"
+            element={
+              <RequireAdminAuth>
+                <AdminChallenges />
+              </RequireAdminAuth>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <RequireAdminAuth>
+                <AdminUsers />
+              </RequireAdminAuth>
+            }
+          />
           <Route path="/stravaredirect/*" element={<StravaRedirect />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
