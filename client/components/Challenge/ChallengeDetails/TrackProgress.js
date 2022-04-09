@@ -280,15 +280,14 @@ export const TrackProgress = ({
                         </Typography>
                       </Box>
                     )
-                  ) : (
+                  ) : user.stravaRefreshToken ? (
                     <Button
                       onClick={() => {
                         if (user.id) {
                           dispatch(
                             getAllStravaActivies({
                               id: user.id,
-                              stravaRefreshToken:
-                                "5d0a14c4e408ef5ea25667d9f2c1d04f6982788c", //user.stravaRefreshToken,
+                              stravaRefreshToken: user.stravaRefreshToken,
                             })
                           );
                           setIsConnectStrava(true);
@@ -297,6 +296,8 @@ export const TrackProgress = ({
                     >
                       Select Strava Workout
                     </Button>
+                  ) : (
+                    <Button disabled>Connect to Strava</Button>
                   )}
 
                   <Button

@@ -32,7 +32,8 @@ export const EditUserProfile = () => {
             flexDirection: "column",
             alignItems: "center",
           }}
-          xs={6}
+          xs={12}
+          lg={6}
         >
           <Grid item className="image-stack">
             <img
