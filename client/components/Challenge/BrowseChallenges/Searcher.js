@@ -3,18 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { TextField, Stack, Autocomplete, Popper } from "@mui/material";
 import theme from "../../../theme";
 
-// const useStyles = makeStyles((theme) =>
-//   createStyles({
-//     root: {
-//       "& .MuiAutocomplete-listbox": {
-//         height: "180px",
-//         fontSize: 18,
-//         padding: "15px",
-//       },
-//     },
-//   })
-// );
-
 const CustomPopper = (props) => {
   return (
     <Popper
