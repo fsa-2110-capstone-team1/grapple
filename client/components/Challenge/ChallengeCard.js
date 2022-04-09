@@ -123,7 +123,11 @@ export const ChallengeCard = ({ challenge }) => {
         </CardContent>
       </CardActionArea>
       <CardActions sx={{ mb: 1, display: "flex", justifyContent: "center" }}>
-        {isUserParticipant ? (
+        {challenge.status === "Ended" ? (
+          <Button size="small" variant="contained" disabled>
+            Challenge Ended
+          </Button>
+        ) : isUserParticipant ? (
           <Button size="small" variant="contained" disabled>
             <CheckIcon fontSize="small" /> Joined
           </Button>
