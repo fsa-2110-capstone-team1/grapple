@@ -123,11 +123,13 @@ TablePaginationActions.propTypes = {
 };
 
 export const Leaderboard = () => {
-  const { userChallenges, challenges, publicUsers } = useSelector((state) => state);
+  const { userChallenges, challenges, publicUsers } = useSelector(
+    (state) => state
+  );
   const navigate = useNavigate();
 
   const completedChellenges = userChallenges.filter(
-    (ch) => ch.status === "Completed"
+    (ch) => ch.userChallengeStatus === "Completed"
   );
   const userPoints = {};
   const usersLeaderboard = completedChellenges.map((ch) => {
@@ -193,8 +195,9 @@ export const Leaderboard = () => {
           const user = publicUsers.find((user) => user.id === obj.userId * 1);
           return (
             <TableBody key={idx}>
-              <TableRow hover role="checkbox"
-                
+              <TableRow
+                hover
+                role="checkbox"
                 onClick={() => navigate(`/users/profile/${user?.username}`)}
               >
                 <StyledTableCell component="th" scope="challenge">

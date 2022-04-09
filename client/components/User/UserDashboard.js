@@ -64,10 +64,22 @@ export const UserDashboard = () => {
   useEffect(() => {
     const myChal = userChallenges
       ?.filter((uc) => uc.userId === user?.id)
-      .map((uc) => ({
-        ...challenges.find((challenge) => challenge.id === uc.challengeId),
-        status: uc.status,
-      }));
+      .map((uc) => {
+        const chal = challenges.find(
+          (challenge) => challenge.id === uc.challengeId
+        );
+        return {
+          ...chal,
+          status:
+            new Date() < new Date(chal.startDateTime)
+              ? "Not Started"
+              : new Date() >= new Date(chal.startDateTime) &&
+                new Date() < new Date(chal.endDateTime)
+              ? "In Progress"
+              : "Ended",
+          userChallengeStatus: uc.status,
+        };
+      });
     setMyChallenges(myChal);
   }, [userChallenges, challenges, user?.id]);
 
@@ -96,7 +108,7 @@ export const UserDashboard = () => {
                   height: "150px",
                   borderRadius: 50,
                   objectFit: "cover",
-                  border: "5px solid #4AB5A3"
+                  border: "5px solid #4AB5A3",
                 }}
               />
             </Grid>

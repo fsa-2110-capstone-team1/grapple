@@ -75,13 +75,13 @@ const EditChallenge = () => {
           category: data.category,
         })
       );
-      navigate(`/challenges/${challenge.id}`);
+      navigate(`/challenges/details/${challenge.id}`);
     } catch (err) {
       setSnackbar({
         children: "Challenge could not be edited!",
         severity: "error",
       });
-      navigate(`/challenges/${challenge.id}`);
+      navigate(`/challenges/details/${challenge.id}`);
     }
   };
 

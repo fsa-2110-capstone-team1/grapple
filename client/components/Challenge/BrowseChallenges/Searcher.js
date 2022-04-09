@@ -47,7 +47,7 @@ export default function Searcher({ data }) {
                 <span
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                    navigate(`/challenges/${challenge.id}`);
+                    navigate(`/challenges/details/${challenge.id}`);
                   }}
                 >
                   <p>{challenge.name}</p>

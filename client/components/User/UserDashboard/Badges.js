@@ -7,7 +7,7 @@ export const Badges = ({ challenges }) => {
   return (
     <Grid container spacing={2}>
       {challenges
-        .filter((ch) => ch.status === "Completed")
+        .filter((ch) => ch.userChallengeStatus === "Completed")
         .map((challenge) => (
           <Grid
             item
@@ -37,7 +37,7 @@ export const Badges = ({ challenges }) => {
                   },
                 },
               ]}
-              onClick={() => navigate(`/challenges/${challenge.id}`)}
+              onClick={() => navigate(`/challenges/details/${challenge.id}`)}
             />
             <Typography variant="body2">
               {new Intl.DateTimeFormat("en-US", { month: "long" }).format(

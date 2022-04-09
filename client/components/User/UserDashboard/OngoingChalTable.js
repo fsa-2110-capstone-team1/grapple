@@ -219,7 +219,9 @@ export const OngoingChalTable = ({ myChallenges }) => {
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   <Button
-                    onClick={() => navigate(`/challenges/${challenge.id}`)}
+                    onClick={() =>
+                      navigate(`/challenges/details/${challenge.id}`)
+                    }
                   >
                     Go!
                   </Button>

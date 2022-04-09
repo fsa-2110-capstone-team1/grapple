@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate, Navigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Grid, Box } from "@mui/material";
 import PaginationFooter from "./PaginationFooter";
 import ChallengeCard from "../ChallengeCard";
@@ -9,8 +9,6 @@ import theme from "../../../theme";
 
 function BrowseChallenges() {
   const stateChallenges = useSelector((state) => state.challenges);
-
-
   const [challenges, setChallenges] = useState([]);
   useEffect(() => {
     setChallenges(
@@ -27,15 +25,86 @@ function BrowseChallenges() {
     );
   }, [stateChallenges]);
 
+  // URL params
+  const { filterAndSortParams } = useParams();
+  const [filterParams, setFilterParams] = useState("");
+  const [sortParams, setSortParams] = useState("");
+  useEffect(() => {
+    if (!!filterAndSortParams?.length) {
+      if (filterAndSortParams.startsWith("sort")) {
+        setSortParams(filterAndSortParams.split("=")[1]);
+      } else {
+        const paramsSplit = filterAndSortParams
+          .split("_")
+          .map((el) => el.split("=")[1]);
+        if (paramsSplit.length === 1) {
+          setFilterParams(paramsSplit[0]);
+        } else {
+          setFilterParams(paramsSplit[0]);
+          setSortParams(paramsSplit[1]);
+        }
+      }
+    } else {
+      setFilterParams("");
+      setSortParams("");
+    }
+  }, [filterAndSortParams]);
+
   //filtering
   const [filters, setFilters] = useState({});
+  const [sort, setSort] = useState({});
   const [filteredChallenges, setFilteredChallenges] = useState([]);
-  useEffect(() => {
-    setFilteredChallenges(challenges.filter((c) => c.status !== "Ended"));
-  }, [challenges]);
 
-  //sorting
-  const [sort, setSort] = useState({ order: "asc", orderBy: "id" });
+  console.log("FILTER URL PARAMS: ", filterParams);
+  console.log("SORT URL PARAMS: ", sortParams);
+
+  useEffect(() => {
+    if (!!filterAndSortParams?.length) {
+      if (!!filterParams?.length) {
+        const filterParamsParsed = filterParams.split("&").reduce((acc, f) => {
+          const [attr, value] = f.split(":");
+          acc[attr] = Number(value) ? Number(value) : value;
+          return acc;
+        }, {});
+        setFilters(filterParamsParsed);
+        if (!!sortParams?.length) {
+          const sortParamsParsed = sortParams?.split("&").reduce((acc, s) => {
+            const [attr, value] = s.split(":");
+            acc[attr] = Number(value) ? Number(value) : value;
+            return acc;
+          }, {});
+          //Needs the timeout because without it filter ordering overrides sort order
+          //Hacky solution but didnt have time to find a better one
+          setTimeout(() => {
+            setSort(sortParamsParsed);
+          }, 400);
+        }
+      } else if (!!sortParams?.length) {
+        const sortParamsParsed = sortParams?.split("&").reduce((acc, s) => {
+          const [attr, value] = s.split(":");
+          acc[attr] = Number(value) ? Number(value) : value;
+          return acc;
+        }, {});
+        setSort(sortParamsParsed);
+      }
+    }
+  }, [filterParams, sortParams]);
+
+  useEffect(() => {
+    const filterString = Object.entries(filters)
+      .map((kv) => `${kv[0]}:${kv[1]}`)
+      .join("&");
+    const sortString = Object.entries(sort)
+      .map((kv) => `${kv[0]}:${kv[1]}`)
+      .join("&");
+    if (filterString.length > 0 && sortString.length > 0) {
+      navigate(`/challenges/filters=${filterString}_sort=${sortString}`);
+    } else if (filterString.length > 0) {
+      navigate(`/challenges/filters=${filterString}`);
+    } else if (sortString.length > 0) {
+      navigate(`/challenges/sort=${sortString}`);
+    }
+  }, [JSON.stringify(filters), JSON.stringify(sort)]);
 
   //pagination calculations
   const [activePage, setActivePage] = useState(1);
@@ -51,7 +120,14 @@ function BrowseChallenges() {
         activePage * challengesPerPage
       )
     );
-  }, [sort, filters, filteredChallenges, activePage]);
+  }, [
+    JSON.stringify(sort),
+    JSON.stringify(filters),
+    filteredChallenges,
+    activePage,
+  ]);
+
+  const navigate = useNavigate();
 
   //scroll to top at page load or paginate
   const location = useLocation();
@@ -59,29 +135,18 @@ function BrowseChallenges() {
     window.scrollTo(0, 0);
   }, [location, activePage, filters, sort]);
 
-
-
-//url magic 
-
-let url = useLocation().pathname;
-
-//cant figure out whats different
-
-// console.log(filters.difficulty || filters.category || filters.status)
-// if (filters.difficulty){
-  // console.log('diff')
-  // console.log(!filters)
-// }
-// if(url.split('/')[2] === 'sort' && url.split('/')[5] === 'sort'){
-//   // console.log('true')
-// }
-
+  useEffect(() => {
+    if (location.pathname === "/challenges") {
+      setFilteredChallenges(challenges.filter((c) => c.status !== "Ended"));
+      setFilters({});
+      setSort({});
+    }
+  }, [location]);
 
   return (
     <Box
       sx={{
         minHeight: "100vh",
-        // backgroundColor: theme.palette.braun.main,
       }}
     >
       <Grid container>
@@ -100,25 +165,27 @@ let url = useLocation().pathname;
         </Grid>
         {/* grid with cards (right side) */}
         <Grid item xs={10} sx={{ mt: "25px" }}>
-          <Grid container sx={{ minHeight: "70vh" }}>
-            <Grid item xs={1} />
-            <Grid item xs={10} container>
-              {calculatedChallenges?.map((challenge) => (
-                <Grid
-                  item
-                  key={challenge.id}
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  lg={3}
-                  container
-                >
-                  <ChallengeCard key={challenge.id} challenge={challenge} />
-                </Grid>
-              ))}
+          <Box sx={{ minHeight: "70vh" }}>
+            <Grid container>
+              <Grid item xs={1} />
+              <Grid item xs={10} container>
+                {calculatedChallenges?.map((challenge) => (
+                  <Grid
+                    item
+                    key={challenge.id}
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    lg={3}
+                    container
+                  >
+                    <ChallengeCard key={challenge.id} challenge={challenge} />
+                  </Grid>
+                ))}
+              </Grid>
+              <Grid item xs={1} />
             </Grid>
-            <Grid item xs={1} />
-          </Grid>
+          </Box>
           <PaginationFooter
             activePage={activePage}
             totalPages={totalPages}
