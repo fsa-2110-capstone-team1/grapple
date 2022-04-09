@@ -123,20 +123,14 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-export const ParticipantsTable = ({
-  enrolledUsers,
-}) => {
-
+export const ParticipantsTable = ({ enrolledUsers, userChallenge }) => {
   const { id } = useParams();
-  const { userChallenges, challenges, publicUsers } = useSelector((state) => state);
+  const { publicUsers } = useSelector((state) => state);
   const navigate = useNavigate();
 
   const userProgress = {};
   const usersLeaderboard = enrolledUsers.map((user) => {
-    const userChallenge = userChallenges.filter(
-      (userChallenge) => (userChallenge.userId === user.id && userChallenge.challengeId === id*1)
-    );
-    userProgress[user.id] = userChallenge[0].percentCompleted
+    userProgress[user.id] = userChallenge?.percentCompleted;
     return userProgress;
   });
 
@@ -148,7 +142,9 @@ export const ParticipantsTable = ({
     userIdWithProgress.push(obj);
   });
 
-  userIdWithProgress.sort((a, b) => parseFloat(b.progress) - parseFloat(a.progress));
+  userIdWithProgress.sort(
+    (a, b) => parseFloat(b.progress) - parseFloat(a.progress)
+  );
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -191,8 +187,9 @@ export const ParticipantsTable = ({
           const user = publicUsers.find((user) => user.id === obj.userId * 1);
           return (
             <TableBody key={idx}>
-              <TableRow hover role="checkbox"
-                
+              <TableRow
+                hover
+                role="checkbox"
                 onClick={() => navigate(`/users/profile/${user?.username}`)}
               >
                 <StyledTableCell component="th" scope="challenge">
@@ -223,7 +220,7 @@ export const ParticipantsTable = ({
                       completed: Math.floor(obj.progress * 100),
                     }}
                   />
-                  </StyledTableCell>
+                </StyledTableCell>
               </TableRow>
             </TableBody>
           );
