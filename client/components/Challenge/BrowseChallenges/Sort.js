@@ -11,14 +11,15 @@ const Sort = ({
   setSort,
   filteredChallenges,
   setFilteredChallenges,
+  challenges,
+  filters,
 }) => {
   useEffect(() => {
+    console.log("SORTING:", sort);
     setFilteredChallenges(sortChallenges(filteredChallenges, sort));
-  }, [sort]);
+  }, [JSON.stringify(sort), JSON.stringify(filters), challenges]);
 
-  let url = useLocation();
-  let navigate = useNavigate();
-  // console.log(sort)
+  console.log("SORTED CHAL: ", filteredChallenges);
 
   const sortChallenges = (filteredChallenges, sort) => {
     return filteredChallenges.sort((a, b) => {
@@ -61,7 +62,6 @@ const Sort = ({
       order,
       orderBy: attribute,
     }));
-    // navigate(`/challenges/${attribute}&${order}`);
   };
 
   return (

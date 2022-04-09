@@ -50,6 +50,8 @@ function FilterDrawer({
               setSort={setSort}
               filteredChallenges={filteredChallenges}
               setFilteredChallenges={setFilteredChallenges}
+              challenges={challenges}
+              filters={filters}
             />
           </Grid>
           <Grid item>

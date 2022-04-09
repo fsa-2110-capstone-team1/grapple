@@ -21,7 +21,7 @@ const Filter = ({
 }) => {
   //update filtered challenges every time a new filter is added
   useEffect(() => {
-    console.log("TIME TO FILTER FOR: ", JSON.stringify(filters));
+    console.log("FILTERING");
     setFilteredChallenges(filterChallenges(challenges, filters));
   }, [JSON.stringify(filters), challenges]);
 
@@ -52,8 +52,6 @@ const Filter = ({
       });
     });
   }
-
-  console.log("FILTER FILTER: ", JSON.stringify(filters));
 
   const handleFilter = (value, attribute) => {
     setActivePage(1);

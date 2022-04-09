@@ -14,7 +14,6 @@ import theme from "../../../theme";
 
 function BrowseChallenges() {
   const stateChallenges = useSelector((state) => state.challenges);
-
   const [challenges, setChallenges] = useState([]);
   useEffect(() => {
     setChallenges(
@@ -31,47 +30,91 @@ function BrowseChallenges() {
     );
   }, [stateChallenges]);
 
-  //filtering
-  const [filters, setFilters] = useState({});
-  const [filteredChallenges, setFilteredChallenges] = useState([]);
-
   // URL params
-  let { filterAndSortParams } = useParams();
-  let [filterParams, sortParams] = filterAndSortParams
-    ?.split("?")
-    ?.map((el) => el.split("=")[1]) || [undefined, undefined];
+  const { filterAndSortParams } = useParams();
+  // console.log("SORT FILTER URL PARAMS: ", filterAndSortParams);
+  const [filterParams, setFilterParams] = useState("");
+  const [sortParams, setSortParams] = useState("");
+  useEffect(() => {
+    if (!!filterAndSortParams?.length) {
+      if (filterAndSortParams.startsWith("sort")) {
+        setSortParams(filterAndSortParams.split("=")[1]);
+      } else {
+        const paramsSplit = filterAndSortParams
+          .split("_")
+          .map((el) => el.split("=")[1]);
+        if (paramsSplit.length === 1) {
+          setFilterParams(paramsSplit[0]);
+        } else {
+          setFilterParams(paramsSplit[0]);
+          setSortParams(paramsSplit[1]);
+        }
+      }
+    }
+  }, [filterAndSortParams]);
+
   // console.log("FILTER URL PARAMS: ", filterParams);
   // console.log("SORT URL PARAMS: ", sortParams);
 
+  //filtering
+  const [filters, setFilters] = useState({});
+  const [sort, setSort] = useState({});
+  const [filteredChallenges, setFilteredChallenges] = useState([]);
+
   useEffect(() => {
-    if (filterParams) {
-      const filterParamsParsed = filterParams.split("&").reduce((acc, f) => {
-        const [attr, value] = f.split(":");
-        acc[attr] = Number(value) ? Number(value) : value;
-        return acc;
-      }, {});
-      setFilters(filterParamsParsed);
+    if (!!filterAndSortParams?.length) {
+      if (!!filterParams?.length) {
+        const filterParamsParsed = filterParams.split("&").reduce((acc, f) => {
+          const [attr, value] = f.split(":");
+          acc[attr] = Number(value) ? Number(value) : value;
+          return acc;
+        }, {});
+        setFilters(filterParamsParsed);
+        if (!!sortParams?.length) {
+          const sortParamsParsed = sortParams?.split("&").reduce((acc, s) => {
+            const [attr, value] = s.split(":");
+            acc[attr] = Number(value) ? Number(value) : value;
+            return acc;
+          }, {});
+          //Needs the timeout because without it filter ordering overrides sort order
+          //Hacky solution but didnt have time to find a better one
+          setTimeout(() => {
+            setSort(sortParamsParsed);
+          }, 400);
+        }
+      } else if (!!sortParams?.length) {
+        const sortParamsParsed = sortParams?.split("&").reduce((acc, s) => {
+          const [attr, value] = s.split(":");
+          acc[attr] = Number(value) ? Number(value) : value;
+          return acc;
+        }, {});
+        setSort(sortParamsParsed);
+      }
     } else {
       setFilteredChallenges(challenges.filter((c) => c.status !== "Ended"));
       setFilters({});
+      setSort({});
     }
-  }, [filterParams]);
+  }, [filterParams, sortParams]);
 
   console.log("FILTER: ", filters);
-
-  const navigate = useNavigate();
+  // console.log("SORT: ", sort);
 
   useEffect(() => {
     const filterString = Object.entries(filters)
       .map((kv) => `${kv[0]}:${kv[1]}`)
       .join("&");
-    if (filterString.length > 0) {
+    const sortString = Object.entries(sort)
+      .map((kv) => `${kv[0]}:${kv[1]}`)
+      .join("&");
+    if (filterString.length > 0 && sortString.length > 0) {
+      navigate(`/challenges/filters=${filterString}_sort=${sortString}`);
+    } else if (filterString.length > 0) {
       navigate(`/challenges/filters=${filterString}`);
+    } else if (sortString.length > 0) {
+      navigate(`/challenges/sort=${sortString}`);
     }
-  }, [JSON.stringify(filters)]);
-
-  //sorting
-  const [sort, setSort] = useState({ order: "asc", orderBy: "id" });
+  }, [JSON.stringify(filters), JSON.stringify(sort)]);
 
   //pagination calculations
   const [activePage, setActivePage] = useState(1);
@@ -81,6 +124,8 @@ function BrowseChallenges() {
 
   const [calculatedChallenges, setCalculatedChallenges] = useState([]);
   useEffect(() => {
+    console.log("FILTERED CHAL: ", filteredChallenges);
+
     setCalculatedChallenges(
       filteredChallenges.slice(
         (activePage - 1) * challengesPerPage,
@@ -94,13 +139,13 @@ function BrowseChallenges() {
     activePage,
   ]);
 
+  const navigate = useNavigate();
+
   //scroll to top at page load or paginate
   const location = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location, activePage, filters, sort]);
-
-  console.log("CALC CHALLENGES: ", filteredChallenges);
 
   return (
     <Box
