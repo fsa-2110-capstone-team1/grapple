@@ -13,10 +13,10 @@ async function seed() {
 
   const [users] = await Promise.all([userSeed()]);
   const [challenges] = await Promise.all([challengeSeed()]);
-  const [userChallenges] = await Promise.all([userChallengeSeed()]);
+  // const [userChallenges] = await Promise.all([userChallengeSeed()]);
   const [connection] = await Promise.all([connectionSeed()]);
-  const [dailyUserChallenges] = await Promise.all([dailyUserChallengeSeed()]);
-  const [stravaWorkouts] = await Promise.all([stravaSeed()]);
+  // const [dailyUserChallenges] = await Promise.all([dailyUserChallengeSeed()]);
+  // const [stravaWorkouts] = await Promise.all([stravaSeed()]);
 
   console.log(`
   
