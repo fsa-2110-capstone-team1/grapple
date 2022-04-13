@@ -19,7 +19,7 @@ module.exports = {
       },
     ],
   },
-  plugins: [new Dotenv()],
+  plugins: [new Dotenv({ systemvars: true })],
   // resolve: {
   //   fallback: {
   //     fs: false,

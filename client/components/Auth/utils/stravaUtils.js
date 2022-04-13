@@ -42,5 +42,3 @@ export const testAuthGetter = async (authTok) => {
 //     console.log(error);
 //   }
 // };
-
-

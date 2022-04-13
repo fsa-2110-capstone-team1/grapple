@@ -28,6 +28,7 @@ async function userSeed() {
       isAdmin: true,
       image:
         "https://img.icons8.com/external-avatar-andi-nur-abdillah/344/external-avatar-business-avatar-circle-avatar-andi-nur-abdillah-18.png",
+      stravaRefreshToken: "5d0a14c4e408ef5ea25667d9f2c1d04f6982788c",
     }),
     User.create({
       username: "louis123",

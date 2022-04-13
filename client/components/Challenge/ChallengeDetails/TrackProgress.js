@@ -34,6 +34,7 @@ export const TrackProgress = ({
   date,
 }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.auth); //used to fetch all strava activities
 
   const allStrava = useSelector((state) => state.stravaActivities);
@@ -297,7 +298,9 @@ export const TrackProgress = ({
                       Select Strava Workout
                     </Button>
                   ) : (
-                    <Button disabled>Connect to Strava</Button>
+                    <Button onClick={() => navigate("/user/settings")}>
+                      Connect to Strava
+                    </Button>
                   )}
 
                   <Button

@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  cleanUpAuthToken,
-  testAuthGetter,
-} from "../Auth/utils/stravaUtils";
-import { me, updateUser} from "../../store";
+import { cleanUpAuthToken, testAuthGetter } from "../Auth/utils/stravaUtils";
+import { me, updateUser } from "../../store";
 import { getAllStravaActivies } from "../../store/stravaActivities";
 import LinearProgress from "@mui/material/LinearProgress";
 
@@ -20,11 +17,11 @@ export const StravaRedirect = () => {
   useEffect(async () => {
     if (data.stravaId) {
       dispatch(updateUser(data));
-      dispatch(getAllStravaActivies(data))
+      dispatch(getAllStravaActivies(data));
     }
   }, [data?.stravaId, data?.id]);
 
-  useEffect( () => {
+  useEffect(() => {
     if (user.stravaId) {
       navigate(`/user/settings`);
     }
